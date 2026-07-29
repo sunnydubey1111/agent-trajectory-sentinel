@@ -1,0 +1,33 @@
+# Loose bounds for casual installs. Reproducing a published number requires
+# requirements.lock.txt (exact pins of the environment the artifacts came from).
+numpy>=2.0
+scipy>=1.14
+scikit-learn>=1.5
+pandas>=2.2
+matplotlib>=3.9
+pytest>=8.0           # test suite: py -m pytest -m "not slow"
+httpx>=0.27          # HTTP transport for the Ollama backend (live demo +
+                     # local-model trace collection); required to run
+                     # `derail.experiments.demo` and `collect_traces --backend ollama`.
+# Optional: GRU/LSTM/TCN sequence baselines (pip install torch --index-url
+# https://download.pytorch.org/whl/cpu); the study runs without them.
+# Optional: sentence-transformers for real-trace semantic embeddings.
+# NEVER used implicitly: derail/telemetry/adapter.py always uses the
+# deterministic hashing embedding unless a caller explicitly passes
+# use_sentence_transformers=True (installing the package must not change
+# any result).
+# Optional (real-trace collection): google-genai (Gemini agent), keyring
+# (OS credential vault for the API key), truststore (TLS verification via
+# the OS store when antivirus intercepts HTTPS).
+
+# Optional: cross-framework trace collection (collect_framework_traces).
+# langchain-core, langgraph, langchain-ollama (LangGraph agent);
+# autogen-agentchat, autogen-core, autogen-ext, pydantic (AutoGen agent).
+# All imported lazily inside their collectors; the study runs without them.
+
+# Real validation tools (WS1)
+sqlalchemy
+qdrant-client
+PyGithub
+mcp
+playwright

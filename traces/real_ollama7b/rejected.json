@@ -1,0 +1,12 @@
+[
+  {
+    "episode_id": "real-rate_limit-000",
+    "requested_class": "rate_limit",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "2 post-onset result(s) recorded, none carries a rate_limit marker",
+      "T": 5,
+      "tau": 2
+    }
+  }
+]

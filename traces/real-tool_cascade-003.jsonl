@@ -1,0 +1,7 @@
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0897, "output_tokens": 43, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5837, "output_tokens": 43, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3917, "output_tokens": 15, "error": false}
+{"text": "[calculator({\"expression\": \"1399 + (3 * 128)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2742, "output_tokens": 24, "error": true}
+{"text": "[calculator({\"expression\": \"1399 + (3 * 128)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2797, "output_tokens": 24, "error": true}
+{"text": "[calculator({\"expression\": \"1399 + (3 * 128)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1634, "output_tokens": 24, "error": true}
+{"text": "The total cost for the cheaper route and 3 hotel nights in Osaka is $1783 USD.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.5985, "output_tokens": 22, "error": false}

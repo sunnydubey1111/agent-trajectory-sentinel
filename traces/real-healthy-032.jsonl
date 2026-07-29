@@ -1,0 +1,5 @@
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5992, "output_tokens": 23, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2758, "output_tokens": 17, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0458, "output_tokens": 23, "error": false}
+{"text": "[calculator({\"expression\": \"356 + (286 * 2) + 241\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.28, "output_tokens": 29, "error": false}
+{"text": "The total cost for the two-city trip is $1169.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.6631, "output_tokens": 16, "error": false}

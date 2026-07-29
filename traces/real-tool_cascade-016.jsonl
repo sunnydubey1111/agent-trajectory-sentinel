@@ -1,0 +1,5 @@
+{"text": "[get_weather({\"city\": \"Lisbon\"})] [lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.4561, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4301, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Cusco\"})] [lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3542, "output_tokens": 34, "error": true}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.272, "output_tokens": 17, "error": true}
+{"text": "Lisbon with $109/night has sunny weather and is the cheapest among cities with sunny or mild weather.", "token_logprobs": [], "action": "synthesis", "latency_s": 6.1668, "output_tokens": 24, "error": false}

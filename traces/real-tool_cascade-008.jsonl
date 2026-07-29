@@ -1,0 +1,7 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4314, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.0205, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9214, "output_tokens": 17, "error": true}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4087, "output_tokens": 17, "error": true}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2175, "output_tokens": 17, "error": true}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.786, "output_tokens": 17, "error": true}
+{"text": "I cannot compute the total price because the price for item-6 is unavailable.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.8317, "output_tokens": 16, "error": false}

@@ -1,0 +1,461 @@
+"""Deterministic checks over a run's own tool results.
+
+Organic agent failures are often behaviourally silent: the agent looks up
+every price correctly, sounds confident, and combines the numbers wrongly.
+There is no anomaly for a trajectory monitor to see, but the answer is
+*checkable*, and a check needs no healthy null, no threshold and no
+per-deployment recalibration. Contract and measured results: DESIGN.md
+Module 8.
+
+What these checks may and may not read
+--------------------------------------
+Only what the agent itself observed: the tool calls it made and the results it
+got back. NEVER the hidden world the task was generated from. That distinction
+is the whole point — `_demo_expected_total(seed, world)` is the study's ORACLE
+and is not deployable, whereas these checks run in production. They are
+therefore strictly weaker than the oracle: an agent that looks up the wrong
+city gets consistent arithmetic over the wrong inputs and passes
+`total_consistency`, which `required_coverage` is there to catch instead.
+
+Genericity
+----------
+The mechanisms are task-independent — recompute a stated total from observed
+line items; confirm every declared-required call happened. What is per-task is
+the small `TaskSpec` saying which tools return line items and with what
+multiplicity. That spec is written once by whoever defines the task; it is not
+harvested from 120 calibration runs.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+
+from derail.telemetry.events import (ToolCallEvent, canonical_args,
+                                     parse_tool_bits)
+
+#: A money-ish figure in a tool result, e.g. "$502" or "$165/night".
+_PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)")
+#: The agent's stated figure: "$4,935" or "4935 USD".
+_STATED_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*usd",
+                        re.I)
+
+
+#: A figure the answer explicitly calls the total. Preferred over "the last
+#: monetary figure", which mis-reads an answer that ends on a line item —
+#: observed live when a repaired run replied "Total flight cost: $2755, hotel
+#: cost: $1836, ...". Verified to change no verdict on the 480 committed
+#: demo-task episodes, so it is a strictly safer reading of the same rule.
+_LABELLED_TOTAL_RE = re.compile(
+    r"(?:grand\s+total|overall\s+total|total)(?!\s+\w+\s+cost)"
+    r"\D{0,40}?\$?\s?([\d,]+(?:\.\d+)?)", re.I)
+
+
+def _to_float(raw: str) -> float | None:
+    try:
+        return float(raw.replace(",", ""))
+    except (ValueError, AttributeError):
+        return None
+
+
+def first_price(result: str) -> float | None:
+    """The first monetary figure in a tool result, or None."""
+    m = _PRICE_RE.search(result or "")
+    return _to_float(m.group(1)) if m else None
+
+
+def stated_total(text: str) -> float | None:
+    """The total the agent asserts.
+
+    Read from the figure the answer explicitly labels as a total; failing that,
+    the last monetary figure. Position alone mis-reads an answer that ends on a
+    line item, and a plain substring test mis-reads one whose line item happens
+    to contain the right digits.
+    """
+    m = _LABELLED_TOTAL_RE.search(text or "")
+    if m is not None:
+        v = _to_float(m.group(1))
+        if v is not None:
+            return v
+    vals = []
+    for m in _STATED_RE.finditer(text or ""):
+        v = _to_float(m.group(1) or m.group(2))
+        if v is not None:
+            vals.append(v)
+    return vals[-1] if vals else None
+
+
+@dataclass(frozen=True)
+class LineItem:
+    """One class of priced tool result and how often it enters the total."""
+
+    tool: str
+    multiplier: int = 1
+    #: how many DISTINCT such lookups a complete run must make; None = skip
+    required_calls: int | None = None
+    #: Count each distinct (tool, args) lookup once: agents re-query the same
+    #: item, and summing every result would double-count it. Set False for a
+    #: task where repeating a lookup genuinely means buying it twice.
+    distinct: bool = True
+
+
+@dataclass(frozen=True)
+class TaskSpec:
+    """The per-task part: what a complete, correctly-totalled run looks like."""
+
+    line_items: tuple[LineItem, ...]
+    #: tools that must be called but contribute no money (e.g. weather)
+    required_tools: tuple[str, ...] = ()
+    #: (tool, n) pairs for tasks that name how many times a tool must be used
+    required_counts: tuple[tuple[str, int], ...] = ()
+    #: tools that mean the agent has stopped gathering and started combining.
+    #: A required lookup still outstanding at that point is already missing,
+    #: which is what lets coverage report before the run ends.
+    combining_tools: tuple[str, ...] = ()
+    #: (tool, pattern) pairs declaring the shape a successful result may take.
+    #: A result matching none of them is malformed at the tool boundary and the
+    #: agent should never have been handed it. Only declare a pattern for a
+    #: tool whose output shape is genuinely closed; a free-text tool has no
+    #: contract to violate and must be left out rather than approximated.
+    result_contracts: tuple[tuple[str, str], ...] = ()
+    #: relative tolerance when comparing the stated total to the recomputed one
+    tolerance: float = 0.01
+    name: str = "task"
+
+
+@dataclass
+class Finding:
+    """One check failure. `step` is the earliest step it could be known at."""
+
+    check: str
+    step: int | None
+    detail: str
+    #: The same finding with computed VALUES removed. `detail` may contain the
+    #: total recomputed from the agent's own tool results, which for a run that
+    #: looked everything up and merely mis-added IS the correct answer; a
+    #: repair prompt built from it therefore hands the answer over rather than
+    #: only locating the fault. `terse` names the fault and nothing else, so
+    #: the two effects can be measured apart. Defaults to `detail`.
+    terse: str = ""
+
+    def __post_init__(self) -> None:
+        if not self.terse:
+            self.terse = self.detail
+
+
+@dataclass
+class VerificationResult:
+    findings: list[Finding] = field(default_factory=list)
+    recomputed_total: float | None = None
+    stated: float | None = None
+
+    @property
+    def failed(self) -> bool:
+        return bool(self.findings)
+
+
+def _events_per_step(steps: list[dict]) -> list[list[ToolCallEvent]]:
+    out = []
+    for s in steps:
+        structured = s.get("tool_events")
+        if structured:
+            evs = []
+            for e in structured:
+                evs.append(ToolCallEvent(
+                    name=e.get("name", ""), args=e.get("args"),
+                    args_key="", result=str(e.get("result", "")),
+                    has_result=True, is_error=bool(e.get("is_error")),
+                    latency_s=e.get("latency_s"), truncated=False,
+                    source="structured"))
+            out.append(evs)
+        else:
+            evs, _ = parse_tool_bits(str(s.get("text", "")))
+            out.append(evs)
+    return out
+
+
+def required_coverage(steps: list[dict], spec: TaskSpec) -> list[Finding]:
+    """Did every call the task requires actually happen?
+
+    Reports at the earliest step where the answer is already determined: the
+    step on which the agent starts combining (`spec.combining_tools`) while a
+    requirement is outstanding, since from then on it is no longer gathering.
+    Without such a step the finding lands on the final step, because a call
+    not yet made is not the same as a call that will never be made.
+    """
+    per_step = _events_per_step(steps)
+    distinct = {li.tool: li.distinct for li in spec.line_items}
+    seen: dict[str, set] = {}
+    counts: dict[str, int] = {}
+    for evs in per_step:
+        for e in evs:
+            if e.is_error:
+                continue
+            if distinct.get(e.name, True):
+                key = canonical_args(e.args)
+                bucket = seen.setdefault(e.name, set())
+                if key in bucket:
+                    continue
+                bucket.add(key)
+            counts[e.name] = counts.get(e.name, 0) + 1
+    findings = []
+    last = len(steps) - 1
+    # Earliest step at which an outstanding requirement is already certain:
+    # the agent has begun combining, so it is no longer gathering. Falls back
+    # to the final step when the run never reaches that point.
+    onset = last
+    if spec.combining_tools:
+        running: dict[str, set] = {}
+        for i, evs in enumerate(per_step):
+            if any(e.name in spec.combining_tools and not e.is_error
+                   for e in evs):
+                onset = i
+                break
+            for e in evs:
+                if not e.is_error:
+                    running.setdefault(e.name, set()).add(
+                        canonical_args(e.args))
+    for li in spec.line_items:
+        if li.required_calls is None:
+            continue
+        got = counts.get(li.tool, 0)
+        if got < li.required_calls:
+            findings.append(Finding(
+                "required_coverage", onset,
+                f"{li.tool}: {got} successful call(s), task requires "
+                f"{li.required_calls}"))
+    for tool in spec.required_tools:
+        if counts.get(tool, 0) == 0:
+            findings.append(Finding("required_coverage", onset,
+                                    f"{tool}: never called"))
+    for tool, need in spec.required_counts:
+        got = counts.get(tool, 0)
+        if got < need:
+            findings.append(Finding(
+                "required_coverage", onset,
+                f"{tool}: {got} successful call(s), task requires {need}"))
+    return findings
+
+
+def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
+    """Does the stated total match a valid selection of the observed prices?
+
+    An agent may look something up and then correctly decide not to use it —
+    measured on llama3.1:8b, which priced six flights for a four-leg tour and
+    totalled the right four. Requiring the total to equal the sum of EVERY
+    observed price would call that run wrong, so where a line item declares
+    how many it needs (`required_calls`), the check asks whether some selection
+    of that many observed prices reproduces the stated total.
+
+    That keeps what matters: a dropped line item, a double count or a spurious
+    operation leaves no valid selection at all. Where no count is declared, all
+    observed prices are used, as before. Nothing here reads the hidden world.
+    """
+    per_step = _events_per_step(steps)
+    priced = {li.tool: li for li in spec.line_items}
+    prices: dict[str, list[float]] = {}
+    seen_any = False
+    counted: dict[str, set] = {}
+    for evs in per_step:
+        for e in evs:
+            li = priced.get(e.name)
+            if li is None or e.is_error:
+                continue
+            if li.distinct:
+                key = canonical_args(e.args)
+                bucket = counted.setdefault(e.name, set())
+                if key in bucket:      # same item re-queried, not bought twice
+                    continue
+                bucket.add(key)
+            p = first_price(e.result)
+            if p is None:
+                continue
+            prices.setdefault(e.name, []).append(p)
+            seen_any = True
+
+    # Total using everything observed — reported as `recomputed_total`, and the
+    # only candidate when no line item declares a required count.
+    total = sum(priced[t].multiplier * p
+                for t, ps in prices.items() for p in ps)
+
+    said = None
+    for s in reversed(steps):
+        said = stated_total(str(s.get("text", "")))
+        if said is not None:
+            break
+
+    res = VerificationResult(recomputed_total=total if seen_any else None,
+                             stated=said)
+    last = len(steps) - 1
+    if not seen_any:
+        return res
+    if said is None:
+        res.findings.append(Finding("total_consistency", last,
+                                    "no total stated in the final answer"))
+        return res
+    tol = max(spec.tolerance * max(abs(total), 1.0), 0.5)
+    if _selection_matches(prices, priced, said, tol):
+        return res
+    res.findings.append(Finding(
+        "total_consistency", last,
+        f"stated {said:g} but no valid selection of the observed tool results "
+        f"reproduces it (all of them sum to {total:g})",
+        terse="the stated total does not match the figures this run looked up"))
+    return res
+
+
+def _selection_matches(prices: dict[str, list[float]],
+                       priced: dict[str, LineItem],
+                       said: float, tol: float) -> bool:
+    """Can the stated total be built from the observed prices?
+
+    Each line item contributes exactly `required_calls` of the prices seen for
+    it, or all of them when no count is declared. Extra lookups the agent chose
+    not to use are therefore allowed; a missing or double-counted one is not.
+    """
+    from itertools import combinations
+
+    sums: list[set] = [{0.0}]
+    for tool, ps in sorted(prices.items()):
+        li = priced[tool]
+        need = li.required_calls
+        if need is None or need >= len(ps):
+            options = {li.multiplier * sum(ps)}
+        else:
+            options = {li.multiplier * sum(c)
+                       for c in combinations(sorted(ps), need)}
+        sums = [{a + b for a in sums[0] for b in options}]
+    return any(abs(said - v) <= tol for v in sums[0])
+
+
+def tool_contract(steps: list[dict], spec: TaskSpec) -> list[Finding]:
+    """Flag tool results that match none of their tool's declared shapes.
+
+    The other two checks read what the agent *did* with its evidence. This one
+    reads the evidence itself: a `lookup_flight` that answers anything but a
+    price has failed at the boundary, whichever way its bytes were mangled, and
+    a run built on it is unsound however carefully the agent then adds up.
+
+    It reports at the step the result arrived, so it is the earliest signal
+    available anywhere in the system - no null, no threshold, no waiting for an
+    answer to check. It is deliberately silent on corruption that keeps a legal
+    shape: a price altered from $361 to $605 is a well-formed price, and
+    separating it from a real one needs a reference this layer does not have.
+    """
+    findings: list[Finding] = []
+    contracts = {tool: re.compile(pattern)
+                 for tool, pattern in spec.result_contracts}
+    if not contracts:
+        return findings
+    for t, events in enumerate(_events_per_step(steps)):
+        for event in events:
+            pattern = contracts.get(event.name)
+            # An error result is a declared outcome, not a malformed one; the
+            # error flag already carries it to the monitors that want it.
+            if pattern is None or event.is_error or not event.has_result:
+                continue
+            result = (event.result or "").strip()
+            if pattern.match(result):
+                continue
+            findings.append(Finding(
+                check="tool_contract", step=t,
+                detail=(f"{event.name} returned {result[:60]!r}, which is not "
+                        f"a valid result for that tool"),
+                terse=f"{event.name} returned a malformed result"))
+    return findings
+
+
+def verify(steps: list[dict], spec: TaskSpec) -> VerificationResult:
+    """Run every check. No thresholds, no calibration, no healthy reference."""
+    res = total_consistency(steps, spec)
+    res.findings.extend(required_coverage(steps, spec))
+    res.findings.extend(tool_contract(steps, spec))
+    return res
+
+
+#: The demo booking task: four flight legs, three hotels at two nights each,
+#: and weather for the three hotel cities. Written from the task statement in
+#: `demo._make_demo_task`, not learned from any corpus.
+BOOKING_SPEC = TaskSpec(
+    line_items=(
+        LineItem("lookup_flight", multiplier=1, required_calls=4),
+        LineItem("lookup_hotel", multiplier=2, required_calls=3),
+    ),
+    required_tools=("get_weather",),
+    combining_tools=("calculator",),
+    #: Taken from the tool implementations in `collect_traces._run_tool`, which
+    #: can return only these shapes. `get_weather` is free text and declares no
+    #: contract.
+    result_contracts=(
+        ("lookup_flight", r"^\$\d+(\.\d+)?$|^No route found"),
+        ("lookup_hotel", r"^\$\d+(\.\d+)?/night$|^Unknown city\.$"),
+        ("search_catalog", r"^\$\d+(\.\d+)?$|^Item not found\.$"),
+        ("calculator", r"^-?\d+(\.\d+)?$|^Error: "),
+    ),
+    name="demo_booking",
+)
+
+
+#: The real-tools research task served by `derail.harness.demo_real`: two
+#: arXiv searches, two Wikipedia lookups, one web search and one python call.
+#: It has no computable ground-truth answer, so only coverage is checkable.
+RESEARCH_SPEC = TaskSpec(
+    line_items=(),
+    required_counts=(("arxiv_search", 2), ("wikipedia_search", 2),
+                     ("web_search", 1), ("python", 1)),
+    name="demo_research",
+)
+
+
+if __name__ == "__main__":       # module self-test (no corpus, no network)
+    ok = [
+        {"text": '[lookup_flight({"a": 1}) -> $100]'},
+        {"text": '[lookup_flight({"a": 2}) -> $200]'},
+        {"text": '[lookup_flight({"a": 3}) -> $300]'},
+        {"text": '[lookup_flight({"a": 4}) -> $400]'},
+        {"text": '[lookup_hotel({"c": "x"}) -> $10/night]'},
+        {"text": '[lookup_hotel({"c": "y"}) -> $20/night]'},
+        {"text": '[lookup_hotel({"c": "z"}) -> $30/night]'},
+        {"text": '[get_weather({"c": "x"}) -> sunny]'},
+        {"text": "The grand total is $1120 USD."},          # 1000 + 2*60
+    ]
+    r = verify(ok, BOOKING_SPEC)
+    assert not r.failed, r.findings
+    assert r.recomputed_total == 1120.0
+
+    bad_sum = list(ok[:-1]) + [{"text": "The grand total is $4935 USD."}]
+    assert verify(bad_sum, BOOKING_SPEC).failed
+
+    dropped = [s for s in ok[:-1] if '"a": 4' not in s["text"]]
+    dropped.append({"text": "The grand total is $720 USD."})   # self-consistent
+    r2 = verify(dropped, BOOKING_SPEC)
+    assert any(f.check == "required_coverage" for f in r2.findings), r2.findings
+    assert not any(f.check == "total_consistency" for f in r2.findings), \
+        "a dropped leg the agent then totals consistently is a COVERAGE miss"
+
+    # A re-queried item is priced once, not twice (measured false positive).
+    requeried = list(ok[:-1]) + [
+        {"text": '[lookup_hotel({"c": "z"}) -> $30/night]'},   # same as before
+        {"text": "The grand total is $1120 USD."},
+    ]
+    r3 = verify(requeried, BOOKING_SPEC)
+    assert not r3.failed, r3.findings
+    assert r3.recomputed_total == 1120.0
+
+    # required_counts: a task that names how many times a tool must be used.
+    two_arxiv = [{"text": '[arxiv_search({"q": "a"}) -> paper A]'},
+                 {"text": '[arxiv_search({"q": "b"}) -> paper B]'},
+                 {"text": '[wikipedia_search({"q": "a"}) -> page A]'},
+                 {"text": '[wikipedia_search({"q": "b"}) -> page B]'},
+                 {"text": '[web_search({"q": "cmp"}) -> result]'},
+                 {"text": '[python({"code": "print(2)"}) -> 2]'},
+                 {"text": "Done."}]
+    assert not required_coverage(two_arxiv, RESEARCH_SPEC)
+    one_arxiv = two_arxiv[1:]
+    f = required_coverage(one_arxiv, RESEARCH_SPEC)
+    assert f and "arxiv_search" in f[0].detail, f
+
+    # A tool result the agent never received cannot be invented by the check.
+    assert first_price("Error: 429 rate limited") is None
+    assert stated_total("no money here") is None
+    print("PASS: verify.checks self-test")

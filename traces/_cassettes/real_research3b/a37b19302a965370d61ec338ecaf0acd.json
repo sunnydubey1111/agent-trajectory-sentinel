@@ -1,0 +1,1 @@
+{"key":"a37b19302a965370d61ec338ecaf0acd","response":{"content":"Error: TypeError: MCPClientTool.run() got an unexpected keyword argument 'query'","is_error":true,"latency_s":0.0}}

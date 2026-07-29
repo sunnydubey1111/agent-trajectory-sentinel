@@ -1,0 +1,302 @@
+[
+  {
+    "episode_id": "organic-000",
+    "file": "organic-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-001",
+    "file": "organic-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-002",
+    "file": "organic-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-003",
+    "file": "organic-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-004",
+    "file": "organic-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-005",
+    "file": "organic-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-006",
+    "file": "organic-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-007",
+    "file": "organic-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-008",
+    "file": "organic-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-009",
+    "file": "organic-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-010",
+    "file": "organic-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-011",
+    "file": "organic-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-012",
+    "file": "organic-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-013",
+    "file": "organic-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-014",
+    "file": "organic-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-015",
+    "file": "organic-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-016",
+    "file": "organic-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-017",
+    "file": "organic-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-018",
+    "file": "organic-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-019",
+    "file": "organic-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-020",
+    "file": "organic-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-021",
+    "file": "organic-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-022",
+    "file": "organic-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-023",
+    "file": "organic-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-024",
+    "file": "organic-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-025",
+    "file": "organic-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-026",
+    "file": "organic-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-027",
+    "file": "organic-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-028",
+    "file": "organic-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  },
+  {
+    "episode_id": "organic-029",
+    "file": "organic-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "temperature": 0.9
+  }
+]

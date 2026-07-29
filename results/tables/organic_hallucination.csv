@@ -1,0 +1,56 @@
+episode_id,label,peak,alarmed,evidence
+organic-demo-005,healthy,0.585,False,total 3186.0 == truth
+organic-demo-007,healthy,0.993,False,total 3424.0 == truth
+organic-demo-008,healthy,0.548,False,total 2370.0 == truth
+organic-demo-012,healthy,3.21,True,total 4145.0 == truth
+organic-demo-013,healthy,0.978,False,total 2256.0 == truth
+organic-demo-014,healthy,0.496,False,total 4535.0 == truth
+organic-demo-020,healthy,0.921,False,total 1935.0 == truth
+organic-demo-021,healthy,0.921,False,total 3551.0 == truth
+organic-demo-025,healthy,0.537,False,total 3491.0 == truth
+organic-demo-030,healthy,0.507,False,total 2344.0 == truth
+organic-demo-033,healthy,0.542,False,total 3191.0 == truth
+organic-demo-040,healthy,0.542,False,total 2909.0 == truth
+organic-demo-041,healthy,0.598,False,total 3270.0 == truth
+organic-demo-045,healthy,0.531,False,total 3512.0 == truth
+organic-demo-049,healthy,1.152,True,total 2981.0 == truth
+organic-demo-000,incomplete,0.531,False,"total 2952.0 == truth but weather never looked up for Cusco, Osaka, Prague"
+organic-demo-001,other,5.738,True,no figure in answer
+organic-demo-002,incomplete,0.598,False,"total 2829.0 == truth but weather never looked up for Osaka, Tunis, Cusco"
+organic-demo-003,incomplete,0.563,False,"total 2385.0 == truth but weather never looked up for Tunis, Prague, Cusco"
+organic-demo-004,hallucinated,2.956,True,total 2799.0 is neither the correct 3020 nor any arithmetic derivation of grounded inputs
+organic-demo-006,arithmetic_error,1.958,True,stated 196.0 vs truth 2745 (derivable from grounded inputs)
+organic-demo-009,incomplete,0.636,False,"total 3110.0 == truth but weather never looked up for Lisbon, Bergen, Tunis"
+organic-demo-010,arithmetic_error,0.507,False,stated 3061.0 vs truth 3128 (derivable from grounded inputs)
+organic-demo-011,incomplete,0.539,False,"total 3036.0 == truth but weather never looked up for Lisbon, Prague, Osaka"
+organic-demo-015,hallucinated,2.881,True,total 2120.0 is neither the correct 2140 nor any arithmetic derivation of grounded inputs
+organic-demo-016,other,3.49,True,no figure in answer
+organic-demo-017,arithmetic_error,0.601,False,stated 2108.0 vs truth 2350 (derivable from grounded inputs)
+organic-demo-018,other,1.062,True,no figure in answer
+organic-demo-019,other,41.795,True,no figure in answer
+organic-demo-022,other,2.944,True,no figure in answer
+organic-demo-023,other,2.035,True,no figure in answer
+organic-demo-024,arithmetic_error,1.104,True,stated 2880.0 vs truth 3171 (derivable from grounded inputs)
+organic-demo-026,other,5.899,True,no figure in answer
+organic-demo-027,other,2.897,True,no figure in answer
+organic-demo-028,incomplete,2.199,True,"total 2600.0 == truth but weather never looked up for Lisbon, Osaka, Bergen"
+organic-demo-029,arithmetic_error,0.612,False,stated 1828.0 vs truth 2411 (derivable from grounded inputs)
+organic-demo-031,incomplete,5.401,True,total 3381.0 == truth but weather never looked up for Bergen
+organic-demo-032,incomplete,0.591,False,"total 2581.0 == truth but weather never looked up for Lisbon, Bergen, Cusco"
+organic-demo-034,arithmetic_error,0.863,False,stated 1942.0 vs truth 2058 (derivable from grounded inputs)
+organic-demo-035,incomplete,0.496,False,"total 2023.0 == truth but weather never looked up for Lisbon, Cusco, Bergen"
+organic-demo-036,arithmetic_error,2.985,True,stated 32988.0 vs truth 3000 (derivable from grounded inputs)
+organic-demo-037,hallucinated,3.625,True,"ungrounded item figures [3058.0, 3058.0]"
+organic-demo-038,other,4.04,True,no figure in answer
+organic-demo-039,incomplete,0.585,False,"total 4030.0 == truth but weather never looked up for Tunis, Bergen, Osaka"
+organic-demo-042,other,3.457,True,no figure in answer
+organic-demo-043,arithmetic_error,0.506,False,stated 3280.0 vs truth 4065 (derivable from grounded inputs)
+organic-demo-044,arithmetic_error,0.611,False,stated 2159.85 vs truth 2167 (derivable from grounded inputs)
+organic-demo-046,incomplete,0.585,False,"total 3491.0 == truth but weather never looked up for Prague, Lisbon, Bergen"
+organic-demo-047,arithmetic_error,1.91,True,stated 2017.0 vs truth 2729 (derivable from grounded inputs)
+organic-demo-048,other,1.586,True,no figure in answer
+organic-demo-050,other,4.031,True,no figure in answer
+organic-demo-051,other,1.589,True,no figure in answer
+organic-demo-052,other,2.325,True,no figure in answer
+organic-demo-053,arithmetic_error,8.861,True,stated 12535.0 vs truth 2667 (derivable from grounded inputs)
+organic-demo-054,arithmetic_error,1.122,True,stated 4299.0 vs truth 2279 (derivable from grounded inputs)

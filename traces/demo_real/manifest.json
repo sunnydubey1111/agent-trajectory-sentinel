@@ -1,0 +1,434 @@
+[
+  {
+    "episode_id": "real-healthy-000",
+    "file": "real-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-001",
+    "file": "real-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-002",
+    "file": "real-healthy-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-003",
+    "file": "real-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-004",
+    "file": "real-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "file": "real-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-006",
+    "file": "real-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-007",
+    "file": "real-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-008",
+    "file": "real-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "file": "real-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-010",
+    "file": "real-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-011",
+    "file": "real-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-012",
+    "file": "real-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-013",
+    "file": "real-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-014",
+    "file": "real-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-015",
+    "file": "real-healthy-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "file": "real-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-017",
+    "file": "real-healthy-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-018",
+    "file": "real-healthy-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-019",
+    "file": "real-healthy-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-020",
+    "file": "real-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-021",
+    "file": "real-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "file": "real-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-023",
+    "file": "real-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-024",
+    "file": "real-healthy-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-025",
+    "file": "real-healthy-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "file": "real-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-027",
+    "file": "real-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-028",
+    "file": "real-healthy-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-029",
+    "file": "real-healthy-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-030",
+    "file": "real-healthy-030.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-031",
+    "file": "real-healthy-031.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-032",
+    "file": "real-healthy-032.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-033",
+    "file": "real-healthy-033.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-034",
+    "file": "real-healthy-034.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-035",
+    "file": "real-healthy-035.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-036",
+    "file": "real-healthy-036.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-037",
+    "file": "real-healthy-037.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-038",
+    "file": "real-healthy-038.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-039",
+    "file": "real-healthy-039.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-040",
+    "file": "real-healthy-040.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-041",
+    "file": "real-healthy-041.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-042",
+    "file": "real-healthy-042.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-043",
+    "file": "real-healthy-043.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-044",
+    "file": "real-healthy-044.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "file": "real-healthy-045.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-046",
+    "file": "real-healthy-046.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-047",
+    "file": "real-healthy-047.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  }
+]

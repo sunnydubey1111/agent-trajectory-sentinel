@@ -1,0 +1,1096 @@
+[
+  {
+    "episode_id": "demo-healthy-000",
+    "file": "demo-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-001",
+    "file": "demo-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-002",
+    "file": "demo-healthy-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-003",
+    "file": "demo-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-004",
+    "file": "demo-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-005",
+    "file": "demo-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-006",
+    "file": "demo-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-007",
+    "file": "demo-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-008",
+    "file": "demo-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-009",
+    "file": "demo-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-010",
+    "file": "demo-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-011",
+    "file": "demo-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-012",
+    "file": "demo-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-013",
+    "file": "demo-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-014",
+    "file": "demo-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-015",
+    "file": "demo-healthy-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-016",
+    "file": "demo-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-017",
+    "file": "demo-healthy-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-018",
+    "file": "demo-healthy-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-019",
+    "file": "demo-healthy-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-020",
+    "file": "demo-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-021",
+    "file": "demo-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-022",
+    "file": "demo-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-023",
+    "file": "demo-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-024",
+    "file": "demo-healthy-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-025",
+    "file": "demo-healthy-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-026",
+    "file": "demo-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-027",
+    "file": "demo-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-028",
+    "file": "demo-healthy-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-029",
+    "file": "demo-healthy-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-030",
+    "file": "demo-healthy-030.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-031",
+    "file": "demo-healthy-031.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-032",
+    "file": "demo-healthy-032.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-033",
+    "file": "demo-healthy-033.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-034",
+    "file": "demo-healthy-034.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-035",
+    "file": "demo-healthy-035.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-036",
+    "file": "demo-healthy-036.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-037",
+    "file": "demo-healthy-037.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-038",
+    "file": "demo-healthy-038.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-039",
+    "file": "demo-healthy-039.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-040",
+    "file": "demo-healthy-040.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-041",
+    "file": "demo-healthy-041.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-042",
+    "file": "demo-healthy-042.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-043",
+    "file": "demo-healthy-043.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-044",
+    "file": "demo-healthy-044.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-045",
+    "file": "demo-healthy-045.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-046",
+    "file": "demo-healthy-046.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-047",
+    "file": "demo-healthy-047.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-048",
+    "file": "demo-healthy-048.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-049",
+    "file": "demo-healthy-049.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-050",
+    "file": "demo-healthy-050.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-051",
+    "file": "demo-healthy-051.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-052",
+    "file": "demo-healthy-052.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-053",
+    "file": "demo-healthy-053.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-054",
+    "file": "demo-healthy-054.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-055",
+    "file": "demo-healthy-055.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-056",
+    "file": "demo-healthy-056.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-057",
+    "file": "demo-healthy-057.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-058",
+    "file": "demo-healthy-058.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-059",
+    "file": "demo-healthy-059.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "demo-healthy-060",
+    "file": "demo-healthy-060.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-061",
+    "file": "demo-healthy-061.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-062",
+    "file": "demo-healthy-062.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-063",
+    "file": "demo-healthy-063.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-064",
+    "file": "demo-healthy-064.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-065",
+    "file": "demo-healthy-065.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-066",
+    "file": "demo-healthy-066.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-067",
+    "file": "demo-healthy-067.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-068",
+    "file": "demo-healthy-068.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-069",
+    "file": "demo-healthy-069.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-070",
+    "file": "demo-healthy-070.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-071",
+    "file": "demo-healthy-071.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-072",
+    "file": "demo-healthy-072.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-073",
+    "file": "demo-healthy-073.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-074",
+    "file": "demo-healthy-074.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-075",
+    "file": "demo-healthy-075.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-076",
+    "file": "demo-healthy-076.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-077",
+    "file": "demo-healthy-077.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-078",
+    "file": "demo-healthy-078.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-079",
+    "file": "demo-healthy-079.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-080",
+    "file": "demo-healthy-080.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-081",
+    "file": "demo-healthy-081.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-082",
+    "file": "demo-healthy-082.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-083",
+    "file": "demo-healthy-083.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-084",
+    "file": "demo-healthy-084.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-085",
+    "file": "demo-healthy-085.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-086",
+    "file": "demo-healthy-086.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-087",
+    "file": "demo-healthy-087.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-088",
+    "file": "demo-healthy-088.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-000",
+    "file": "demo-healthy-p-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-001",
+    "file": "demo-healthy-p-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-002",
+    "file": "demo-healthy-p-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-003",
+    "file": "demo-healthy-p-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-004",
+    "file": "demo-healthy-p-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-005",
+    "file": "demo-healthy-p-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-006",
+    "file": "demo-healthy-p-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-007",
+    "file": "demo-healthy-p-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-008",
+    "file": "demo-healthy-p-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-009",
+    "file": "demo-healthy-p-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-010",
+    "file": "demo-healthy-p-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-011",
+    "file": "demo-healthy-p-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-012",
+    "file": "demo-healthy-p-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-013",
+    "file": "demo-healthy-p-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-014",
+    "file": "demo-healthy-p-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-015",
+    "file": "demo-healthy-p-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-016",
+    "file": "demo-healthy-p-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-017",
+    "file": "demo-healthy-p-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-018",
+    "file": "demo-healthy-p-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-019",
+    "file": "demo-healthy-p-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": false
+  },
+  {
+    "episode_id": "demo-healthy-p-020",
+    "file": "demo-healthy-p-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-021",
+    "file": "demo-healthy-p-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-022",
+    "file": "demo-healthy-p-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  },
+  {
+    "episode_id": "demo-healthy-p-023",
+    "file": "demo-healthy-p-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "probed": true,
+    "success": true
+  }
+]

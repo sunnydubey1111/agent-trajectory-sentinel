@@ -1,0 +1,9 @@
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7754, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2505, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.513, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3311, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6354, "output_tokens": 16, "error": true}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2272, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"1373 + (3 * 95)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6422, "output_tokens": 23, "error": true}
+{"text": "[calculator({\"expression\": \"1373 + (3 * 95)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9121, "output_tokens": 23, "error": true}
+{"text": "The calculator tool is currently unavailable. I cannot complete the calculation.", "token_logprobs": [], "action": "synthesis", "latency_s": 2.1539, "output_tokens": 13, "error": false}

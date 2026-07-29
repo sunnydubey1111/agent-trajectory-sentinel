@@ -1,0 +1,9 @@
+regime,failure,n,detection,healthy_fa,note
+"INJECTED (synthetic, controlled)",all classes,,0.693,0.069,"primary esn_cusum_max, designed-in class signatures"
+"ORGANIC T=0.9 (provoking, non-injected)",hallucinated,7,0.429,0.158,~ context_corruption / fabrication
+"ORGANIC T=0.9 (provoking, non-injected)",arithmetic_error,37,0.324,0.158,~ context_corruption
+"ORGANIC T=0.9 (provoking, non-injected)",other,20,0.65,0.158,omission - no injected analogue (completion check's job)
+"ORGANIC T=0.9 (provoking, non-injected)",incomplete,18,0.278,0.158,required work skipped; total still correct
+"ORGANIC T=0.2 (serving, non-injected)",hallucinated,7,0.429,0.175,~ context_corruption / fabrication
+"ORGANIC T=0.2 (serving, non-injected)",arithmetic_error,37,0.459,0.175,~ context_corruption
+"ORGANIC T=0.2 (serving, non-injected)",incomplete,13,0.846,0.175,required work skipped; total still correct

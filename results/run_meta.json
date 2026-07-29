@@ -1,0 +1,18 @@
+{
+  "wall_time_sec": 179.0691728000529,
+  "provenance": {
+    "quick": false,
+    "master_seed": 20260713,
+    "git_rev": "1f46541d7b0a6f5826441a1d1983c693886e8d50",
+    "git_dirty": true,
+    "python": "3.14.5",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.9.0",
+      "pandas": "3.0.3"
+    },
+    "note": "A --quick run cannot write here; publication tables come from a full-size run. Reproduce against requirements.lock.txt."
+  }
+}

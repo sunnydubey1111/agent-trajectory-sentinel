@@ -1,0 +1,4407 @@
+[
+  {
+    "episode_id": "autogen-healthy-000",
+    "file": "autogen-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834202,
+      "task_name": "task-0",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "caaafca4c89ef29e9228f5b216914e71ece48b9de9c62463d602dbc4caa9253f",
+    "trace_sha256": "aef7c615cb0e7d1fd5c22dc378846ff2b9a32eebb7f647e3f8d2d871839c1485",
+    "collected_at": "2026-07-24T20:32:18+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-001",
+    "file": "autogen-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834203,
+      "task_name": "task-1",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "629ab0aa48d70c227af54dd16de546cda94b94eef8a2f74d5b134bbd43fdc2ce",
+    "trace_sha256": "6da13ddd43ee312c06f6cdfc47c48da831f91c4d23e1ea7a888b4f7414064be0",
+    "collected_at": "2026-07-24T20:32:19+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-002",
+    "file": "autogen-healthy-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834204,
+      "task_name": "task-2",
+      "task_sha256": "13af1135c163d759751c9d76bc3ac0dcfbefb3d46f59f85caa40d4871401173f",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e90b0bcb7eedc2316144067b5c0e6bdde3faa66fe8233f87b56965d0c3ed89d0",
+    "trace_sha256": "e6a2812b23e55b5fc7175b2716cebe6ffb54c29fc0f443c303c957312fc0b42e",
+    "collected_at": "2026-07-24T20:32:21+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-003",
+    "file": "autogen-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834205,
+      "task_name": "task-3",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fabfff18206d5e1a70f6d8962c6ff30eff05032dc74a74dd328ea79e33c4fc14",
+    "trace_sha256": "b8b6581150c5609e9f1998834dad4d39fd5bc7619157c88ac34c9ad2d5dc8306",
+    "collected_at": "2026-07-24T20:32:23+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-004",
+    "file": "autogen-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834206,
+      "task_name": "task-4",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "91b4816bb4854cdca804330900a5c82cac431a54c17278f11e6fac77ac298938",
+    "trace_sha256": "22e1e96857f3f1204c13840b899399257650cb118231479f689876d46a6a81b3",
+    "collected_at": "2026-07-24T20:32:25+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-005",
+    "file": "autogen-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834207,
+      "task_name": "task-5",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e24ba98e5619a1864ea9dc06399e71550f46f6be2cd84dab19b93afc9eb37ee5",
+    "trace_sha256": "8b7d04443f226c90c79da87892d40de37c5378512987006c86abb76d4d177b61",
+    "collected_at": "2026-07-24T20:32:27+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-006",
+    "file": "autogen-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834208,
+      "task_name": "task-6",
+      "task_sha256": "81bff9e3c873982697459431f91aeea1ea38ac6bbe26e59f12ba4e364c9e6225",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a81f1611493483316b9c90e7fbf9a857dc7409bbadb5891b46c820f5765dee5c",
+    "trace_sha256": "a4e124d2f77f8cd3b49c5d616466f5c0da16338c6670eef927273f79a44287b3",
+    "collected_at": "2026-07-24T20:32:29+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-007",
+    "file": "autogen-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834209,
+      "task_name": "task-7",
+      "task_sha256": "16ba312d8447340f60c70b81314b3ca09ead6bdb0ded22ce449bbff6b8b05f7a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3167f9f59eb5579cdbf07bd9fe8fe2cc89fa97c0a84bb95d89f057f464309c40",
+    "trace_sha256": "5a96b71ec264a6836d4f9e295213ace3034f13ea35eec0f5f94fba28cd15d97e",
+    "collected_at": "2026-07-24T20:32:31+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-008",
+    "file": "autogen-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834210,
+      "task_name": "task-8",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9c8777c62235ae81eca575073a0a310112a46874bd23fc931782aeebf2109404",
+    "trace_sha256": "b88d84329c851de4bae21929bc6287548c2e649d39395b130447126f7b0f5451",
+    "collected_at": "2026-07-24T20:32:33+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-009",
+    "file": "autogen-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834211,
+      "task_name": "task-9",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "bc9b509067099ae938b94602ef8cc09a2b1ac2ee778f5e9f0831346f73401d4f",
+    "trace_sha256": "8f10585d44d303e36ca11acfca78a29c1306002bfdfc8be50e169a57d502887d",
+    "collected_at": "2026-07-24T20:32:35+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-010",
+    "file": "autogen-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871825,
+      "task_name": "task-10",
+      "task_sha256": "ed526c8aed0f09aee62327b8d4121fb07abc69f7f266068b85ed5397950b7056",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "93f6c1767a8afc26480c337e6e8374baed4bff1b83f2a71fe3edd6bf62013c83",
+    "trace_sha256": "a4b0959569240eef581e89d3c9758c66e73d0cbf7e2636de1b7d4b85e1f94789",
+    "collected_at": "2026-07-24T20:32:38+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-011",
+    "file": "autogen-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871826,
+      "task_name": "task-11",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7a2bebe6948b53d0110929464365c3a87fe5ed29e010ae2dc4843483e1090d96",
+    "trace_sha256": "f3c52d05d3e250408403ef626e93020b1c856f82a9b4620eefef593dc7f86ec8",
+    "collected_at": "2026-07-24T20:32:40+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-012",
+    "file": "autogen-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871827,
+      "task_name": "task-12",
+      "task_sha256": "325f63d8404f0bbee8bf27933aa82e615ca562e74dd9cf77157dcbfbadbe5a6d",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e4cb68dfdcab2b0019348732b8920b350f88c13e720bd6e1e79d465a958416f3",
+    "trace_sha256": "efc8e77cfcee07bed2933d5699ee95a5ba1f71cf6e7420625280c6767697ae8d",
+    "collected_at": "2026-07-24T20:32:42+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-013",
+    "file": "autogen-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-13",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fc8f35996854a333ece9718b53fcd80943b611f3c2f2233e37955bd041111973",
+    "trace_sha256": "7fbded977d7c1da36f0f58fe5575f50e632b3ab3f0702e9d9cfa012a433fc2b4",
+    "collected_at": "2026-07-24T20:32:44+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-014",
+    "file": "autogen-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-14",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8d6f1b4644c5c09d24afa5d663dc12908071330ee3eb7d54da3dcf34c6fc1aa7",
+    "trace_sha256": "5d58318b22057e8fd3affc3c24ad8a00c56edb1277cc5050c668e9c9db40526e",
+    "collected_at": "2026-07-24T20:32:47+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-015",
+    "file": "autogen-healthy-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871830,
+      "task_name": "task-15",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4cc818d3af4a5121ee878ebbea06ee2fc5bef51b88527ab1fa814876f61c2300",
+    "trace_sha256": "a1321c6d730145b7a993b2d54a3c93a64c50b568458ae05f6fefb0cdd802ceb5",
+    "collected_at": "2026-07-24T20:32:49+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-016",
+    "file": "autogen-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-16",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a20f2e24c5917b3db3d02e3710061d3d92144c87acd7d3f07e9b70912d9c7a65",
+    "trace_sha256": "d8e770f4d01d38fafc66e90be134eea2add078a8d1b0dfad9756a79ae97a6f86",
+    "collected_at": "2026-07-24T20:32:50+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-017",
+    "file": "autogen-healthy-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-17",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "083c6b05e9f208996088e0a402d1dd666f2484dd628e704725f7e5ffd20ae72e",
+    "trace_sha256": "f2742874c1a172afe5458e3c9e77ebd55234d3dad33c910e998c461c47a4addc",
+    "collected_at": "2026-07-24T20:32:52+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-018",
+    "file": "autogen-healthy-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-18",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "da67351ac139aae6874b4bd03cc334a597bc712c7aa37e2d9aa9412388366194",
+    "trace_sha256": "a7828d15bc3df565a654072eff438829407076633747ec037f7d9756da07f26f",
+    "collected_at": "2026-07-24T20:32:54+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-019",
+    "file": "autogen-healthy-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-19",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "41626a6f4e9a2deb22354b7f111d16685c14de0252869d9aad1817497c0a95a2",
+    "trace_sha256": "3d4e7915b33e3e02cda6596c8a20c36ea37368089402e2640a26f5784d38a018",
+    "collected_at": "2026-07-24T20:32:57+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-020",
+    "file": "autogen-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-20",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f3a18ed02b2b4f70949d51b0556e047a17e073f120f93546f6561bcd7eb71854",
+    "trace_sha256": "011318837941da03d2dbaa0a8e5402ce35ff1fb5a9f89c97d05006e291c6afd7",
+    "collected_at": "2026-07-24T20:32:59+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-021",
+    "file": "autogen-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-21",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f43fdf7bbaf9af06569c722e4dae38cc0926ac8b138d64a1518cf638361d566c",
+    "trace_sha256": "af047dbd067b16ac406b2bcefbae65088bfbbef74697d588ccbde8b493ff0893",
+    "collected_at": "2026-07-24T20:33:01+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-022",
+    "file": "autogen-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871830,
+      "task_name": "task-22",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4505c50f4beb70432bc5993aace429ace95051891f7bbcd33aa8558e8e251763",
+    "trace_sha256": "376505c9c742e0de87444624bb0da622031202122c0265a6319949f7b7df00db",
+    "collected_at": "2026-07-24T20:33:03+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-023",
+    "file": "autogen-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-23",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ff6035c23a44762db6bf0cd8da559f863af5900077fa17df035ed5a07bfd2189",
+    "trace_sha256": "bc4d7883df9d45b1c6af586fc18aca1adc2a046c2ec9f82fb10a34649a313a00",
+    "collected_at": "2026-07-24T20:33:05+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-024",
+    "file": "autogen-healthy-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-24",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c72b519a24f205c86eafef321f472e406b73a4008611c51a512756ed9ea42046",
+    "trace_sha256": "6ccd0788a1d574c8e32f94555b22a88905d05bc209d490fc4a0fe4b407728701",
+    "collected_at": "2026-07-24T20:33:07+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-026",
+    "file": "autogen-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-26",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7ae14235875ae931ffcbf615e9fcf543a4a46384f08c97d7157add103daa1484",
+    "trace_sha256": "bd23d9701337adc68b47121f5c7dd8a90db18092d273d073b41d22986bb0171d",
+    "collected_at": "2026-07-24T20:33:11+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-027",
+    "file": "autogen-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-27",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6c535e6d9592a5bf2d4f817096a1b29dd05ab845bc50c2defc00e9cc78afd383",
+    "trace_sha256": "684a280f0f99e89fa60c5c0b0ef25ca736c0d54bf03cdd5d7710f726b754b6c1",
+    "collected_at": "2026-07-24T20:33:12+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-028",
+    "file": "autogen-healthy-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-28",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "122397e33e0fe3645d20fb43a38d3adc393d9d4c01705d72c85c4ef4e3651c68",
+    "trace_sha256": "5ea2a039744e9294b15beb4fad595c262224ae7a7b803b03af5895530cf72a21",
+    "collected_at": "2026-07-24T20:33:15+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-030",
+    "file": "autogen-healthy-030.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-30",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b7f77869419f2f408f1ae5c8ffd7a02cd104b2255a4e1332e5ddb67064fd57d1",
+    "trace_sha256": "6c644f90e3f467c418fb685ae5d84fd47c32f4bc897985d44ea98adf11818a24",
+    "collected_at": "2026-07-24T20:33:18+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-healthy-031",
+    "file": "autogen-healthy-031.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-31",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b7e6e03acf4864d161d01447e79f5d52933aa1402c507cfb2e95fa2efb57fe89",
+    "trace_sha256": "68aa1678091360d148ea4c54297edfdf425050d8cb03a40adb261e92e27da2eb",
+    "collected_at": "2026-07-24T20:33:20+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-000",
+    "file": "autogen-tool_cascade-000.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834202,
+      "task_name": "task-0",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f80b26964347464b6ea3a0379e57d519ec3fa31f6169c3a0ca087802e4687841",
+    "trace_sha256": "cee409c0f36af7c35d7bcd81665ab67fd1df8b1e4c3953c193e95248a655bf21",
+    "collected_at": "2026-07-24T20:33:23+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-008",
+    "file": "autogen-tool_cascade-008.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834210,
+      "task_name": "task-8",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "29c6561f7cf877fe1cb7d5feab74f069b9755110e19a5cafef4d693749d12a76",
+    "trace_sha256": "d8b0eaee4cad6d19e2342926d2cd03863df2f60cb24583a5c2af0c0edbd68efa",
+    "collected_at": "2026-07-24T20:33:40+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-013",
+    "file": "autogen-tool_cascade-013.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 4,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-13",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c76cd49b77b721ee8df101c94bb69f824dcc6cda35ed1289c5be06e601b0987d",
+    "trace_sha256": "d7d3068382bc1d8f274a12b113c498869e56e5e50430a0069026cffd6568832e",
+    "collected_at": "2026-07-24T20:33:50+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-014",
+    "file": "autogen-tool_cascade-014.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-14",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d828543389c277ec74df547a332c1696a510b366522ffff5dadceff9db3972eb",
+    "trace_sha256": "31e279b93d010df8a3cad796ea0ba3379912b9facaeb2c88c9d65aee050df3ac",
+    "collected_at": "2026-07-24T20:33:52+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-017",
+    "file": "autogen-tool_cascade-017.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-17",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "43a28031a69a766dba582b19e39730289470979dc9a5e8dbfa167519faadc1e5",
+    "trace_sha256": "314e524b327ed0e01e71f30addcde06db02991c3f8f788d8875ae76593d7a9cf",
+    "collected_at": "2026-07-24T20:33:58+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-018",
+    "file": "autogen-tool_cascade-018.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-18",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b6b85f5449ea2a248923bd59c1304b267734c3bdcfc7f7dc3d8e1d22c322ece4",
+    "trace_sha256": "835c99208030c8c489edd80fb2bdac2d3b8bfe92d1ac64c73826877966f2c3ac",
+    "collected_at": "2026-07-24T20:34:01+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-019",
+    "file": "autogen-tool_cascade-019.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-19",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9355fbd4c10f0065dc078f40e583d4f433a2e37336b07fa166ddb4494c84b8bf",
+    "trace_sha256": "1896b5bf2b6929e1c644c749093491f10b7c5a7777daf7e09f75571272ea407b",
+    "collected_at": "2026-07-24T20:34:03+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-020",
+    "file": "autogen-tool_cascade-020.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-20",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "75819715a68f674d16c4b7f8abd359bd3284cc2342c086bb997f406a10382918",
+    "trace_sha256": "c1df035bcf3e757e6c068b2ccf801fd47513d5a6e92644c15d6909c467f139c7",
+    "collected_at": "2026-07-24T20:34:06+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-025",
+    "file": "autogen-tool_cascade-025.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "lookup_flight"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-25",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5eaed1e719a4d08f205b2ab613b7bbc0c263e8bbe3acf987ad96ce7d461eb028",
+    "trace_sha256": "cc09746fc64c5660ad6d5cbf3cd96bd2860c9d99c0b3efd3f1acd9e299cf39ae",
+    "collected_at": "2026-07-24T20:34:16+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-026",
+    "file": "autogen-tool_cascade-026.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-26",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "de265be719a9870337a2d5fc2d8eb1359d379092fe33284bda37c55ca683dd8b",
+    "trace_sha256": "c2f21b9d8e12a0029a984612d56e3464ea87ec49977960bc69d5da8d2190c002",
+    "collected_at": "2026-07-24T20:34:18+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-027",
+    "file": "autogen-tool_cascade-027.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-27",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "00f77ef94b4c2ff03aa247b7151a95057251769794e053814f3a9d3fb2b53b6e",
+    "trace_sha256": "1668ac357f4efa6820d3999b02ab5aa2c7679e80582d89539717f52cca9f4266",
+    "collected_at": "2026-07-24T20:34:21+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-030",
+    "file": "autogen-tool_cascade-030.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-30",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e847b5064d153da0ab8f6379c31fa371536f83c36e579ddda562ed8e32a6de64",
+    "trace_sha256": "0cc428b8f750c3f2988888e53f089750abf4c17f0db2b6440322b7e8c47ed9a1",
+    "collected_at": "2026-07-24T20:34:27+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-031",
+    "file": "autogen-tool_cascade-031.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-31",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "126c9dd81ae93912fcf8767d7733700547aec775ef969bca3f7b30f0cfc5dc90",
+    "trace_sha256": "165d5ee561ce23f47e32f094d767cba1dd7abc536cd216be0a13e49b42c1fb72",
+    "collected_at": "2026-07-24T20:34:33+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-034",
+    "file": "autogen-tool_cascade-034.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-34",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fe6c477676bd61445018f518a6bab25d8d28ffd9a07cc13bf74f796fc4d910d7",
+    "trace_sha256": "295500ffcfbc7b8615f74d936849a899b3129d4c714fb25a175a686f53e0c1a2",
+    "collected_at": "2026-07-24T20:34:39+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-tool_cascade-035",
+    "file": "autogen-tool_cascade-035.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-35",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3657c544b2d4b835d27fa28e3381065a104d2a1266bed28ef0e6a26d671e232d",
+    "trace_sha256": "97e8d41575bed163754df1a2377772e34d95f4c55948293a05731f16e465f33d",
+    "collected_at": "2026-07-24T20:34:42+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-000",
+    "file": "autogen-looping-000.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834202,
+      "task_name": "task-0",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5d350e1b7309a55695d10beb31285c2c4c46a1b61e4542322c478fc464848fcc",
+    "trace_sha256": "77f8a171ea5a629e348430e62b77e628c4dd92148130b6fdd6fa767c4bed3086",
+    "collected_at": "2026-07-24T20:34:44+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-001",
+    "file": "autogen-looping-001.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834203,
+      "task_name": "task-1",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3b5140e19c336e970bbf26f930c373ee7e1275bfdfde0546256466ad65517d3f",
+    "trace_sha256": "ce7eceb52453136cbb737bc90bd2b107eb4b22436d40731b3319198767765394",
+    "collected_at": "2026-07-24T20:34:48+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-003",
+    "file": "autogen-looping-003.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834205,
+      "task_name": "task-3",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "96c4eb6f71c8d51672ecdd4d37de6e2b2283e19dc1e460cc54172dfa6dc8fda8",
+    "trace_sha256": "4388af92c973dc417383ae1bdf9f6bca6a485132e6838552c9445f76cb014474",
+    "collected_at": "2026-07-24T20:34:52+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-004",
+    "file": "autogen-looping-004.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834206,
+      "task_name": "task-4",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6e054c628f7a4678673f9aa93e9e5e0011b93d0091cc7e3276cdc5bb60bfc271",
+    "trace_sha256": "39dbda4196302aa7708a517620012d1c3ed8874ef7b3d938252a27c053dde93f",
+    "collected_at": "2026-07-24T20:34:54+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-005",
+    "file": "autogen-looping-005.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834207,
+      "task_name": "task-5",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8aed79324617fd975195741435ffcfe82e06f47dff854c058739b26bb47caa7c",
+    "trace_sha256": "e15d6a2e21f39cfd9ed70c002fc800dd7f50eb24f12af655cd139f3ccf1758fe",
+    "collected_at": "2026-07-24T20:34:56+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-008",
+    "file": "autogen-looping-008.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834210,
+      "task_name": "task-8",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "896b924ba300c5ba8694bf00f72ac72d9022623e884d130cae77f3f696b5a835",
+    "trace_sha256": "01930d4d317af38eb535ca25e01b254877f49f4dba7712e7fc399e1a17b90bb9",
+    "collected_at": "2026-07-24T20:35:02+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-009",
+    "file": "autogen-looping-009.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834211,
+      "task_name": "task-9",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "be12e965a1fc52cab83047e0f95fe4259860a6ca7a92152fd49a7b456b53e60d",
+    "trace_sha256": "a7591a9f1459e122b0f67567732b9ce1419d17df11b9c9f3b7de1d76037ffbc8",
+    "collected_at": "2026-07-24T20:35:05+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-011",
+    "file": "autogen-looping-011.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871826,
+      "task_name": "task-11",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d4e42a126cea7164bb8d04b5bdb3c23e1b82fecbbb0fca39aabfb7a98c84ef24",
+    "trace_sha256": "6d4a6c7f0fa799e941da4569283fe3da89ecc6eaed06d60fc11e9f2788e8090f",
+    "collected_at": "2026-07-24T20:35:09+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-012",
+    "file": "autogen-looping-012.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871827,
+      "task_name": "task-12",
+      "task_sha256": "325f63d8404f0bbee8bf27933aa82e615ca562e74dd9cf77157dcbfbadbe5a6d",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3cd7770d06faf203f031adc3bd00c1f92d66131f73ca2302b2f8007cb7968fb9",
+    "trace_sha256": "b770b0187c4763aa9d101c9a67840cc0baefc73a19b4e20dcc5d1b9a08f3b4cb",
+    "collected_at": "2026-07-24T20:35:11+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-013",
+    "file": "autogen-looping-013.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-13",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "77501a2055b698342498e6112745a56a4632d4880a66eec9f004eb50dd8ceb5c",
+    "trace_sha256": "4dac9568595a3b38f88e7df6d7f49424a2b445243dcf9bbff17cdbdb8b807c77",
+    "collected_at": "2026-07-24T20:35:13+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-017",
+    "file": "autogen-looping-017.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-17",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e3fccfc27710645c6d18c45bef298396e3bd12daea24147e0c6560d198fdfdac",
+    "trace_sha256": "33503b0368c739d9cc8c1fc87a3de660c593b789211b5243529e529ae58a8288",
+    "collected_at": "2026-07-24T20:35:20+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-019",
+    "file": "autogen-looping-019.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-19",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "20fc4da2dd4a80ee1904d49e81e2b1feed15bb23da06a109f7e5d3570e1c17fc",
+    "trace_sha256": "c62218f7ba6dc7525a8a61ec1163b5212f4a447712d540dea5c1368ba84b4a7d",
+    "collected_at": "2026-07-24T20:35:25+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-020",
+    "file": "autogen-looping-020.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-20",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c9d34a9158a293ab2ecda929a1b89a2779e6d24ab84bee838d9ba3f2b415e9c5",
+    "trace_sha256": "bf3f4148694c8a9cec2446f7b73b5278a856c8f7ffe53ad2361699e9f59321d7",
+    "collected_at": "2026-07-24T20:35:29+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-021",
+    "file": "autogen-looping-021.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-21",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "964d93a41909d462ce6df677b74fbec34498f062c6f108b1be74987a64f1a69d",
+    "trace_sha256": "5af49ecfdd4fac99589545dea4b6c8f971683b235bc3f1395c0485c559b88306",
+    "collected_at": "2026-07-24T20:35:32+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-024",
+    "file": "autogen-looping-024.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-24",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "64c0228f4b463a89a61a0ce8b52fdcb59db417ab4171555d3eaaa7c0ee9a2e84",
+    "trace_sha256": "caaa4a003680592df740eaf15e43ded57f4b430022669322f331082b1eb34285",
+    "collected_at": "2026-07-24T20:35:37+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-025",
+    "file": "autogen-looping-025.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-25",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f21ab79d5917b120e657993d43614081c92c69e39a5e87b4cead44f1f8854b2e",
+    "trace_sha256": "67fd9724b4394a9480fa3a70dd38ce836d9e1e5204dfbf41e1d3959eb26b4a61",
+    "collected_at": "2026-07-24T20:35:39+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-026",
+    "file": "autogen-looping-026.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-26",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a3b77d94d2fc1443bcded1b40ffa18e5f4e940ada2378d94d5163a2e1bf6a244",
+    "trace_sha256": "84d578d0dc5a07a06e7cb9eda9096da5fb24974af5cdba48d0033367fdf77375",
+    "collected_at": "2026-07-24T20:35:41+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-027",
+    "file": "autogen-looping-027.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-27",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4c92271dd9b8eb1ad7c43feedf5f4e13b6e9392a40203191890f0d12298a3c43",
+    "trace_sha256": "a82e062ff3bc610cbd2f6f6997c15529008195a0c140669a8c93c1b42d24121d",
+    "collected_at": "2026-07-24T20:35:44+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-028",
+    "file": "autogen-looping-028.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-28",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "735fd7d8c7dd3a98c54bfc5e12497a1ee0f6d2bd2d6a2a748b887ccb8e7f6fca",
+    "trace_sha256": "6529f28807b2401845fa16768ed599d9f75ad7854c8118bbeda012ab69c945ed",
+    "collected_at": "2026-07-24T20:35:46+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-029",
+    "file": "autogen-looping-029.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871837,
+      "task_name": "task-29",
+      "task_sha256": "c15866e4ac1a6a2bb668f35e1ace3cd40bb17f2e6f8813f10fce6a1225d8fec0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c5c8f2dedfdf1e5a4d27fec9b8689960b6e480115bbb1277641a7373393a4bcc",
+    "trace_sha256": "fe9a215ff7d850d1634311b26ece9c83032cc954c628d546f9c820b3b189ae07",
+    "collected_at": "2026-07-24T20:35:47+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-031",
+    "file": "autogen-looping-031.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-31",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e215237176868d30b50bf06f8c80b0de35561619404c1c34c0f9bee9f71a122d",
+    "trace_sha256": "c0a299afed81bad7d970e2247df85784aa7d25041ffdbe0b0a06db96bc607f5b",
+    "collected_at": "2026-07-24T20:35:51+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-032",
+    "file": "autogen-looping-032.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-32",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8568279894c1cfae68c784387a29af122a0976b8b2aa2c0ddede3e9342c3cbb8",
+    "trace_sha256": "9ec7d84b096cf099c7fb6de1b424707964bc27ba028d38518e7c2f7862e8b53b",
+    "collected_at": "2026-07-24T20:35:52+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-033",
+    "file": "autogen-looping-033.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-33",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3a8ebae530428a246ffd6aa40a93f07ccca37e9c10540d57fe7e04e467dd4d6e",
+    "trace_sha256": "8ecdd7dc351cb82a2936e8f835e803d13e7e605f298382d41fde967a6f821d7d",
+    "collected_at": "2026-07-24T20:35:54+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-034",
+    "file": "autogen-looping-034.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-34",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "323627b6870d2e1adbd8f5fff73d57dddef1af1fdb64938026b864f2bed2c51f",
+    "trace_sha256": "e792f9569c66c04dbed4f98b97111c9ae23681bfede7059ac7b73410d4e60640",
+    "collected_at": "2026-07-24T20:35:56+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-looping-035",
+    "file": "autogen-looping-035.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-35",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "bc6b757c74c66d631a2963d39fc1470bd80e0fed401ac1db465e12dc85a95050",
+    "trace_sha256": "9e804903a4b1f93258bc080012d8127c0d2cb24ee646a2198880252365b94da7",
+    "collected_at": "2026-07-24T20:35:58+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-000",
+    "file": "autogen-context_corruption-000.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834202,
+      "task_name": "task-0",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "57cf2322cc3956a10273e8de7f041260bb8c8df5fe024043442de4d591545ca6",
+    "trace_sha256": "1a06d59187d67fce70135da433a551b46791f1a66281f2dae1af1d839ee1ea61",
+    "collected_at": "2026-07-24T20:36:00+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-001",
+    "file": "autogen-context_corruption-001.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834203,
+      "task_name": "task-1",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "764f6126c8015ec162c4ef2d20ea404684007a07fb7f90286565599b8f43d5bc",
+    "trace_sha256": "2b341621729eec458c68371d259433b8322ab057a018bbaf77d542fba1a6e426",
+    "collected_at": "2026-07-24T20:36:03+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-002",
+    "file": "autogen-context_corruption-002.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "lookup_flight"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834204,
+      "task_name": "task-2",
+      "task_sha256": "13af1135c163d759751c9d76bc3ac0dcfbefb3d46f59f85caa40d4871401173f",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "aecf9728ff8e014ec9b629854ea48dcfb42dd8143cb00329266062e1ed3d7073",
+    "trace_sha256": "d4c3b133cb8e8d59ad767f8db4c3098e01b37bd5da5b1d299000c1ea04c691bf",
+    "collected_at": "2026-07-24T20:36:05+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-003",
+    "file": "autogen-context_corruption-003.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834205,
+      "task_name": "task-3",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "70c25b98420ce144830c056f5363f3f4ef969688bee8e67292bbc73189c8acd3",
+    "trace_sha256": "910d1be4057b003c44435e559a535d7f0225fea9bba825f8f0895c82a88aaf3b",
+    "collected_at": "2026-07-24T20:36:07+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-004",
+    "file": "autogen-context_corruption-004.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834206,
+      "task_name": "task-4",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1b72e89552d21db76c6534a872bb022f608db932ccb79ec8602f880981efee40",
+    "trace_sha256": "4ff1a9eb9b4e66d79fae891f3361e635856a479e8cdd86c12ff7b6108807d8e2",
+    "collected_at": "2026-07-24T20:36:10+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-005",
+    "file": "autogen-context_corruption-005.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834207,
+      "task_name": "task-5",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f01b0bae16bd91ac6ea3d6913e72498a4da50a9906efd3d8c00d98c498d4a53b",
+    "trace_sha256": "bb67a93b31e24ebf123f2acb52d6316d5ff4461dbef1cacb774f0dc9a8c8602a",
+    "collected_at": "2026-07-24T20:36:12+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-008",
+    "file": "autogen-context_corruption-008.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834210,
+      "task_name": "task-8",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d7f7447b6812e9ca347099eb02d1df8678e94901a35747282be27f4d95568f7a",
+    "trace_sha256": "4020b1388949bbe939c57bea4710eb8e97cf45e269dee6b8c119df1a259f3fc3",
+    "collected_at": "2026-07-24T20:36:17+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-009",
+    "file": "autogen-context_corruption-009.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 834211,
+      "task_name": "task-9",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a8d538e705dde9bbca7c09b8a5002ade89c7e7d923758152c42d12994aa894c7",
+    "trace_sha256": "bbd8869157f11f92e3d391c5ea3608caa4a19d203395f0fefa9ecb8cc5097288",
+    "collected_at": "2026-07-24T20:36:19+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-010",
+    "file": "autogen-context_corruption-010.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871825,
+      "task_name": "task-10",
+      "task_sha256": "ed526c8aed0f09aee62327b8d4121fb07abc69f7f266068b85ed5397950b7056",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fef96fefd725dcde47efa18c95a4a0bb5b23b934db564517aa24c97d04269e01",
+    "trace_sha256": "33c1da9ee78732c23aca6c68de204ba863296c3b58ff9892b9a7aa41e1365927",
+    "collected_at": "2026-07-24T20:36:21+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-011",
+    "file": "autogen-context_corruption-011.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871826,
+      "task_name": "task-11",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "46091c2d96bdadf9ba042c3ade0ce521461e34efb3c3de5c0a1b38d60422112e",
+    "trace_sha256": "4839046dd60924b7ea06cddb0ff2e2ce5dcceb3ef61f8834b3b795786125f279",
+    "collected_at": "2026-07-24T20:36:24+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-012",
+    "file": "autogen-context_corruption-012.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871827,
+      "task_name": "task-12",
+      "task_sha256": "325f63d8404f0bbee8bf27933aa82e615ca562e74dd9cf77157dcbfbadbe5a6d",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "391b2ccc3b614ebea0dca79cc3fa9e6d07bcf4ff4c11c4f78a5fe0dbb6683bd8",
+    "trace_sha256": "2c670b5fc84cdc4b254cc47f204664b6f6fe3307639df69cf0864e4cd0d65b24",
+    "collected_at": "2026-07-24T20:36:26+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-013",
+    "file": "autogen-context_corruption-013.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-13",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b7744e3bee51b73b730723f7f9fb5a7ccaeb535dc45621f9938697e2ebfd4749",
+    "trace_sha256": "9812c3347aae3b634ae4d1b96e6b78d1aad813a06914a9a8cbdf84e8abd1a7b6",
+    "collected_at": "2026-07-24T20:36:27+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-014",
+    "file": "autogen-context_corruption-014.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-14",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "11c590ba0c32c1f90252ad1c8edad85c3b36535838ea244f1aec8a4fed188ab1",
+    "trace_sha256": "927069fd7d6a1e65e11cc1ef0923755b3553a454c4a7093c2a41a6df09f0cdb7",
+    "collected_at": "2026-07-24T20:36:29+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-015",
+    "file": "autogen-context_corruption-015.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871830,
+      "task_name": "task-15",
+      "task_sha256": "6f6526450a8062574202316aa741d3a9a093d53981619daa4ba0646bf7a586f0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6827f5fa3db32daf5eb2f08ad44043466b387c246eb6acd0632055f47be14dc9",
+    "trace_sha256": "9fd4a1be6b1797f9476b6146698d022f737fc0cb6222724a8a1575f6a90a4e58",
+    "collected_at": "2026-07-24T20:36:31+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-016",
+    "file": "autogen-context_corruption-016.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-16",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "431d32156f588384b148f2ef2c3ffe814bfe9d7dbbf6e76aaf19f38860560539",
+    "trace_sha256": "efe37483ccdc4d2d5df53a7a54394af76734a05d30eda22cefe0d7b7bde36a7f",
+    "collected_at": "2026-07-24T20:36:33+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-017",
+    "file": "autogen-context_corruption-017.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-17",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "748e23a441a1ad5b9cb4600df01bd54cb201dcfc43a74237898e9cb3115a8113",
+    "trace_sha256": "38489a8154ef94d597521be31b25e09e234a30d3645e5e609b305cece43e74a6",
+    "collected_at": "2026-07-24T20:36:36+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-019",
+    "file": "autogen-context_corruption-019.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-19",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a3b5fe451d0c079368a1840fdd54f6a5a3da52178c98565699092ad26e8918e2",
+    "trace_sha256": "2ab1f1dac5f68a13c9b7bb7a0d09acdd03f91d86271d012634606d554beb1608",
+    "collected_at": "2026-07-24T20:36:40+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-020",
+    "file": "autogen-context_corruption-020.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871828,
+      "task_name": "task-20",
+      "task_sha256": "07f4b6ff8ca4aaf90fe751c64249fc4c48bdd812ab87856a39532b0b305b290a",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1fb393fc0e2720d5b40e1f8d98298d0e482dbd986d423ba586ae9c353ff3a25c",
+    "trace_sha256": "cde3418d26f3892dfbc2c8af2503b5c023af5c08549ec6622c61e86fae9e7022",
+    "collected_at": "2026-07-24T20:36:42+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-021",
+    "file": "autogen-context_corruption-021.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871829,
+      "task_name": "task-21",
+      "task_sha256": "4269b1c6daffcb86e54baac469a64c232d5a35a90371b7f84c7cdf6e82246880",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "49e1260710d2bf7e6031e6a9f87996624c108ae7b7b1a82abb9caf50ca0f5b0a",
+    "trace_sha256": "b227fe8bd85a91bc9147f5a49300ffce90479faaf22d1cee0fb5ee7345b8ecf7",
+    "collected_at": "2026-07-24T20:36:44+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-023",
+    "file": "autogen-context_corruption-023.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-23",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b96b14fc6f2f150735950ecaaf4ffd6783cbe04dc477c2fec1a5c0fcafceb2aa",
+    "trace_sha256": "bd1d91e22fe55e5896a0982dc1f96d0a222c51fe10d881587f96f1376cd00e96",
+    "collected_at": "2026-07-24T20:36:48+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-024",
+    "file": "autogen-context_corruption-024.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-24",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "871297755fb4708881aab332d1f417a1dcffd895501c10dda36c810dc185779c",
+    "trace_sha256": "2a41120d85b6079406aa49e8d1ffdf85c3ffb3755b4e4a2d39daecc4f8b134b2",
+    "collected_at": "2026-07-24T20:36:50+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-025",
+    "file": "autogen-context_corruption-025.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-25",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "46bed7fc7b68dc07665f67ec942d056098554107c38bb3074d04013f9dab684c",
+    "trace_sha256": "905297b24d31c2f072d4acd305d9a19ad783ff8af7d6be53b04822bd840012ae",
+    "collected_at": "2026-07-24T20:36:52+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-026",
+    "file": "autogen-context_corruption-026.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-26",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c9a62684f2f89d8a576aaa824d3170fa0752493333c6e15b5cd1b5e235274151",
+    "trace_sha256": "b9cb6e9edb733eae4c0e54c5c3efb863db02473cd5ef1b74d5142ee49ba095eb",
+    "collected_at": "2026-07-24T20:36:54+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-027",
+    "file": "autogen-context_corruption-027.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-27",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "459e7fc7d57dd12e82bc9acc461ce3cd95555db170f17ef0d13222dfb4cd7f6f",
+    "trace_sha256": "f4884edbeaaf19aa7cab0c7b3c1e027b62cb25018249ea9460ebd99dd1d8818d",
+    "collected_at": "2026-07-24T20:36:56+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-028",
+    "file": "autogen-context_corruption-028.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-28",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "311df56d8889ca9013988a3247a957cc6c3f4bd8407e022bae0ecdabd9018666",
+    "trace_sha256": "e1159274466163562795ce16f99d9528b555c5c504207ebeabf56bbfbbe07be7",
+    "collected_at": "2026-07-24T20:36:59+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-029",
+    "file": "autogen-context_corruption-029.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871837,
+      "task_name": "task-29",
+      "task_sha256": "c15866e4ac1a6a2bb668f35e1ace3cd40bb17f2e6f8813f10fce6a1225d8fec0",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e0181c8a20d302e3c8c7102bc647e2d3d38d57db5c5e002df7e87abba869fe3d",
+    "trace_sha256": "2830250009d4e3768ccb6ec941678731f42f1d408c6d62aaed0fdd08edde8af8",
+    "collected_at": "2026-07-24T20:37:01+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-030",
+    "file": "autogen-context_corruption-030.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871831,
+      "task_name": "task-30",
+      "task_sha256": "cccdd97c27897834fb2474c998d79c27f22b0797286fd096e3e0d40027d9dcbb",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dc458068daf9cc845132cbed5f03fbdb6bb7e60ca66f257d7db7a50f76fd7986",
+    "trace_sha256": "1774d90355b3ca66a9cf47f0d56f2cc40e3c955836cc4dfcecf130dea1c9786f",
+    "collected_at": "2026-07-24T20:37:02+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-031",
+    "file": "autogen-context_corruption-031.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871832,
+      "task_name": "task-31",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "85faf61531e9285f2c41bd5fcb5c65669daf7f1beab7cd2063fc3eceeb57ab1b",
+    "trace_sha256": "5188a799f955f110020ee00e332bff1f9fbc34d2b236be4e79e49c84ea604d62",
+    "collected_at": "2026-07-24T20:37:04+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-032",
+    "file": "autogen-context_corruption-032.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871833,
+      "task_name": "task-32",
+      "task_sha256": "f9b877290931f03b7a5cba35e574b512188b5497fb99910fd65518c173254432",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "df9b7a99f8386141a25175f7e56486f4caeff4f083ea004c8f1d0dae0089fbba",
+    "trace_sha256": "8cb06a45ca97f2de489015cfd7f43746f7f40da7964169d22962acec6aeffb5b",
+    "collected_at": "2026-07-24T20:37:06+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-033",
+    "file": "autogen-context_corruption-033.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "calculator",
+        "search_catalog"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871834,
+      "task_name": "task-33",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "0425d25e606dcebb1926da52fae201dd9fa338b5b2803e877d5e983512adaa5d",
+    "trace_sha256": "69e83b3d623631abff7459be2eda32ac8cd46d2ae312a4fc98667e33518a0430",
+    "collected_at": "2026-07-24T20:37:08+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-034",
+    "file": "autogen-context_corruption-034.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "lookup_hotel"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871835,
+      "task_name": "task-34",
+      "task_sha256": "76e87a3433aeec63cba164a7b762640373fdf3d03118b4dc9e1a06b96041461b",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "99306e68ba89695dab70c5c15648ba8c682ff541d567876b4585e8702acb1151",
+    "trace_sha256": "69d29ced2dfd8fc06d78ec063eabef525ff597f0573e52c9b8459a01e942f59f",
+    "collected_at": "2026-07-24T20:37:11+0530",
+    "framework": "autogen"
+  },
+  {
+    "episode_id": "autogen-context_corruption-035",
+    "file": "autogen-context_corruption-035.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "qwen2.5:3b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "calculator"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_framework_traces",
+      "backend": "autogen",
+      "model": "qwen2.5:3b",
+      "temperature": null,
+      "episode_seed": 871836,
+      "task_name": "task-35",
+      "task_sha256": "7d9282d3b90a361c4f78ed17c99b8bb3ebe936c838470302b7adac7da5cbe59c",
+      "tools": [
+        "calculator",
+        "get_weather",
+        "lookup_flight",
+        "lookup_hotel",
+        "search_catalog"
+      ],
+      "tool_roster_sha256": "068def0c55bb0ffacd0b18c1d504c0e53febcb9f496a77d40a98df168182aec6",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 811,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3c800b88b43248fd9c287bc2c80527331fcc924dbbd148b81aa347246887c4cb",
+    "trace_sha256": "810b37609e38c872b437e0d7f6c43cfea3637010ebbb70fd6edff283811c5e7a",
+    "collected_at": "2026-07-24T20:37:14+0530",
+    "framework": "autogen"
+  }
+]

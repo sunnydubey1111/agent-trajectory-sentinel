@@ -1,0 +1,54 @@
+# Exact environment in which the committed artifacts were produced and the
+# test suite is green.
+#
+#   Python 3.14.5, Windows 11 (win32), CPU-only.
+#   Recorded 2026-07-24 from the working environment.
+#
+# Reproduction claims ("bit-for-bit") are only made against THIS file.
+# requirements.txt keeps the loose bounds for casual installs; anything that
+# reproduces a published number must use the lock.
+#
+#   py -m pip install -r requirements.lock.txt
+#   py -m pip install torch==2.12.0+cpu --index-url https://download.pytorch.org/whl/cpu
+
+# --- core study (mandatory) ---
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.9.0
+pandas==3.0.3
+matplotlib==3.11.0
+
+# --- local-model backend: live demo + Ollama trace collection ---
+httpx==0.28.1
+
+# --- sequence baselines (GRU/LSTM/TCN); install from the CPU wheel index ---
+torch==2.12.0+cpu
+
+# --- real-tool harness (WS1) ---
+sqlalchemy==2.0.51
+qdrant-client==1.18.0
+PyGithub==2.9.1
+mcp==1.28.1
+playwright==1.61.0
+
+# --- Gemini trace collection + OS-level key/TLS handling ---
+google-genai==2.10.0
+keyring==25.7.0
+truststore==0.10.4
+
+# --- cross-framework trace collection ---
+langchain-core==1.4.9
+langgraph==1.2.9
+langchain-ollama==1.1.0
+autogen-agentchat==0.7.5
+autogen-core==0.7.5
+autogen-ext==0.7.5
+pydantic==2.13.4
+
+# --- test suite ---
+pytest==9.1.0
+
+# --- optional, NEVER implicit ---
+# sentence-transformers==5.6.0 is installed on the dev box but the telemetry
+# adapter only uses it when a caller passes use_sentence_transformers=True, so
+# installing it cannot change any published number.

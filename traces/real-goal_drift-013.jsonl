@@ -1,0 +1,8 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7409, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1104, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2281, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-2\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6403, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-5\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8635, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-8\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5912, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"(127.24 + 125.6 + 249.89) * 1.21\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6418, "output_tokens": 40, "error": false}
+{"text": "The total price of item-2, item-5 and item-8 with 21% tax added is $608.30.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.9193, "output_tokens": 31, "error": false}

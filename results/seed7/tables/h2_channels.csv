@@ -1,0 +1,61 @@
+monitor,channels,failure_class,n_injected,detection_rate,median_delay,median_lead,mean_lead_all
+esn_full,"e,u,m",goal_drift,80,0.0125,9.0,9.0,0.1125
+esn_full,"e,u,m",looping,80,0.7875,8.0,7.0,5.0875
+esn_full,"e,u,m",tool_cascade,80,0.975,3.0,10.5,10.525
+esn_full,"e,u,m",grounding_loss,80,0.0625,12.0,4.0,0.225
+esn_full,"e,u,m",context_corruption,80,0.8625,3.0,9.0,8.4875
+esn[e],e,goal_drift,80,0.025,5.5,9.0,0.225
+esn[e],e,looping,80,0.9875,4.0,10.0,9.65
+esn[e],e,tool_cascade,80,0.9875,3.0,10.0,10.5
+esn[e],e,grounding_loss,80,0.0,,,0.0
+esn[e],e,context_corruption,80,0.9625,2.0,12.0,11.3375
+esn[u],u,goal_drift,80,0.0375,4.0,12.0,0.3625
+esn[u],u,looping,80,0.0,,,0.0
+esn[u],u,tool_cascade,80,0.0375,4.0,8.0,0.2375
+esn[u],u,grounding_loss,80,0.925,5.0,8.0,7.4625
+esn[u],u,context_corruption,80,0.75,6.0,7.0,4.925
+esn[m],m,goal_drift,80,0.0125,7.0,12.0,0.15
+esn[m],m,looping,80,0.025,8.0,9.0,0.225
+esn[m],m,tool_cascade,80,1.0,3.0,10.0,10.3125
+esn[m],m,grounding_loss,80,0.025,2.5,10.0,0.25
+esn[m],m,context_corruption,80,0.15,6.5,8.5,1.25
+"esn[e,u]","e,u",goal_drift,80,0.025,4.5,10.5,0.2625
+"esn[e,u]","e,u",looping,80,0.9875,4.0,10.0,9.6625
+"esn[e,u]","e,u",tool_cascade,80,0.9625,3.0,10.0,10.2
+"esn[e,u]","e,u",grounding_loss,80,0.3,6.0,8.0,2.025
+"esn[e,u]","e,u",context_corruption,80,0.9625,2.0,12.0,11.5625
+esn_cusum,"e,u,m",goal_drift,80,0.0375,7.0,9.0,0.325
+esn_cusum,"e,u,m",looping,80,0.9875,6.0,8.0,7.6875
+esn_cusum,"e,u,m",tool_cascade,80,1.0,3.0,10.0,10.575
+esn_cusum,"e,u,m",grounding_loss,80,0.375,11.0,3.0,1.2125
+esn_cusum,"e,u,m",context_corruption,80,0.95,3.0,11.0,10.1375
+esn_cusum[e],e,goal_drift,80,0.05,12.5,4.5,0.325
+esn_cusum[e],e,looping,80,1.0,5.5,8.0,8.5375
+esn_cusum[e],e,tool_cascade,80,1.0,4.0,10.0,9.7
+esn_cusum[e],e,grounding_loss,80,0.0375,3.0,9.0,0.4125
+esn_cusum[e],e,context_corruption,80,0.95,3.0,10.0,10.075
+esn_cusum[u],u,goal_drift,80,0.025,6.5,10.0,0.25
+esn_cusum[u],u,looping,80,0.0125,11.0,0.0,0.0
+esn_cusum[u],u,tool_cascade,80,0.0375,6.0,6.0,0.2875
+esn_cusum[u],u,grounding_loss,80,0.975,6.0,7.0,7.275
+esn_cusum[u],u,context_corruption,80,0.875,7.0,6.0,5.7375
+esn_cusum[m],m,goal_drift,80,0.025,6.5,10.5,0.2625
+esn_cusum[m],m,looping,80,0.125,12.5,2.5,0.325
+esn_cusum[m],m,tool_cascade,80,1.0,4.0,9.0,9.4875
+esn_cusum[m],m,grounding_loss,80,0.0125,3.0,5.0,0.0625
+esn_cusum[m],m,context_corruption,80,0.55,11.0,2.0,2.05
+"esn_cusum[e,u]","e,u",goal_drift,80,0.05,7.5,7.0,0.3875
+"esn_cusum[e,u]","e,u",looping,80,1.0,5.5,8.5,8.6
+"esn_cusum[e,u]","e,u",tool_cascade,80,1.0,4.0,10.0,9.775
+"esn_cusum[e,u]","e,u",grounding_loss,80,0.4375,9.0,5.0,2.1625
+"esn_cusum[e,u]","e,u",context_corruption,80,0.9625,3.0,11.0,10.4875
+esn_cusum_max,"max(e,u,m)",goal_drift,80,0.025,6.5,10.5,0.2625
+esn_cusum_max,"max(e,u,m)",looping,80,0.5875,12.0,5.0,2.6375
+esn_cusum_max,"max(e,u,m)",tool_cascade,80,1.0,4.0,9.0,9.45
+esn_cusum_max,"max(e,u,m)",grounding_loss,80,0.7125,11.0,3.0,2.2125
+esn_cusum_max,"max(e,u,m)",context_corruption,80,0.6875,10.0,3.0,2.775
+self_drift,e (self-consistency),goal_drift,80,0.5875,7.0,8.0,4.3
+self_drift,e (self-consistency),looping,80,0.0,,,0.0
+self_drift,e (self-consistency),tool_cascade,80,0.0125,0.0,17.0,0.2125
+self_drift,e (self-consistency),grounding_loss,80,0.0375,9.0,4.0,0.1875
+self_drift,e (self-consistency),context_corruption,80,0.525,6.0,6.5,3.775

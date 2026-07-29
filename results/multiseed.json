@@ -1,0 +1,71 @@
+{
+  "seeds": [
+    20260713,
+    7,
+    101,
+    202,
+    303
+  ],
+  "verdicts_by_seed": {
+    "20260713": {
+      "H1": "SUPPORTED",
+      "H2": "SUPPORTED",
+      "H3a": "SUPPORTED",
+      "H3b": "SUPPORTED"
+    },
+    "7": {
+      "H1": "NOT SUPPORTED",
+      "H2": "SUPPORTED",
+      "H3a": "SUPPORTED",
+      "H3b": "MIXED"
+    },
+    "101": {
+      "H1": "SUPPORTED",
+      "H2": "SUPPORTED",
+      "H3a": "SUPPORTED",
+      "H3b": "SUPPORTED"
+    },
+    "202": {
+      "H1": "SUPPORTED",
+      "H2": "SUPPORTED",
+      "H3a": "SUPPORTED",
+      "H3b": "SUPPORTED"
+    },
+    "303": {
+      "H1": "SUPPORTED",
+      "H2": "SUPPORTED",
+      "H3a": "SUPPORTED",
+      "H3b": "SUPPORTED"
+    }
+  },
+  "all_supported_every_seed": false,
+  "config_sha256_by_seed": {
+    "20260713": "76ebc5e3a349b6f1943e57334867a6156e4f0e02899965af766393f48a11c8a8",
+    "7": "041240e47a109581b36ec95d079726132484ea38cd369962ccd6fe0cc56adf75",
+    "101": "985bbecf6e3a7c0df4042101739992955d7e0ee719ddf1cb10275f9775951096",
+    "202": "4fe5eeba2e779bfbe0113edd70454375bfd2b0517c14473b7d0ed4e43abfabab",
+    "303": "7f79a79ddd6fe3d548c887a1d2382a36a872d15fd53e3664689fc55292c0cd92"
+  },
+  "quick_by_seed": {
+    "20260713": false,
+    "7": false,
+    "101": false,
+    "202": false,
+    "303": false
+  },
+  "provenance": {
+    "quick": false,
+    "master_seed": 20260713,
+    "git_rev": "1f46541d7b0a6f5826441a1d1983c693886e8d50",
+    "git_dirty": true,
+    "python": "3.14.5",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.9.0",
+      "pandas": "3.0.3"
+    },
+    "note": "A --quick run cannot write here; publication tables come from a full-size run. Reproduce against requirements.lock.txt."
+  }
+}

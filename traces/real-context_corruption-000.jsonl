@@ -1,0 +1,6 @@
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.74, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.0395, "output_tokens": 21, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.057, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.028, "output_tokens": 21, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0624, "output_tokens": 15, "error": false}
+{"text": "The total cost is $1628 USD.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.5351, "output_tokens": 11, "error": false}

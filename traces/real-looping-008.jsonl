@@ -1,0 +1,12 @@
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.8995, "output_tokens": 44, "error": false}
+{"text": "[calculator({\"expression\": \"381 + 551\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Prague\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4077, "output_tokens": 66, "error": false}
+{"text": "[calculator({\"expression\": \"177 + 593\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5392, "output_tokens": 20, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4355, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1032, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8524, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5375, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4821, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.578, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.3563, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7385, "output_tokens": 16, "error": false}
+{"text": "The cheaper route is Tunis->Cusco->Prague for $770. The nightly hotel price for Prague could not be retrieved due to a temporary data inconsistency, so the total cost cannot be calculated.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.9128, "output_tokens": 43, "error": false}

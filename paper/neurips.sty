@@ -1,0 +1,50 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{neurips}[2023/10/11 NeurIPS Workshop Style Minimal]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{geometry}
+\geometry{
+  letterpaper,
+  textwidth=5.5in,
+  textheight=9in,
+  marginparsep=7pt,
+  marginparwidth=.6in
+}
+\RequirePackage{times}
+\RequirePackage{microtype}
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage[numbers]{natbib}
+\RequirePackage{booktabs}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+
+\newcommand{\@toptitlebar}{
+  \hrule height 4\p@
+  \vskip 0.25in
+  \vskip -\parskip
+}
+\newcommand{\@bottomtitlebar}{
+  \vskip 0.29in
+  \vskip -\parskip
+  \hrule height 1\p@
+  \vskip 0.09in
+}
+
+\renewcommand{\maketitle}{
+  \par
+  \begingroup
+    \def\thefootnote{\fnsymbol{footnote}}
+    \def\@makefnmark{\hbox to \z@{$\m@th^{\@thefnmark}$\hss}}
+    \@toptitlebar
+    \begin{center}
+      {\LARGE\bf \@title \par}
+      \vskip 0.25in
+      {\large \@author}
+    \end{center}
+    \@bottomtitlebar
+    \thispagestyle{empty}
+  \endgroup
+  \setcounter{footnote}{0}
+}
+\endinput

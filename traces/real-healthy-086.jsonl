@@ -1,0 +1,4 @@
+{"text": "[get_weather({\"city\": \"Tunis\"})] [lookup_hotel({\"city\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.8164, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3309, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Cusco\"})] [lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.332, "output_tokens": 34, "error": false}
+{"text": "Tunis, with mild weather and a nightly price of $177, is the best choice.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.5447, "output_tokens": 21, "error": false}

@@ -1,0 +1,14 @@
+{
+  "n_target": 120,
+  "n_collected": 120,
+  "attempts": 120,
+  "n_parallel": 4,
+  "latency_dims_valid": false,
+  "min_failures": null,
+  "min_healthy": 15,
+  "stopped_early": false,
+  "model": "llama3.1:8b",
+  "temperature": 0.2,
+  "withhold_rate": 0.0,
+  "seed_base": 20000
+}

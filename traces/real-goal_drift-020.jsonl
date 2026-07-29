@@ -1,0 +1,7 @@
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9924, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4573, "output_tokens": 44, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5188, "output_tokens": 16, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.4894, "output_tokens": 45, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6979, "output_tokens": 43, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5393, "output_tokens": 15, "error": false}
+{"text": "The most expensive route is Prague->Cusco->Osaka for $1476. 5 hotel nights in Osaka cost $790. The total is $2266.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.9479, "output_tokens": 40, "error": false}

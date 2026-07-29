@@ -1,0 +1,7 @@
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0558, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.508, "output_tokens": 42, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7792, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"650 + (3 * 175)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5136, "output_tokens": 23, "error": true}
+{"text": "[calculator({\"expression\": \"650 + (3 * 175)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2536, "output_tokens": 23, "error": true}
+{"text": "[calculator({\"expression\": \"650 + (3 * 175)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4312, "output_tokens": 23, "error": true}
+{"text": "The total in USD is $1175.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.5374, "output_tokens": 11, "error": false}

@@ -1,0 +1,182 @@
+[
+  {
+    "episode_id": "real-arxiv_paper_search-healthy-00",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-healthy-03",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-healthy-04",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-web_browsing_title-healthy-06",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-healthy-07",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_fibonacci-healthy-08",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-looping-03",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-looping-04",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-looping-07",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-ecommerce_sql_python_calculation-looping-09",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-rate_limit-03",
+    "requested_class": "rate_limit",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-rate_limit-04",
+    "requested_class": "rate_limit",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-rate_limit-07",
+    "requested_class": "rate_limit",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-wrong_document-03",
+    "requested_class": "wrong_document",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-wrong_document-04",
+    "requested_class": "wrong_document",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-wrong_document-07",
+    "requested_class": "wrong_document",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-ecommerce_sql_python_calculation-wrong_document-09",
+    "requested_class": "wrong_document",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-malformed_json-03",
+    "requested_class": "malformed_json",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-malformed_json-04",
+    "requested_class": "malformed_json",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-malformed_json-07",
+    "requested_class": "malformed_json",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-ecommerce_sql_python_calculation-malformed_json-09",
+    "requested_class": "malformed_json",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  }
+]

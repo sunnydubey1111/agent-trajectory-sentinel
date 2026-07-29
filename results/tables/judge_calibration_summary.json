@@ -1,0 +1,61 @@
+{
+  "model": "gemini-2.5-flash",
+  "corpus": "ollama7b",
+  "seed": 811,
+  "prompt_version": 1,
+  "n_judged": 240,
+  "n_answered": 240,
+  "n_distinct_prompts": 172,
+  "n_positive": 84,
+  "n_negative": 88,
+  "duplicated_view": {
+    "n_positive": 85,
+    "n_negative": 155,
+    "p_detect": 0.5412,
+    "p_false": 0.0323
+  },
+  "p_detect_measured": 0.5476,
+  "p_detect_ci95": [
+    0.4414,
+    0.6496
+  ],
+  "p_false_measured": 0.0568,
+  "p_false_ci95": [
+    0.0245,
+    0.1262
+  ],
+  "p_detect_stipulated": 0.9,
+  "p_false_stipulated": 0.02,
+  "per_class_detection": {
+    "looping": {
+      "n": 23,
+      "detected": 14,
+      "p_detect": 0.6086956521739131
+    },
+    "context_corruption": {
+      "n": 22,
+      "detected": 4,
+      "p_detect": 0.18181818181818182
+    },
+    "goal_drift": {
+      "n": 21,
+      "detected": 21,
+      "p_detect": 1.0
+    },
+    "tool_cascade": {
+      "n": 18,
+      "detected": 7,
+      "p_detect": 0.3888888888888889
+    }
+  },
+  "this_run": {
+    "calls": 0,
+    "spend_usd": 0.0
+  },
+  "recorded_cost": {
+    "calls": 172,
+    "in_tok": 60132,
+    "out_tok": 1032,
+    "usd": 0.0206
+  }
+}

@@ -1,0 +1,68 @@
+# Project-internal working notes: remediation ledger, review correspondence,
+# phase plans and verification records. Useful while the study was being built,
+# not part of the released research artifact.
+_internal/
+
+# Secrets — never commit credentials
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Bulky regenerable artifacts: per-episode score dumps (npz). Everything the
+# paper cites (tables, figures, results.json) IS committed; scores regenerate
+# deterministically from the committed code + data.
+results/scores/
+results/*/scores/
+
+# Scratch output of the behavioural tripwire (devtools/behavior_snapshot.py);
+# the snapshot it compares against lives in tests/baseline/ and IS committed.
+results/seed424242/
+
+# Test / tooling caches
+.pytest_cache/
+
+# NOTE (baseline freeze 2026-07-16): trace datasets (traces/**) are now
+# COMMITTED on purpose — they cost real API money to collect, are not
+# regenerable deterministically, and the frozen baseline must pin
+# "same dataset, same splits" for every future comparison.
+
+# LaTeX build products (main.tex + references.bib + neurips.sty are the sources)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.bbl
+paper/*.pdf
+paper/*.synctex.gz
+
+# Ephemeral disposable-seed study output (never published)
+results/seed4242*/
+results/seed9090*/
+# Sensitivity-arm tree (AGENTWATCH_RESULTS_ROOT): runs the published seeds
+# under non-published settings, deleted by its runner on success.
+results/_sensitivity/
+
+# LaTeX build artifacts
+paper/main.fls
+paper/main.fdb_latexmk
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+
+# LaTeX build by-products from typesetting the manuscript.
+*.log
+*.aux
+*.out
+*.synctex.gz
+!results/**/*.log
+
+# Working images kept beside the repo (slide exports, generated previews).
+# Diagrams that document the system live in DESIGN.md as mermaid so they are
+# diffable and cannot drift out of sync with the code the way a PNG does.
+docs/

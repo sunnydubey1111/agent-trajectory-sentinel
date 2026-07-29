@@ -1,0 +1,9 @@
+dataset,arm,n_injected,channels,monitor,auroc,detection_rate,healthy_fa_rate,mean_lead_all
+real_gemini_long,all_positives,65,e+m+x,esn_cusum_max,0.7936,0.3846,0.1667,2.2769
+real_gemini_long,all_positives,65,e+m+x,delta_mahalanobis,0.8038,0.0923,0.0,0.2154
+real_gemini_long,horizon>=4,47,e+m+x,esn_cusum_max,0.9025,0.5319,0.1667,3.1489
+real_gemini_long,horizon>=4,47,e+m+x,delta_mahalanobis,0.844,0.0851,0.0,0.2979
+real_research7b_long,all_positives,42,e+u+m+x,esn_cusum_max,0.7897,0.5714,0.1667,3.6429
+real_research7b_long,all_positives,42,e+u+m+x,delta_mahalanobis,0.8492,0.6905,0.1667,4.1429
+real_research7b_long,horizon>=4,41,e+u+m+x,esn_cusum_max,0.7846,0.561,0.1667,3.7073
+real_research7b_long,horizon>=4,41,e+u+m+x,delta_mahalanobis,0.8455,0.6829,0.1667,4.2195

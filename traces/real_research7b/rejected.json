@@ -1,0 +1,52 @@
+[
+  {
+    "episode_id": "real-rate_limit-008",
+    "requested_class": "rate_limit",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "2 post-onset result(s) recorded, none carries a rate_limit marker",
+      "T": 5,
+      "tau": 2
+    }
+  },
+  {
+    "episode_id": "real-rate_limit-012",
+    "requested_class": "rate_limit",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "3 post-onset result(s) recorded, none carries a rate_limit marker",
+      "T": 6,
+      "tau": 2
+    }
+  },
+  {
+    "episode_id": "real-rate_limit-019",
+    "requested_class": "rate_limit",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "3 post-onset result(s) recorded, none carries a rate_limit marker",
+      "T": 6,
+      "tau": 2
+    }
+  },
+  {
+    "episode_id": "real-timeout-017",
+    "requested_class": "timeout",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "3 post-onset result(s) recorded, none carries a timeout marker",
+      "T": 6,
+      "tau": 2
+    }
+  },
+  {
+    "episode_id": "real-timeout-018",
+    "requested_class": "timeout",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "3 post-onset result(s) recorded, none carries a timeout marker",
+      "T": 6,
+      "tau": 2
+    }
+  }
+]

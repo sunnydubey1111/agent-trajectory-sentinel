@@ -1,0 +1,17 @@
+dataset,hybrid,vs,dauc_ci_lo,dauc_ci_hi,mcnemar_n10,mcnemar_n01,mcnemar_p,perm_mean_dlead,perm_p,wilcoxon_p,mcnemar_p_holm,mcnemar_reject_holm,family_size
+real_research7b_long,hybrid_weighted50,esn_cusum_max,0.0,0.0,0,0,1.0,0.0,1.0,1.0,1.0,False,8
+real_research7b_long,hybrid_weighted50,delta_mahalanobis,-0.1882,0.0714,0,5,0.0625,-0.5,4.999750012499375e-05,2.3625262680710295e-05,0.4375,False,8
+real_research7b_long,hybrid_max,esn_cusum_max,0.0,0.0,0,0,1.0,0.0,1.0,1.0,1.0,False,8
+real_research7b_long,hybrid_max,delta_mahalanobis,-0.1882,0.0714,0,5,0.0625,-0.5,4.999750012499375e-05,2.3625262680710295e-05,0.4375,False,8
+real_research7b_long,hybrid_gated,esn_cusum_max,-0.0519,0.0435,0,1,1.0,-0.5,0.00024998750062496874,0.0003207662369491708,1.0,False,8
+real_research7b_long,hybrid_gated,delta_mahalanobis,-0.1915,0.0594,0,6,0.03125,-1.0,4.999750012499375e-05,1.1529861768489418e-07,0.25,False,8
+real_research7b_long,hybrid_logistic,esn_cusum_max,-0.049,0.2066,4,0,0.125,0.5,4.999750012499375e-05,4.0545003713243674e-05,0.625,False,8
+real_research7b_long,hybrid_logistic,delta_mahalanobis,-0.0186,0.0437,1,2,1.0,0.0,1.0,0.5829332678266148,1.0,False,8
+real_research7b_long_ext,hybrid_weighted50,esn_cusum_max,-0.2526,0.0356,0,2,0.5,-0.286,0.000199990000499975,0.00015624155203760717,1.0,False,8
+real_research7b_long_ext,hybrid_weighted50,delta_mahalanobis,0.013,0.078,20,2,0.00012111663818359375,2.077,4.999750012499375e-05,3.7852137228866343e-10,0.00073,True,8
+real_research7b_long_ext,hybrid_max,esn_cusum_max,-0.3087,0.0108,1,2,1.0,-1.132,4.999750012499375e-05,1.1293516294775253e-10,1.0,False,8
+real_research7b_long_ext,hybrid_max,delta_mahalanobis,-0.0,0.022,20,1,2.09808349609375e-05,1.231,4.999750012499375e-05,1.9362626190616856e-08,0.00015,True,8
+real_research7b_long_ext,hybrid_gated,esn_cusum_max,-0.3241,0.0349,2,4,0.6875,-1.198,4.999750012499375e-05,3.775686219809472e-10,1.0,False,8
+real_research7b_long_ext,hybrid_gated,delta_mahalanobis,-0.0657,0.0496,18,0,7.62939453125e-06,1.165,4.999750012499375e-05,4.7709075605570426e-06,6e-05,True,8
+real_research7b_long_ext,hybrid_logistic,esn_cusum_max,-0.2842,-0.0052,0,2,0.5,0.0,1.0,0.4056291578087381,1.0,False,8
+real_research7b_long_ext,hybrid_logistic,delta_mahalanobis,-0.0356,0.0641,20,2,0.00012111663818359375,2.363,4.999750012499375e-05,2.963650330096784e-10,0.00073,True,8

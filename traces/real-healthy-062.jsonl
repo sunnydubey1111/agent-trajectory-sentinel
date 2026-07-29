@@ -1,0 +1,5 @@
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5489, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.274, "output_tokens": 16, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.0705, "output_tokens": 22, "error": false}
+{"text": "[calculator({\"expression\": \"684 + (130 * 2) + 283\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7018, "output_tokens": 29, "error": false}
+{"text": "The total cost for the trip is $1227.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.6458, "output_tokens": 13, "error": false}

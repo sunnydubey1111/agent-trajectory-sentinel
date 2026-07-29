@@ -1,0 +1,10 @@
+{"text": "[get_weather({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.524, "output_tokens": 17, "error": false}
+{"text": "[get_weather({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1704, "output_tokens": 16, "error": false}
+{"text": "[get_weather({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2198, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6388, "output_tokens": 17, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2951, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8389, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9623, "output_tokens": 16, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5342, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2285, "output_tokens": 16, "error": false}
+{"text": "Tunis $257/night", "token_logprobs": [], "action": "synthesis", "latency_s": 1.2828, "output_tokens": 8, "error": false}

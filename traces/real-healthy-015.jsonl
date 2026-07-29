@@ -1,0 +1,5 @@
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Prague\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0075, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Prague\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.0053, "output_tokens": 46, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7762, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"1035 + (3 * 145)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5213, "output_tokens": 24, "error": false}
+{"text": "The total in USD for the cheaper route including 3 hotel nights in Prague is $1470.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.9609, "output_tokens": 22, "error": false}

@@ -1,0 +1,8 @@
+arm,n,monitor_alarm_rate,tamper_flag_rate,combined_rate,note
+healthy,160,0.0813,0.0312,0.1125,false-alarm budget
+injected_no_evasion,400,0.7175,0.1775,0.75,L6 baseline
+pinned_e,400,0.5675,1.0,1.0,L6 constant-pinning attack
+pinned_u,400,0.5675,1.0,1.0,L6 constant-pinning attack
+pinned_m,400,0.66,1.0,1.0,L6 constant-pinning attack
+pinned_e+u+m,400,0.0,1.0,1.0,L6 constant-pinning attack
+replayed_e+u+m,400,0.315,0.0475,0.355,ADAPTIVE attack: real healthy variation

@@ -1,0 +1,410 @@
+[
+  {
+    "episode_id": "autogen-healthy-025",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-healthy-029",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-001",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-002",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-003",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-004",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-005",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-006",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-007",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-009",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-010",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-011",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-012",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-015",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-016",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-021",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 7,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-022",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-023",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-024",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-028",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-029",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-032",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-tool_cascade-033",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-002",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-006",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-007",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-010",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-014",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-looping-015",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-looping-016",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-looping-018",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-022",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-looping-023",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-looping-030",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "autogen-context_corruption-006",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-context_corruption-007",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-context_corruption-018",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "autogen-context_corruption-022",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  }
+]

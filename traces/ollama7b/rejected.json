@@ -1,0 +1,144 @@
+[
+  {
+    "episode_id": "real-tool_cascade-000",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-004",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 7,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-007",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-013",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-014",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-017",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-000",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-012",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-021",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 4 with no following step (T=5)",
+    "facts": {
+      "T": 5,
+      "applied_count": 1,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-011",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 4 with no following step (T=5)",
+    "facts": {
+      "T": 5,
+      "applied_count": 1,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  }
+]

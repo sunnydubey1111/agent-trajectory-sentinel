@@ -1,0 +1,866 @@
+[
+  {
+    "episode_id": "langgraph-healthy-001",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-002",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-003",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-007",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-009",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-012",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-015",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-016",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-022",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-023",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-027",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-030",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-034",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-037",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-038",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-039",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-041",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-044",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-045",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-046",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-051",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-052",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-053",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-056",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-057",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-058",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-001",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-002",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-003",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-005",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-006",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-007",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-009",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-010",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-012",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-013",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-015",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-016",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-018",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-021",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-022",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-023",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-024",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-025",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-026",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-027",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-028",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-029",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-030",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-031",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-033",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-034",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-035",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-000",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-001",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-002",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-003",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-005",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-007",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-009",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-010",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-012",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-014",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-016",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-017",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-022",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-023",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-026",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-027",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-029",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-030",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-034",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-035",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-000",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-001",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-002",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-003",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-007",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-009",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-010",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-012",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-015",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-016",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-017",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-019",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-023",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-024",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-027",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-028",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-030",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-031",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-034",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-035",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  }
+]

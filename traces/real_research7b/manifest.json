@@ -1,0 +1,2621 @@
+[
+  {
+    "episode_id": "real-healthy-000",
+    "file": "real-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-001",
+    "file": "real-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-002",
+    "file": "real-healthy-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-003",
+    "file": "real-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-004",
+    "file": "real-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "file": "real-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-006",
+    "file": "real-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-007",
+    "file": "real-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-008",
+    "file": "real-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "file": "real-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-010",
+    "file": "real-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-011",
+    "file": "real-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-012",
+    "file": "real-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-013",
+    "file": "real-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-014",
+    "file": "real-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-015",
+    "file": "real-healthy-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "file": "real-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-017",
+    "file": "real-healthy-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-018",
+    "file": "real-healthy-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-019",
+    "file": "real-healthy-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-020",
+    "file": "real-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-021",
+    "file": "real-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "file": "real-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-023",
+    "file": "real-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-024",
+    "file": "real-healthy-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-025",
+    "file": "real-healthy-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "file": "real-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-027",
+    "file": "real-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-028",
+    "file": "real-healthy-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-029",
+    "file": "real-healthy-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-030",
+    "file": "real-healthy-030.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-031",
+    "file": "real-healthy-031.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-032",
+    "file": "real-healthy-032.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-033",
+    "file": "real-healthy-033.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-034",
+    "file": "real-healthy-034.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-035",
+    "file": "real-healthy-035.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-036",
+    "file": "real-healthy-036.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-037",
+    "file": "real-healthy-037.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-038",
+    "file": "real-healthy-038.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-039",
+    "file": "real-healthy-039.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-040",
+    "file": "real-healthy-040.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-041",
+    "file": "real-healthy-041.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-042",
+    "file": "real-healthy-042.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-043",
+    "file": "real-healthy-043.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-044",
+    "file": "real-healthy-044.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "file": "real-healthy-045.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-046",
+    "file": "real-healthy-046.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-047",
+    "file": "real-healthy-047.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-048",
+    "file": "real-healthy-048.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-049",
+    "file": "real-healthy-049.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-050",
+    "file": "real-healthy-050.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-051",
+    "file": "real-healthy-051.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-052",
+    "file": "real-healthy-052.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-053",
+    "file": "real-healthy-053.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-054",
+    "file": "real-healthy-054.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-055",
+    "file": "real-healthy-055.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-056",
+    "file": "real-healthy-056.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-057",
+    "file": "real-healthy-057.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-058",
+    "file": "real-healthy-058.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-059",
+    "file": "real-healthy-059.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-060",
+    "file": "real-healthy-060.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-061",
+    "file": "real-healthy-061.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-062",
+    "file": "real-healthy-062.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-063",
+    "file": "real-healthy-063.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-064",
+    "file": "real-healthy-064.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-065",
+    "file": "real-healthy-065.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-066",
+    "file": "real-healthy-066.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-067",
+    "file": "real-healthy-067.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-068",
+    "file": "real-healthy-068.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-069",
+    "file": "real-healthy-069.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-070",
+    "file": "real-healthy-070.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-071",
+    "file": "real-healthy-071.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-072",
+    "file": "real-healthy-072.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-073",
+    "file": "real-healthy-073.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-074",
+    "file": "real-healthy-074.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-075",
+    "file": "real-healthy-075.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-076",
+    "file": "real-healthy-076.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-077",
+    "file": "real-healthy-077.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-078",
+    "file": "real-healthy-078.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-079",
+    "file": "real-healthy-079.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-080",
+    "file": "real-healthy-080.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-081",
+    "file": "real-healthy-081.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-082",
+    "file": "real-healthy-082.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-083",
+    "file": "real-healthy-083.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-084",
+    "file": "real-healthy-084.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-085",
+    "file": "real-healthy-085.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-086",
+    "file": "real-healthy-086.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-087",
+    "file": "real-healthy-087.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-088",
+    "file": "real-healthy-088.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-089",
+    "file": "real-healthy-089.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-090",
+    "file": "real-healthy-090.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-091",
+    "file": "real-healthy-091.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-092",
+    "file": "real-healthy-092.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-093",
+    "file": "real-healthy-093.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-094",
+    "file": "real-healthy-094.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-095",
+    "file": "real-healthy-095.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-096",
+    "file": "real-healthy-096.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-097",
+    "file": "real-healthy-097.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-098",
+    "file": "real-healthy-098.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-099",
+    "file": "real-healthy-099.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-100",
+    "file": "real-healthy-100.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-101",
+    "file": "real-healthy-101.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-102",
+    "file": "real-healthy-102.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-103",
+    "file": "real-healthy-103.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-104",
+    "file": "real-healthy-104.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-105",
+    "file": "real-healthy-105.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-106",
+    "file": "real-healthy-106.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-107",
+    "file": "real-healthy-107.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-108",
+    "file": "real-healthy-108.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-109",
+    "file": "real-healthy-109.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-110",
+    "file": "real-healthy-110.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-111",
+    "file": "real-healthy-111.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-112",
+    "file": "real-healthy-112.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-113",
+    "file": "real-healthy-113.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-114",
+    "file": "real-healthy-114.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-115",
+    "file": "real-healthy-115.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-116",
+    "file": "real-healthy-116.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-117",
+    "file": "real-healthy-117.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-118",
+    "file": "real-healthy-118.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-healthy-119",
+    "file": "real-healthy-119.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-000",
+    "file": "real-looping-000.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-001",
+    "file": "real-looping-001.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-002",
+    "file": "real-looping-002.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-003",
+    "file": "real-looping-003.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-004",
+    "file": "real-looping-004.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-005",
+    "file": "real-looping-005.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-006",
+    "file": "real-looping-006.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-007",
+    "file": "real-looping-007.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-008",
+    "file": "real-looping-008.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-009",
+    "file": "real-looping-009.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-010",
+    "file": "real-looping-010.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-011",
+    "file": "real-looping-011.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-012",
+    "file": "real-looping-012.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-013",
+    "file": "real-looping-013.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-014",
+    "file": "real-looping-014.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-015",
+    "file": "real-looping-015.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-016",
+    "file": "real-looping-016.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-017",
+    "file": "real-looping-017.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-018",
+    "file": "real-looping-018.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-019",
+    "file": "real-looping-019.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-020",
+    "file": "real-looping-020.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-looping-021",
+    "file": "real-looping-021.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-000",
+    "file": "real-tool_cascade-000.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-001",
+    "file": "real-tool_cascade-001.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-002",
+    "file": "real-tool_cascade-002.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-003",
+    "file": "real-tool_cascade-003.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-004",
+    "file": "real-tool_cascade-004.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-005",
+    "file": "real-tool_cascade-005.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-006",
+    "file": "real-tool_cascade-006.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-007",
+    "file": "real-tool_cascade-007.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-008",
+    "file": "real-tool_cascade-008.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-009",
+    "file": "real-tool_cascade-009.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-010",
+    "file": "real-tool_cascade-010.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-011",
+    "file": "real-tool_cascade-011.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-012",
+    "file": "real-tool_cascade-012.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-013",
+    "file": "real-tool_cascade-013.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-014",
+    "file": "real-tool_cascade-014.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-015",
+    "file": "real-tool_cascade-015.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-016",
+    "file": "real-tool_cascade-016.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-017",
+    "file": "real-tool_cascade-017.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-018",
+    "file": "real-tool_cascade-018.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-019",
+    "file": "real-tool_cascade-019.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-020",
+    "file": "real-tool_cascade-020.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-tool_cascade-021",
+    "file": "real-tool_cascade-021.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-000",
+    "file": "real-rate_limit-000.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-001",
+    "file": "real-rate_limit-001.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-002",
+    "file": "real-rate_limit-002.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-003",
+    "file": "real-rate_limit-003.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-004",
+    "file": "real-rate_limit-004.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-005",
+    "file": "real-rate_limit-005.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-006",
+    "file": "real-rate_limit-006.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-007",
+    "file": "real-rate_limit-007.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-009",
+    "file": "real-rate_limit-009.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-010",
+    "file": "real-rate_limit-010.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-011",
+    "file": "real-rate_limit-011.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-013",
+    "file": "real-rate_limit-013.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-014",
+    "file": "real-rate_limit-014.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-015",
+    "file": "real-rate_limit-015.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-016",
+    "file": "real-rate_limit-016.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-017",
+    "file": "real-rate_limit-017.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-018",
+    "file": "real-rate_limit-018.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-020",
+    "file": "real-rate_limit-020.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-rate_limit-021",
+    "file": "real-rate_limit-021.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-000",
+    "file": "real-timeout-000.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-001",
+    "file": "real-timeout-001.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-002",
+    "file": "real-timeout-002.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-003",
+    "file": "real-timeout-003.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-004",
+    "file": "real-timeout-004.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-005",
+    "file": "real-timeout-005.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-006",
+    "file": "real-timeout-006.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-007",
+    "file": "real-timeout-007.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-008",
+    "file": "real-timeout-008.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-009",
+    "file": "real-timeout-009.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-010",
+    "file": "real-timeout-010.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-011",
+    "file": "real-timeout-011.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-012",
+    "file": "real-timeout-012.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-013",
+    "file": "real-timeout-013.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-014",
+    "file": "real-timeout-014.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-015",
+    "file": "real-timeout-015.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-016",
+    "file": "real-timeout-016.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-019",
+    "file": "real-timeout-019.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-020",
+    "file": "real-timeout-020.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-timeout-021",
+    "file": "real-timeout-021.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-000",
+    "file": "real-wrong_document-000.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-001",
+    "file": "real-wrong_document-001.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-002",
+    "file": "real-wrong_document-002.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-003",
+    "file": "real-wrong_document-003.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-004",
+    "file": "real-wrong_document-004.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-005",
+    "file": "real-wrong_document-005.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-006",
+    "file": "real-wrong_document-006.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-007",
+    "file": "real-wrong_document-007.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-008",
+    "file": "real-wrong_document-008.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-009",
+    "file": "real-wrong_document-009.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-010",
+    "file": "real-wrong_document-010.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-011",
+    "file": "real-wrong_document-011.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-012",
+    "file": "real-wrong_document-012.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-013",
+    "file": "real-wrong_document-013.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-014",
+    "file": "real-wrong_document-014.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-015",
+    "file": "real-wrong_document-015.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-016",
+    "file": "real-wrong_document-016.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-017",
+    "file": "real-wrong_document-017.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-018",
+    "file": "real-wrong_document-018.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-019",
+    "file": "real-wrong_document-019.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-020",
+    "file": "real-wrong_document-020.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-wrong_document-021",
+    "file": "real-wrong_document-021.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-000",
+    "file": "real-malformed_json-000.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-001",
+    "file": "real-malformed_json-001.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-002",
+    "file": "real-malformed_json-002.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-003",
+    "file": "real-malformed_json-003.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-004",
+    "file": "real-malformed_json-004.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-005",
+    "file": "real-malformed_json-005.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-006",
+    "file": "real-malformed_json-006.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-007",
+    "file": "real-malformed_json-007.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-008",
+    "file": "real-malformed_json-008.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-009",
+    "file": "real-malformed_json-009.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-010",
+    "file": "real-malformed_json-010.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-011",
+    "file": "real-malformed_json-011.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-012",
+    "file": "real-malformed_json-012.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-013",
+    "file": "real-malformed_json-013.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-014",
+    "file": "real-malformed_json-014.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-015",
+    "file": "real-malformed_json-015.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-016",
+    "file": "real-malformed_json-016.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-017",
+    "file": "real-malformed_json-017.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-018",
+    "file": "real-malformed_json-018.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-019",
+    "file": "real-malformed_json-019.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-020",
+    "file": "real-malformed_json-020.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-malformed_json-021",
+    "file": "real-malformed_json-021.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "file": "real-context_corruption-000.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-001",
+    "file": "real-context_corruption-001.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-002",
+    "file": "real-context_corruption-002.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-003",
+    "file": "real-context_corruption-003.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-004",
+    "file": "real-context_corruption-004.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-005",
+    "file": "real-context_corruption-005.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-006",
+    "file": "real-context_corruption-006.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-007",
+    "file": "real-context_corruption-007.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-008",
+    "file": "real-context_corruption-008.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-009",
+    "file": "real-context_corruption-009.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-010",
+    "file": "real-context_corruption-010.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-011",
+    "file": "real-context_corruption-011.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-012",
+    "file": "real-context_corruption-012.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-013",
+    "file": "real-context_corruption-013.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-014",
+    "file": "real-context_corruption-014.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-015",
+    "file": "real-context_corruption-015.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-016",
+    "file": "real-context_corruption-016.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-017",
+    "file": "real-context_corruption-017.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-018",
+    "file": "real-context_corruption-018.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-019",
+    "file": "real-context_corruption-019.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-020",
+    "file": "real-context_corruption-020.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-context_corruption-021",
+    "file": "real-context_corruption-021.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-000",
+    "file": "real-goal_drift-000.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-001",
+    "file": "real-goal_drift-001.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-002",
+    "file": "real-goal_drift-002.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-003",
+    "file": "real-goal_drift-003.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-004",
+    "file": "real-goal_drift-004.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-005",
+    "file": "real-goal_drift-005.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-006",
+    "file": "real-goal_drift-006.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-007",
+    "file": "real-goal_drift-007.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-008",
+    "file": "real-goal_drift-008.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-009",
+    "file": "real-goal_drift-009.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-010",
+    "file": "real-goal_drift-010.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-011",
+    "file": "real-goal_drift-011.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-012",
+    "file": "real-goal_drift-012.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-013",
+    "file": "real-goal_drift-013.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-014",
+    "file": "real-goal_drift-014.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-015",
+    "file": "real-goal_drift-015.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-016",
+    "file": "real-goal_drift-016.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-017",
+    "file": "real-goal_drift-017.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-018",
+    "file": "real-goal_drift-018.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-019",
+    "file": "real-goal_drift-019.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-020",
+    "file": "real-goal_drift-020.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  },
+  {
+    "episode_id": "real-goal_drift-021",
+    "file": "real-goal_drift-021.jsonl",
+    "failure_class": "goal_drift",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "episode_id": "real-goal_drift-004",
+    "requested_class": "goal_drift",
+    "reason": "retroactive gate: no_op_positive",
+    "facts": {
+      "why": "6 post-onset result(s) recorded, none carries a goal_drift marker",
+      "T": 9,
+      "tau": 2
+    }
+  }
+]

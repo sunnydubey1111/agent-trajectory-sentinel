@@ -1,0 +1,8 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.8534, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2306, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9741, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"(90.56 + 120.28 + 91.63) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6387, "output_tokens": 39, "error": true}
+{"text": "[calculator({\"expression\": \"(90.56 + 120.28 + 91.63) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5832, "output_tokens": 39, "error": true}
+{"text": "[calculator({\"expression\": \"(90.56 + 120.28 + 91.63) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.433, "output_tokens": 39, "error": true}
+{"text": "[calculator({\"expression\": \"(90.56 + 120.28 + 91.63) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9419, "output_tokens": 39, "error": true}
+{"text": "The calculator is unavailable, so I cannot compute the total price of item-1 ($90.56), item-3 ($120.28), and item-6 ($91.63) with 8% tax.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.4476, "output_tokens": 51, "error": false}

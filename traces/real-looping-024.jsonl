@@ -1,0 +1,6 @@
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0752, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3322, "output_tokens": 21, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0703, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2106, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 3.685, "output_tokens": 21, "error": false}
+{"text": "I was unable to retrieve flight prices for the Bergen to Prague and Prague to Osaka legs, so I cannot determine the cheaper route or the total cost.", "token_logprobs": [], "action": "synthesis", "latency_s": 4.2992, "output_tokens": 30, "error": false}

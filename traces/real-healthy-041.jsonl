@@ -1,0 +1,4 @@
+{"text": "[get_weather({\"city\": \"Tunis\"})] [lookup_hotel({\"city\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9678, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3318, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Lisbon\"})] [lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2047, "output_tokens": 32, "error": false}
+{"text": "Lisbon has mild weather and the cheapest hotel at $170/night.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.8657, "output_tokens": 17, "error": false}

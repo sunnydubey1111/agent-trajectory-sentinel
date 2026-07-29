@@ -1,0 +1,7 @@
+dataset,monitor,healthy_len_score_spearman,raw_auroc,length_matched_auroc,n_healthy,n_injected,n_matched
+real_gemini_long,esn_cusum_max,0.42560965197160794,0.7935897435897435,0.9090909090909091,12,65,22
+real_gemini_long,delta_mahalanobis,0.6704619532600121,0.8038461538461539,0.9008264462809917,12,65,22
+real_gemini_long,hybrid_logistic,0.7385837559976605,0.8038461538461539,0.8760330578512396,12,65,22
+real_research7b_long,esn_cusum_max,0.39279220242478635,0.7896825396825397,1.0,6,42,12
+real_research7b_long,delta_mahalanobis,0.39279220242478635,0.8492063492063492,1.0,6,42,12
+real_research7b_long,hybrid_logistic,0.39279220242478635,0.8571428571428572,1.0,6,42,12

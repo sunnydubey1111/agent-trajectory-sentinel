@@ -1,0 +1,4 @@
+{"text": "[get_weather({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9477, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Osaka\"})] [lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1789, "output_tokens": 30, "error": false}
+{"text": "[get_weather({\"city\": \"Tunis\"})] [lookup_hotel({\"city\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1976, "output_tokens": 32, "error": false}
+{"text": "Bergen has mild weather and the cheapest hotel among cities with sunny or mild weather, at $85/night.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.85, "output_tokens": 24, "error": false}

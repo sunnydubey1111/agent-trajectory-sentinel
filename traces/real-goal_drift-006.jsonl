@@ -1,0 +1,4 @@
+{"text": "[get_weather({\"city\": \"Cusco\"})] [get_weather({\"city\": \"Prague\"})] [get_weather({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4237, "output_tokens": 49, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})] [lookup_hotel({\"city\": \"Prague\"})] [lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3339, "output_tokens": 49, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Tunis\"})] [lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.2855, "output_tokens": 47, "error": false}
+{"text": "Osaka $267", "token_logprobs": [], "action": "synthesis", "latency_s": 1.3491, "output_tokens": 5, "error": false}

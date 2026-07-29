@@ -1,0 +1,5 @@
+dataset,grounded,vs,dauc_ci_lo,dauc_ci_hi,mcnemar_n10,mcnemar_n01,mcnemar_p,perm_mean_dlead,perm_p,wilcoxon_p
+ollama7b,hybrid_logistic_g,hybrid_logistic,-0.0151,0.0,0,0,1.0,-0.043,0.4949252537373131,0.15729920705028516
+ollama7b,hybrid_weighted_g,hybrid_weighted50,-0.0275,0.0,0,0,1.0,0.0,1.0,1.0
+real_research7b,hybrid_logistic_g,hybrid_logistic,0.0209,0.0998,38,3,1.0479197953827679e-08,0.552,4.999750012499375e-05,6.999666185322352e-08
+real_research7b,hybrid_weighted_g,hybrid_weighted50,0.0286,0.1389,56,0,2.7755575615628914e-17,0.961,4.999750012499375e-05,1.5311594896897432e-14

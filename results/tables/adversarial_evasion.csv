@@ -1,0 +1,6 @@
+evasion,channels,n_injected,detection,detection_drop_vs_none,healthy_fa,theta
+none,-,400,0.705,0.0,0.069,58.02
+evade_e,e,400,0.547,0.157,0.069,58.02
+evade_u,u,400,0.573,0.132,0.069,58.02
+evade_m,m,400,0.65,0.055,0.069,58.02
+evade_e+u+m,e+u+m,400,0.0,0.705,0.069,58.02

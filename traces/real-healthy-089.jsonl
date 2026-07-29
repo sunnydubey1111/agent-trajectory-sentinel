@@ -1,0 +1,7 @@
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9237, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8113, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4337, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4328, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3862, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"666 + (161 * 3)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.8905, "output_tokens": 23, "error": false}
+{"text": "The total cost for the cheaper route (Prague->Bergen->Lisbon) and 3 hotel nights in Lisbon is $1149.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.1225, "output_tokens": 31, "error": false}

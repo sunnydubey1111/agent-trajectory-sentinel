@@ -1,0 +1,5 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9738, "output_tokens": 102, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.4981, "output_tokens": 22, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.4627, "output_tokens": 21, "error": false}
+{"text": "[calculator({\"expression\": \"(215.72 + 23.43 + 17.06) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9226, "output_tokens": 45, "error": false}
+{"text": "The total price of item-1, item-3 and item-6 with 8% tax added is $276.71.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.6456, "output_tokens": 31, "error": false}

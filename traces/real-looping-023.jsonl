@@ -1,0 +1,11 @@
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.1365, "output_tokens": 43, "error": false}
+{"text": "[calculator({\"expression\": \"421 + 561\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2667, "output_tokens": 63, "error": false}
+{"text": "[calculator({\"expression\": \"797 + 244\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.599, "output_tokens": 20, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5353, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1259, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.968, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.3093, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.2913, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4047, "output_tokens": 15, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.3463, "output_tokens": 15, "error": false}
+{"text": "The cheaper route Tunis->Prague->Osaka costs $982, but the hotel price in Osaka could not be retrieved.", "token_logprobs": [], "action": "synthesis", "latency_s": 2.1615, "output_tokens": 26, "error": false}

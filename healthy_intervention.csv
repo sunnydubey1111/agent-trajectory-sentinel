@@ -1,0 +1,13 @@
+seed,alarm_repaired_from,repair_trigger,repair_state,contract_step,answer_check,check_verdict,status,steps
+900,,checks,repair_failed,,wrong,failed,finished,14
+901,,checks,repair_failed,,wrong,failed,finished,14
+902,,checks,repair_failed,,wrong,failed,finished,13
+903,,checks,repair_failed,,wrong,failed,finished,14
+904,,,none,,correct,passed,finished,12
+905,,,none,,correct,passed,finished,12
+906,,,none,,correct,passed,finished,12
+907,,,none,,correct,passed,finished,12
+908,,,none,,correct,passed,finished,12
+909,,,none,,correct,passed,finished,12
+910,,checks,repair_failed,,wrong,failed,finished,14
+911,,checks,repair_failed,,,,halted,14

@@ -1,0 +1,25 @@
+# CPU-only reduced-fidelity reproduction set.
+#
+# This is the SUBSET needed to reproduce the SYNTHETIC study + the deterministic
+# tripwires (behaviour snapshot, fast test suite) bit-for-bit on a CPU-only box
+# with NO network. It deliberately omits the real-trace / cross-framework /
+# Gemini collection stack (playwright, autogen, langgraph, google-genai,
+# qdrant-client, PyGithub, mcp, keyring, truststore) — those are only needed to
+# COLLECT new real traces, never to reproduce a committed synthetic number.
+#
+# Pins are copied verbatim from requirements.lock.txt (the full environment of
+# record). torch is the CPU wheel; it is required because the study includes the
+# GRU/LSTM/TCN baselines when torch is present, and the committed behaviour
+# snapshot was taken WITH them — a torch-less run reproduces the ESN/statistical/
+# linear_ar results but a *reduced* snapshot (see Dockerfile REPRO_MODE).
+#
+#   pip install -r requirements-core.lock.txt
+#   pip install torch==2.12.0+cpu --index-url https://download.pytorch.org/whl/cpu
+
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.9.0
+pandas==3.0.3
+matplotlib==3.11.0
+httpx==0.28.1
+pytest==9.1.0

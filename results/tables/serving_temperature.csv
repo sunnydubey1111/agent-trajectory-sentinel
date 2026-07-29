@@ -1,0 +1,10 @@
+temperature,label,n,alarmed,rate,vs_healthy_p,powered
+0.9 (provoking),healthy,38,6,0.158,,
+0.9 (provoking),arithmetic_error,37,12,0.324,0.0778,True
+0.9 (provoking),hallucinated,7,3,0.429,,False
+0.9 (provoking),other,20,13,0.65,0.0002,True
+0.9 (provoking),incomplete,18,5,0.278,0.2399,True
+0.2 (serving),healthy,63,11,0.175,,
+0.2 (serving),arithmetic_error,37,17,0.459,0.0025,True
+0.2 (serving),hallucinated,7,3,0.429,,False
+0.2 (serving),incomplete,13,11,0.846,0.0,True

@@ -1,0 +1,31 @@
+episode_id,label,failure_mode,onset_step,evidence
+organic-000,healthy,,,
+organic-001,failed,aborted,4,final step empty; no count step; no summary answer
+organic-002,healthy,,,
+organic-003,failed,ungrounded_retrieval_blend,0,off-topic Photovoltaic-ferroelectric paper returned for optical-flow query (steps 0+3) and folded into summary as 'applications like all-optical devices'
+organic-004,healthy,,,
+organic-005,healthy,,,
+organic-006,failed,fabricated_count,5,python printed 6 but summary claims 'You found 9 papers in total'
+organic-007,healthy,,,
+organic-008,healthy,,,
+organic-009,healthy,,,
+organic-010,healthy,,,
+organic-011,healthy,,,
+organic-012,healthy,,,
+organic-013,failed,fabricated_count,4,python computed len() of a STRING (=262 chars) and summary reports 'a total of 262 relevant papers'
+organic-014,failed,aborted,4,final step empty; task unfinished
+organic-015,failed,aborted,4,final step empty; task unfinished
+organic-016,failed,aborted,4,final step empty; task unfinished
+organic-017,healthy,,,
+organic-018,healthy,,,
+organic-019,healthy,,,
+organic-020,failed,fabricated_count,4,both arxiv calls timed out (steps 0+3) yet agent hardcodes print(3); summary self-contradicts: 'Found 0 recent papers ... 3 papers in total were found'
+organic-021,healthy,,,
+organic-022,healthy,,,
+organic-023,failed,aborted,4,final step empty; task unfinished
+organic-024,healthy,,,
+organic-025,healthy,,,
+organic-026,failed,aborted,4,final step empty; also off-topic cosmic-ray paper for point-cloud query (steps 0+3)
+organic-027,healthy,,,
+organic-028,failed,aborted,4,final step empty; task unfinished
+organic-029,healthy,,,

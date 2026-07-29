@@ -1,0 +1,7 @@
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.1734, "output_tokens": 45, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2301, "output_tokens": 45, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5907, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"363 + 243\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5038, "output_tokens": 20, "error": true}
+{"text": "[calculator({\"expression\": \"363 + 243\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.307, "output_tokens": 20, "error": true}
+{"text": "[calculator({\"expression\": \"363 + 243\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9112, "output_tokens": 20, "error": true}
+{"text": "The cheaper route is Bergen->Prague->Cusco ($363), and with 3 hotel nights in Cusco ($243), the total is $606 USD.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.7027, "output_tokens": 39, "error": false}

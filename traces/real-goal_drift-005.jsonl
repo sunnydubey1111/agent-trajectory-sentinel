@@ -1,0 +1,4 @@
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9881, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Bergen\"})] [lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3995, "output_tokens": 46, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5351, "output_tokens": 16, "error": false}
+{"text": "The total for the cheaper route and 3 nights hotel in Tunis is $1892.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.7422, "output_tokens": 20, "error": false}

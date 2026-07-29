@@ -1,0 +1,8 @@
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6502, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3586, "output_tokens": 16, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4448, "output_tokens": 22, "error": false}
+{"text": "[calculator({\"expression\": \"848 + (166 * 2) + 516\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5219, "output_tokens": 29, "error": false}
+{"text": "[calculator({\"expression\": \"848 + (166 * 2) + 516\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8843, "output_tokens": 29, "error": false}
+{"text": "[calculator({\"expression\": \"848 + (166 * 2) + 516\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.8868, "output_tokens": 29, "error": false}
+{"text": "[calculator({\"expression\": \"1 + 1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 3.4503, "output_tokens": 16, "error": false}
+{"text": "The prices are $848 for the flight from Tunis to Prague, $166/night for the hotel in Prague (for 2 nights), and $516 for the flight from", "token_logprobs": [], "action": "synthesis", "latency_s": 5.7298, "output_tokens": 41, "error": false}

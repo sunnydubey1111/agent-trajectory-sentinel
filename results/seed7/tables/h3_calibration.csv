@@ -1,0 +1,4 @@
+stream,null_healthy_ks,null_fa_at_0.90,null_fa_at_0.95,iso_ece,n_test,n_healthy_test
+fused,0.0966,0.1,0.025,0.0133,560,160
+surprise,0.0772,0.1,0.0187,0.0137,560,160
+disagreement,0.0809,0.1062,0.0375,0.0242,560,160

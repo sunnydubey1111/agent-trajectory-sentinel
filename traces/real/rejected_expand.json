@@ -1,0 +1,122 @@
+[
+  {
+    "episode_id": "real-arxiv_paper_search-healthy-seed812-00",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-healthy-seed812-03",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-healthy-seed812-04",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-web_browsing_title-healthy-seed812-06",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-healthy-seed812-07",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_fibonacci-healthy-seed812-08",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-arxiv_paper_search-healthy-seed813-00",
+    "reason": "task did not succeed: not a healthy episode",
+    "facts": {
+      "T": 5,
+      "success": false
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-healthy-seed813-03",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-healthy-seed813-04",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-web_browsing_title-healthy-seed813-06",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-healthy-seed813-07",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_fibonacci-healthy-seed813-08",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-sql_db_query-healthy-seed814-03",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-vector_rag_qa-healthy-seed814-04",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-web_browsing_title-healthy-seed814-06",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_code_gen-healthy-seed814-07",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-python_fibonacci-healthy-seed814-08",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  }
+]

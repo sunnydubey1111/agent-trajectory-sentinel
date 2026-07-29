@@ -1,0 +1,5 @@
+dataset,comparison,n,det_a,det_b,discordant_b,discordant_c,mcnemar_p,achieved_power,mde_80pct,n_for_80pct
+real_research7b_long,logistic_vs_esn,42,0.667,0.571,4,0,0.125,0.199,,83.0
+real_research7b_long,esn_vs_maha,42,0.571,0.69,0,5,0.0625,0.393,,65.0
+real_research7b_long_ext,logistic_vs_esn,91,0.549,0.571,0,2,0.5,0.015,,359.0
+real_research7b_long_ext,esn_vs_maha,91,0.571,0.352,22,2,0.0,0.994,0.16,43.0

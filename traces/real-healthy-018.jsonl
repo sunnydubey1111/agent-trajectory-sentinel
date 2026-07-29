@@ -1,0 +1,5 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7547, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1496, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2057, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"(148.05 + 108.23 + 95.5) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5338, "output_tokens": 39, "error": false}
+{"text": "The total price is $379.92.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.742, "output_tokens": 12, "error": false}

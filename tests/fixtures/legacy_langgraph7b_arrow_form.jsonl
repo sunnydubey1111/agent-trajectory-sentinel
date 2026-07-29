@@ -1,0 +1,7 @@
+{"text": "[get_weather({\"city\": \"Lisbon\"})] -> rainy", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9539, "output_tokens": 66, "error": false}
+{"text": "[get_weather({\"city\": \"Osaka\"})] -> windy", "token_logprobs": [], "action": "tool_call", "latency_s": 0.3792, "output_tokens": 21, "error": false}
+{"text": "[get_weather({\"city\": \"Prague\"})] -> rainy $588", "token_logprobs": [], "action": "tool_call", "latency_s": 0.3817, "output_tokens": 20, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})] -> $258/night $648", "token_logprobs": [], "action": "tool_call", "latency_s": 0.4243, "output_tokens": 23, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})] -> $151/night $39", "token_logprobs": [], "action": "tool_call", "latency_s": 0.4138, "output_tokens": 21, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})] -> $105/night $140", "token_logprobs": [], "action": "tool_call", "latency_s": 0.3997, "output_tokens": 21, "error": false}
+{"text": "Osaka has windy weather and the cheapest hotel at $151/night.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.386, "output_tokens": 18, "error": false}

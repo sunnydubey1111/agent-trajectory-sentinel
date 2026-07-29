@@ -1,0 +1,6 @@
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6849, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3304, "output_tokens": 16, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3064, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2506, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.3563, "output_tokens": 22, "error": false}
+{"text": "I was unable to get a price for the flight from Prague to Bergen; therefore, I cannot provide a total price for the trip.", "token_logprobs": [], "action": "synthesis", "latency_s": 2.1672, "output_tokens": 27, "error": false}

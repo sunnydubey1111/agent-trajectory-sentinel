@@ -1,0 +1,19 @@
+# Line-ending policy.
+# The index stores LF for every text file; checkouts get the platform's native
+# ending for source, and LF for data so trace/artifact hashes are stable across
+# operating systems (see devtools/artifact_manifest.py).
+
+* text=auto eol=lf
+
+# Data and result artifacts are hashed - always LF, never munged.
+*.jsonl  text eol=lf
+*.json   text eol=lf
+*.csv    text eol=lf
+
+# Binary artifacts.
+*.png    binary
+*.pdf    binary
+*.npz    binary
+*.zip    binary
+*.db     binary
+*.sqlite binary

@@ -1,0 +1,249 @@
+\documentclass{article}
+
+\usepackage{neurips}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\graphicspath{{../results/figures/}}
+
+% Float placement: the defaults reserve so much of a page for text that a
+% figure often cannot share it, which leaves gaps at the foot of
+% figure-adjacent pages and pushes the figure past its section.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+
+\title{Online Derailment Detection for LLM Agents from Step Telemetry: From Echo-State Ensembles to Grounded Hybrid Monitoring}
+
+\author{
+  Sunny Dubey \\
+  \texttt{sjkumardube@gmail.com} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+LLM agents fail mid-episode---they loop, cascade tool errors, drift off their goal, fabricate results, or silently absorb corrupted content---and the standard remedy, judging every step with a second LLM, costs more than the agent itself. We ask how much failure detection is achievable from \textit{observable step telemetry alone} (semantic embeddings of step output, token-level uncertainty, action metadata), using monitors that cost microseconds per step and train only on healthy runs. Starting from a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build and validate, on $\sim$1,700 agent episodes across three frameworks, three local agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and a commercial API (gemini-2.5-flash), a sequence of increasingly capable monitors: (1) the ESN, which wins decisively when failures have temporal room to develop; (2) a calibrated ESN+Mahalanobis hybrid whose learned fusion weights track the deployment regime; and (3) a content-grounding telemetry channel that lifts the monitors' shared blind spot (content corruption) from 0.23 to 0.40 pooled content detection (up to 0.63 on the research collectors where the corruption is content-visible; honestly inert on frameworks whose corruption leaves result text unchanged), a $+0.175$ gain that holds at every seed, without degrading behavioral detection. Validation on organic (non-injected) failures reveals a taxonomy with an honest boundary: a completion check catches failures of omission (7/7 silent aborts), the monitors transfer only \emph{weakly} to organic commission (1 of 3 fabrications) and rank the organic set at/below chance without recalibration, and plausible-value corruption requires external reference (the escalation layer's job). A pre-registered fabrication study is explicitly underpowered (2 hallucinations in the pre-registered 55 episodes, 9 across all 175 organic episodes and only 2 of those fabricated \emph{inputs}, against a pre-registered minimum of 10) and makes no detection claim --- the models rarely invent --- so the fabrication class is covered by a deterministic numeric-grounding verifier rather than a statistical monitor. The full system runs at $\sim$200 $\mu$s per step, three orders of magnitude below a judge call.
+\end{abstract}
+
+\section{Introduction}
+
+An agent episode is a sequence of steps; each step emits observable telemetry: what the agent said, how confident its tokens were, what tools it called, what they returned, how long everything took. The monitoring question is whether a lightweight, always-on watchdog over this stream can raise a calibrated alarm at derailment onset---steps before the task fails or the budget burns---without model internals, without labels, and without a second LLM in the loop \cite{zheng2023judging}.
+
+This work answers that question constructively, and documents with equal care what such a watchdog cannot do. Contributions:
+
+\begin{enumerate}
+    \item \textbf{Real-ecosystem validation at scale, and it is the paper's spine}: $\sim$1,700 episodes over 17 datasets, of which $\sim$600 use real tools with live agents across bespoke, LangGraph and AutoGen loops, spanning three local agent models in two families and the gemini-2.5-flash API. Per-class coverage across nine real corpora is reported in full, including where it is poor.
+    \item \textbf{A controlled testbed with ground-truth onsets} (failure injector, 43-dim telemetry) and an 11-monitor comparison under matched false-alarm budgets, used to expose detector \emph{mechanics} --- ground-truth onsets at arbitrary horizons, and classes the real corpora do not contain. Its telemetry is constructed, so no deployment claim rests on it.
+    \item \textbf{A diagnosis of when temporal monitoring pays}: the ESN's detection advantage over a 50$\times$-cheaper Mahalanobis baseline is a monotone function of post-onset horizon.
+    \item \textbf{A calibrated hybrid} whose supervised fusion weights learn which regime a deployment is in.
+    \item \textbf{A content-grounding telemetry channel} that closes the content blind spot (malformed JSON 0.07 $\rightarrow$ 0.93) with behavioral detection improved.
+    \item \textbf{Fusion lessons}: per-stream ``dual-budget'' thresholds with a train-max trip restore detections destroyed by shared thresholds.
+    \item \textbf{Organic-failure validation with a pre-registered replication}: monitors calibrated on healthy runs and then applied unchanged catch only \textbf{1 of 3} organic fabrications and rank the organic failure set at/below chance (within-organic AUROC 0.31--0.42), while a temperature-matched null still false-alarms on 36\% of healthy episodes --- so a dedicated pre-registered fabrication study is explicitly \textbf{underpowered} (2 genuine hallucinations in 55 episodes vs a pre-registered minimum of 10) and makes no detection claim, and the fabrication class is instead delivered by a deterministic numeric-grounding verifier. Monitors are blind to silent aborts (a trivial completion check catches 7/7), and the healthy null is highly specific to the deployment configuration.
+\end{enumerate}
+
+\section{Related Work}
+
+\textbf{Change detection and one-class anomaly detection.} Our alarms are classical sequential change detection: CUSUM \cite{page1954cusum} over per-channel surprise, in the framework of abrupt-change detection \cite{basseville1993detection}. The monitors are one-class \cite{chandola2009anomaly}: fit on healthy episodes only, no failure labels. Baselines follow this tradition---Mahalanobis-distance detectors, standard in out-of-distribution detection \cite{lee2018simple,hendrycks2017baseline}, and isolation forests \cite{liu2008isolation}. The temporal backbone is an echo-state network \cite{jaeger2001echo}: reservoir computing \cite{lukosevicius2009reservoir} gives an untrained recurrent feature map whose readout fits in closed form, which is what makes per-deployment recalibration --- which \S\ref{sec:real} shows is mandatory, not optional --- cheap. Confidence calibration is evaluated with expected calibration error \cite{guo2017calibration}.
+
+\textbf{Agent failure: taxonomy and attribution.} Agent loops interleave reasoning and tool calls \cite{yao2023react}, and are deployed through frameworks such as AutoGen \cite{wu2023autogen}; benchmarks show failure is common and heterogeneous \cite{liu2024agentbench}. Recent work has made that heterogeneity concrete: MAST derives an empirical taxonomy of 14 failure modes from 1600+ annotated traces across seven frameworks, grouped into specification, inter-agent misalignment, and task-verification failures \cite{cemri2025why}. Our four injected classes are a deliberately narrow, mechanically-verifiable slice of that space --- we make no claim to cover it. A second line asks \emph{which} agent and step caused a failure after the fact, and finds it hard: automated attribution reaches 53.5\% accuracy on the responsible agent but 14.2\% on the responsible step \cite{zhang2025which}. That problem is post-hoc and outcome-conditioned; ours is the online, pre-outcome question --- raise an alarm mid-episode, before the failure is known to have occurred --- so step-level attribution results bound what our lead-time claims should be read to mean.
+
+\textbf{Runtime monitoring and guardrails.} The closest systems intervene during execution rather than scoring afterwards. AgentSpec enforces hand-written rules (trigger, predicate, enforcement) at the agent's action boundary \cite{wang2025agentspec}; ProbGuard abstracts executions into symbolic states, learns a discrete-time Markov chain over them, and escalates when the predicted probability of reaching an unsafe state crosses a threshold \cite{wang2025probguard}. Both require a specification of what ``unsafe'' means --- a rule set or a labelled unsafe-state set. Our monitor is label-free and specification-free: it fits only on healthy episodes and alarms on deviation from that null, which is why it transfers badly across deployments (\S\ref{sec:real}) but needs no rule authoring for a new one. We view these as complementary layers, not competitors: a rule engine catches the violations you can name, a one-class monitor is what remains for the ones you cannot.
+
+\textbf{LLM-as-judge.} The dominant quality-control pattern is LLM-as-judge \cite{zheng2023judging}, now extensively surveyed \cite{gu2024survey}: accurate but costing a model call per check. Judges are also not neutral instruments --- position bias alone varies systematically with judge, task, and quality gap across 15 judges and 22 tasks \cite{shi2024judging}. Both facts push the same way for us: we ask what a label-free monitor three orders of magnitude cheaper can and cannot catch, and use the judge as the escalation layer rather than the default. Our judge operating point is stipulated (TPR 0.90, FPR 0.02) rather than measured, which the bias literature suggests is the assumption most in need of empirical replacement.
+
+\textbf{Hallucination detection.} Hallucination in generation is well surveyed \cite{ji2023survey}, and agent-specific taxonomies now separate fabrication in the reasoning, tool-call, and observation stages of the loop \cite{lin2025hallucination}. Detection methods typically need model access or repeated sampling---self-consistency across stochastic samples \cite{manakul2023selfcheckgpt}, semantic entropy \cite{farquhar2024detecting}, or probes that approximate semantic entropy from the hidden states of a single generation \cite{kossen2024semantic}. Tool-using agents admit a cheaper, deterministic route: every figure the agent asserts should trace to a tool result it received. Our numeric-grounding verifier (\S\ref{sec:organic}) is this provenance check; it needs no sampling, no model access, and no ground-truth answer.
+
+\textbf{Internal-state monitoring.} A parallel line monitors activations rather than behaviour: linear probes on the residual stream detect strategic deception that the model's outputs conceal \cite{goldowskydill2025detecting}. That work is white-box --- it needs the weights --- where our telemetry is collected at the adapter boundary and works against an API. The two also fail in similar ways, which is the honest reading: probe accuracy degrades under distribution shift much as our monitors fail to transfer across agent models without recalibration (\S\ref{sec:real}).
+
+\section{Telemetry}
+
+Each step $t$ emits $x_t$, built in four causal generations:
+
+\begin{center}
+\noindent{\footnotesize\textbf{Table 1:} Telemetry vector evolution across versions.}
+
+\vspace{0.3em}
+\begin{tabular}{lp{1cm}p{10cm}}
+\toprule
+Version & Dims & Content \\
+\midrule
+v1 (base) & 43 & $e_t$: 32-dim hash embedding; $u_t$: 4 token-surprisal aggregates; $m_t$: action one-hot, log latency, outlen, error \\
+v2 & 43 & Tool RESULTS appended into step text so corrupted results reach semantic channel \\
+v3 (+x) & 51 & 8 derived behavior dims: cosine drift, task-anchor sim, tool success, retry, latency, context ratio, depth, self-cons. \\
+v4 (+g) & 60 & 9 content-grounding dims: query-result dissim, result self-cons, JSON-prefix validity, char anomaly, lexical flag \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\footnotesize Run each as \texttt{py -m <package>.<module>}: the study runners live under \texttt{derail.experiments}, the analyses under \texttt{experimental} and \texttt{verification}.
+
+\end{center}
+
+The embedding is a deterministic char-3-gram feature hash (no model, no network). v4 telemetry costs 608 $\mu$s/step at the adapter; the lexical flag alone costs 2 $\mu$s/result.
+
+\section{Monitors}
+
+All monitors are one-class (fit on healthy episodes only) and causal. Alarm thresholds come from healthy-validation episode maxima at a fixed FA budget.
+
+\begin{itemize}
+    \item \textbf{ESN ensemble + CUSUM}: per-channel reservoirs \cite{jaeger2001echo} predict the next step; normalized surprise and ensemble disagreement feed a one-sided CUSUM \cite{page1954cusum}.
+    \item \textbf{Baselines}: Mahalanobis and delta-Mahalanobis \cite{lee2018simple}, cosine/self-drift, rolling entropy, linear AR, and trained GRU/LSTM/TCN sequence models.
+    \item \textbf{Hybrids}: robust-z calibration of ESN and Mahalanobis streams, then weighted, max, or logistic fusion.
+    \item \textbf{Grounded monitors}: memoryless robust-z max over the $g$ channel joins as a third stream.
+    \item \textbf{Completion check}: five lines checking if the final step is empty or a bare tool call.
+\end{itemize}
+
+\section{Real-Ecosystem Validation: the Empirical Spine}
+\label{sec:real}
+
+\textbf{Everything this paper claims about deployment rests on this section.} The committed corpus spans $\sim$1,700 episodes over 17 datasets --- three frameworks, three local agent models across two families, and the gemini-2.5-flash API --- every episode a live agent run against real tools, with telemetry measured at the adapter rather than constructed.
+
+Figure~\ref{fig:traces} shows the primary monitor on real streams: healthy runs stay two orders of magnitude below the alarm threshold, and each injected class alarms one step after its verified onset. Figure~\ref{fig:coverage} gives the coverage picture across all nine real corpora, and it is the honest one. Looping and tool cascade are caught almost everywhere (0.48--1.00); goal drift is caught wherever it is present (0.66--0.86 on four of five corpora); and the genuine weak spots are the content-corruption classes, \texttt{wrong\_document} (0.00--0.20) and \texttt{malformed\_json} (0.05--0.50) --- which is what motivates the grounding channel of \S\ref{sec:grounding}, not a post-hoc rationalisation of it.
+
+Two structural findings shape everything that follows. First, monitors do not transfer across deployments without recalibration: calibrated on qwen2.5:7b and deployed on llama3.1:8b over a matched task, tool and injector plan, the primary monitor sits at chance (AUROC 0.527, healthy FA 0.75), while the \emph{same} target recalibrated on itself reaches 0.885 --- so this is a property of the calibration, not of a hard corpus. Second, the memoryless delta-Mahalanobis wins on short-episode datasets, which the horizon diagnosis explains: over 716 injected episodes the ESN--Mahalanobis detection gap is \textbf{-0.09} when the post-onset horizon is $\le$3 steps, \textbf{+0.23} at 4--8 and \textbf{+0.40} at $\ge$9 (correlation +0.37). The reservoir needs post-onset steps to integrate evidence; where it has them it wins, and where it does not the memoryless distance is the better monitor.
+
+\textbf{Breadth: a second model family and a commercial API.} Recalibrated on itself, a llama3.1:8b corpus collected on an identical task, tool and injector plan reaches AUROC \textbf{0.885}, so the monitors are not specific to one model family. A lengthened Gemini corpus (125 episodes, 65 positives) reaches \textbf{0.794}: the approach works on a commercial API too. That corpus is gemini-2.5-flash on the same long research task, tool roster and injector plan as the qwen long corpus, so the provider is the only thing that differs. Its lower detection at a matched false-alarm budget (0.38 against 0.57) is a \emph{horizon} effect, not a telemetry one --- its positives are far shorter after onset (median 4 steps against 8), and at matched horizon the two agree (0.53 against 0.56). Ablating the token-surprisal channel inside four corpora that carry it moves the ESN by AUROC $+0.000$, so the deployment requirement is structured tool results, not logprob access.
+
+\textbf{The judge is measured, not assumed.} A real gemini-2.5-flash judge on a labelled subset of 172 distinct prompts scores p\_detect \textbf{0.548} (95\% CI 0.44--0.65) and p\_false \textbf{0.057}, against the 0.90/0.02 the escalation analysis assumes. Substituting the measured rates across all five master seeds leaves the call saving intact but drops detection recovery from 82\% to \textbf{44\%}, supported at zero of five seeds. Figure~\ref{fig:complementarity} shows why the layer is still worth having: judge and monitor fail on \emph{different} classes --- the judge is perfect on goal drift and nearly blind on context corruption (0.18), where the monitor is the reverse (1.00).
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.95\linewidth]{fig1_score_traces_real.png}
+\caption{\textbf{Real agent traces} (\texttt{ollama7b}: qwen2.5:7b against real tools). One-class CUSUM score streams per failure class; dashed = threshold at the 5\% validation FA budget, dotted = verified injection onset. The healthy run stays two orders of magnitude below the line, and every injected class --- context corruption, \emph{goal drift}, looping and tool cascade --- alarms one step after onset. The sixth panel is \emph{grounding loss}, and it is different in kind: fabrication cannot be injected into a live run, so this episode is a genuine one from the organic (non-injected) corpus, scored against that corpus's own healthy null. The CUSUM stays flat -- a fabricated figure perturbs no behavioural channel -- and the class is caught instead by the deterministic grounding verifier. That is the blind spot the verifier exists to cover, shown rather than asserted. Note the $y$ axis is symlog: real streams span twelve orders of magnitude, because the CUSUM accumulates multiplicatively once a failure takes hold.}
+\label{fig:traces}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.98\linewidth]{fig3_class_coverage_real.png}
+\caption{\textbf{Real deployments: where the monitor works, by failure class.} Primary-monitor detection rate, nine real corpora, blank where a corpus does not contain that class (absent and undetected are different claims). This is the honest coverage picture the simulator cannot give: looping and tool cascade are caught almost everywhere, \emph{goal drift} is caught wherever it is present (0.66--0.86 on four of five corpora), and the genuine weak spots are the content-corruption classes --- \texttt{wrong\_document} 0.00--0.20 and \texttt{malformed\_json} 0.05--0.50 --- which is precisely what the grounding channel (\S\ref{sec:grounding}) exists to address.}
+\label{fig:coverage}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.9\linewidth]{fig5_judge_complementarity_real.png}
+\caption{\textbf{Monitor and judge fail on different classes.} Both series are measured on the same real corpus: the judge rates from a live gemini-2.5-flash run on a labelled subset (172 distinct prompts), the monitor rates from the primary monitor on that corpus. The judge is perfect on goal drift and nearly blind on context corruption (0.18); the monitor is the reverse on context corruption (1.00). This is the empirical case for escalation as a \emph{complementary layer} rather than a cheaper approximation of the judge.}
+\label{fig:complementarity}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.86\linewidth]{fig2_monitor_benchmark_real.png}
+\caption{\textbf{Monitor comparison on the real corpora only.} Episode AUROC, one dot per real deployment and a bar at the mean; the simulator is excluded. The spread is the point: several per-dataset orderings that look decisive are ties once power is accounted for, so the defensible comparison is the pooled one rather than any single deployment.}
+\label{fig:benchmark}
+\end{figure}
+
+\clearpage
+\section{Controlled Study: Detector Mechanics on Simulated Telemetry}
+
+\textbf{This section is a mechanism study, and no deployment claim rests on it.} The simulator \emph{constructs the detector's input telemetry directly}: it writes the semantic-embedding state, token-uncertainty aggregates, action metadata, latency, output length, and error flags for each step, with no LLM, tokenizer, embedding measurement, or telemetry adapter in the loop. The class-channel signatures are therefore designed in, and what follows measures whether the monitors \emph{recover} the injected structure --- not whether that structure arises from a real model. It earns its place for two reasons the real corpora cannot supply: it provides ground-truth onsets at arbitrary horizons, and it contains classes the real corpora do not (grounding loss). Read it as a cartoon of the mechanism; the evidence is \S\ref{sec:real}.
+
+Its numbers should be read with that caveat attached, and one of them does not survive contact with measurement: the escalation result below assumes a judge we have since measured, and \S\ref{sec:real} reports what happens when the assumption is replaced. Over five master seeds the ESN detects \textbf{0.707 $\pm$ 0.068} of failures at a 4.4\% realized FA with episode AUC \textbf{0.872 $\pm$ 0.015} and a mean lead of 4.6 steps (Figure~\ref{fig:traces}); H1 holds at four of the five seeds and is honestly not supported at one. Label-free confidence is calibrated by the healthy-score null: its healthy stream is uniform to KS $\approx$ 0.12 (fused), and the oracle isotonic posterior (\emph{with} labels) reaches ECE $\approx$ 0.03 \cite{guo2017calibration}. A cost-optimal escalation policy (operating point selected on calibration) recovers \textbf{83\% of judge-every-step detection at 8\% of its judge calls} (master seed; H3b holds at four of five seeds).
+
+\textbf{H3b is conditional on the judge, and the assumption fails.} That judge is a stipulated noisy oracle (p\_detect 0.90, p\_false 0.02). A real gemini-2.5-flash judge measured on a labelled subset of collected episodes (172 distinct prompts) scores p\_detect \textbf{0.548} (95\% CI 0.44--0.65) and p\_false \textbf{0.057} (0.025--0.13) --- both stipulated values lie outside their measured intervals. Substituting the measured rates and re-running all five master seeds with everything else fixed, the \emph{call saving survives} (6\% vs 8\% of judge-every-step calls; cost ratio 0.63 vs 0.61) but detection recovery falls to \textbf{44\%} (range 39--48\%) and H3b is supported at \textbf{0 of 5 seeds}. The escalation architecture earns its cost saving; its detection claim should be read as 44\%, not 83\%. Per class the measured judge is perfect on goal drift (21/21) and nearly blind on context corruption (0.18) --- the class the grounding channel targets --- so judge and monitor fail on different classes.
+
+
+
+
+
+\section{The Calibrated Hybrid}
+
+Of 1{,}002 injected episodes, about a third of failures are visible to exactly one detector parent (ESN vs Mahalanobis: 242 ESN-only, 57 Mahalanobis-only, 403 both). The cross-fit logistic fusion recovers \textbf{100\% / 66\% / 79\%} of the both/ESN-only/Maha-only cells and fires on just 1\% of the cases neither parent flags. Its learned Mahalanobis weight share tracks the regime (from 0.38 on long horizons to 0.99 on short; Figure~\ref{fig:hybrid}). The hybrid never statistically falls below the better parent at any tested seed.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{hybrid_explain.png}
+\caption{Hybrid logistic fusion: episode positions at the deciding step in the (Mahalanobis, ESN) calibrated-confidence plane, one panel per deployment, with the learned alarm boundary. The boundary's orientation is the learned regime: near-vertical (Mahalanobis-driven) on short-horizon real-agent datasets, ESN-driven on the long-horizon simulator.}
+\label{fig:hybrid}
+\end{figure}
+
+\section{Closing the Content Blind Spot}
+\label{sec:grounding}
+
+Behavioral and statistical monitors share one blind spot: corruption that changes \textit{data} without changing \textit{behavior}. The $g$ channel adds nine causal content features, including a binary lexical relevance flag that completely separates off-topic retrievals.
+
+\begin{table}[tbp]
+\centering
+\caption{Detection rate (pooled injected episodes, n=602). Ungrounded $\rightarrow$ grounded; McNemar discordant (gained/lost) vs the ungrounded parent.}
+\begin{tabular}{lcc}
+\toprule
+Fusion & Content (n=211) & Behavioral (n=391) \\
+\midrule
+Content gate & 0.23 $\rightarrow$ \textbf{0.40} (+37/-0) & 0.73 $\rightarrow$ \textbf{0.80} (+25/-0) \\
+Joint-budget & 0.23 $\rightarrow$ \textbf{0.32} (+21/-1) & 0.73 $\rightarrow$ 0.73 (+0/-3) \\
+Logistic+g (labels) & 0.14 $\rightarrow$ 0.17 (+14/-9) & 0.74 $\rightarrow$ 0.69 (+5/-23) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Organic Failures and Conclusion}
+\label{sec:organic}
+
+Thirty non-injected high-temperature (0.9) episodes yield 11 organic failures: 7 silent aborts, 3 fabricated counts, 1 ungrounded retrieval blend. Scored by monitors carrying the calibration they were deployed with, and not refit on this data, the behavioural monitors catch only \textbf{1 of the 3} fabrications and rank the whole organic failure set at/below chance (within-organic AUROC \textbf{0.31--0.42}); a temperature-matched null still false-alarms on \textbf{36\%} of healthy episodes, because the organic runs were sampled at temperature 0.9. Detections at that false-alarm rate are not deployable evidence, and we report them as such. \textbf{Omission is invisible to telemetry but trivially fixable} (the five-line completion check catches 7/7 silent aborts at zero false positives), and \textbf{plausible-value corruption remains undetectable} without an external reference.
+
+A \textbf{pre-registered replication} (design and analysis committed before data; $n=55$ episodes at temperature 0.9) built the null cross-fit from the healthy subset of the same-temperature runs, but is \textbf{explicitly underpowered}: only 2 candidate hallucinations arise (pre-registered minimum 10), at a 36\% healthy false-alarm rate, so it makes \textbf{no detection claim}. These well-aligned agent models rarely invent figures. Fabrication detection is therefore delivered not by a statistical monitor but by the mechanism that matches the failure: a deterministic per-step \textbf{numeric-grounding verifier} --- every monetary figure the agent asserts must trace to a tool result it actually received, or an arithmetic combination thereof --- which needs no ground-truth answer, runs online, flagged 0 false positives on the 25 healthy episodes, and catches an inserted ungrounded figure at the step it appears. The statistical monitors were never the right tool for this class; measuring that, and shipping the right tool, is the result.
+
+Observable step telemetry covers most of the agent-failure space using microsecond-scale monitors --- with failure classes it cannot cover delegated to mechanisms that can (completion check, grounding verifier, escalation to a judge) --- providing a vital first line of defense before escalating to full LLM judges.
+
+\section{Limitations}
+\label{sec:limits}
+
+We state the boundaries as measured, not as caveats. (1)~\textbf{No cross-deployment transfer}: monitors do not transfer across frameworks, models, or even sampling temperature without recalibration; the healthy null must be collected under the exact serving distribution (temperature, toolset, probe pattern, latency regime) --- three separate incidents in this study (latency drift, catalog contamination, temperature mismatch) were all this one failure. Measured across a model \emph{family} on a matched task/tool plan (qwen2.5:7b $\rightarrow$ llama3.1:8b), transferred monitors sit at chance (AUROC 0.527, healthy FA 0.75) while the same target recalibrated on itself reaches 0.885 --- so this is a property of the calibration, not of a hard target. The same experiment run \emph{within} a family (qwen2.5:7b to qwen2.5:3b, \texttt{model\_transfer.csv}) collapses further, to AUROC 0.29--0.38 --- below chance --- but is harder to read, because recalibrating on the 3b corpus itself only reaches 0.556, so "the target is simply hard to monitor" remains a live explanation there. The cross-family experiment is the cleaner one precisely because its target recalibrates to 0.885. (2)~\textbf{Slow goal drift} evades every per-step-surprise monitor tested; only trajectory self-consistency sees it, weakly. This is a statement about \emph{gradual} rotation, which is how the simulator constructs the class: each step differs little from the last, so no per-step surprise accumulates. Goal changes that are abrupt are caught --- on real traces the same monitor detects goal drift at 0.66--0.86 on four of five corpora (Figure~\ref{fig:coverage}), and the measured judge catches it 21/21. The limit is the rate of change, not the class. (3)~\textbf{Content corruption detection is bounded by telemetry completeness}: results not passed through the telemetry channel are invisible, and terse results carry too little mass to detect garbling reliably. The bound is on \emph{structured tool results}, not on token logprobs: ablating the token-surprisal channel within four corpora that carry it (same episodes, splits, seeds, thresholds) moves the ESN by \textbf{AUROC $+0.000$ and detection $+0.002$} on average, so a provider that rejects \texttt{response\_logprobs} --- as the gemini-2.5-flash tier used here does --- loses almost nothing. The lower raw detection on that provider's corpus (0.38 vs 0.57) is a \emph{horizon} effect, not a telemetry one: its positives are far shorter after onset (median 4 vs 8 steps, 28\% at horizon $\le 3$ vs 2\%), and at matched horizon $\ge 4$ the two agree (0.53 at AUROC 0.902 vs 0.56). (4)~\textbf{Plausible-value corruption} (a wrong-but-well-formed number) is undetectable from telemetry by construction and requires an external reference or judge. (5)~\textbf{Fabrication claims are limited by base rate}: across both organic corpora the objective labeller flags 9 of 175 episodes as hallucinated (2 of 55 in the pre-registered corpus, 7 of 120 in the extension), and only \textbf{2 of those are fabricated \emph{inputs}} --- an ungrounded item figure, the class the grounding verifier targets --- the other 7 being totals that match neither the truth nor any arithmetic derivation of grounded inputs. Both counts sit below the pre-registered minimum of 10, so no statistical detection claim for hallucination is made in either direction; the grounding verifier is validated on unit tests, healthy false-positive checks (0/25), and inserted-figure catches, not on organic fabrications. Under provocation the class becomes testable: making 20\% of price-bearing tool calls fail \emph{transiently} -- the retry succeeds, so reporting a grounded total stays available and inventing the missing figure is the model's own choice -- yields 11 ungrounded-input fabrications in 120 episodes, on which the verifier catches \textbf{0.55} with no false positives on healthy episodes (0/9 here, 0/25 and 0/55 on the two unprovoked corpora). It is therefore specific but only about half sensitive, and that number exists only under provocation: unprovoked fabrication stays at 2 in 175 and supports no claim. (6)~\textbf{Scope}: mock-tool and research-loop tasks, two local model families (qwen2.5, llama3.1) and one commercial API; wall-clock latency features are machine-specific and are excluded from the shipped local configuration.
+
+\section*{Appendix}
+\sloppy
+
+\subsection*{Artifact availability}
+
+All code, collected traces, result tables and figures are released together in the accompanying repository. Nothing in this paper is computed from data held back. The layout a reader needs is:
+
+\begin{itemize}
+\item \texttt{results/tables/} --- every CSV and JSON named in Table 3. A claim in the text and the file named beside it are the same numbers; the file is the source.
+\item \texttt{results/figures/} --- the figures in this paper, regenerated by \texttt{py -m derail.experiments.plots}.
+\item \texttt{traces/} --- the agent episodes themselves, one JSONL file per episode with a \texttt{manifest.json} per corpus recording each episode's model, label, verified onset and checksum.
+\item \texttt{BASELINE\_MANIFEST.json} --- a SHA-256 for every source file, result artifact and trace in the repository. It is what makes the provenance in Table 3 checkable rather than asserted: \texttt{py -m devtools.artifact\_manifest -{}-check} recomputes every hash and reports any file that differs from the state these results were produced in.
+\end{itemize}
+
+Two further checks ship with the code. \texttt{py -m devtools.behavior\_snapshot -{}-check} re-runs the study at a fixed seed and compares every value against a stored baseline, so a change in behaviour cannot pass unnoticed; and \texttt{py -m pytest} runs the full suite, including the slow tests that exercise real tools. A container definition and a pinned lock file are included for a network-free CPU reproduction of the synthetic study.
+
+
+\vspace{1.2em}
+\noindent{\footnotesize\textbf{Table 3:} Provenance map: each claim to the artifact it is computed from. Every file listed is committed, and \texttt{BASELINE\_MANIFEST.json} records a SHA-256 for it, so a reader can verify that the number in the text came from the file in the repository.}
+
+\vspace{0.4em}
+\begin{center}
+\scriptsize
+\begin{tabular}{p{2.9cm} p{5.0cm} p{4.3cm}}
+\toprule
+Claim & Artifact & Regenerate with \\
+\midrule
+Real per-class coverage & \texttt{l7b\_per\_class.csv} & \texttt{run\_hybrid\_study} \\
+Cross-family transfer & \texttt{model\_transfer\_family.csv} & \texttt{run\_model\_transfer} \\
+gemini-2.5-flash corpus & \texttt{gemini\_long\_*.csv} & \texttt{run\_hybrid\_study} \\
+Measured judge & \texttt{judge\_calibration\_summary.json} & \texttt{run\_judge\_calibration} \\
+Judge consequence for H3b & \texttt{judge\_sensitivity.csv} & \texttt{judge\_sensitivity} \\
+Telemetry-channel ablation & \texttt{telemetry\_dependence.csv} & \texttt{telemetry\_dependence} \\
+Recalibration cost & \texttt{recalibration\_cost.csv} & \texttt{recalibration\_cost} \\
+Statistical power & \texttt{power\_analysis*.csv} & \texttt{power\_analysis} \\
+Adversarial limit & \texttt{adversarial\_evasion.csv}, \texttt{tamper\_check.csv} & \texttt{tamper\_check} \\
+Organic + provoked fabrication & \texttt{organic\_hallucination*.csv}, \texttt{provoked\_fabrication.csv} & \texttt{score\_provoked\_fabrication} \\
+Simulator study & \texttt{multiseed*.csv}, \texttt{h1\_*}, \texttt{h3\_*} & \texttt{run\_multiseed} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

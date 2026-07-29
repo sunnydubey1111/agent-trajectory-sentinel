@@ -1,0 +1,9 @@
+Corruption,Parameter,AUC
+None,0.0,0.7766435279706002
+Packet Drop,10%,0.7962433646386281
+Packet Drop,20%,0.7839934667211107
+Packet Drop,40%,0.6953858717844017
+Gaussian Noise,std=0.05,0.7215189873417721
+Gaussian Noise,std=0.10,0.7215189873417721
+Gaussian Noise,std=0.20,0.7215189873417721
+Missing Metadata,all_zero,0.7590853409554921

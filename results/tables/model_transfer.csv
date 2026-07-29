@@ -1,0 +1,9 @@
+condition,monitor,auroc,auprc,detection_rate,healthy_fa_rate,mean_lead_all
+in-domain(3b),esn_cusum_max,0.5559,0.8975,0.3478,0.2857,0.587
+in-domain(3b),delta_mahalanobis,0.6646,0.9145,0.1304,0.0,0.0
+in-domain(3b),hybrid_weighted50,0.5652,0.8989,0.3043,0.2857,0.5652
+in-domain(3b),hybrid_content_gate,0.5807,0.903,0.3261,0.2857,0.6739
+transfer(7b->3b),esn_cusum_max,0.3478,0.8325,0.7174,1.0,1.9348
+transfer(7b->3b),delta_mahalanobis,0.2857,0.8075,0.913,1.0,2.5
+transfer(7b->3b),hybrid_weighted50,0.354,0.8334,0.7174,1.0,1.9348
+transfer(7b->3b),hybrid_content_gate,0.3789,0.8376,0.7609,1.0,2.1739

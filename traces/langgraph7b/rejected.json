@@ -1,0 +1,226 @@
+[
+  {
+    "episode_id": "langgraph-healthy-004",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-010",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-042",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-046",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-healthy-051",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-001",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-002",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-012",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-013",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-017",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-022",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-024",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-027",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-031",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-033",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 6,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-034",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-tool_cascade-035",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 6,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-010",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-015",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-looping-029",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-008",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "langgraph-context_corruption-031",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  }
+]

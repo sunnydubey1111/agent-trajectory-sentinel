@@ -1,0 +1,4 @@
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.061, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5183, "output_tokens": 46, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.8165, "output_tokens": 16, "error": false}
+{"text": "The total in USD for the cheaper route and 3 hotel nights in Lisbon is $955.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.2029, "output_tokens": 21, "error": false}

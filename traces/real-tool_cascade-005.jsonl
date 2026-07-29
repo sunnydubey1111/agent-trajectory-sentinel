@@ -1,0 +1,3 @@
+{"text": "[get_weather({\"city\": \"Tunis\"})] [get_weather({\"city\": \"Cusco\"})] [get_weather({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7879, "output_tokens": 48, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Tunis\"})] [lookup_hotel({\"city\": \"Cusco\"})] [lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.64, "output_tokens": 48, "error": false}
+{"text": "Osaka has sunny weather and the cheapest hotel at $128/night.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.6617, "output_tokens": 16, "error": false}

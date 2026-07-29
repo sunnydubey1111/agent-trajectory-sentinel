@@ -1,0 +1,572 @@
+[
+  {
+    "episode_id": "real-healthy-004",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-015",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-019",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-033",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-038",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-040",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-052",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-000",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-002",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-003",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-004",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-005",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-006",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 6,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-007",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 6,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-009",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-012",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-013",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-014",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-015",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-018",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-019",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-021",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-022",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-000",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-002",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-003",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-004",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-005",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-009",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-012",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-014",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-015",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-019",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-022",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-000",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-003",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-005",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-012",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-015",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-019",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-022",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-002",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-003",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-004",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-005",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-008",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 4 with no following step (T=5)",
+    "facts": {
+      "T": 5,
+      "applied_count": 1,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-009",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-012",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-014",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-015",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-019",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-022",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  }
+]

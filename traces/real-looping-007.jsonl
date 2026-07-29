@@ -1,0 +1,6 @@
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7539, "output_tokens": 23, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4185, "output_tokens": 17, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2394, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5254, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Prague\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6391, "output_tokens": 23, "error": false}
+{"text": "I was unable to retrieve the flight price from Cusco to Prague due to a temporary data inconsistency, but the flight from Prague to Cusco costs $726 and two nights in a Cusco hotel cost", "token_logprobs": [], "action": "synthesis", "latency_s": 6.1459, "output_tokens": 39, "error": false}

@@ -1,0 +1,9 @@
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.245, "output_tokens": 45, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3469, "output_tokens": 45, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4041, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"558 + 519\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7356, "output_tokens": 20, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.963, "output_tokens": 43, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})] [lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.366, "output_tokens": 42, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.7052, "output_tokens": 15, "error": false}
+{"text": "[calculator({\"expression\": \"957 + 505\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4382, "output_tokens": 20, "error": false}
+{"text": "The total cost for the most expensive route (Prague->Osaka->Bergen) with 5 hotel nights in Osaka is $1462 USD.", "token_logprobs": [], "action": "synthesis", "latency_s": 0.8165, "output_tokens": 32, "error": false}

@@ -1,0 +1,11 @@
+arm,seed,judge_p_detect,judge_p_false,judge_every_step_detection,judge_every_step_calls,escalate_detection,escalate_calls,escalate_lead,cost_ratio_vs_judge,detection_recovered,call_fraction,verdict
+stipulated,20260713,0.9,0.02,0.995,29.084,0.825,2.22,8.582,0.6131,0.8291,0.0763,SUPPORTED
+measured,20260713,0.548,0.057,0.9375,29.711,0.39,1.616,5.295,0.6362,0.416,0.0544,MIXED
+stipulated,7,0.9,0.02,0.9925,28.873,0.785,2.202,7.672,0.6215,0.7909,0.0763,MIXED
+measured,7,0.548,0.057,0.915,29.459,0.3575,1.505,5.126,0.6313,0.3907,0.0511,MIXED
+stipulated,101,0.9,0.02,0.9925,29.438,0.81,1.827,8.031,0.6037,0.8161,0.0621,SUPPORTED
+measured,101,0.548,0.057,0.9325,30.08,0.445,1.855,6.427,0.6197,0.4772,0.0617,MIXED
+stipulated,202,0.9,0.02,0.995,28.661,0.86,2.648,8.951,0.6052,0.8643,0.0924,SUPPORTED
+measured,202,0.548,0.057,0.9225,29.573,0.415,1.716,5.018,0.6257,0.4499,0.058,MIXED
+stipulated,303,0.9,0.02,0.9975,29.1,0.8,2.362,8.4,0.6138,0.802,0.0812,SUPPORTED
+measured,303,0.548,0.057,0.925,29.986,0.41,1.784,5.665,0.625,0.4432,0.0595,MIXED

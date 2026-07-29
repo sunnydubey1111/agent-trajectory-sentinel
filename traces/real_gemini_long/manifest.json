@@ -1,0 +1,5053 @@
+[
+  {
+    "episode_id": "real-healthy-000",
+    "file": "real-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 14,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "eabe4a94d27f67bc56acfd12c1e34cd96e66a019df094d0fb040f31707b67bad",
+    "trace_sha256": "6c34183577c61ea2a976931b31f615be452457e1a6e68bdd7b448bf8b888d3bb",
+    "collected_at": "2026-07-27T12:05:17+0530"
+  },
+  {
+    "episode_id": "real-healthy-001",
+    "file": "real-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2cc06a6fce41a00cfb3062056ac8248430036fa4f25cb2d2eeb5f0eb121e0e20",
+    "trace_sha256": "02e4c11afd74024feaac3ba2bb7f0b02845296452aa5e1f34071a8eb29bee8bc",
+    "collected_at": "2026-07-27T12:05:41+0530"
+  },
+  {
+    "episode_id": "real-healthy-003",
+    "file": "real-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8bba4fc32f34b1ab6ce774705d8fcf3e3ddcee422c02818149e069949e68bf18",
+    "trace_sha256": "dddf3df88c2b26cf240f996b5b88ed48cce4102fbe150912910e679eeebdedaa",
+    "collected_at": "2026-07-27T12:06:35+0530"
+  },
+  {
+    "episode_id": "real-healthy-004",
+    "file": "real-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "346583e158af3203866e15156fdcdd65796e0df00f1ee33b8b4244eef7e3e8a8",
+    "trace_sha256": "e6ac54f7d1975c08e6efc4242fbf00306db3460ce37b3e9cd516462a34e9bdc9",
+    "collected_at": "2026-07-27T12:07:29+0530"
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "file": "real-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d72c2d6c46ebcbebb23a907980b53fa6d07b74836d8572e0d74e38cfa69742aa",
+    "trace_sha256": "aa5ee1e82b208fcf6da0bcb3d24446b770786f9d39ff19df9688540ae4d4a41b",
+    "collected_at": "2026-07-27T12:08:23+0530"
+  },
+  {
+    "episode_id": "real-healthy-006",
+    "file": "real-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2dd45a38be3afc14e2906b0337d98f0da00e1b446c9d78d721c8b1dfd63ce45e",
+    "trace_sha256": "2c8333b010114116b1c7461c6b201c62cd69105caa48707f8c7c519e519e6c39",
+    "collected_at": "2026-07-27T12:09:39+0530"
+  },
+  {
+    "episode_id": "real-healthy-007",
+    "file": "real-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4c89def164bf9bc6c7f1fb64ae17b4b6648baf1911543fa5ca3b0f8f9954f7f8",
+    "trace_sha256": "82782bf2639910f141edf22fd45a4fc6c36ade808fd6d0c844f6c17d153eb18b",
+    "collected_at": "2026-07-27T12:10:32+0530"
+  },
+  {
+    "episode_id": "real-healthy-008",
+    "file": "real-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1439e6da76c726ba9af388aec75a5133aa6b7eb2865f4635cac4ac54e8e502ee",
+    "trace_sha256": "73228b1bed0f22bb74a676a79ce412e600d7866bd753a9ba6b6d4d17828dc90f",
+    "collected_at": "2026-07-27T12:11:11+0530"
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "file": "real-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b8c0ba67578cb27709f92aa4d50c5e4cd016e43f2cee58bf4343e0279520085e",
+    "trace_sha256": "6f21dc7deae045c3208cfe857c537717989ec883e61fb3bc23692df53162da82",
+    "collected_at": "2026-07-27T12:11:50+0530"
+  },
+  {
+    "episode_id": "real-healthy-010",
+    "file": "real-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 9,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9f4556ce2bea88bf4c893665e71f893ff8e3b6c8444239b51dd0dc3003435753",
+    "trace_sha256": "81c1e583b5ec9767ed73496c83ec27feb2701c4a46aa73b1d0ea2a981f53ca48",
+    "collected_at": "2026-07-27T12:12:17+0530"
+  },
+  {
+    "episode_id": "real-healthy-011",
+    "file": "real-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "17292d5839fee7ca3fb19defb118cff609d64b6cbc947ca2ba58e5db4eb03aa0",
+    "trace_sha256": "dd4a7760856d1ae310d011f49948999dc54727d165c20da23142cc51b72b8184",
+    "collected_at": "2026-07-27T12:13:18+0530"
+  },
+  {
+    "episode_id": "real-healthy-012",
+    "file": "real-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "96d2c6eeca70a68ba1f2345668701799ded909b242d2910dcd9c16ea7b58fa9d",
+    "trace_sha256": "91286e0879aff458fe598ff551442e2687f540fdbe234b4a2ec70904ab58a123",
+    "collected_at": "2026-07-27T12:14:14+0530"
+  },
+  {
+    "episode_id": "real-healthy-013",
+    "file": "real-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "68c2e447fb0151fe2ff2080f194133b7999a0d9b4de07da80baab50c9bb6cded",
+    "trace_sha256": "cb19d64b7ba7f3cbac635e05badb2dfcf4b52f39864e6deabd5e327da9fc5d88",
+    "collected_at": "2026-07-27T12:14:52+0530"
+  },
+  {
+    "episode_id": "real-healthy-014",
+    "file": "real-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 14,
+      "task_name": "task-14",
+      "task_sha256": "7e9cdf7a8a92bcc99cb98703f18b22af3070a6b12c3eb0a41cb6c0b53471dda9",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c148cdea2d03d32fba8b3ffcb9df5c89270992aa28ce4dd57e56c0fa51085f15",
+    "trace_sha256": "c55bb1bb28a72675178b97cfdb7fa8eed47818ff1fba46aa0e60ccadfcdc642a",
+    "collected_at": "2026-07-27T12:16:07+0530"
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "file": "real-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 15,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 16,
+      "task_name": "task-16",
+      "task_sha256": "09b8a09fc7046da16f93cdcc4a5c0a0f73abdd3fddef69e3cc8de1d9d53e5c1c",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5242da2034bbae951bddaf44353de22c3238e56e2441cb4ce0270d96c7cd61a4",
+    "trace_sha256": "df50c31f51b438928a3108627d586bf243c9c4444bcab87c9686c5810334e76e",
+    "collected_at": "2026-07-27T12:18:02+0530"
+  },
+  {
+    "episode_id": "real-healthy-020",
+    "file": "real-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 20,
+      "task_name": "task-20",
+      "task_sha256": "1c5b28303c3de42e36e8889c7ac6c42d15a236e0dc13f3a68d7681ca5a1a2e05",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7090cd039fd160cc7930be3a02fedc245f49579026acbfac699eb853ad55b187",
+    "trace_sha256": "21bdf6531fab6ebc455505056b0012f70dfc955dde7eb5da609407a6bd55c813",
+    "collected_at": "2026-07-27T12:19:42+0530"
+  },
+  {
+    "episode_id": "real-healthy-021",
+    "file": "real-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 21,
+      "task_name": "task-21",
+      "task_sha256": "a36735441f894db7cfe670771bd460f0d84579ac5ba9b9526fefea055b6486f8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "bda567e690ad2d6acdf8ca1349145076e5375a4553e2776a51bba90ad2e81c15",
+    "trace_sha256": "7a8d38ac1ffaee0ae8473930d4a2ba5f5004ce769edd72544eba896bc0846727",
+    "collected_at": "2026-07-27T12:20:07+0530"
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "file": "real-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 22,
+      "task_name": "task-22",
+      "task_sha256": "be8ff2708f0522583b9db305fe75183d55e3d451f6934715d6931cedf300c801",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dd75348c89568bdacae87c593a7732d754f671d20718f0a44159b988326a807f",
+    "trace_sha256": "7b020801223699f02584700e9c5405074640e85bf3115b3cd6c06ba249ad8507",
+    "collected_at": "2026-07-27T12:21:08+0530"
+  },
+  {
+    "episode_id": "real-healthy-023",
+    "file": "real-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 23,
+      "task_name": "task-23",
+      "task_sha256": "682e5182616675e2efcf0d8e2ad87350762d2737b13f9cbd85c89997793375ac",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "eba1ce725b3c70ffcce7498107f90b0d3a572256b23cd5e5171cc6984eee6d08",
+    "trace_sha256": "a437bfd65dcba775563724048cfbfa7c193b6ac0d516ae0e781f01758b18f470",
+    "collected_at": "2026-07-27T12:21:32+0530"
+  },
+  {
+    "episode_id": "real-healthy-025",
+    "file": "real-healthy-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 25,
+      "task_name": "task-25",
+      "task_sha256": "2025583f56c42072a5a2c01dc5897f6a9d97e2d3a2c622836155a301f0aa635b",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f7aa036f74a14fe79d1e55373bf1ba2d947593584d7c8c897faec1c58849ad3b",
+    "trace_sha256": "976186f51be1fc005e8286994e26bf78ce7658fb81faaf5929274a34325ab13e",
+    "collected_at": "2026-07-27T12:22:52+0530"
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "file": "real-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 26,
+      "task_name": "task-26",
+      "task_sha256": "28f2fd3b5182ab421946fc0048318bb881aeec1e040e30afd716cf723956ed63",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "371866b3cf5ecdb4b040aa1a7e5c73c2735c5723747c4d2380ce12ec70959888",
+    "trace_sha256": "62ddc5d4d7d315aa1542951b9ba06fca731072d4ca6ec60d93c0693bb6b80e06",
+    "collected_at": "2026-07-27T12:23:29+0530"
+  },
+  {
+    "episode_id": "real-healthy-027",
+    "file": "real-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 14,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 27,
+      "task_name": "task-27",
+      "task_sha256": "673297470878c5b2e40dc28478e723304ba99d5951f58a79e26d61310ad02d21",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "af29da80791f613e2b49b358d276143877e0e290314f19044536e2a8b10fcc8f",
+    "trace_sha256": "922af89a253e45d2099b443c8b1939fcbc8777981a4babee95c3b4147f2a871b",
+    "collected_at": "2026-07-27T12:24:47+0530"
+  },
+  {
+    "episode_id": "real-healthy-029",
+    "file": "real-healthy-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 29,
+      "task_name": "task-29",
+      "task_sha256": "e4e1eaa674f751dd6d18655296ff08c9d09becab4062a5a57eabf3b8f85f082d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2f6c33f74a1476d67a741ca5a7d42184c4c33a78db28634fff94e720f19d0555",
+    "trace_sha256": "accd1927d1e1a01df98465c72dd0e2061100a44bfebf9079ac55a0376e2874e9",
+    "collected_at": "2026-07-27T12:25:01+0530"
+  },
+  {
+    "episode_id": "real-healthy-030",
+    "file": "real-healthy-030.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 30,
+      "task_name": "task-30",
+      "task_sha256": "657b87dc77e6060b8c6d7f4cb464ee92bcca6dc72807fbe8e736c875ed736f36",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d039ff18892bb92eb0999a428afb475fd7cf4419679b4ef94b456258d3080641",
+    "trace_sha256": "437b0fbfd123264e40ceaa92b1d6e63660482f0a13f2dd5a118117dc655a6586",
+    "collected_at": "2026-07-27T12:25:11+0530"
+  },
+  {
+    "episode_id": "real-healthy-031",
+    "file": "real-healthy-031.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 31,
+      "task_name": "task-31",
+      "task_sha256": "676e03a34e4e4913e35a2eb46d6da2daab6a8f218b4bf4751523e93e8b55dc88",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "bfbc941aa1d13a852d932a4a5012de3b127f3274f763a9692f71c95ad62ab553",
+    "trace_sha256": "3007ddb2e21bac4bb89f64d728bc3e4210a8769d65214f4e4988e92a43ccebcd",
+    "collected_at": "2026-07-27T12:25:28+0530"
+  },
+  {
+    "episode_id": "real-healthy-032",
+    "file": "real-healthy-032.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 32,
+      "task_name": "task-32",
+      "task_sha256": "b0ae8975ec2c8dc012e1718e986445273949504afb2a31c7d46eb1696ff79d11",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2730837564f3a28fcca38a153a4f572e07b5a719dc8c662c7908d08b653a7202",
+    "trace_sha256": "9660a1109b05599bdf78e9dc12f8a621a95ad37c9522e667aff0a698961c8348",
+    "collected_at": "2026-07-27T12:26:21+0530"
+  },
+  {
+    "episode_id": "real-healthy-033",
+    "file": "real-healthy-033.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 33,
+      "task_name": "task-33",
+      "task_sha256": "cc2af637660a96fffc73547e62998e092008c7fff841da515c564e7e729f400a",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "05aa772d7f2da94df46ea9a3b254546b50be2d32d3e843bac72f6b366339b49b",
+    "trace_sha256": "ecba6eafbfb96624604ddee803a41953730dd0d071bd1d8f601645230bc54127",
+    "collected_at": "2026-07-27T12:26:50+0530"
+  },
+  {
+    "episode_id": "real-healthy-034",
+    "file": "real-healthy-034.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 34,
+      "task_name": "task-34",
+      "task_sha256": "08c7cfb4d95b32bc821377e3ce2ec31761025bf31a5a06bc665c6da1a031d649",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "71069e061732951ed1fa054158c0f92697d7c4d5aa7b493bd525484f65497a18",
+    "trace_sha256": "6ef7d34155a60d072c8e92975ee62bcbc9e8c6f8d6c5e967dd84143e92cf5458",
+    "collected_at": "2026-07-27T12:27:27+0530"
+  },
+  {
+    "episode_id": "real-healthy-035",
+    "file": "real-healthy-035.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 17,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 35,
+      "task_name": "task-35",
+      "task_sha256": "9aee47468f9ed3e5063858ed3ddad4b424a9b7639c57687580008a5746e9ad71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9e8b74579c33ef6220b5d419f07ec4e1542a2c1f33130c771f7dcc5f4cf80da1",
+    "trace_sha256": "865ec4cd0ce02a93734886f51771884350f19c488c0612d82bf88c0171765d0b",
+    "collected_at": "2026-07-27T12:29:19+0530"
+  },
+  {
+    "episode_id": "real-healthy-036",
+    "file": "real-healthy-036.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 36,
+      "task_name": "task-36",
+      "task_sha256": "641ab6b247545ea608a640ec73c5591480fc4710d5b1226d4dcf28d187614bbb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "71e8edbdde0fdf5113d578b263d678a8b70fbed24703c6489982a12173967f0f",
+    "trace_sha256": "2289642e2504a627e00ad651e6f185993648504f069d6bcf8c0a56bec4eb2bb3",
+    "collected_at": "2026-07-27T12:29:57+0530"
+  },
+  {
+    "episode_id": "real-healthy-038",
+    "file": "real-healthy-038.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 38,
+      "task_name": "task-38",
+      "task_sha256": "8818f02c545801ee6e844819702d27439f9c71ed7cbc0c85526e7fc138c1fade",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fd994b578e8a1c4e8e2c4245c7b8cfdbea4723d02e7e18a97acb91c783cc3d2b",
+    "trace_sha256": "9bdb7b51759cbd82f50a5e30c45dadf1f2e88540915dcfb3024e177035eb8038",
+    "collected_at": "2026-07-27T12:31:00+0530"
+  },
+  {
+    "episode_id": "real-healthy-039",
+    "file": "real-healthy-039.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 39,
+      "task_name": "task-39",
+      "task_sha256": "7aa7c3def81cb7f49fa8947ad4a80c67cbb1e94f6e9c6c1365bd739cc0b8dc54",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a7a612f8a605e22ab5ade150b0f34f33793ac0bf0f36eade4054d814314d218a",
+    "trace_sha256": "5fca49b61306cd2c2dfac51bd7ce671a65aca861dad2ca5cf2a28352e90cfe53",
+    "collected_at": "2026-07-27T12:31:15+0530"
+  },
+  {
+    "episode_id": "real-healthy-040",
+    "file": "real-healthy-040.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 40,
+      "task_name": "task-40",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b328db80e01f5d39fc6368022d59db89ee5df9cf877d8effad72a13200f672e5",
+    "trace_sha256": "076f49b3640e5da35e3b321ee38a9a8c25f78b0fcdf904bdd95e86872ab72744",
+    "collected_at": "2026-07-27T12:31:49+0530"
+  },
+  {
+    "episode_id": "real-healthy-041",
+    "file": "real-healthy-041.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 41,
+      "task_name": "task-41",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "91017893600359886f763510570a4e7ca304633f559e110dfdbbfd39e29208e0",
+    "trace_sha256": "bdb7e395556ebd979c8a5cc156d6315fe30721306fdc7dbf3f2acb584738c44b",
+    "collected_at": "2026-07-27T12:32:27+0530"
+  },
+  {
+    "episode_id": "real-healthy-044",
+    "file": "real-healthy-044.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 44,
+      "task_name": "task-44",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "52a93258ffd3d785c9ed7c097269bd60c9191efc10bafabce3e54dcd03e229fb",
+    "trace_sha256": "fe66ad974ef609f5c21564dc08bb4ff8cf59e9017484bcc45d362ccc36aa75db",
+    "collected_at": "2026-07-27T12:33:14+0530"
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "file": "real-healthy-045.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 45,
+      "task_name": "task-45",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "84b09f7a069ee5e91586916c8c6f667f3ee58158c2c740ba767442f1c433abf3",
+    "trace_sha256": "b38274f27034f4cc6b648950327a937081f803a8ffbcbdc42ebe17d90f0bd1c6",
+    "collected_at": "2026-07-27T12:33:36+0530"
+  },
+  {
+    "episode_id": "real-healthy-047",
+    "file": "real-healthy-047.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 47,
+      "task_name": "task-47",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8d6ac7fe41136d0b46629d995044093276870cb62da486e1ebb6fa53cd1cdf93",
+    "trace_sha256": "3d1bcf69b7abb1f0731a01eacb8f6193fad33e5e11d740dc5e00ae84f01b14a8",
+    "collected_at": "2026-07-27T12:34:34+0530"
+  },
+  {
+    "episode_id": "real-healthy-048",
+    "file": "real-healthy-048.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 48,
+      "task_name": "task-48",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2881c0dd02268db5ec28d8a702b9695336d2e38e5bc3a0232b5fc7336bbd070f",
+    "trace_sha256": "678f9b603a5f03ca4ae19ef16847f534ebaf4d5ea9b03a4c8657501db8fb20ec",
+    "collected_at": "2026-07-27T12:35:20+0530"
+  },
+  {
+    "episode_id": "real-healthy-049",
+    "file": "real-healthy-049.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 49,
+      "task_name": "task-49",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7c46a4ae8bda7fb5ddab0e70db5fb501f3d112559c0c72073f57161f447d9360",
+    "trace_sha256": "3832c886578fb478455d16f890064a1771aab8fc4317d8bc1d7497b3f2bba793",
+    "collected_at": "2026-07-27T12:35:59+0530"
+  },
+  {
+    "episode_id": "real-healthy-050",
+    "file": "real-healthy-050.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 50,
+      "task_name": "task-50",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c54b0d95469f1c3272dc40e2294873e2aa787c6ad4dabae430deee7e28b19cf7",
+    "trace_sha256": "1f5e4d5f253b389fb003cebc1579cb6d4bd0ed5a05233b6159aa7eb6a6529909",
+    "collected_at": "2026-07-27T12:36:57+0530"
+  },
+  {
+    "episode_id": "real-healthy-051",
+    "file": "real-healthy-051.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 51,
+      "task_name": "task-51",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "262fe467e558534cadb453967727e86c6393a72ae93bd9ba891aeec08cdeb314",
+    "trace_sha256": "99867d5421ac8d16dfe64ba9c1c9aa0c2fc3fb14d42103849292dcf8829d9509",
+    "collected_at": "2026-07-27T12:37:48+0530"
+  },
+  {
+    "episode_id": "real-healthy-052",
+    "file": "real-healthy-052.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 52,
+      "task_name": "task-52",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9a41e6bb0814aa1c5c984ed07598029f63c3c16dde1d23d4a77c2539d8d03f88",
+    "trace_sha256": "254ce345343f290e920a0d856be30f10cc7a4a84d33790d417fff345e5b4837a",
+    "collected_at": "2026-07-27T12:38:27+0530"
+  },
+  {
+    "episode_id": "real-healthy-053",
+    "file": "real-healthy-053.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 53,
+      "task_name": "task-53",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2600785f97c98b3bea59097e838183d1427c6258c22b76ce52a39d76d2f664fc",
+    "trace_sha256": "54042849d589a7c374e696ab64b8a4a1e4d516037d12698bf9ca5436e32ee3cf",
+    "collected_at": "2026-07-27T12:38:32+0530"
+  },
+  {
+    "episode_id": "real-healthy-054",
+    "file": "real-healthy-054.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 54,
+      "task_name": "task-54",
+      "task_sha256": "7e9cdf7a8a92bcc99cb98703f18b22af3070a6b12c3eb0a41cb6c0b53471dda9",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8075392e59cdca9b10d257162fb90c108ed0ea7abee9bc0dfb5a1738f8003bfa",
+    "trace_sha256": "06e0962984d35c732b931b8880f3e2186ef94a737f3647c72777741e5c9df576",
+    "collected_at": "2026-07-27T12:38:41+0530"
+  },
+  {
+    "episode_id": "real-healthy-055",
+    "file": "real-healthy-055.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 55,
+      "task_name": "task-55",
+      "task_sha256": "8ede350bb24b5452eeec96f0dde849ba8a2e6756642a21f8af5f94effcc26dc9",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d27934a21332d6192953e1fbdc66ec2f295d7b1e4adfffdeb777dcc8fd4ca6c0",
+    "trace_sha256": "91479db1a6f4bc0c7bf07f213d9ce7ff05c7007b91317fd56940604b39dddb80",
+    "collected_at": "2026-07-27T12:39:55+0530"
+  },
+  {
+    "episode_id": "real-healthy-056",
+    "file": "real-healthy-056.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 56,
+      "task_name": "task-56",
+      "task_sha256": "09b8a09fc7046da16f93cdcc4a5c0a0f73abdd3fddef69e3cc8de1d9d53e5c1c",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "aa58c5cee8fe11a4518d0d549ba00990afb066ddb2daf897b7bb36f5790b7f70",
+    "trace_sha256": "36164eace8298dac51f4d4d8658abe556f394c4e2e0d166550fa13a537d7a6b3",
+    "collected_at": "2026-07-27T12:40:33+0530"
+  },
+  {
+    "episode_id": "real-healthy-057",
+    "file": "real-healthy-057.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 57,
+      "task_name": "task-57",
+      "task_sha256": "621f8aa7afe06ab163be6b0a91d3fd8c5ae24faaaf14396b8e4685ac9a926a2e",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "0e8ba84d51f04e7a61c24b1626791d7e2f794f2668eab1f16ada7d465858bdd0",
+    "trace_sha256": "d0024a23c9d9136d567ae88c0cff631cf94b6b56414ac252786e2993d0bee2ed",
+    "collected_at": "2026-07-27T12:41:11+0530"
+  },
+  {
+    "episode_id": "real-healthy-061",
+    "file": "real-healthy-061.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 61,
+      "task_name": "task-61",
+      "task_sha256": "a36735441f894db7cfe670771bd460f0d84579ac5ba9b9526fefea055b6486f8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dbc10a207a98a8a1cd16e8697ae906e94c3b6d95cf6f5defb46d277c8a234420",
+    "trace_sha256": "91ae5a42f1961f4e7a77dadbf9c1a6c8eb9457e704a7c5f663b083cca2fd6191",
+    "collected_at": "2026-07-27T12:42:55+0530"
+  },
+  {
+    "episode_id": "real-healthy-062",
+    "file": "real-healthy-062.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 62,
+      "task_name": "task-62",
+      "task_sha256": "be8ff2708f0522583b9db305fe75183d55e3d451f6934715d6931cedf300c801",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9d35467d63f7889c1c4ac85fb4320ca97ad166e686d0336bb17cf1d2292ca5ee",
+    "trace_sha256": "2535536015a76371811d9ee409c19c8b58cd0913eea68ef593d800fbbf504523",
+    "collected_at": "2026-07-27T12:43:27+0530"
+  },
+  {
+    "episode_id": "real-healthy-063",
+    "file": "real-healthy-063.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 63,
+      "task_name": "task-63",
+      "task_sha256": "682e5182616675e2efcf0d8e2ad87350762d2737b13f9cbd85c89997793375ac",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2ce9dd8b62f8833ee16f768b39ccfcb83d75a655261c112f65d98ce2f89050d2",
+    "trace_sha256": "1d8c53608f35ecd92aff80bac8064e22b5b165aaf5a4ce1a65c6510ba5d74bf6",
+    "collected_at": "2026-07-27T12:44:12+0530"
+  },
+  {
+    "episode_id": "real-healthy-066",
+    "file": "real-healthy-066.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 66,
+      "task_name": "task-66",
+      "task_sha256": "28f2fd3b5182ab421946fc0048318bb881aeec1e040e30afd716cf723956ed63",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6cdc652776f9b0e25ceabff7c9b4eed952f9dd72ce7e3f7d656d7e2d4f80f5e7",
+    "trace_sha256": "6a9e0286833789b43c38f65902a94290b76823c761775e08e51368ca7307fad2",
+    "collected_at": "2026-07-27T12:46:02+0530"
+  },
+  {
+    "episode_id": "real-healthy-068",
+    "file": "real-healthy-068.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 68,
+      "task_name": "task-68",
+      "task_sha256": "15ce2c8052625d386a7cfa66883cc93477fa94ab2d3561fbe03abc755b58b960",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "673092be5dae1a763da38714d6df2e62f9e57c1be8422e99fc0991fd987ab446",
+    "trace_sha256": "c60eaadc971e72679ffbea506a1b0b9953cbbaa7662796321bdad9b494810f35",
+    "collected_at": "2026-07-27T12:47:14+0530"
+  },
+  {
+    "episode_id": "real-healthy-070",
+    "file": "real-healthy-070.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 70,
+      "task_name": "task-70",
+      "task_sha256": "657b87dc77e6060b8c6d7f4cb464ee92bcca6dc72807fbe8e736c875ed736f36",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3a7aa0950a7d7187b2f358e5018da784e0d503f307bf6c755071427cfd4eac12",
+    "trace_sha256": "db9b37d44bccb24b800aa7a173fcb845671ada5152affa12b971161245966569",
+    "collected_at": "2026-07-27T12:48:49+0530"
+  },
+  {
+    "episode_id": "real-healthy-072",
+    "file": "real-healthy-072.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 72,
+      "task_name": "task-72",
+      "task_sha256": "b0ae8975ec2c8dc012e1718e986445273949504afb2a31c7d46eb1696ff79d11",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d0438f99262398833e2d77e2742793f7b6524240aecd597fc38d8ee402c9d28c",
+    "trace_sha256": "3bf14a422c05a3f9ca0373262e22ef4509b7bee323429fbcec2d618e59b97354",
+    "collected_at": "2026-07-27T12:50:00+0530"
+  },
+  {
+    "episode_id": "real-healthy-074",
+    "file": "real-healthy-074.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 74,
+      "task_name": "task-74",
+      "task_sha256": "08c7cfb4d95b32bc821377e3ce2ec31761025bf31a5a06bc665c6da1a031d649",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "be97358f28ee876926d631c98172666da06298f35e67c534ee9a743984bec1a9",
+    "trace_sha256": "8394c2dcdbf83319653a7413e5d2aa09a9f746d6b4d7477d5e7f221a6f9e840b",
+    "collected_at": "2026-07-27T12:51:12+0530"
+  },
+  {
+    "episode_id": "real-healthy-075",
+    "file": "real-healthy-075.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 75,
+      "task_name": "task-75",
+      "task_sha256": "9aee47468f9ed3e5063858ed3ddad4b424a9b7639c57687580008a5746e9ad71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c27db87da7fd864ede0d9c8460879def295d2684312e547f9d854ee4a3de3dfe",
+    "trace_sha256": "51f99457030cfb6af3c3275ce7f50fdfc0f0084851e55046ca876fac74d84271",
+    "collected_at": "2026-07-27T12:52:05+0530"
+  },
+  {
+    "episode_id": "real-healthy-076",
+    "file": "real-healthy-076.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 76,
+      "task_name": "task-76",
+      "task_sha256": "641ab6b247545ea608a640ec73c5591480fc4710d5b1226d4dcf28d187614bbb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cfa1e86097376682e1760f6fb320609c0dbb73b441d87a79bdb890b8c3dab908",
+    "trace_sha256": "2ff290456441ca7a47952a15feea09381babe311298ac5d9c0bc2799d609fe04",
+    "collected_at": "2026-07-27T12:52:23+0530"
+  },
+  {
+    "episode_id": "real-healthy-077",
+    "file": "real-healthy-077.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 77,
+      "task_name": "task-77",
+      "task_sha256": "aca118a424e9b714af167816bc570419820a80f75d843e050077b0cf800593b0",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "837bd41474d02e5a36aa0fa844635b47912a48ca471993d5ceb3b959d6b00ba0",
+    "trace_sha256": "f90a24bc64914670104329bebb66005ac5da6f58719203ad2dd932d222851415",
+    "collected_at": "2026-07-27T12:52:36+0530"
+  },
+  {
+    "episode_id": "real-healthy-078",
+    "file": "real-healthy-078.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 78,
+      "task_name": "task-78",
+      "task_sha256": "8818f02c545801ee6e844819702d27439f9c71ed7cbc0c85526e7fc138c1fade",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "013bb94d5047df63d757d63d23be228345318af8432da7ca4cb99288e0f22c0b",
+    "trace_sha256": "8aceafebc08e4787524c82c9a8cfa19f3f472906399094a820f770f4be1ffe2a",
+    "collected_at": "2026-07-27T12:52:54+0530"
+  },
+  {
+    "episode_id": "real-healthy-079",
+    "file": "real-healthy-079.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 79,
+      "task_name": "task-79",
+      "task_sha256": "7aa7c3def81cb7f49fa8947ad4a80c67cbb1e94f6e9c6c1365bd739cc0b8dc54",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a3acdc9b9226653d0427ee2a70fce3f0e88c9e5a58d58e47719867ec8cb6345c",
+    "trace_sha256": "7fa2ffdd6e9ecc48089614d5da018e5ceeb612104123a6fd2cf307722b5f14ed",
+    "collected_at": "2026-07-27T12:53:02+0530"
+  },
+  {
+    "episode_id": "real-looping-000",
+    "file": "real-looping-000.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e652efdda03756d1e35fbf910faca9de004fc6e82e4ba9b40d195ea8d9d3fc49",
+    "trace_sha256": "cc104f0a549196735cbc811a8b3ee09b6e7f1bd5c2e12a76870e8584fb6f21b8",
+    "collected_at": "2026-07-27T12:53:10+0530"
+  },
+  {
+    "episode_id": "real-looping-001",
+    "file": "real-looping-001.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 24,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 22,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e141c6cabec5189b9a70aa3f50bc51c20cbedf0ab393e0e77224439e9ea95dd2",
+    "trace_sha256": "36b910c345cb476800bab09da385b8fc46c6802608ea2666de04ead06c4734ed",
+    "collected_at": "2026-07-27T12:53:42+0530"
+  },
+  {
+    "episode_id": "real-looping-002",
+    "file": "real-looping-002.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 17,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 14,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ffe6cbd9f37a5ed8087c5b6e38a965da0416aafaf84d54ae7e729e3ef604ebef",
+    "trace_sha256": "61e212cf887d938d67e2cabdfaf1435a87833604538132e01f325152507c6dd0",
+    "collected_at": "2026-07-27T12:54:03+0530"
+  },
+  {
+    "episode_id": "real-looping-003",
+    "file": "real-looping-003.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 24,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 22,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "0d37fc4cad3f78874627e31109438056e3493d477c64f023025c6bfe0a03c654",
+    "trace_sha256": "851bd54d119d310296b424882b5f99dfb43043c23d27456c1188cbbd94c701b9",
+    "collected_at": "2026-07-27T12:54:46+0530"
+  },
+  {
+    "episode_id": "real-looping-005",
+    "file": "real-looping-005.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dc15c2968e629bb8d32a5188a3b258bced741571c66959e43d3710c86095c6c7",
+    "trace_sha256": "e954c5890528bda72f1c67344aeba24c348242aa64b77f884f0469bff6c94e29",
+    "collected_at": "2026-07-27T12:55:06+0530"
+  },
+  {
+    "episode_id": "real-looping-007",
+    "file": "real-looping-007.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 24,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 22,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2e11132afb472c38a58648784acc24ee859d9a9a3ee260e6b6a140bb5eaa4315",
+    "trace_sha256": "4d8c5f0362812cb67f0d2cdf3c4d5940307bed3a3698ba761b495b688c717de7",
+    "collected_at": "2026-07-27T12:55:36+0530"
+  },
+  {
+    "episode_id": "real-looping-008",
+    "file": "real-looping-008.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1100334bedb82157a9e3af7ef36c491dd3058ee9759b8c06fea0ed6b76fbafdf",
+    "trace_sha256": "f915f38bc419e32a2571daaebbbd5fedb596065c1f314fcec1226266f9297214",
+    "collected_at": "2026-07-27T12:55:47+0530"
+  },
+  {
+    "episode_id": "real-looping-009",
+    "file": "real-looping-009.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "10754a0e49ca6ddcfc27b444b8f9de9076389c4b8ffc8d5d43c7ebe28b6eeadc",
+    "trace_sha256": "9dccbfd55c9b4f22145945d4edf8c4b56ace5f4b6345ba09455c49915a8022c8",
+    "collected_at": "2026-07-27T12:55:57+0530"
+  },
+  {
+    "episode_id": "real-looping-010",
+    "file": "real-looping-010.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6cc45faa255535415b68a39ba25e09d864b9003bc5c0b5a7cde4e2f9547a8d34",
+    "trace_sha256": "8098a14e4564dfb510fdd85785b54011968e72299ebc2627490cc8f3eb8b2dbc",
+    "collected_at": "2026-07-27T12:56:13+0530"
+  },
+  {
+    "episode_id": "real-looping-011",
+    "file": "real-looping-011.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5053586dcf59c39bd131693704a2393adef71f783a4863b5885adf99963db561",
+    "trace_sha256": "122e70123b3c38525389169e1c15d73bd9d0d0e96ead2945f2c299d7e1c5b3ea",
+    "collected_at": "2026-07-27T12:56:23+0530"
+  },
+  {
+    "episode_id": "real-looping-012",
+    "file": "real-looping-012.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d5a9f4f6c791d8a4257c0ffa3613a3440945fcbaa37a50554206aaf92aeb9cc7",
+    "trace_sha256": "cc41eb85f0b0cfa47b9042606c9399d6075d142daad70715e1d957fa830e1856",
+    "collected_at": "2026-07-27T12:56:33+0530"
+  },
+  {
+    "episode_id": "real-looping-013",
+    "file": "real-looping-013.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1013,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "326b6194137fd0386a49baa52d917bec73f0f015d84df789c487ad7b2deaef0b",
+    "trace_sha256": "8dfe08cabd3406920cf0ee9b84d22652841edced3e03eae1048997d46721768b",
+    "collected_at": "2026-07-27T12:56:43+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-002",
+    "file": "real-tool_cascade-002.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 5,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 5,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c16d3104021bcc6de285547fff304bfe5d7bd6d40d267aad0167ad2e12b9386c",
+    "trace_sha256": "ceaa8fa1bcfcdc5f33ae2b235426ec43da7a106059f55f52359ccea117cacaee",
+    "collected_at": "2026-07-27T12:57:21+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-005",
+    "file": "real-tool_cascade-005.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8c73bdde8970724cde4bf5d5086183aa5ddee339fa3b6ac60885edba553a624e",
+    "trace_sha256": "672f8cd7441a06919de8f6a414838ad69d62b261b0e633cc50fb1a6dfc4ddee1",
+    "collected_at": "2026-07-27T12:57:37+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-008",
+    "file": "real-tool_cascade-008.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "72b2ec02e030279fb6f1330a0187c7c03f46de3f6b1bd680c92e44adb7faa44a",
+    "trace_sha256": "4a4802f95c818fdc47c6d58b7fb5c96324dd4a9dfce39918949282fbdb181e2a",
+    "collected_at": "2026-07-27T12:57:50+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-009",
+    "file": "real-tool_cascade-009.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4eb328e035c102aa8604e5b92646c74c82b4588020aa5b87097da154a5f7a2f0",
+    "trace_sha256": "c6c3da26da0865a6dcb35ad928aed5afa8fabd5d81800ce197f6b1a3f899e5f5",
+    "collected_at": "2026-07-27T12:57:57+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-010",
+    "file": "real-tool_cascade-010.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4c3b8cf4fa664bc1c9816658eecca3e4ad4e5685ef03ad5ccf75bc2e0181115d",
+    "trace_sha256": "efafe487034ac559d449dd8b1317501952c66f040a9d8cc555d0f61d7fee4965",
+    "collected_at": "2026-07-27T12:58:11+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-012",
+    "file": "real-tool_cascade-012.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8754777f97b02b986199a8eeefe4f7c3cf21b0813876c69373c21df39f55b9ba",
+    "trace_sha256": "bc85a7d5658c4877d05503b5a1ce4f3564995bffe1b4cb4d5bb06145f3ebffca",
+    "collected_at": "2026-07-27T12:58:23+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-002",
+    "file": "real-rate_limit-002.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 18,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 13,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cb45ad4299d89f423ed9541cca44f17dba9e13248c4f50f731bb9f63a1d3f0c8",
+    "trace_sha256": "3cf062bdc84023066a630b443c7c6831c72b33e5bd26b2a2c93d28dc1ed94e80",
+    "collected_at": "2026-07-27T12:58:58+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-005",
+    "file": "real-rate_limit-005.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 4,
+    "T": 24,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 20,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "python"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6df53bb5acbf416109dd907b6eb6e632b0a03f6d43097825f32ec38c800a2f10",
+    "trace_sha256": "9926a9cff487be7dca89b12a31f6a29081bd733fa6f3fc4adf02d60773017c75",
+    "collected_at": "2026-07-27T12:59:31+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-007",
+    "file": "real-rate_limit-007.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "939e41ad27865430465d52ed50509661896f097bb5e2195f6ef05df9eafd253d",
+    "trace_sha256": "f1fdcb0274fececda528dc869c03847eb1a11d4914dd11e4525ff2fd135a64a4",
+    "collected_at": "2026-07-27T12:59:40+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-008",
+    "file": "real-rate_limit-008.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "10f75b53d22e7506dbadfbf6124e7342391639e1630bf354216bf02815d24cbf",
+    "trace_sha256": "1dadf77215549f42c9263565113c294f5af0ec399dd2979764cf3d2c796f21fc",
+    "collected_at": "2026-07-27T12:59:49+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-009",
+    "file": "real-rate_limit-009.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ab8d916c6af9142ef1d4225f2f6c1d025bffcb4559cf6a4334b7b406bfbb61d6",
+    "trace_sha256": "400328852132235fb5b81af156f5f194398577caba3bed76294343acac046c9b",
+    "collected_at": "2026-07-27T12:59:54+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-010",
+    "file": "real-rate_limit-010.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f7a946eb20f1ec59f2c3f09b9f80b67333111e56bb6ce9849912444cccde5adb",
+    "trace_sha256": "1875c9ec78f4484e3d29b00d24544e646af9d8bf6c37658c98fdbc08a26d27e6",
+    "collected_at": "2026-07-27T13:00:11+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-013",
+    "file": "real-rate_limit-013.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1013,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "50ab931d8fd60da50f54f94b4c3b01b310925d49a0941cf1abdec2899d65031b",
+    "trace_sha256": "7b0a800a7e84b4f6b479912fcf88afcb9bbe2f5ebd23d2c62dda67b819a9f9cc",
+    "collected_at": "2026-07-27T13:00:29+0530"
+  },
+  {
+    "episode_id": "real-timeout-000",
+    "file": "real-timeout-000.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 23,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 17,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7c7c3b90bd191330e06e5a12609f5f50f5ea8f36bedfab7c85d9e6f91ad5ac12",
+    "trace_sha256": "76648bee93525f1169bfd8af969920287ce7ad27daf1ce09d2a840070938ab81",
+    "collected_at": "2026-07-27T13:01:04+0530"
+  },
+  {
+    "episode_id": "real-timeout-001",
+    "file": "real-timeout-001.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "94dc8f5716a997a78045d4e6abd7154ebba5964728c1b53d388d706e79a5cb62",
+    "trace_sha256": "f169d3660f34c73a35d5e83d71909c7a4bb8b83395331075b0bfb94d2c2a6d5d",
+    "collected_at": "2026-07-27T13:01:14+0530"
+  },
+  {
+    "episode_id": "real-timeout-002",
+    "file": "real-timeout-002.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "72da7c852923ac1b48fe9d295bac97cd7fc8430b0cbd57270091e07317917fe9",
+    "trace_sha256": "092cd54e7c6cd64b68cdb16195224d2ff6e1bcf0d1cb758abf2c8194d3b98098",
+    "collected_at": "2026-07-27T13:01:44+0530"
+  },
+  {
+    "episode_id": "real-timeout-005",
+    "file": "real-timeout-005.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "959b97932e017e9801ae5e5f235a0196e3f7ac8d59d73fc8b653661fc1b5a022",
+    "trace_sha256": "8d23fdf004bd4ff319a830fa70ee3dc1b64f3fe6c49dbf3ec5079b24ad8dad6d",
+    "collected_at": "2026-07-27T13:02:06+0530"
+  },
+  {
+    "episode_id": "real-timeout-007",
+    "file": "real-timeout-007.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e36e8edac6b63b0fde8700d39a0d60794d845de5d4b1268688dca93b5dce8f10",
+    "trace_sha256": "b83a0c43ff8a239d42eddcfb2ce5e90ca20f21a3d2929915a46106f1e53dfcee",
+    "collected_at": "2026-07-27T13:02:15+0530"
+  },
+  {
+    "episode_id": "real-timeout-008",
+    "file": "real-timeout-008.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "79e21b5ceeb4d237b39db258ce100d54549b7b3fd66a4150b18feafacb4f15c5",
+    "trace_sha256": "2a86b2501793281d99e6d1d1cf149ec01df8e34490d1d2149bfad66d466c7410",
+    "collected_at": "2026-07-27T13:02:24+0530"
+  },
+  {
+    "episode_id": "real-timeout-009",
+    "file": "real-timeout-009.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 9,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2e1ffe889802e0d5d30953ea80b26474e5b1009da917b61296c70cb454685860",
+    "trace_sha256": "37c9955487a67925b3998c764c4fd157b7c82a1f7eea62506a467e59de617558",
+    "collected_at": "2026-07-27T13:02:34+0530"
+  },
+  {
+    "episode_id": "real-timeout-010",
+    "file": "real-timeout-010.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c71aa64c933349e68f7ab10e8d85692ca6d4ec0e74562a007f5aa840fc9145a9",
+    "trace_sha256": "d462fe1cf951d220d606e289e255bbec8ced692f0f5bb31b427dc84c76cb08b1",
+    "collected_at": "2026-07-27T13:02:45+0530"
+  },
+  {
+    "episode_id": "real-timeout-012",
+    "file": "real-timeout-012.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d7e34ec41e8c666b5d7ae0c25ec9f0543cf29e15bb702c58118cfbbde3ffa317",
+    "trace_sha256": "f37c6c7089c6814e5c8c29cd775c3e1092445d4e393381568bea68c046949c64",
+    "collected_at": "2026-07-27T13:02:55+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-000",
+    "file": "real-wrong_document-000.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c4d54d5396fbc8540495de06eab934ca821f8f11aed2d6e860bcc49d0e4bb4dc",
+    "trace_sha256": "92e49b46a0c4ab8ae976da0be9dbbfebef2a6ea97239dc642cb9d5d2f4d9c6ee",
+    "collected_at": "2026-07-27T13:03:10+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-002",
+    "file": "real-wrong_document-002.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c51f89e536da665367025742797342488b31000f6898d1fa64a32bac7e73bb2d",
+    "trace_sha256": "4eb9a17f4629642cf3c90ce5a35f75fc6694c83ff7ed16e73412ebabe63de4fc",
+    "collected_at": "2026-07-27T13:03:21+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-005",
+    "file": "real-wrong_document-005.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ae635e25027841899f0718f86e158d8e72d6fb93ada47625ec335f560b0f887a",
+    "trace_sha256": "1a391f86bb2b88bb0b5e74730f8167e575585d586753d6ca003e2bcbe577847b",
+    "collected_at": "2026-07-27T13:03:37+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-007",
+    "file": "real-wrong_document-007.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ad8727061b19845ca9ef9e41716a2d1351a8ab8663bf50e95c9c1069de20f247",
+    "trace_sha256": "b55399728e8764bf7e215c95293a8a9af50bc6f838183c1ca85a1bc9dc9c072f",
+    "collected_at": "2026-07-27T13:03:48+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-008",
+    "file": "real-wrong_document-008.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2b731b4b938335a3dd0afa6fd6c89e77b5451af268e44e155defdece850f4031",
+    "trace_sha256": "8959a12c3d03a4498589d6ed0cb9ab27e643085b0c5db3a224ac32ddcd75efa1",
+    "collected_at": "2026-07-27T13:03:56+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-009",
+    "file": "real-wrong_document-009.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cd7d0f724e030f8e1430bf9e44672e4320659a7d187ca7da025c8c203e62434c",
+    "trace_sha256": "5f13f2b4658b99ea5eac2d0f7218b757d01bef13f4597c38884660b87d26f433",
+    "collected_at": "2026-07-27T13:04:04+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-010",
+    "file": "real-wrong_document-010.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d3d3765be316da1d8c94350cb6b0fca827ff541500ecc3c0d2ad4f530d94a29f",
+    "trace_sha256": "d025d736684029d3091eaeed641241af8f2269f05a849a73491dcd9e170ec6a4",
+    "collected_at": "2026-07-27T13:04:20+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-011",
+    "file": "real-wrong_document-011.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b13292a6e73b622448313b543fbe5c1d951d8493f0133e7a980ed1d24d066dbe",
+    "trace_sha256": "b7169ab6de65da4ef4fabbfcfc1d93025a0c41026b0924476c5c3d149b0d8bd3",
+    "collected_at": "2026-07-27T13:04:27+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-012",
+    "file": "real-wrong_document-012.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "185320fed74167c6965b23ccd7b3ddcd9e67c62deea1db4f3717bbd9ab73c5fb",
+    "trace_sha256": "5f8ee80f1e86b5ebc5bd76f93e96ab4e6d47e7ebe67cb458032cd34b329813dd",
+    "collected_at": "2026-07-27T13:04:36+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-013",
+    "file": "real-wrong_document-013.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1013,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "34f6a8a07cf04e4a1910797e1d4d3a74d918a101e7994be30fbc9d8f96ee0a0d",
+    "trace_sha256": "dfd91e5d3a6881786d421ba6a3e80b1a3c9ab1c35a9872e76b3cbf9084112609",
+    "collected_at": "2026-07-27T13:04:43+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-000",
+    "file": "real-malformed_json-000.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "867fe40f8b16dca04b3b7ab65c916c96431acad0b5f8e6aa75457fe44beec0f6",
+    "trace_sha256": "d237d9137d6e21f67b28664937f4397a1607f980be3b46627c3b2650d79c2dac",
+    "collected_at": "2026-07-27T13:04:51+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-001",
+    "file": "real-malformed_json-001.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "efa8318cceb113575f4d1202c51e0950610cfd656c5237da98a6a258a93bd724",
+    "trace_sha256": "69e33258fc19f4b98f7e8f4fad097e2950d8213c93cc3fb4856da61215c5ac79",
+    "collected_at": "2026-07-27T13:04:59+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-002",
+    "file": "real-malformed_json-002.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ab468ee2283410f432729dba67922c9dae560944be49766d2c39f7428a9b2a7a",
+    "trace_sha256": "34eae380d642600de4192c556f1c1ea13d711fb21280dc22feac59c5009b09fd",
+    "collected_at": "2026-07-27T13:05:06+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-003",
+    "file": "real-malformed_json-003.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c92b520e66ff8dc40d607ba906e972ed28c168b6157da36676d4a8e938804fba",
+    "trace_sha256": "113e1566c07dc32e7feed4d766dd959d688b87a73631c74c9a2291088b9a3efc",
+    "collected_at": "2026-07-27T13:05:17+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-005",
+    "file": "real-malformed_json-005.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2cb01843eafca9f521f8c97d8f28d8e83f18049f151aafd04c6f3ad59127dfa7",
+    "trace_sha256": "71b77f61a90967ccee10938681a7d88427d42148d5271e75f086b2eee4a41a8b",
+    "collected_at": "2026-07-27T13:05:28+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-008",
+    "file": "real-malformed_json-008.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5b51d982611e628b6350547828f1f701a448ffebb9b5f63137d759def9a119f6",
+    "trace_sha256": "45493e21b08072b578c2045b7563ec8fb3de6863fbe1b72a62d86011b75f002a",
+    "collected_at": "2026-07-27T13:05:43+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-009",
+    "file": "real-malformed_json-009.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 9,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fcba8f91aaa58d21cfd35a31b7ce794ef552a1e5b470a30a2a1b814fbedfe0e0",
+    "trace_sha256": "09f591af60c7d54a7aafd3fb082ade20cb591d39335d822b74dc98ef557fe23d",
+    "collected_at": "2026-07-27T13:05:54+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-010",
+    "file": "real-malformed_json-010.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ca8155f17a171f3504a996b2a7adc03bd89b2b7ebe2bc0f38f4911dabe5f19ad",
+    "trace_sha256": "8632edc6b3ff9f26674fb2a66e35d9f1f5f066ad4ea79ea426a8d1bcdcde7024",
+    "collected_at": "2026-07-27T13:06:10+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-011",
+    "file": "real-malformed_json-011.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6e034621af4a92442e91546d165586e8e632f2a24eab260b5c730a4bf3aba162",
+    "trace_sha256": "95f4c39a1272a321fe5db9821420c6b30b1f55bc2e505effe55e832d978df92d",
+    "collected_at": "2026-07-27T13:06:14+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-012",
+    "file": "real-malformed_json-012.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 6,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "aab4ca1fd29339768e5d74ced6e633278e3acbd82262f8a3e5d5e0e558d8442b",
+    "trace_sha256": "9acf46ee195b0de6bf9fae299ce1d2510c98a755c7840553c75c91bb4c0716be",
+    "collected_at": "2026-07-27T13:06:23+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-013",
+    "file": "real-malformed_json-013.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1013,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "566cc7b0892485614bb0034ff553d77dcdaa5c5cf570cac2870f1114efcff85f",
+    "trace_sha256": "d50630723799974377b3df9adfe81adfc9053b976496c87eee892dc84fdd2723",
+    "collected_at": "2026-07-27T13:06:31+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "file": "real-context_corruption-000.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2d43dd0868619459601af4ef93c6ad50ea90a1c76f567b831aa76ec2e349807b",
+    "trace_sha256": "86f0a492c74bf7a6966dc4b23013cd9ef430be70aaf65be75c1c4779eecc0254",
+    "collected_at": "2026-07-27T13:06:45+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-001",
+    "file": "real-context_corruption-001.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "daf14df7c8fa3ead417ea125e76f8604daef453111f6c11b69fa84679c3a2d62",
+    "trace_sha256": "6134423d3ea171e5cfd4b938195bba83e6ab2c335cbbaba84be6252b9a4fdab1",
+    "collected_at": "2026-07-27T13:06:55+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-002",
+    "file": "real-context_corruption-002.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b7d502659261f65bb55dc62a3006ac030a4d66b7d3911ee03a58467ce530fcc4",
+    "trace_sha256": "37859a5ba395253b4d7b15b5269c4cabbe45b7cee3afdeb3d7a1b1fb3df8793d",
+    "collected_at": "2026-07-27T13:07:10+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-005",
+    "file": "real-context_corruption-005.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4e5c0297abb7bd17f1f2354164875b0cfb7ed352580a47b186faa5a3eaf57fcd",
+    "trace_sha256": "daa8695f8862f7215b49e285e8961d9b81c48ebca9f98350c8329bc80b8d7f0c",
+    "collected_at": "2026-07-27T13:07:22+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-008",
+    "file": "real-context_corruption-008.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "76d188fe1d84f60d018e4a5615591dd9b38cdd3a3ef913d9d7cf22dae5bd2edc",
+    "trace_sha256": "969a79f05423a3562a9792aa9287c24d374807e97b28576665bb5bdec2750726",
+    "collected_at": "2026-07-27T13:07:42+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-009",
+    "file": "real-context_corruption-009.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 7,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "065ea17601710b8fcc6ef04d46d1132d5e7fff12a5f86d0b724cf9aefeec51cb",
+    "trace_sha256": "c1dabe60e31b7910a898d9283b138e3ceff599b2776c12da390a16243b8f416b",
+    "collected_at": "2026-07-27T13:07:50+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-010",
+    "file": "real-context_corruption-010.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7fe7c394c2ed5496f1e4ac10c5a8e98b72133f3b95b2fc7197039ae53f5a1834",
+    "trace_sha256": "dc29280704f36f6800107b61d263fd5cda6c81778417bb82cc4cd5c241b3ad8c",
+    "collected_at": "2026-07-27T13:08:04+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-011",
+    "file": "real-context_corruption-011.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cee4c7c9af920ceea0536f18833b99edb8ee52e5429afb621c792e9b6fbf686b",
+    "trace_sha256": "2161f511789ce10fe61d82ed9665b6c6f0842be39d40086206fa5f43b0fce583",
+    "collected_at": "2026-07-27T13:08:11+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-012",
+    "file": "real-context_corruption-012.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 9,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d00fc9ad64deea5cf0e76264be2ae51c60d02dc1cda8c761a3bebcc7481f183f",
+    "trace_sha256": "6ae3c135dcb417941c9c2e01d018603ecc485e0a468bed5fbcdd0b08fc6e28bd",
+    "collected_at": "2026-07-27T13:08:22+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-013",
+    "file": "real-context_corruption-013.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 10,
+    "has_logprobs": false,
+    "model": "gemini-2.5-flash",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_gemini_long",
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1013,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "60a307332683c65cd750c19de858e02eade26838feccb4612773dd9152bd1b04",
+    "trace_sha256": "33d090916664285c315c59183889368c8c567c7e1cb9d0123f6012011e026587",
+    "collected_at": "2026-07-27T13:08:33+0530"
+  }
+]

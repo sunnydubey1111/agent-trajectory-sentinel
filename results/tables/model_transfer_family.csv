@@ -1,0 +1,9 @@
+condition,monitor,auroc,auprc,detection_rate,healthy_fa_rate,mean_lead_all
+in-domain(ollama_llama8b),esn_cusum_max,0.8847,0.9552,0.7672,0.125,1.8966
+in-domain(ollama_llama8b),delta_mahalanobis,0.8933,0.9786,0.9224,0.3125,2.2155
+in-domain(ollama_llama8b),hybrid_weighted50,0.8895,0.9558,0.7759,0.125,1.8966
+in-domain(ollama_llama8b),hybrid_content_gate,0.8901,0.9559,0.7845,0.125,1.9224
+transfer(qwen7b->llama8b),esn_cusum_max,0.5275,0.8702,0.9052,0.75,2.2414
+transfer(qwen7b->llama8b),delta_mahalanobis,0.4547,0.835,0.6379,0.6875,1.9569
+transfer(qwen7b->llama8b),hybrid_weighted50,0.5199,0.86,0.8621,0.75,2.3362
+transfer(qwen7b->llama8b),hybrid_content_gate,0.5199,0.86,0.8621,0.75,2.3362

@@ -1,0 +1,1560 @@
+[
+  {
+    "episode_id": "real-healthy-003",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-004",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-006",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-008",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-012",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-014",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-015",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-018",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-019",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-021",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-023",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-025",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-030",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-032",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-033",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-038",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-040",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-048",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-049",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-052",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-055",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-056",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-059",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-062",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-063",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-066",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-067",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-068",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-070",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-073",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-074",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-075",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-080",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-081",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-082",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-088",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-095",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-098",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-102",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-103",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-105",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-106",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-110",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-112",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-113",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-117",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-118",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-120",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-124",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-125",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-129",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-131",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-132",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-136",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-137",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-138",
+    "requested_class": null,
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-healthy-139",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-000",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-003",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-004",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-005",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-006",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-008",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-009",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-012",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-014",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-015",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-016",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-018",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-019",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-021",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-022",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-023",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-025",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-026",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-029",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-030",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-032",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-033",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-034",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-038",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-040",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-042",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-043",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-045",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-047",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-048",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-049",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-050",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-052",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-055",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-056",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-057",
+    "requested_class": "tool_cascade",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 5,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 2,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-tool_cascade-059",
+    "requested_class": "tool_cascade",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-000",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-003",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-004",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-005",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-006",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-008",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-009",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-012",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-014",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-015",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-016",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-018",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-019",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-021",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-022",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-023",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-025",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-026",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-030",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-032",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-033",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-038",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-040",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-045",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-047",
+    "requested_class": "looping",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-looping-048",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-049",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-052",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-055",
+    "requested_class": "looping",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-looping-056",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-059",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-002",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-003",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-004",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-005",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-006",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-008",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-009",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-012",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-015",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-016",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-018",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-019",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-021",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-022",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-023",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-025",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-026",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-030",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-032",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-033",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-034",
+    "requested_class": "goal_drift",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "task_rewrite"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-038",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-040",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-045",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-049",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-052",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-056",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-goal_drift-059",
+    "requested_class": "goal_drift",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "requested_class": "context_corruption",
+    "reason": "injection never applied (no-op positive)",
+    "facts": {
+      "T": 4,
+      "applied_count": 0,
+      "first_applied_t": null,
+      "requested_tau": 3,
+      "applied_tools": []
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-003",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-004",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-005",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-006",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-008",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-009",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-014",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=3 < 4",
+    "facts": {
+      "T": 3
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-015",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-016",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-018",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-019",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-022",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-023",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-025",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-026",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-030",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-032",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-033",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-038",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-040",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-045",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-047",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-049",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-052",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-054",
+    "requested_class": "context_corruption",
+    "reason": "mutation landed at step 3 with no following step (T=4)",
+    "facts": {
+      "T": 4,
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "history_corruption"
+      ]
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-056",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-context_corruption-059",
+    "requested_class": "context_corruption",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  }
+]

@@ -1,0 +1,9 @@
+dataset,coef_esn,coef_maha,intercept,maha_magnitude_share
+sim,0.3235,0.2017,-1.3638,0.384
+gemini,0.8435,0.5171,-1.8755,0.38
+autogen7b,-0.0248,2.1824,-3.2238,0.989
+ollama7b,0.141,1.1291,-4.9428,0.889
+langgraph7b,0.1444,1.2141,-2.7939,0.894
+real_research7b,0.0038,0.8624,-1.2796,0.996
+real_research7b_long,0.0151,0.8212,-1.8284,0.982
+real_research3b,0.3273,1.1468,-2.4729,0.778

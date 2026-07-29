@@ -1,0 +1,4 @@
+{"text": "[get_weather({\"city\": \"Bergen\"})] [lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9384, "output_tokens": 32, "error": false}
+{"text": "[get_weather({\"city\": \"Cusco\"})] [lookup_hotel({\"city\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3313, "output_tokens": 34, "error": false}
+{"text": "[get_weather({\"city\": \"Lisbon\"})] [lookup_hotel({\"city\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3298, "output_tokens": 32, "error": false}
+{"text": "Bergen $97/night", "token_logprobs": [], "action": "synthesis", "latency_s": 1.4323, "output_tokens": 7, "error": false}

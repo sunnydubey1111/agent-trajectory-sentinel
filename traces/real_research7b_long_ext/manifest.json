@@ -1,0 +1,5232 @@
+[
+  {
+    "episode_id": "real-healthy-000",
+    "file": "real-healthy-000.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5b9af4b5f7c343897c0067b6ceb2d6ce2b1cc828426b2a06187e2339b516ccac",
+    "trace_sha256": "98436e512ae64b1df563c925661354395912caec2541d9717ab0e4effecbb304",
+    "collected_at": "2026-07-27T16:01:17+0530"
+  },
+  {
+    "episode_id": "real-healthy-001",
+    "file": "real-healthy-001.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "549195d14f1553f9dd0236a95be559f1b738ecfd0b53e39dd100c91862b75fbf",
+    "trace_sha256": "ffcacec50ba50f5afa1029f4642ab1e04c62e4e5c621440ba374e6dd1470cfa7",
+    "collected_at": "2026-07-27T16:01:49+0530"
+  },
+  {
+    "episode_id": "real-healthy-002",
+    "file": "real-healthy-002.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "95a5db2ca936d6a7bb38abd2a2ae1acb13a0a9842cd421ee5e812ce176a31cdf",
+    "trace_sha256": "8608aea5c97a7c2dcec0c020a7508d35a2de40eb19e827eb0f9fe71cfa6f1ed7",
+    "collected_at": "2026-07-27T16:02:23+0530"
+  },
+  {
+    "episode_id": "real-healthy-003",
+    "file": "real-healthy-003.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2b0d0f38074ac32fe865ddafd5bece406a87c2b20560bc8f0987bdc92c20f3e7",
+    "trace_sha256": "525cef5168ae840b4cd4faeb730eadbfe2d0602075bc721ac473496fc517656c",
+    "collected_at": "2026-07-27T16:02:55+0530"
+  },
+  {
+    "episode_id": "real-healthy-004",
+    "file": "real-healthy-004.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1806b91a89a4ba3aacd2fdca0fe55a4ce3225a55e1b1416ff060eed2cca2f4fa",
+    "trace_sha256": "0c3bb52a4c74c8715a5fc194463f399f5ae0d907d3d415101da986e9b008e4e0",
+    "collected_at": "2026-07-27T16:03:29+0530"
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "file": "real-healthy-005.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "0fbb5ccae54cb909a1085715f76101d0df69c3546d20b224e20658f746db3fa5",
+    "trace_sha256": "76239231e3a7733b4f1b6743b4f97a757ee659ef6099bef219f9fe3321a1691f",
+    "collected_at": "2026-07-27T16:04:04+0530"
+  },
+  {
+    "episode_id": "real-healthy-006",
+    "file": "real-healthy-006.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "01a194956d08ebce67e1d93e75bebfe6a00ed9925a2ba73844e51d0f4f73b9b2",
+    "trace_sha256": "0de41da35f500413e0375cfd63f4b87b49810d6e6d1ab78b382d7ed0597cd687",
+    "collected_at": "2026-07-27T16:04:36+0530"
+  },
+  {
+    "episode_id": "real-healthy-007",
+    "file": "real-healthy-007.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b417b0e19ae773b9a0b64e70576159b2754213a024422644b2a73384016aabbb",
+    "trace_sha256": "3435887021a9bf7222afddc6983a82e53233643b364a8b883061e51d79ba4f48",
+    "collected_at": "2026-07-27T16:05:09+0530"
+  },
+  {
+    "episode_id": "real-healthy-008",
+    "file": "real-healthy-008.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e0c980857b0063f86afeaff0e1187d6089376696ba6ae7aa9d190bda996d6672",
+    "trace_sha256": "184d348cf5d8c0be29fdb09cb4e81242d8876c6e54680bd5a4795f6cd2d5ab08",
+    "collected_at": "2026-07-27T16:05:41+0530"
+  },
+  {
+    "episode_id": "real-healthy-009",
+    "file": "real-healthy-009.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a1c2ed95f408ba99faee13aa45bae1375ac2bdfa28a3b4a8d1078c98b4254551",
+    "trace_sha256": "a4875ef2243b13c894cb56927b5c1ef7f8cff3d4815f313105055e09e0f79946",
+    "collected_at": "2026-07-27T16:06:13+0530"
+  },
+  {
+    "episode_id": "real-healthy-010",
+    "file": "real-healthy-010.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "1dd9c3357afc27fbac546d8b568653bd280a9efbdee57b8a2a04c473daf2872c",
+    "trace_sha256": "3ea625c1a947cfa4d80fd65b8aa6b8835657b46760223a63263276c6ecb95f71",
+    "collected_at": "2026-07-27T16:06:49+0530"
+  },
+  {
+    "episode_id": "real-healthy-011",
+    "file": "real-healthy-011.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3b561c4c29d0b71b24e3d1fc09ecdfacc48ab011ef9245f8e0a0819b9c35ff4b",
+    "trace_sha256": "6f880e06b703a3fd680a3c0c6d6b534af4c6f6382fee1ab8b94dbeb467011888",
+    "collected_at": "2026-07-27T16:07:20+0530"
+  },
+  {
+    "episode_id": "real-healthy-012",
+    "file": "real-healthy-012.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "563ba19f22d1f03f97125354dd6b8ffbd946644ce7b16e5c6a95e870bc6fc637",
+    "trace_sha256": "87c135fd8ca718ed757f40d91e9b42b687f54edadb1563dfee145619ae376d7b",
+    "collected_at": "2026-07-27T16:07:58+0530"
+  },
+  {
+    "episode_id": "real-healthy-013",
+    "file": "real-healthy-013.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 13,
+      "task_name": "task-13",
+      "task_sha256": "daf8fdbd94f84ec4d54ab9eea50d9d0d5196ffb09e2f66fe55dc0eafc20142dd",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6b209c0375a915dfce11573986a5fb460495c1df2781b99d2827afe424378e17",
+    "trace_sha256": "f4af3bcec0e2bd5e4398982217f6f21dda7c05d6b26c3189a902f34cea33d60f",
+    "collected_at": "2026-07-27T16:08:31+0530"
+  },
+  {
+    "episode_id": "real-healthy-014",
+    "file": "real-healthy-014.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 14,
+      "task_name": "task-14",
+      "task_sha256": "7e9cdf7a8a92bcc99cb98703f18b22af3070a6b12c3eb0a41cb6c0b53471dda9",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "be4c57bf9908aee1ac90a9fbce2e13516c154f3dcec3d85d214c9fea81c96063",
+    "trace_sha256": "cd0096bfea6cf1cc91b062901b91057acf6918ef15827593e65428a331576b22",
+    "collected_at": "2026-07-27T16:09:03+0530"
+  },
+  {
+    "episode_id": "real-healthy-015",
+    "file": "real-healthy-015.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 15,
+      "task_name": "task-15",
+      "task_sha256": "8ede350bb24b5452eeec96f0dde849ba8a2e6756642a21f8af5f94effcc26dc9",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "99bfb6f3d92999708e7570ad2c1d779b8caf621f0083270dcdfd38321e72a94e",
+    "trace_sha256": "1bc935c7f80c747a8bba42ca9ac8e1c3f2ac9c2a24c8699a74bb55c10d1b41e5",
+    "collected_at": "2026-07-27T16:09:41+0530"
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "file": "real-healthy-016.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 16,
+      "task_name": "task-16",
+      "task_sha256": "09b8a09fc7046da16f93cdcc4a5c0a0f73abdd3fddef69e3cc8de1d9d53e5c1c",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3745a165f066d096e5861c2132e43b5b68d899ac1289bbe373b64d39ff525bce",
+    "trace_sha256": "bc1dbe10194449a418a376f67cd4f7c2e0ced97a9dac7755694d4a9acf02213d",
+    "collected_at": "2026-07-27T16:10:14+0530"
+  },
+  {
+    "episode_id": "real-healthy-017",
+    "file": "real-healthy-017.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 17,
+      "task_name": "task-17",
+      "task_sha256": "621f8aa7afe06ab163be6b0a91d3fd8c5ae24faaaf14396b8e4685ac9a926a2e",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6f26e75a9741a52326908125e40838e2a7d2378bf3a5b46791394e1c21a9dbd1",
+    "trace_sha256": "946056040fc6a9528c4e7ba18e68dbb7e42680d57d0ec697fbc7a446f9746d8d",
+    "collected_at": "2026-07-27T16:10:51+0530"
+  },
+  {
+    "episode_id": "real-healthy-018",
+    "file": "real-healthy-018.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 18,
+      "task_name": "task-18",
+      "task_sha256": "7928318e17baff116757a9534c59237d6203c4d093829c7f0773c3882e01db44",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9f65ccbbc296c550b6590bd2e710e37dffacc892621040f5e8a36c6d3107651f",
+    "trace_sha256": "7eda1e187a1b93c3ad8aea7cc69e6fa904e09b9a44d4f6b2d726ef2974bccbdb",
+    "collected_at": "2026-07-27T16:11:37+0530"
+  },
+  {
+    "episode_id": "real-healthy-019",
+    "file": "real-healthy-019.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 19,
+      "task_name": "task-19",
+      "task_sha256": "71eb4e60ab6047a4a568a58e5e2c1a53c52117f1e112885440efe8d6e9006468",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "642a946590209589fc44cae18fc8c75165595fe3ec7ea680ee944d899d5375cd",
+    "trace_sha256": "5b3a8dc06486e07c18226930e4700f5646426dfde80a4c5b2892b4d1b31f56e2",
+    "collected_at": "2026-07-27T16:12:09+0530"
+  },
+  {
+    "episode_id": "real-healthy-020",
+    "file": "real-healthy-020.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 20,
+      "task_name": "task-20",
+      "task_sha256": "1c5b28303c3de42e36e8889c7ac6c42d15a236e0dc13f3a68d7681ca5a1a2e05",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7df21fdf0bdda7db61af87f3861215cc465a17056b6d268bc0e33470456a0a3b",
+    "trace_sha256": "9be9f603e8f4e988ee47a547d01d2097b404f8b6452137147ca3a67693f564bd",
+    "collected_at": "2026-07-27T16:12:40+0530"
+  },
+  {
+    "episode_id": "real-healthy-021",
+    "file": "real-healthy-021.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 21,
+      "task_name": "task-21",
+      "task_sha256": "a36735441f894db7cfe670771bd460f0d84579ac5ba9b9526fefea055b6486f8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f16e5f2fd8c0170d2eefd626d8266f5c3e4816d5a1922c112d2d5290837f6601",
+    "trace_sha256": "c170f3e0a56dc1e3cbb4293186ae0d4096281b0dee0146aa2f26bbbf07c97071",
+    "collected_at": "2026-07-27T16:13:14+0530"
+  },
+  {
+    "episode_id": "real-healthy-022",
+    "file": "real-healthy-022.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 22,
+      "task_name": "task-22",
+      "task_sha256": "be8ff2708f0522583b9db305fe75183d55e3d451f6934715d6931cedf300c801",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "eed91402b0d1811d414c5925ca80b55fe8bb30aca9a0eed55010bf19329a5b80",
+    "trace_sha256": "1f65061893df82356511424e5ce1a66f191fe7c245c4cb0d32085e63a806211a",
+    "collected_at": "2026-07-27T16:13:48+0530"
+  },
+  {
+    "episode_id": "real-healthy-023",
+    "file": "real-healthy-023.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 14,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 23,
+      "task_name": "task-23",
+      "task_sha256": "682e5182616675e2efcf0d8e2ad87350762d2737b13f9cbd85c89997793375ac",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dc3182463667a77108cbbfa986763be24c2b9492c531a39d3194787ed1aba7c0",
+    "trace_sha256": "d35386da36e7ceca51e0f117f8ddc9831ee4b4e1d3f396761a1bf7df7e85cc82",
+    "collected_at": "2026-07-27T16:14:28+0530"
+  },
+  {
+    "episode_id": "real-healthy-024",
+    "file": "real-healthy-024.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 24,
+      "task_name": "task-24",
+      "task_sha256": "060aead57ccc7491e0933eecf6a2b669482ee19c3a22f069cea03673e0bebf4f",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "58e3c4b676d3fb4ae2b8ecdcca88e25a91fa7e56f46de46d421e38a8b9bd98ff",
+    "trace_sha256": "4553d211ca1432b5b1000a1b4584d3929ab94d08de20322ac9c25cf1b0524d29",
+    "collected_at": "2026-07-27T16:14:58+0530"
+  },
+  {
+    "episode_id": "real-healthy-025",
+    "file": "real-healthy-025.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 14,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 25,
+      "task_name": "task-25",
+      "task_sha256": "2025583f56c42072a5a2c01dc5897f6a9d97e2d3a2c622836155a301f0aa635b",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d2c0362cf4b3ac9a4d7b02e53228a968d6f6c5028c27d650f5f18cc48d4a6f65",
+    "trace_sha256": "e206b96d4db0820edff27fe7dd6e0c679563861dcdda34b165ca61a869fe4d78",
+    "collected_at": "2026-07-27T16:15:37+0530"
+  },
+  {
+    "episode_id": "real-healthy-026",
+    "file": "real-healthy-026.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 26,
+      "task_name": "task-26",
+      "task_sha256": "28f2fd3b5182ab421946fc0048318bb881aeec1e040e30afd716cf723956ed63",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5def069692fd43b3ebc03078a8a89646ba172e47a68fb6318df1ee981af1f727",
+    "trace_sha256": "e5b0c568136e32786243dc092d7af38b21d40c9ae28283c11acc1ebedee7a670",
+    "collected_at": "2026-07-27T16:16:08+0530"
+  },
+  {
+    "episode_id": "real-healthy-027",
+    "file": "real-healthy-027.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 27,
+      "task_name": "task-27",
+      "task_sha256": "673297470878c5b2e40dc28478e723304ba99d5951f58a79e26d61310ad02d21",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cba97fe4b19028652cf739132594635f647995e653eaefc9b57196522faf7987",
+    "trace_sha256": "67dc01f217c639a4943ff7f86488387877363d80aca25f8419b56a1672073c0d",
+    "collected_at": "2026-07-27T16:16:39+0530"
+  },
+  {
+    "episode_id": "real-healthy-028",
+    "file": "real-healthy-028.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 28,
+      "task_name": "task-28",
+      "task_sha256": "15ce2c8052625d386a7cfa66883cc93477fa94ab2d3561fbe03abc755b58b960",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f410af75460c8924d60f46a3288774b1709e34b85498f25bda19bd710c0c090d",
+    "trace_sha256": "3a9242bb7809fa3f74fcc0d48ea97baee8d78114816f05bc131cc1eda7aaf5ee",
+    "collected_at": "2026-07-27T16:17:11+0530"
+  },
+  {
+    "episode_id": "real-healthy-029",
+    "file": "real-healthy-029.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 29,
+      "task_name": "task-29",
+      "task_sha256": "e4e1eaa674f751dd6d18655296ff08c9d09becab4062a5a57eabf3b8f85f082d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c2ae6ffbeebfe6ecd65cf348f087d14cef79385c508bf9f67f7ddb8ae5cde6db",
+    "trace_sha256": "8a22a7402003a9a60e455111f253f7e042a3a51c9e1528b112f5b9e93062c390",
+    "collected_at": "2026-07-27T16:17:44+0530"
+  },
+  {
+    "episode_id": "real-looping-000",
+    "file": "real-looping-000.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "de3a8ad843220ae3235d78c003ae3934ef6c449b40c64bbc1f28be7747091165",
+    "trace_sha256": "477120ce0ba8cd79e79eaddea183e1cdc2bfceec32628d34cf7f34e580644687",
+    "collected_at": "2026-07-27T16:18:15+0530"
+  },
+  {
+    "episode_id": "real-looping-001",
+    "file": "real-looping-001.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "06a3fc30c9a814e4672617434951775e68dd6c1408b3651e2586028974520a5a",
+    "trace_sha256": "35013c71218d4da56cfbbce8a36f596edc1b8b427629b0a51bc4dcf16e77a6b7",
+    "collected_at": "2026-07-27T16:18:50+0530"
+  },
+  {
+    "episode_id": "real-looping-002",
+    "file": "real-looping-002.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "92ec340f659a13cf40be965a041e2c3cb472bd791781e0fc29024b04f43cc8a0",
+    "trace_sha256": "b7a19340697c1b23c6990defd5d220756b6b44a6060fface28191c1acb4f16a3",
+    "collected_at": "2026-07-27T16:19:22+0530"
+  },
+  {
+    "episode_id": "real-looping-003",
+    "file": "real-looping-003.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4acf4bfd7c3f80f33970ca094bde59e57cd1e3e4f7a61628da0780f07451b657",
+    "trace_sha256": "769076c2fe12c78f4d177d832f507918bbc64a566bbfcb4fdd021cdd0ed72f97",
+    "collected_at": "2026-07-27T16:19:52+0530"
+  },
+  {
+    "episode_id": "real-looping-004",
+    "file": "real-looping-004.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "38176407a85378fbb117c81572f20a3b4d8bf904f22b0d0d57d0719e70c9c395",
+    "trace_sha256": "f92b115ca273741deaa04a9cc771ff767dbbcf4f96d12bf47f6d25c3ab0717df",
+    "collected_at": "2026-07-27T16:20:24+0530"
+  },
+  {
+    "episode_id": "real-looping-005",
+    "file": "real-looping-005.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d3560fd4f886e7050217660ea8f55851ba1b14a0b54b51f483f6f8b2f71795db",
+    "trace_sha256": "9f6042bc9fdc09c24a4d825ac2f95077775aa18f944e5e273b1380871a8dd303",
+    "collected_at": "2026-07-27T16:20:57+0530"
+  },
+  {
+    "episode_id": "real-looping-006",
+    "file": "real-looping-006.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "86aa0537294f8c8637c4fda57bf72035bc967932e74bb4c65d69770fdc0b10ee",
+    "trace_sha256": "018bfae299e3c44d29318835707e5f52d3bea65977fc235812fec3ab21c8afa7",
+    "collected_at": "2026-07-27T16:21:30+0530"
+  },
+  {
+    "episode_id": "real-looping-007",
+    "file": "real-looping-007.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cf96563d9447155459f777c95efb7c48adf1070c6be1cb20656626015372afa9",
+    "trace_sha256": "b4ddd2964369c299d4dd87cbc47e829393be3d08f7acfd534abd5e9cb3bbd866",
+    "collected_at": "2026-07-27T16:22:02+0530"
+  },
+  {
+    "episode_id": "real-looping-008",
+    "file": "real-looping-008.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c0b21463db93e955adce6298d2cb4d6e71b10c16e08c2cece1b3644d9caf1f3f",
+    "trace_sha256": "86b50cbc46d71dc206cd6ff3517066f4fdd16020752610025f4c886d30998c7c",
+    "collected_at": "2026-07-27T16:22:34+0530"
+  },
+  {
+    "episode_id": "real-looping-009",
+    "file": "real-looping-009.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "43c875fff55a4891eba4ce358da3d7661763343f1a83bb0aa2563398a0b1824b",
+    "trace_sha256": "a2d1acf649ea201392be3e534583cb99c7643df188fff0d4d970b01c834ab0fd",
+    "collected_at": "2026-07-27T16:23:04+0530"
+  },
+  {
+    "episode_id": "real-looping-010",
+    "file": "real-looping-010.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d098cd4445b2533b564eca8f1bc24f09046e4dfc8186b7c81cdcd7f33d3f48fc",
+    "trace_sha256": "11ccfe41766a23781a641eac5a7b361d9a853e7cb8c9807ab5a71b9fd4883c01",
+    "collected_at": "2026-07-27T16:23:34+0530"
+  },
+  {
+    "episode_id": "real-looping-011",
+    "file": "real-looping-011.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ae1d553f7ea86a0c522093db962c3f7be900ae645f358530977dcf2739cf5c8f",
+    "trace_sha256": "ab36b5e62ca84c0703ffc2217058e2dc1d1afab5ffb323545a5c2c9a591f5cce",
+    "collected_at": "2026-07-27T16:24:09+0530"
+  },
+  {
+    "episode_id": "real-looping-012",
+    "file": "real-looping-012.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e625ae8e5bbf2a7533908043d12d6f5fcf3e8d91292e82ec5fd1196f8be11713",
+    "trace_sha256": "4eecdca0575849ddcafe72086cd5c65237b52276ab7564e94250e77c292bce47",
+    "collected_at": "2026-07-27T16:24:41+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-000",
+    "file": "real-tool_cascade-000.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e88b05d01def476022dcfd9094a7f7772b81102f77419e02aafddcb243b85149",
+    "trace_sha256": "7049d8b75a487525b4b5e1a6619cb11f333e6ab064ea25e325307937f49cb45c",
+    "collected_at": "2026-07-27T16:25:11+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-001",
+    "file": "real-tool_cascade-001.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8349b95facc18cc4af19a4a926699f652088705f0dc00bfaa381c61cca15f5f9",
+    "trace_sha256": "3e4d99b9ad401c4255c914d2059ae36811b55005aa478576633d2a24aa23c288",
+    "collected_at": "2026-07-27T16:25:43+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-002",
+    "file": "real-tool_cascade-002.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 5,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 5,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7ec0a623266add0cb929391725d59a3963e7b567611c47144bbf46464348ee54",
+    "trace_sha256": "c36878e621fb2d18b5464d8ab35dd0b00322da4da497e811dcb060f85d146618",
+    "collected_at": "2026-07-27T16:26:13+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-003",
+    "file": "real-tool_cascade-003.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cba24158b7d04f3c46c7bde03e8b117d1c13c22c10b95a63b5e99f50a6cf60f9",
+    "trace_sha256": "ae606710f0e3238a45e84febb1f3fdee6205a9c57262616fb15dd6fe28e80cdd",
+    "collected_at": "2026-07-27T16:26:44+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-004",
+    "file": "real-tool_cascade-004.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4bf4f28eecc0a56dbf7bf159db8358f7c291e3ae115a61e51a81f616a8d48666",
+    "trace_sha256": "24cfed96ed65b0721779b3751d9829b4e0ef6dcb202d31928497a3ff8b7f9e4a",
+    "collected_at": "2026-07-27T16:27:15+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-005",
+    "file": "real-tool_cascade-005.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "81562e1553a4e4fedc5b3428cc11a114229d6e324766894489c6cde611b6459f",
+    "trace_sha256": "205cd1c2f877ffa8bf2e76c9c3537748d52fac264c7ec9124d0897edbd0c8dae",
+    "collected_at": "2026-07-27T16:27:46+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-006",
+    "file": "real-tool_cascade-006.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f962d52baee6a703d796a193a44136e00ce6e893879102cd5ebafd2420abb3cf",
+    "trace_sha256": "12e352f0e682bf22f0f6d175bd7011b02fe25a86e853fc8a014110490c8f0866",
+    "collected_at": "2026-07-27T16:28:17+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-007",
+    "file": "real-tool_cascade-007.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 5,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 5,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9b3bff2bcdccda1d31587fd612bcb2122e867368c8efc575719598399467870b",
+    "trace_sha256": "c7304812250b53763cc7aa34439204727a9bbeefce21de9480dd10873af3c3b2",
+    "collected_at": "2026-07-27T16:28:48+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-008",
+    "file": "real-tool_cascade-008.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "efa289eb031b123b0edafa194dd51f0ceaa15d677cd3da7a07d5f1cf3cdafc2d",
+    "trace_sha256": "a6fbffa5c40cdd32c99e31a35966c946f0d70a9eeed24990bff6ba0968f7aff9",
+    "collected_at": "2026-07-27T16:29:18+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-009",
+    "file": "real-tool_cascade-009.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7fc6db72638746009d7370e7a43f241113daa773fcbae387858704cb4f7610ac",
+    "trace_sha256": "fec3a178ed1b27968cd8065452c8f63b3314199e3091a8ea8a23cbb42f53f2c8",
+    "collected_at": "2026-07-27T16:29:50+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-010",
+    "file": "real-tool_cascade-010.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d2fb6ba793d647c379ffb824108443404edf5d168553bb0316151303f766837b",
+    "trace_sha256": "3cc4d8da730a3e6e4b9cb2198849ee8a9b9bf556d5a283b1dfcef326590addae",
+    "collected_at": "2026-07-27T16:30:32+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-011",
+    "file": "real-tool_cascade-011.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2df1a5b83fd6e20263f2a775bf084bd7b5622f01fb9b40e5a5ec7ff29a2cdb1d",
+    "trace_sha256": "a09f404183fff8ec875ded734f937c3d4430d5c5bcb59ebff8071253944deafe",
+    "collected_at": "2026-07-27T16:31:44+0530"
+  },
+  {
+    "episode_id": "real-tool_cascade-012",
+    "file": "real-tool_cascade-012.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "adcc4d04bc1c46aaef2a1367affdd4306f6edca509c79faa734062e74e8f1541",
+    "trace_sha256": "f3111ccf085abfde707d3e68b1f0ec926e57dbbbe422298f5faefd978aece5b7",
+    "collected_at": "2026-07-27T16:33:20+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-000",
+    "file": "real-rate_limit-000.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2dabffbb92a44413a3b7fd01e1a88e6d10dac60e279316065d8a32de41d29576",
+    "trace_sha256": "f48c6a5194427045de33f97d40d6cf7cf5901629f27b726e93678781927e803e",
+    "collected_at": "2026-07-27T16:34:42+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-001",
+    "file": "real-rate_limit-001.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cd60cb3f2a78d4791233712c3e34d1a4f0d22fba328250384d4cb5e407647b5f",
+    "trace_sha256": "4605c604f6a6bce6ecd505e1c82c176d5cc9ace331a763efc442c6e2ea6f0469",
+    "collected_at": "2026-07-27T16:35:41+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-002",
+    "file": "real-rate_limit-002.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4b60d395b4a29775c3775535a6447dd5dd135dab5545296d28f9fc0d7f3a9db7",
+    "trace_sha256": "27aa436b41d6e44342a5e064c4e24315b164d7cf86260fd58fb4df106c7d80be",
+    "collected_at": "2026-07-27T16:36:12+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-003",
+    "file": "real-rate_limit-003.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "544c24c2834baa374769f741e29ec63c1ac45b68797497a781b6cf1fee3c532d",
+    "trace_sha256": "0b5124b5106bc5c6b9d439bd1f9b24d49549e78ca8b0ca14ca6eee7337a00d34",
+    "collected_at": "2026-07-27T16:36:43+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-004",
+    "file": "real-rate_limit-004.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "952e96111fd0428efbae8e372e5c49a85c2ecb1eb9ac25311b4a3e6c66bdd177",
+    "trace_sha256": "b9bb610beefd1b1adb5bc68ffcd0911a74b50488bb4c8a6e3fb01dcba7b65910",
+    "collected_at": "2026-07-27T16:37:14+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-005",
+    "file": "real-rate_limit-005.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9f29eb3d9a305d5b0e65360de5ddd063ba4fe945e072ad89348aefccb7ad1ced",
+    "trace_sha256": "766aaa833a4b4894c42efe592be051edafb9da2240dc8e042c5236b5b231ed34",
+    "collected_at": "2026-07-27T16:37:54+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-006",
+    "file": "real-rate_limit-006.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "44693aabac56d7f6bbe3b5e91052d083df8537cad9cf73bd02ee8bedaa69fe80",
+    "trace_sha256": "96abe7f9d678f7662743eb89d9dc66d094ab765d1d1fa76bc3bab62103c8a295",
+    "collected_at": "2026-07-27T16:38:25+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-007",
+    "file": "real-rate_limit-007.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "06ce4bfe5caf2b9d513d2cd8851b42e3a248ff63152d2c5f937c94a6b9ad8ecf",
+    "trace_sha256": "f9365b52b02924bf5f194a87f0836d58a570e232867060065aea83ce70ee9867",
+    "collected_at": "2026-07-27T16:39:06+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-008",
+    "file": "real-rate_limit-008.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3552c5ba158b59a73af9b67d09b97d1f19dc9de9567c010e69c2393cb7109fbf",
+    "trace_sha256": "265f81a13b6a6b3d5b9befd7e1cb199821916ee2260c3287e7a652c69691d700",
+    "collected_at": "2026-07-27T16:39:37+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-009",
+    "file": "real-rate_limit-009.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "edcde5c9b6089956560f5bc36c5278b86b2a77071a582247bec3ed9ff8c0aae7",
+    "trace_sha256": "1188d64b3c8ca1ad3c9abf6e2466e8e92410257419613336226e8f897e82cf6c",
+    "collected_at": "2026-07-27T16:40:08+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-010",
+    "file": "real-rate_limit-010.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4900b305c3f7512700131549ce41fc3c5b69c2f669942e6b977ed6c94c69ce9f",
+    "trace_sha256": "6923b76bdd43277c64fc8706995b28fd8ad7fe3b2a53d38801a24b37797d64b0",
+    "collected_at": "2026-07-27T16:40:38+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-011",
+    "file": "real-rate_limit-011.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ed65a52e0437adea1185b07e6a3f170601e3dd10fe58d2f86f63f689afe3e194",
+    "trace_sha256": "43c75ba2a628482bdf3def2e83cf32b96122631c21a600510603a9496a50d411",
+    "collected_at": "2026-07-27T16:41:11+0530"
+  },
+  {
+    "episode_id": "real-rate_limit-012",
+    "file": "real-rate_limit-012.jsonl",
+    "failure_class": "rate_limit",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "rate_limit",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "88e1bafa6d287af71e0a61c312b51a454dd86cda3c76a0bffe34b417ca312751",
+    "trace_sha256": "4c92ffa7a64044777d5c7f9b490a36760c739d1c5039dcdeab03b6e5f90146f6",
+    "collected_at": "2026-07-27T16:41:45+0530"
+  },
+  {
+    "episode_id": "real-timeout-000",
+    "file": "real-timeout-000.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "3830cf2ef6205978499a7e653e0e41fa1d192a7eb61c785465838ef91fe32e22",
+    "trace_sha256": "127c4dfa919a63c973ba3a75fbad28261770fc9e7ed609a6da557b641a4e8e04",
+    "collected_at": "2026-07-27T16:42:16+0530"
+  },
+  {
+    "episode_id": "real-timeout-001",
+    "file": "real-timeout-001.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7635696b319b91ee691ac24cee9c0d6bbb9d0c0b0bec1cd626eb5b1523959d20",
+    "trace_sha256": "a4e36ee3386a307774880b3741a618abca3fbee540fbd0e4e1c256e794f57f8c",
+    "collected_at": "2026-07-27T16:42:49+0530"
+  },
+  {
+    "episode_id": "real-timeout-002",
+    "file": "real-timeout-002.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "836d6e99b80613f264c2bbe61893223c9788e57b1373b9f641d32b432d8ad9c9",
+    "trace_sha256": "849c27b4cdfb93aaa37db29f2fa3b4fa942d0b63e011b52c8a66c111061c041c",
+    "collected_at": "2026-07-27T16:43:21+0530"
+  },
+  {
+    "episode_id": "real-timeout-003",
+    "file": "real-timeout-003.jsonl",
+    "failure_class": "timeout",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "383c683d14a6df38175ba08dafc2f26ae14fc2808f45975ffd502d4277fd1ef3",
+    "trace_sha256": "0348b8dd7ffc08308130bc6ee880cb7849a93e881e0206942195c6c78f9c46d9",
+    "collected_at": "2026-07-27T16:43:53+0530"
+  },
+  {
+    "episode_id": "real-timeout-004",
+    "file": "real-timeout-004.jsonl",
+    "failure_class": "timeout",
+    "tau": 4,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 4,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7d87844b0bdfec5cfb66b13660f0b10c561ab4f5c6ee1368998f0fa08063c778",
+    "trace_sha256": "50d6c20a959687808d5081f9c841ab24f776e181c3674e2da36be65d81edba99",
+    "collected_at": "2026-07-27T16:44:25+0530"
+  },
+  {
+    "episode_id": "real-timeout-005",
+    "file": "real-timeout-005.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "86c4b05696d3437ca90803a5d1245bc9d9946fa867892fc57dd14f637989d92c",
+    "trace_sha256": "4d6b1b8e062d350ede41e5cc4a0bd3dc6b1a771d8c24bca74217b61b064d4d15",
+    "collected_at": "2026-07-27T16:44:56+0530"
+  },
+  {
+    "episode_id": "real-timeout-006",
+    "file": "real-timeout-006.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4b59bb1992fead48a47edf95142373f18f59a52942e04dbbd0ef1b4be9e99d10",
+    "trace_sha256": "be6c327ed01f4e378ed3ef7981c03cc977d705ce73d6603b1ea8bd098c1e8797",
+    "collected_at": "2026-07-27T16:45:26+0530"
+  },
+  {
+    "episode_id": "real-timeout-007",
+    "file": "real-timeout-007.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ad093837da983821c7b65fa9e3dfb49f6c35c5352d9391755ff9333eaf7e2d2f",
+    "trace_sha256": "fb970ab8b539530c406525259d0199e83c6e58dbeeb2ed963c578588faa1520d",
+    "collected_at": "2026-07-27T16:45:57+0530"
+  },
+  {
+    "episode_id": "real-timeout-008",
+    "file": "real-timeout-008.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "2fc0fbee59bc9cb14ca48f0e8a3f39f1865cd6e9ccfdc2d6c4e17bb698326335",
+    "trace_sha256": "055c91e4329ffd5e97b6584a2d3be1530721e9479ee4398fe5ddcca350b8f451",
+    "collected_at": "2026-07-27T16:46:34+0530"
+  },
+  {
+    "episode_id": "real-timeout-009",
+    "file": "real-timeout-009.jsonl",
+    "failure_class": "timeout",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 3,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "985736e7db34192bad6070acc4447055965a29b6fe1f4e917614ebcd7be444f3",
+    "trace_sha256": "53417e3b76edc7e16616ec5cb7554e23fc74f2a5591ece495de3084a9c6a30db",
+    "collected_at": "2026-07-27T16:47:04+0530"
+  },
+  {
+    "episode_id": "real-timeout-010",
+    "file": "real-timeout-010.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "22a25b7511c139cc48b7cafb61adade63b5fb7b098e454c3d5c6d02f23f2e37e",
+    "trace_sha256": "884c112d794f786499caddf18cd0dbf3c534ba58a33d134a5d4aba8eaab56219",
+    "collected_at": "2026-07-27T16:47:35+0530"
+  },
+  {
+    "episode_id": "real-timeout-011",
+    "file": "real-timeout-011.jsonl",
+    "failure_class": "timeout",
+    "tau": 6,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 6,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c96a40800ae9bd9dda24a054b337a5fcc0923cd335f2079c52caad7991a6867a",
+    "trace_sha256": "894a2dffd75522b5e79202eb388521d7ab20de6188e662d457af4b2372140f60",
+    "collected_at": "2026-07-27T16:48:05+0530"
+  },
+  {
+    "episode_id": "real-timeout-012",
+    "file": "real-timeout-012.jsonl",
+    "failure_class": "timeout",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "timeout",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fa41411f1ec47e4d40e58023ec76156199be71bb3272c206b0f5089abc66ebf4",
+    "trace_sha256": "3dc967363bbd28f85c1bfa0b84e74b49f411c0ec00c9e80fa27ce08e2085cf8f",
+    "collected_at": "2026-07-27T16:48:36+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-000",
+    "file": "real-wrong_document-000.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b6dab0609e95d397db30130beaad1f26bb4fccf63053b70570d2039920902c84",
+    "trace_sha256": "ddf8bc829b345f4c2afe88fb63c1acebdd9e36d33dc01648206b56042e88ba56",
+    "collected_at": "2026-07-27T16:49:08+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-001",
+    "file": "real-wrong_document-001.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "dd9ae87f5636d2244b20af75c6c772563f3d9543a5f682fa02a5629b8f62005f",
+    "trace_sha256": "ff8e3b7995a75ca700082c4f42e1a6ff1d92745911bb390cdfd0b5f091e23dc5",
+    "collected_at": "2026-07-27T16:49:38+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-002",
+    "file": "real-wrong_document-002.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6a764d2082d0259af1e1195b13bfa7e2fb95bc9a28644b380b27134372b4b323",
+    "trace_sha256": "a4735e096f4173681a867038409323765c0a5c4f9bd3a765400045bd721104b9",
+    "collected_at": "2026-07-27T16:50:09+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-003",
+    "file": "real-wrong_document-003.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "da21ea47d65b6d97949442bd6a38c1b7024bf3e48df6e6071a6bb10704d95303",
+    "trace_sha256": "171a99d5fd80bdd4588c1b48bdde2c3f5d8832873f305f59a7675cfe497dcece",
+    "collected_at": "2026-07-27T16:50:39+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-004",
+    "file": "real-wrong_document-004.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "36672093d24f95d93445394ee2f5c8772bd7c60d65f2c69e3a6b7b156ae6ca4b",
+    "trace_sha256": "7f491a6c104a4f8ae1d695e3bd7dab02521ae032506778549b706fbef1972cb8",
+    "collected_at": "2026-07-27T16:51:10+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-005",
+    "file": "real-wrong_document-005.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "64eb0a2bc47c9157c0dce2ad3ed0cbb5c124e4b1ce98bc35355903c5d3f5f83d",
+    "trace_sha256": "282e4bd1c8d8fde6c3f866995728f345c15901d20a2b7d5a637cfbc16eabc625",
+    "collected_at": "2026-07-27T16:51:41+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-006",
+    "file": "real-wrong_document-006.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "0807b6cefc62b728a69531e1dcfa052326780a4e84c4522a02e6cd30ad5d5e5f",
+    "trace_sha256": "30927ba4667ffc3135c49031f38bd7918c28df5615678582937b4838ee5fd60d",
+    "collected_at": "2026-07-27T16:52:11+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-007",
+    "file": "real-wrong_document-007.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "429e57f6d87951d2dc335bb6b7ea32578e54a63aef6b36579b8ce17fdd600dc8",
+    "trace_sha256": "3b76b239c5ccaa139dedc3504f4026d31728613db5aa4efc2dd0c6e7e1763a74",
+    "collected_at": "2026-07-27T16:52:42+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-008",
+    "file": "real-wrong_document-008.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "82ec1c707fc225d839796d62a7ef06e6acb9752a7c9c1544ddec7cd87d885d4d",
+    "trace_sha256": "aa1c156bfff44d825734f88c96c37b4d517264b7bd80a54b1a8f5d266d7b2370",
+    "collected_at": "2026-07-27T16:53:15+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-009",
+    "file": "real-wrong_document-009.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "df042a500dc985be4613500d652aab54000ad008f4b0dae0d3526333b7c31441",
+    "trace_sha256": "109f007d708bc0b76584b36262ae16a15d4c1815f9453719d9ee15512a158aa7",
+    "collected_at": "2026-07-27T16:53:46+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-010",
+    "file": "real-wrong_document-010.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f0f488caa6968bc29e17577ef8681f1ff147c2e7186211684810821792ea7e26",
+    "trace_sha256": "5b233057aec3d6fdbf13690cbd9e546d3be10f5b520bf4a4babace8dab7f07da",
+    "collected_at": "2026-07-27T16:54:16+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-011",
+    "file": "real-wrong_document-011.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "260aceec43913d068ee12f19cfaea444be6b18871fa21a8bee288c2b6db15a24",
+    "trace_sha256": "4a0725b56bb3d1f2a33e94ad91a396abc52d3156f8fdd970566174ed6725b1c4",
+    "collected_at": "2026-07-27T16:54:49+0530"
+  },
+  {
+    "episode_id": "real-wrong_document-012",
+    "file": "real-wrong_document-012.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "wrong_document",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4efa773f03dbac32781b7c4163e78f8977aab94620aa200bd91f0fbf47c98660",
+    "trace_sha256": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84",
+    "collected_at": "2026-07-27T16:55:22+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-000",
+    "file": "real-malformed_json-000.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f6cce1a309f9523e9b93a112bc97c8ee6f4d2b8b0e11f89f2e7ecdad32a9e2a4",
+    "trace_sha256": "d558fe334c8c3093d3c0533048c06bec387d6f9953adea3108e1593c94fef829",
+    "collected_at": "2026-07-27T16:55:59+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-001",
+    "file": "real-malformed_json-001.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "63a57ee665dda7fa2d75467516882a426aa089f618ff18bcb3600fda12c36ca5",
+    "trace_sha256": "a8277e0a6dea358f39c33006419b5f7b31183d212153d5caec9b07ce312a1180",
+    "collected_at": "2026-07-27T16:56:29+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-002",
+    "file": "real-malformed_json-002.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "7742bf91fa42e66bc429479934874f334ba74b69287918c31fc86ecb972221f6",
+    "trace_sha256": "10feedddd818fbfeb0dace304c83fc78e89387c57a237457bc105823a0322cfb",
+    "collected_at": "2026-07-27T16:56:59+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-003",
+    "file": "real-malformed_json-003.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "669a5e0c2ad5124ced9acf8ceb053d20dd525bac8ec6c21d7f8ff574ab35f24d",
+    "trace_sha256": "f6808b7cfd95946e5904326201d5a3204ee81dd2396dfed83b4592b66f2e57fd",
+    "collected_at": "2026-07-27T16:57:30+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-004",
+    "file": "real-malformed_json-004.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "fe1ade08d751142013daae3ca57a8df63b0f14efab29b00778413fe70a4692e3",
+    "trace_sha256": "d63085b020bbe76884c78d8bdeadb9e157aebee4f6ff6d17c7b1de5d16989895",
+    "collected_at": "2026-07-27T16:58:00+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-005",
+    "file": "real-malformed_json-005.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "be510d93108830c5fb9103c83d6db9f67ce974a746a1acc37ccebc3c8d500e23",
+    "trace_sha256": "6982978292daedca6d5c4df75b36fdad21fbfb637117b7adcd8c5c508242d763",
+    "collected_at": "2026-07-27T16:58:32+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-006",
+    "file": "real-malformed_json-006.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "693528d8cc3366630cb9ccde61acc4d04e5ef516cabb1e8f0bc2388181fd25fd",
+    "trace_sha256": "59c2ab80520eaf22a32c663c94abf97d7fd0bf48e505656a13793d6550b5298f",
+    "collected_at": "2026-07-27T16:59:03+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-007",
+    "file": "real-malformed_json-007.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "503494b4559af9775b3c1c6f6092cf26d53853fdf753b3e841510873f1edb753",
+    "trace_sha256": "56f487d82bf933b1eff1e132bb4c9dd9e71a6213d0db193cc688957d169da03c",
+    "collected_at": "2026-07-27T16:59:34+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-008",
+    "file": "real-malformed_json-008.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "13559b351f8e317f06af3ad3354585aa9e21cd5a59a4051ccb3c4eede7b88d99",
+    "trace_sha256": "3e293f849b089efb9b72ed2d00d8dc2f1370fd4daba6dba5dddb6d71afc7bd36",
+    "collected_at": "2026-07-27T17:00:07+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-009",
+    "file": "real-malformed_json-009.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "abfefef7210be573f0fbc65fb904af81038c92d4958b8518c8f429a60b781251",
+    "trace_sha256": "c041a8c0f434bf28440710bbaf0f7bba414a6d60885cc01bfa024ec5db026bc8",
+    "collected_at": "2026-07-27T17:00:40+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-010",
+    "file": "real-malformed_json-010.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "df094c3ed6367c653de1aea6131fa2c1c5478ffb9040febe71ea65546acc9799",
+    "trace_sha256": "dc055c274b0a368f810bc5481ed4c8f9200482c76ec2cd94e2be12c7f2a1978d",
+    "collected_at": "2026-07-27T17:01:15+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-011",
+    "file": "real-malformed_json-011.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d154ff73d5abc25c3d85c45a1284073dd0933be196828fc49c675cd07c22dc9f",
+    "trace_sha256": "4273d96fba7cb02dcca712ae29085c8b1a9d227eb5ad011b514cf2d5efeed38c",
+    "collected_at": "2026-07-27T17:01:46+0530"
+  },
+  {
+    "episode_id": "real-malformed_json-012",
+    "file": "real-malformed_json-012.jsonl",
+    "failure_class": "malformed_json",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 6,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "malformed_json",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c2bc8c571f44dbb18a817727db3492c04d0203b0f5136d1ef5ca8445260dc46d",
+    "trace_sha256": "a0602e01c7b77950dc73cb67b2f4f32a7db89df4b6608cfbc70588d0a34ee049",
+    "collected_at": "2026-07-27T17:02:17+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-000",
+    "file": "real-context_corruption-000.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 13,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 0,
+      "task_name": "task-0",
+      "task_sha256": "2fd079fb2e233113ac97481b9315c843a5a3a6843c55d440ee26540b076838ca",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1000,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "6058abab17c0a268cdd9a586439878e851eba74996f7d2b838cac865fc855b89",
+    "trace_sha256": "d3eb283c91eeca9ab4cfdab333093fa7ad5b2e5635b4287ca61d05587f6d515c",
+    "collected_at": "2026-07-27T17:03:01+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-001",
+    "file": "real-context_corruption-001.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 1,
+      "task_name": "task-1",
+      "task_sha256": "79733ea68495c66bcb6606b2ee1b9b811236f65967c51d18d409b9adf1644acf",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1001,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "14ef8a9c26bde1e60771c6c64dd8bd2944a5252ca7a455d52f8e12e09ba075a6",
+    "trace_sha256": "b5cc10fd26967fa4feedc61733326cc76ec21501cccfd05e4fe2176b1a34071a",
+    "collected_at": "2026-07-27T17:03:32+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-002",
+    "file": "real-context_corruption-002.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 2,
+      "task_name": "task-2",
+      "task_sha256": "12e5b4c875b1a8656eedebfb60bfdda8f8afe77231434faaea529564399a1636",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1002,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "480485d0ff5bd69d2d4ed61191864819a3b9b2c872072b6923b2efcc14071e78",
+    "trace_sha256": "3efe74d600f28cf9d73f7b0195cc91b7a07b3beb8297178251b8e62f0cf1a8a0",
+    "collected_at": "2026-07-27T17:04:05+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-003",
+    "file": "real-context_corruption-003.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 3,
+      "task_name": "task-3",
+      "task_sha256": "0cd62797dec1a7498b2d0df6587d96e4c762e7d6f0fc50e04252ab123a019b69",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1003,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b748868c311d18ee795b1f3ba74f8b68b940548cd1dd4b4b8e5b23fe625aeb59",
+    "trace_sha256": "cd7fc3b625d6caa65c29d1a2a176ff5da16f9a25e2469a4b4c61923952a15901",
+    "collected_at": "2026-07-27T17:04:37+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-004",
+    "file": "real-context_corruption-004.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 14,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 11,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 4,
+      "task_name": "task-4",
+      "task_sha256": "9feb51fd56148f1f5b45aa16ab4b545cdffc68061360cddd9eab2a59c5b519fb",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1004,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ac255ec43884dff004cc0c98443582aa35d6f109b0926ba74aae2f18c3472fc2",
+    "trace_sha256": "99d8e400db915dfc838387e74a0c73eeeb2ed9a4786c0a95ee198ce8a5439425",
+    "collected_at": "2026-07-27T17:05:16+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-005",
+    "file": "real-context_corruption-005.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 5,
+      "task_name": "task-5",
+      "task_sha256": "b7821ac31b2567e07acd17a8a9e25a74019c825610c452c32080ac8725ddb0c8",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1005,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9c581358a9eb8bd8b2e1afc337424e04a816d3cb03112d3af704bec09affbab7",
+    "trace_sha256": "2cfa19e318dfc964ecd9d5f3acc56f412f593ad43a0ff76bbfb1e773fc4eaf82",
+    "collected_at": "2026-07-27T17:05:47+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-006",
+    "file": "real-context_corruption-006.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 6,
+      "task_name": "task-6",
+      "task_sha256": "f9df2394ad4016d6b5834968fe86deaae0e5e12f5b1a1291fba85a29450742c1",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1006,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "973128f492ccca0e10a566472b9eb48e2ac75bc9be6e85c18bdd25eaee65f4eb",
+    "trace_sha256": "60e5f820ef56de15b169451a26924460ea364897ac39bc9eaa60109f2d992643",
+    "collected_at": "2026-07-27T17:06:18+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-007",
+    "file": "real-context_corruption-007.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 7,
+      "task_name": "task-7",
+      "task_sha256": "5a9c63e8b4ffc3056f063e19b9e74c6b19f8e907be1bc6d03aa699838a3d6eb7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1007,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "580db56e6715806d14ca5024ac1dcda3be21712800fc51aa0b4f3c3e348579f6",
+    "trace_sha256": "c01a5ca1e92b020dfad17c59dbc67ca1db2a360afd750c940c0c53da29644c80",
+    "collected_at": "2026-07-27T17:06:50+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-008",
+    "file": "real-context_corruption-008.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 13,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 8,
+      "task_name": "task-8",
+      "task_sha256": "4d33c9d99b39809fbf4aa670a72bd951cd6061f2142cd3704704d97c88cd0c79",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1008,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "df1a9c12dd6093169d76d237357969cec0c4906dfdd4afb42500031e9d00f6e5",
+    "trace_sha256": "5a783c1f0bcf52848ffd615fa4cb4ce9be4c9718e5cf7aecc798da63aa8ac839",
+    "collected_at": "2026-07-27T17:07:35+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-009",
+    "file": "real-context_corruption-009.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 9,
+      "task_name": "task-9",
+      "task_sha256": "ae4e6407cce4a496880f2f8866653e6fc3dc4bd3962d64642ca00871a6ae0a07",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1009,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "ed63647cad19da5533fa8df903f525b2383d51c4d4a9492df8e0ab7e051321f6",
+    "trace_sha256": "a3b161e342dc678d9a91078da0a7e76926b8bf6e4e766c687eca7ac479844d18",
+    "collected_at": "2026-07-27T17:08:07+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-010",
+    "file": "real-context_corruption-010.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 8,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 10,
+      "task_name": "task-10",
+      "task_sha256": "605e0c91fee84230a777827bd8906de3d344b2e314f988954b3099f8c6c8074d",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1010,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "abf3a85dc38be2cfef674351a7110aca556330ef457197ea84e725575abd00ac",
+    "trace_sha256": "cecb431db61fc4ccd796c2cbc103444041829cb90231cebb4348c40ef0cc1e8e",
+    "collected_at": "2026-07-27T17:08:38+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-011",
+    "file": "real-context_corruption-011.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 16,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 13,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 11,
+      "task_name": "task-11",
+      "task_sha256": "afe5b1f7b0df38b81138d9976ca167fba3a9195003767d03906a696e86b62f71",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1011,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "9def32c66b4d8fd1c97654fd728dd40640b29c73614d37d14330b549fbcd8a95",
+    "trace_sha256": "13ebe4d7dff0c8710e3a4ca99f4c5afb18bda4c2e3ec9bd6b474bc4063507603",
+    "collected_at": "2026-07-27T17:09:23+0530"
+  },
+  {
+    "episode_id": "real-context_corruption-012",
+    "file": "real-context_corruption-012.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 13,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 10,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real",
+      "backend": "?",
+      "model": "qwen2.5:7b",
+      "temperature": null,
+      "episode_seed": 12,
+      "task_name": "task-12",
+      "task_sha256": "0e89e1c02a194a7ac79baf6a1c2084e316ef61bc975ced1e05015f307ce92cd7",
+      "tools": [
+        "arxiv_search",
+        "python",
+        "web_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "eb778f1a3f9b9eea0be5f7bd7b97c4a07c0ddec2704e1af69914c0fc2d80b8fd",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 1012,
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "06a7c779e61b27d2c847e46307bd1e1eded8bd1196c48d8a3f66401a2d7fa38b",
+    "trace_sha256": "d7bad7b72a5c01682c2fb8d9b240dd64a8082f640d1b840fe346728083a2d96b",
+    "collected_at": "2026-07-27T17:10:01+0530"
+  }
+]

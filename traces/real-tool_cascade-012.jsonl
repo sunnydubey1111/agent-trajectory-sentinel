@@ -1,0 +1,7 @@
+{"text": "[search_catalog({\"item\": \"item-1\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5052, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-3\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1453, "output_tokens": 17, "error": false}
+{"text": "[search_catalog({\"item\": \"item-6\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.1539, "output_tokens": 17, "error": false}
+{"text": "[calculator({\"expression\": \"(67.79 + 29.85 + 183.3) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4073, "output_tokens": 38, "error": true}
+{"text": "[calculator({\"expression\": \"(67.79 + 29.85 + 183.3) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.3315, "output_tokens": 38, "error": true}
+{"text": "[calculator({\"expression\": \"(67.79 + 29.85 + 183.3) * 1.08\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5045, "output_tokens": 38, "error": true}
+{"text": "I am unable to calculate the total price because the calculator service is currently unavailable.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.5657, "output_tokens": 16, "error": false}

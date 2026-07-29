@@ -1,0 +1,5 @@
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.0138, "output_tokens": 44, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Tunis\"})] [lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2899, "output_tokens": 46, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6277, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"787 + 186\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5784, "output_tokens": 20, "error": false}
+{"text": "The total cost for the cheaper route and 3 hotel nights in Bergen is $973.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.7115, "output_tokens": 20, "error": false}

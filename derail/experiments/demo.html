@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentWatch Live — Real-Time Derailment Watchdog</title>
+<style>
+  /* Light professional theme. Colors are the validated reference dataviz
+     palette (light steps); series identity is fixed, never recycled. */
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --card: #fcfcfb;
+    --ink: #0b0b0b;
+    --ink2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --good: #0ca30c;
+    --good-text: #006300;
+    --warn: #b97900;         /* readable warning TEXT on light */
+    --warn-mark: #fab219;    /* warning marks/lines */
+    --serious: #b4552e;
+    --crit: #d03b3b;
+    --s-fused: #0b0b0b;
+    --s-b: #2a78d6;
+    --s-g: #e87ba4;
+    --s-e: #eda100;
+    --s-u: #1baf7a;
+    --s-m: #eb6834;
+    --s-x: #4a3aa7;
+    --band: rgba(12, 163, 12, 0.20);
+    --band-edge: rgba(12, 163, 12, 0.55);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font: 14px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 18px 22px 34px;
+  }
+  .wrap { max-width: 1320px; margin: 0 auto; }
+
+  /* ---------- header ---------- */
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.2px; }
+  header .tag { color: var(--ink2); font-size: 13.5px; }
+  .chips { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12px; color: var(--ink2); background: var(--card);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 3px 11px; white-space: nowrap;
+  }
+  .chip .dot { display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 6px; background: var(--muted); }
+  .chip.live .dot { background: var(--good); }
+  .chip.dead { color: var(--crit); border-color: var(--crit); }
+  .chip.dead .dot { background: var(--crit); }
+
+  /* ---------- controls ---------- */
+  .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 14px 0 10px; }
+  button {
+    font: 600 13.5px system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink); background: var(--card);
+    border: 1px solid var(--axis); border-radius: 8px;
+    padding: 8px 14px; cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: var(--ink2); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  #btn-run { background: #1c5cab; border-color: #1c5cab; color: #fff; }
+  #btn-run:hover:not(:disabled) { background: #256abf; }
+  .divider { width: 1px; height: 24px; background: var(--axis); margin: 0 4px; }
+  .inject-label { color: var(--ink2); font-size: 12.5px; margin-right: 2px;
+    font-weight: 600; }
+  button.inject.armed { border-color: var(--warn); color: var(--warn);
+    opacity: 1; background: rgba(250, 178, 25, 0.08); }
+  label.halt { display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink2); font-size: 12.5px; cursor: pointer; padding: 0 4px;
+    font-weight: 600; }
+  label.halt input { width: 15px; height: 15px; accent-color: #2a78d6; }
+
+  /* ---------- narrator ---------- */
+  #narrator {
+    border-left: 3px solid #2a78d6; background: var(--card);
+    border-top: 1px solid var(--border); border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 10px;
+    font-size: 13.5px; color: var(--ink);
+  }
+  #narrator .nlabel { font-weight: 700; color: #1c5cab; margin-right: 6px; }
+
+  /* ---------- banner ---------- */
+  #banner { display: none; border-radius: 10px; padding: 12px 16px;
+    margin-bottom: 12px; font-size: 13.5px; line-height: 1.55;
+    border: 1px solid var(--border); background: var(--card); }
+  #banner.crit { border-color: rgba(208, 59, 59, 0.5);
+    background: rgba(208, 59, 59, 0.06); }
+  #banner.warn { border-color: rgba(185, 121, 0, 0.5);
+    background: rgba(250, 178, 25, 0.08); }
+  #banner.good { border-color: rgba(12, 163, 12, 0.45);
+    background: rgba(12, 163, 12, 0.06); }
+  #banner.serious { border-color: rgba(180, 85, 46, 0.5);
+    background: rgba(236, 131, 90, 0.08); }
+  #banner b { font-weight: 700; }
+
+  /* ---------- layout & cards ---------- */
+  .grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 14px; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
+  .col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  details.card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0 16px 14px;
+    box-shadow: 0 1px 2px rgba(11, 11, 11, 0.03);
+  }
+  details.card > summary {
+    list-style: none; cursor: pointer; padding: 13px 0 9px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; color: var(--ink2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  details.card > summary::-webkit-details-marker { display: none; }
+  details.card > summary::after { content: "−"; margin-left: auto;
+    color: var(--muted); font-weight: 400; font-size: 15px; }
+  details.card:not([open]) > summary::after { content: "+"; }
+  details.card:not([open]) { padding-bottom: 2px; }
+  .plain { font-size: 13.5px; color: var(--ink); margin-bottom: 8px; }
+  .subtle { color: var(--muted); font-size: 12.5px; }
+  details.inner { margin-top: 6px; }
+  details.inner > summary { cursor: pointer; color: var(--muted);
+    font-size: 12px; font-weight: 600; }
+  details.inner pre {
+    font: 12px ui-monospace, Consolas, monospace; color: var(--ink2);
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; margin-top: 6px;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+
+  /* ---------- mission ---------- */
+  #mission-card.hijacked { border-color: var(--warn-mark); }
+  #mission-hijack { display: none; color: var(--warn); font-weight: 700;
+    font-size: 13px; margin-bottom: 8px; }
+  #mission-card.hijacked #mission-hijack { display: block; }
+  #mission-list { margin: 4px 0 4px 20px; font-size: 13.5px; }
+  #mission-list li { margin-bottom: 3px; }
+  #mission-route { font-weight: 700; font-size: 14.5px; margin-bottom: 6px; }
+
+  /* ---------- verdict ---------- */
+  #verdict { display: flex; align-items: center; gap: 12px; padding: 6px 0 2px; }
+  #verdict .glyph { font-size: 26px; line-height: 1; }
+  #verdict .word { font-size: 21px; font-weight: 750; }
+  #verdict .sub { color: var(--ink2); font-size: 13px; }
+  #verdict.v-good .word { color: var(--good-text); }
+  #verdict.v-warn .word { color: var(--warn); }
+  #verdict.v-crit .word { color: var(--crit); }
+  #verdict.v-serious .word { color: var(--serious); }
+  #verdict.v-idle .word { color: var(--ink2); }
+
+  /* ---------- chart ---------- */
+  #chart-box { position: relative; }
+  #chart { width: 100%; height: 250px; display: block; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px;
+    align-items: center; }
+  .legend .item { display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--ink2); }
+  .legend .sw { width: 11px; height: 11px; border-radius: 2px;
+    border: 1px solid rgba(11,11,11,0.15); }
+  .legend label.toggle { margin-left: auto; display: inline-flex; gap: 6px;
+    align-items: center; font-size: 12px; color: var(--muted);
+    cursor: pointer; }
+  .legend label.toggle input { accent-color: #2a78d6; }
+  #tooltip {
+    position: absolute; display: none; pointer-events: none; z-index: 5;
+    background: #ffffff; border: 1px solid var(--axis); border-radius: 8px;
+    padding: 8px 10px; font-size: 12px; min-width: 170px;
+    box-shadow: 0 4px 16px rgba(11, 11, 11, 0.12);
+  }
+  #tooltip .tt-head { color: var(--ink2); margin-bottom: 5px;
+    font-weight: 700; }
+  #tooltip .tt-row { display: flex; align-items: center; gap: 6px; }
+  #tooltip .tt-row .sw { width: 8px; height: 8px; border-radius: 2px; }
+  #tooltip .tt-row .v { font-weight: 700; margin-left: auto;
+    font-variant-numeric: tabular-nums; }
+  #tooltip .tt-row .n { color: var(--ink2); }
+
+  /* ---------- why / factors / savings ---------- */
+  #reason { display: none; font-size: 13.5px; margin-bottom: 10px;
+    padding: 10px 12px; border-radius: 8px;
+    background: rgba(208, 59, 59, 0.05);
+    border: 1px solid rgba(208, 59, 59, 0.25); }
+  .factor { margin-bottom: 10px; }
+  .factor .head { display: flex; align-items: baseline; gap: 8px; }
+  .factor .label { font-size: 13px; font-weight: 650; }
+  .factor .tag { font-size: 10px; letter-spacing: 0.5px; color: #ad4d76;
+    border: 1px solid #d55181; border-radius: 4px; padding: 0 5px;
+    text-transform: uppercase; font-weight: 700; }
+  .factor .pct { margin-left: auto; font-weight: 700; font-size: 13px;
+    font-variant-numeric: tabular-nums; }
+  .factor .track { height: 6px; background: var(--grid); border-radius: 4px;
+    margin: 5px 0 3px; overflow: hidden; }
+  .factor .fill { height: 100%; border-radius: 4px; background: var(--s-b); }
+  .factor.content .fill { background: var(--s-g); }
+  .factor .desc { color: var(--muted); font-size: 12px; }
+  #savings { display: none; margin-top: 10px; padding: 10px 12px;
+    border-radius: 8px; background: rgba(12, 163, 12, 0.06);
+    border: 1px solid rgba(12, 163, 12, 0.3); font-size: 13.5px; }
+  #savings .big { font-weight: 750; }
+
+  /* ---------- injected failure ---------- */
+  #inject-card { display: none; border-color: var(--warn-mark); }
+
+  /* ---------- agent activity ---------- */
+  #feed { max-height: 600px; overflow-y: auto; display: flex;
+    flex-direction: column; gap: 8px; scrollbar-width: thin;
+    resize: vertical; }
+  .placeholder { color: var(--muted); font-size: 13px; }
+  .step {
+    border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px;
+    background: #ffffff;
+  }
+  .step .head { display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 12px; margin-bottom: 4px;
+    font-weight: 600; }
+  .step .head .n { font-variant-numeric: tabular-nums; }
+  .step .score { margin-left: auto; font-size: 12px; font-weight: 700;
+    font-variant-numeric: tabular-nums; color: var(--ink2); }
+  .step .score.hot { color: var(--warn); }
+  .step .score.over { color: var(--crit); }
+  .step .probe-note { color: #1c5cab; font-size: 12.5px; font-weight: 600;
+    margin-bottom: 3px; }
+  .step .txt { font-size: 13.5px; color: var(--ink); white-space: pre-wrap;
+    overflow-wrap: anywhere; }
+  .step .acts { margin-top: 5px; display: flex; flex-direction: column;
+    gap: 3px; }
+  .step .act-line { font-size: 13px; color: var(--ink2);
+    overflow-wrap: anywhere; }
+  .step .act-line.err { color: var(--serious); font-weight: 600; }
+  .mark { border-radius: 10px; padding: 8px 12px; font-size: 13px;
+    font-weight: 700; }
+  .mark.inject { border: 1px solid var(--warn-mark); color: var(--warn);
+    background: rgba(250, 178, 25, 0.07); }
+  .mark.alarm { border: 1px solid rgba(208, 59, 59, 0.55);
+    color: var(--crit); background: rgba(208, 59, 59, 0.05); }
+  .mark .why { display: block; font-weight: 400; font-size: 12.5px;
+    color: var(--ink2); margin-top: 2px; }
+
+  /* ---------- final answer ---------- */
+  #answer-card { display: none; }
+  #answer-text { font-size: 13.5px; white-space: pre-wrap;
+    overflow-wrap: anywhere; margin-bottom: 8px; }
+  .badge { display: inline-block; border-radius: 6px; padding: 3px 10px;
+    font-size: 12.5px; font-weight: 700; }
+  .badge.ok { color: var(--good-text); background: rgba(12, 163, 12, 0.1);
+    border: 1px solid rgba(12, 163, 12, 0.4); }
+  .badge.bad { color: var(--crit); background: rgba(208, 59, 59, 0.07);
+    border: 1px solid rgba(208, 59, 59, 0.4); }
+  .badge.warn { color: var(--warn); background: rgba(250, 178, 25, 0.1);
+    border: 1px solid var(--warn-mark); }
+
+  footer { margin-top: 18px; color: var(--muted); font-size: 12.5px;
+    line-height: 1.6; }
+  footer details summary { cursor: pointer; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>AgentWatch Live</h1>
+    <span class="tag">Real-Time Derailment Watchdog for AI Agents — Real Agent, Real Monitor</span>
+    <div class="chips">
+      <span class="chip" id="chip-model">Agent: —</span>
+      <span class="chip" id="chip-monitor">Watchdog: —</span>
+      <span class="chip" id="chip-server"><span class="dot"></span><span id="chip-server-txt">Connecting…</span></span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <button id="btn-run">&#9654; Run Agent</button>
+    <button id="btn-stop" disabled>&#9632; Stop</button>
+    <button id="btn-clear">&#10227; Clear</button>
+    <label class="halt" title="When the Watchdog raises an alarm, stop the agent immediately">
+      <input type="checkbox" id="halt-toggle" checked> Halt Agent on Alarm
+    </label>
+    <span class="divider"></span>
+    <span class="inject-label" title="Click any time during a run — the failure fires on the NEXT step. The earliest possible step is 4, because the Watchdog needs a 3-step warm-up before it can alarm; click earlier and it waits until step 4.">Inject Failure (fires on the next step, earliest step 4):</span>
+    <button class="inject" data-fc="looping" title="Trap the agent in an endless retry loop">&#10227; Loop Trap</button>
+    <button class="inject" data-fc="grounding_loss" title="Insert a fabricated fee (a figure no tool returned) into the agent's final answer &#8212; the grounding check must catch it on its own">&#10033; Hallucination</button>
+    <button class="inject" data-fc="goal_drift" title="Silently replace the user's task with a different one">&#8644; Goal Hijack</button>
+    <button class="inject" data-fc="tool_cascade" title="Make tools start failing with errors">&#9889; Tool Failures</button>
+    <button class="inject" data-fc="context_corruption" title="Silently garble the data coming back from tools">&#9626; Data Corruption</button>
+  </div>
+
+  <div id="narrator"><span class="nlabel">What&rsquo;s happening:</span><span id="narrator-text">Connecting to the server…</span></div>
+  <div id="banner"></div>
+
+  <div class="grid">
+    <div class="col">
+      <details class="card" id="mission-card" open>
+        <summary>Mission — What the Agent Was Asked to Do</summary>
+        <div id="mission-hijack">&#8644; The mission was silently hijacked — this is no longer the original request</div>
+        <div id="mission-body"><div class="placeholder">Starts with the run.</div></div>
+      </details>
+
+      <details class="card" open>
+        <summary>Agent Activity <span class="subtle" id="step-count" style="text-transform:none; letter-spacing:0; margin-left:auto; font-weight:600;">0 of 20 steps used</span></summary>
+        <div id="feed"><div class="placeholder">Press &ldquo;Run Agent&rdquo;. Every step the agent takes appears here
+          in plain English, with its Watchdog score. The raw model/tool data
+          is available under &ldquo;Raw&rdquo; on each step — nothing is hidden.</div></div>
+      </details>
+
+      <details class="card" id="contract-card" open style="display:none;">
+        <summary>Tool Contract</summary>
+        <div id="contract-check"></div>
+      </details>
+
+      <details class="card" id="answer-card" open>
+        <summary>Final Answer</summary>
+        <div id="answer-text"></div>
+        <span id="answer-badge"></span>
+        <div class="subtle" id="answer-expected" style="margin-top:6px;"></div>
+        <div id="grounding-check" style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border);"></div>
+        <div id="consistency-check" style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border);"></div>
+      </details>
+
+      <details class="card" id="repair-card" open style="display:none;">
+        <summary>Repair</summary>
+        <div id="repair-panel"></div>
+      </details>
+    </div>
+
+    <div class="col">
+      <details class="card" open>
+        <summary>Verdict</summary>
+        <div id="verdict" class="v-idle">
+          <span class="glyph" id="verdict-glyph">&#9675;</span>
+          <div>
+            <div class="word" id="verdict-word">Idle</div>
+            <div class="sub" id="verdict-sub">Waiting to start.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="card" open>
+        <summary>Live Watchdog Score — Above the Red Line = Alarm</summary>
+        <div class="plain">The white-to-black line is <b>this run</b>. The green
+          band is the <b>healthy range</b> measured from real recorded runs of
+          this task. Healthy runs stay inside the band; failures climb out of
+          it and cross the red alarm line.</div>
+        <div id="chart-box">
+          <canvas id="chart"></canvas>
+          <div id="tooltip"></div>
+        </div>
+        <div class="legend" id="legend"></div>
+      </details>
+
+      <details class="card" open>
+        <summary id="why-title">Why the Score Moved</summary>
+        <div id="reason"></div>
+        <div class="subtle" id="factors-cap" style="margin-bottom:10px;"></div>
+        <div id="factors-list"><div class="placeholder">No score yet.</div></div>
+        <div id="savings"></div>
+      </details>
+
+      <details class="card" id="inject-card" open>
+        <summary>Injected Failure — Exactly What We Did</summary>
+        <div class="plain" id="inject-plain"></div>
+        <div id="inject-payload"></div>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    <div id="foot-plain">Loading…</div>
+    <details style="margin-top:6px;">
+      <summary>Technical Details</summary>
+      <div id="foot-tech" style="margin-top:6px;"></div>
+    </details>
+  </footer>
+</div>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------ constants */
+const CSS = getComputedStyle(document.documentElement);
+const C = (name) => CSS.getPropertyValue(name).trim();
+const SERIES = {
+  fused: { label: "Live Score",  color: C("--s-fused"), width: 2.2 },
+  b:     { label: "Behavioral",  color: C("--s-b"),     width: 1.5 },
+  g:     { label: "Grounding",   color: C("--s-g"),     width: 1.5 },
+  e:     { label: "e (semantic)",     color: C("--s-e"), width: 1.2 },
+  u:     { label: "u (uncertainty)",  color: C("--s-u"), width: 1.2 },
+  m:     { label: "m (metadata)",     color: C("--s-m"), width: 1.2 },
+  x:     { label: "x (behavior)",     color: C("--s-x"), width: 1.2 },
+};
+const FC_LABEL = {
+  looping: "Loop Trap", grounding_loss: "Hallucination",
+  goal_drift: "Goal Hijack",
+  tool_cascade: "Tool Failures", context_corruption: "Data Corruption",
+};
+const WASHOUT = 3;
+const POLL_MS = 700;
+const YMAX = 3;
+// Reference price for the "cost saved" ESTIMATE only. The demo runs on
+// local Ollama, whose real cost is $0 — the estimate shows what the same
+// wasted tokens would cost at typical cloud-API output pricing.
+const REF_USD_PER_1M_TOKENS = 10;
+
+/* ------------------------------------------------------------ helpers */
+const $ = (id) => document.getElementById(id);
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+// Writing .textContent replaces the text node and therefore kills any
+// selection inside it — on a 700 ms poll that makes text impossible to
+// select and copy. Only write when the string actually changed.
+function setText(node, s) {
+  if (node && node.textContent !== s) node.textContent = s;
+}
+
+// Panels are re-rendered on a 700 ms poll, which destroys and recreates
+// any <details> inside them — so a disclosure the user just opened would
+// snap shut within a fraction of a second. Remember open/closed state by a
+// stable key and restore it on every rebuild.
+const openDetails = new Set();
+function detailsEl(key, summaryText, defaultOpen = false) {
+  const d = el("details", "inner");
+  d.append(el("summary", "", summaryText));
+  d.open = openDetails.has(key) ||
+           (defaultOpen && !openDetails.has("!closed:" + key));
+  d.addEventListener("toggle", () => {
+    if (d.open) {
+      openDetails.add(key);
+      openDetails.delete("!closed:" + key);
+    } else {
+      openDetails.delete(key);
+      if (defaultOpen) openDetails.add("!closed:" + key);   // honour a manual close
+    }
+  });
+  return d;
+}
+function fmt(v) {
+  if (!isFinite(v)) return "—";
+  if (v >= 100) return "≥100";
+  return v.toFixed(2);
+}
+async function post(url) {
+  try { await fetch(url, { method: "POST" }); } catch (e) { /* poll reports */ }
+}
+function selectionInside(node) {
+  const sel = document.getSelection();
+  return sel && !sel.isCollapsed && sel.anchorNode &&
+         node.contains(sel.anchorNode);
+}
+
+/* ------------------------------------------------------------ polling */
+let S = null;
+let serverId = null;
+let serverStale = false;
+let serverDown = false;
+let showInternals = false;
+let lastFeedKey = "";
+
+async function poll() {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 2500);
+    const r = await fetch("/state", { signal: ctl.signal });
+    clearTimeout(timer);
+    const s = await r.json();
+    serverDown = false;
+    if (serverId === null) serverId = s.server_id;
+    serverStale = serverId !== s.server_id;
+    S = s;
+  } catch (e) {
+    serverDown = true;
+  }
+  render();
+}
+setInterval(poll, POLL_MS);
+poll();
+
+/* ------------------------------------------------------------ controls */
+$("btn-run").onclick = () => post("/start");
+$("btn-stop").onclick = () => post("/stop");
+$("btn-clear").onclick = () => { lastFeedKey = ""; post("/clear"); };
+$("halt-toggle").onchange = () => post("/toggle_halt");
+for (const b of document.querySelectorAll("button.inject")) {
+  b.onclick = () => post("/inject/" + b.dataset.fc);
+}
+
+/* ------------------------------------------------------------ render */
+function render() {
+  renderServerChip();
+  if (!S) return;
+  const alarmed = S.alarm_step !== null;
+  const injected = S.injection && S.injection.class;
+
+  renderHeaderChips();
+  renderControls(alarmed, injected);
+  renderNarrator(alarmed, injected);
+  renderVerdict(alarmed, injected);
+  renderBanner(alarmed, injected);
+  renderMission(injected);
+  renderFeed(alarmed, injected);
+  renderContract();
+  renderAnswer();
+  renderRepair();
+  renderWhy(alarmed, injected);
+  renderInjectCard(injected);
+  drawChart();
+  renderLegend();
+  renderFooter();
+}
+
+function renderServerChip() {
+  const chip = $("chip-server"), txt = $("chip-server-txt");
+  chip.classList.remove("live", "dead");
+  if (serverDown) { chip.classList.add("dead"); txt.textContent = "Server Unreachable"; }
+  else if (serverStale) { chip.classList.add("dead"); txt.textContent = "STALE SERVER — Restart & Refresh"; }
+  else { chip.classList.add("live"); txt.textContent = "Server Live"; }
+}
+
+function renderHeaderChips() {
+  $("chip-model").textContent = "Agent: " + (S.model || "—") + " (local, real)";
+  const c = S.calib || {};
+  $("chip-monitor").textContent = c.kind === "gate"
+    ? "Watchdog: calibrated on " + c.n_fit + " real healthy runs"
+    : "Watchdog: FALLBACK calibration (" + (c.source || "?") + ")";
+}
+
+function renderControls(alarmed, injected) {
+  $("btn-run").disabled = S.running;
+  $("btn-stop").disabled = !S.running;
+  $("btn-clear").disabled = S.running;
+  $("halt-toggle").checked = !!S.halt_on_alarm;
+  for (const b of document.querySelectorAll("button.inject")) {
+    if (!b.dataset.deflabel) b.dataset.deflabel = b.textContent;
+    b.disabled = !S.running || !!injected || alarmed;
+    b.classList.toggle("armed", injected === b.dataset.fc);
+    if (injected === b.dataset.fc && S.injection.step !== null) {
+      b.textContent = FC_LABEL[b.dataset.fc] + " @ Step " + (S.injection.step + 1);
+    } else if (injected === b.dataset.fc) {
+      b.textContent = FC_LABEL[b.dataset.fc] + " (armed)";
+    } else {
+      b.textContent = b.dataset.deflabel;
+    }
+  }
+}
+
+/* ------------------------------------------------------------ narrator */
+function endingSentence() {
+  switch (S.end_reason) {
+    case "answered": return "The run ended because the agent gave its final answer.";
+    case "budget_exhausted": return "The run ended because the " + S.budget +
+      "-step safety budget ran out before a final answer.";
+    case "halted_by_watchdog": return "The Watchdog stopped the agent.";
+    case "stopped_by_user": return "You stopped the run.";
+    case "agent_error": return "The agent backend hit an error.";
+    default: return "";
+  }
+}
+
+function renderNarrator(alarmed, injected) {
+  const t = $("narrator-text");
+  const n = S.steps.length;
+  const cur = n ? S.scores[n - 1] : 0;
+  if (serverStale) {
+    setText(t, "A different server is answering — restart the demo and " +
+               "refresh this page.");
+    return;
+  }
+  const st = S.status || "idle";
+  if (st.startsWith("error")) {
+    setText(t, "The agent hit a backend error — details in the banner.");
+    return;
+  }
+  if (!S.running && !n) {
+    setText(t, "Press Run Agent. A real " + (S.model || "") +
+      " model will plan a multi-city trip with booking tools while the " +
+      "Watchdog scores every step against the healthy range. " +
+      "No script — the model decides everything live.");
+    return;
+  }
+  if (S.running && alarmed) {
+    setText(t, "ALARM raised at Step " + (S.alarm_step + 1) +
+      " — Halt is off, so the agent keeps going and you can watch the failure play out.");
+    return;
+  }
+  if (S.running && injected && S.injection.step !== null) {
+    if (injected === "grounding_loss") {
+      setText(t, "Step " + n + ": Hallucination is armed — the fabricated " +
+        "fee is inserted the moment the agent writes its final answer, and " +
+        "the GROUNDING CHECK must catch it there on its own. The Watchdog " +
+        "score is not this failure's detector.");
+      return;
+    }
+    setText(t, "Step " + n + ": " + FC_LABEL[injected] +
+      " is active (injected at Step " + (S.injection.step + 1) + "). Score " +
+      fmt(cur) + " — watch whether it climbs out of the green healthy band.");
+    return;
+  }
+  if (S.running && injected) {
+    setText(t, FC_LABEL[injected] + " is armed — it fires at Step " +
+      (S.min_inject_step + 1) + " (the Watchdog needs " + WASHOUT +
+      " warm-up steps before alarms are possible).");
+    return;
+  }
+  if (S.running) {
+    const last = S.steps[n - 1];
+    setText(t, "Step " + n + ": the agent is " +
+      (last && last.action === "tool_call" ? "calling booking tools" :
+       last && last.action === "synthesis" ? "writing its answer" :
+       "planning") + ". Score " + fmt(cur) +
+      " — inside the healthy range. You can inject a failure at any time.");
+    return;
+  }
+  // run over
+  if (n && S.grounding_verdict === "fabricated") {
+    setText(t, "Run over. " + endingSentence() +
+      " The grounding check caught a fabricated figure — a number in the " +
+      "answer that no tool returned." +
+      (injected === "grounding_loss"
+        ? " That is exactly the injected hallucination — caught. Details " +
+          "in the banner and the Injected Failure panel."
+        : " A genuine hallucination, caught without the correct answer."));
+  } else if (alarmed) {
+    setText(t, "Run over. The Watchdog alarmed at Step " + (S.alarm_step + 1) +
+      ". " + endingSentence() + " Details in the banner and the Why panel.");
+  } else if (injected === "grounding_loss") {
+    setText(t, "Run over — the injected fabrication was NOT caught this " +
+      "run. " + endingSentence() +
+      " The banner explains exactly why not.");
+  } else if (injected) {
+    setText(t, "Run over with no alarm. " + endingSentence() +
+      " The injected failure stayed under the line — an honest miss, explained in the banner.");
+  } else if (n && S.answer_check === "wrong") {
+    setText(t, "Run over. " + endingSentence() +
+      " The score stayed inside the healthy band the whole way — the agent " +
+      "never derailed. But the ground-truth check says the final total is " +
+      "wrong, so this run failed the task without ever behaving abnormally.");
+  } else if (n) {
+    setText(t, "Run over. " + endingSentence() +
+      " The score stayed inside the healthy band the whole way — a clean run.");
+  } else {
+    setText(t, "Cleared. Press Run Agent to start a fresh run.");
+  }
+}
+
+/* ------------------------------------------------------------ verdict */
+function setVerdict(cls, glyph, word, sub) {
+  $("verdict").className = cls;
+  setText($("verdict-glyph"), glyph);
+  setText($("verdict-word"), word);
+  setText($("verdict-sub"), sub);
+}
+
+function renderVerdict(alarmed, injected) {
+  const st = S.status || "idle";
+  if (st.startsWith("error")) {
+    setVerdict("v-serious", "⚠", "Agent Error", st.slice(0, 140));
+  } else if (st === "finished" && S.grounding_verdict === "fabricated") {
+    setVerdict("v-crit", "⛔", "Hallucination Caught",
+      "The grounding check found a figure in the answer that no tool " +
+      "returned" + (injected === "grounding_loss"
+        ? " — the injected fabrication, caught." : " — a genuine fabrication."));
+  } else if (alarmed && st === "halted") {
+    setVerdict("v-crit", "⛔", "Alarm — Agent Halted",
+      "The Watchdog crossed the alarm line at Step " + (S.alarm_step + 1) +
+      " and stopped the agent.");
+  } else if (alarmed) {
+    setVerdict("v-crit", "⛔", "Alarm",
+      "Score crossed the alarm line at Step " + (S.alarm_step + 1) +
+      (S.running ? " — agent still running (Halt is off)." : "."));
+  } else if (S.running && injected) {
+    setVerdict("v-warn", "▲", "Watching",
+      FC_LABEL[injected] + (S.injection.step === null
+        ? " armed — fires at Step " + (S.min_inject_step + 1) + "."
+        : " active since Step " + (S.injection.step + 1) + " — score below the line so far."));
+  } else if (S.running) {
+    setVerdict("v-good", "●", "Healthy",
+      "Agent working; every step scored inside the healthy range.");
+  } else if (st === "finished" && !injected && S.answer_check === "wrong") {
+    // Behaviourally clean but the bill is wrong: do NOT show this as a
+    // green success. Two independent layers, two different answers.
+    // (Guarded on !injected so a missed injection keeps telling the
+    // injection story instead — the banner explains that case.)
+    setVerdict("v-warn", "⚠", "No Derailment — but Wrong Answer",
+      "The agent never behaved abnormally, so the Watchdog stayed silent " +
+      "— and it still got the total wrong.");
+  } else if (st === "finished" && S.steps.length) {
+    setVerdict(injected && !alarmed ? "v-warn" : "v-good", "✓", "Run Finished",
+      injected && !alarmed ? "Ended without an alarm — see the banner."
+                           : "Clean run — no alarm.");
+  } else if (st === "stopped") {
+    setVerdict("v-idle", "■", "Stopped", "Run stopped by you.");
+  } else {
+    setVerdict("v-idle", "○", "Idle", "Waiting to start.");
+  }
+}
+
+/* ------------------------------------------------------------ banner */
+let lastBannerKey = "";
+function renderBanner(alarmed, injected) {
+  const ban = $("banner");
+  // The banner is long prose people copy; rebuilding it every poll made it
+  // unselectable. Its content is fully determined by these fields.
+  const bkey = [serverStale, S.status, alarmed, S.alarm_step, injected,
+                S.injection && S.injection.step, S.steps.length,
+                S.end_reason, S.answer_check, S.grounding_verdict,
+                S.halt_on_alarm,
+                (S.alarm_explain && S.alarm_explain[0]
+                 && S.alarm_explain[0].label) || ""].join("|");
+  if (bkey === lastBannerKey) return;
+  lastBannerKey = bkey;
+  ban.style.display = "none";
+  ban.className = "";
+  ban.textContent = "";
+  const show = (cls) => { ban.className = cls; ban.style.display = "block"; };
+
+  if (serverStale) {
+    ban.append("⛔ ", el("b", "", "A different demo server is answering on this port."),
+      " Kill both servers, start one, then refresh this page.");
+    show("crit");
+    return;
+  }
+  const st = S.status || "";
+  if (st.startsWith("error")) {
+    ban.append("⚠ ", el("b", "", "Agent backend error: "),
+      st.replace(/^error:\s*/, ""));
+    show("serious");
+    return;
+  }
+  // A caught fabrication headlines above everything else — it is the most
+  // important thing the system can report.
+  if (st === "finished" && S.grounding_verdict === "fabricated") {
+    const fabs = (S.grounding_fabricated || []).map((p) => "$" + p[1]).join(", ");
+    ban.append("⛔ ", el("b", "", "Hallucination caught — fabricated figure."),
+      " The grounding check found the answer asserts " + fabs + " that NO " +
+      "tool returned — an invented number, not an arithmetic slip. Caught " +
+      "with no correct answer needed: every stated figure is verified " +
+      "against the tool results the agent actually received." +
+      (injected === "grounding_loss"
+        ? " (The fabricated line was INJECTED into the answer — qwen2.5:7b " +
+          "itself refuses to fabricate, 0 in 91 measured runs, so the " +
+          "injector simulates a hallucinating model exactly as the other " +
+          "buttons simulate their faults; the Injected Failure panel shows " +
+          "the verbatim edit. The grounding check was NOT told which " +
+          "figure was injected — it found it on its own.)"
+        : ""));
+    show("crit");
+    return;
+  }
+  if (alarmed) {
+    const top = (S.alarm_explain && S.alarm_explain[0]) || null;
+    ban.append("⛔ ", el("b", "", "Watchdog alarm at Step " + (S.alarm_step + 1) + "."), " ");
+    if (injected === "grounding_loss") {
+      ban.append("Hallucination's fabrication strikes at the agent's final " +
+        "answer" + (S.injection.payload ? "" :
+        ", which this run never reached") + " — a behavioural alarm before " +
+        "that is one of the ~1-in-10 statistical false alarms the 10% " +
+        "budget allows, not the hallucination being caught (that detector " +
+        "is the GROUNDING CHECK, not this score). Rerun and let the agent " +
+        "answer. ");
+    } else if (injected && S.injection.step !== null) {
+      const d = S.alarm_step - S.injection.step;
+      ban.append(FC_LABEL[injected] + " was injected at Step " + (S.injection.step + 1) +
+        " and caught " + (d === 0 ? "at the very same step. " :
+        d + " step" + (d === 1 ? "" : "s") + " later. "));
+    } else {
+      ban.append("No failure was injected — this is a statistical false alarm. " +
+        "The Watchdog allows ~1 in 10 healthy runs to alarm (its 10% " +
+        "false-alarm budget); rerun to see a clean pass. ");
+    }
+    if (top) ban.append("Main evidence: " + top.label.toLowerCase() +
+      " (" + top.pct.toFixed(0) + "% of the score).");
+    show("crit");
+    return;
+  }
+  if (st === "finished" && injected === "grounding_loss" && !alarmed) {
+    // The grounding check did NOT catch the injected fabrication — say
+    // exactly why, per the two ways that can honestly happen.
+    ban.append("▲ ", el("b", "", "Not caught this run — here is exactly why."), " " +
+      (S.injection.payload
+        ? "The fabricated fee WAS inserted into the answer, but its figure " +
+          "happens to lie within $0.50 of a legitimate combination of this " +
+          "run's tool values, so the grounding check counts it as grounded. " +
+          "That is the check's one documented false-negative: it never " +
+          "false-ALARMS by design, at the price of letting a coincidental " +
+          "numeric match through. Rerun — the next draw will not collide."
+        : "The fabrication is inserted into the agent's final ANSWER — the " +
+          "only place a hallucination can live — and this run ended " +
+          "without a final answer (" +
+          (S.end_reason === "budget_exhausted"
+            ? "the step budget ran out" : "the run ended early") +
+          "), so there was nothing to fabricate into. Rerun and let the " +
+          "agent reach its answer."));
+    show("warn");
+    return;
+  }
+  if (st === "finished" && injected && !alarmed) {
+    ban.append("▲ ", el("b", "", "No alarm this run — an honest miss."), " " +
+      FC_LABEL[injected] + " was active from Step " + (S.injection.step ?? "—") +
+      " but the score never crossed the line." +
+      (injected === "context_corruption"
+        ? " Data Corruption is the Watchdog's documented hard case: this " +
+          "world's tool results are tiny, so garbling them leaves too " +
+          "little signal — a real, known boundary of the method."
+        : " This class is detected in most runs but not all — detection " +
+          "is real, so it is not guaranteed. Rerun to try again."));
+    show("warn");
+    return;
+  }
+  if (st === "finished" && S.steps.length && S.end_reason === "budget_exhausted") {
+    ban.append("■ ", el("b", "", "Step budget exhausted."), " The " + S.budget +
+      "-step safety cap ended the run before a final answer — this cap is " +
+      "exactly the waste an early alarm prevents.");
+    show("warn");
+    return;
+  }
+  if (st === "finished" && S.answer_check === "wrong") {
+    // The two layers disagree — say so plainly instead of showing green.
+    ban.append("⚠ ", el("b", "", "No derailment detected — but the answer is wrong."),
+      " " + S.steps.length + " steps, no alarm: the agent's behaviour stayed " +
+      "inside the healthy range the whole way, so the Watchdog was right to " +
+      "stay silent. The independent ground-truth check caught what behaviour " +
+      "alone cannot — a quiet arithmetic/scope mistake (typically an " +
+      "unrequested item billed into the total). ");
+    ban.append(el("b", "", "This is the point of two layers: "));
+    ban.append("the Watchdog catches derailment, the answer check catches " +
+      "quiet mistakes. Neither alone is enough.");
+    show("warn");
+    return;
+  }
+  if (st === "finished" && S.steps.length) {
+    ban.append("✓ ", el("b", "", "Clean healthy run."), " " + S.steps.length +
+      " steps, no alarm, final answer delivered" +
+      (S.answer_check === "correct" ? " and verified correct." : "."));
+    show("good");
+  }
+}
+
+/* ------------------------------------------------------------ mission */
+let lastMissionKey = "";
+function renderMission(injected) {
+  const card = $("mission-card");
+  const body = $("mission-body");
+  if (!S.task_struct) {
+    card.classList.remove("hijacked");
+    if (lastMissionKey !== "") {          // reset once, not every poll
+      lastMissionKey = "";
+      body.textContent = "";
+      body.append(el("div", "placeholder", "Starts with the run."));
+    }
+    return;
+  }
+  card.classList.toggle("hijacked", !!S.hijacked);
+  if (selectionInside(body)) return;      // keep text selectable
+  // Only rebuild when the mission actually changes (start / hijack).
+  // Rebuilding on every poll destroyed the open Raw Prompt disclosure.
+  const mkey = (S.task || "") + "|" + S.hijacked;
+  if (mkey === lastMissionKey) return;
+  lastMissionKey = mkey;
+  body.textContent = "";
+  const tsk = S.task_struct;
+  const route = el("div");
+  route.id = "mission-route";
+  route.textContent = (tsk.kind === "grand_tour" ? "Price a Grand Tour: " :
+    "Price the Shortest Trip: ") + tsk.route.join(" → ");
+  body.append(route);
+  const ul = el("ul");
+  ul.id = "mission-list";
+  const items = [];
+  if (tsk.kind === "grand_tour") {
+    items.push("Look up all " + (tsk.route.length - 1) + " flight legs");
+    items.push(tsk.hotel_nights + " hotel nights in each of " +
+      tsk.hotel_cities.join(", "));
+    if (tsk.weather_cities.length)
+      items.push("Check the weather in " + tsk.weather_cities.join(", ") +
+        " (mention it in the answer)");
+    items.push("Use the calculator for the grand total in USD");
+  } else {
+    items.push("One flight " + tsk.route.join(" → "));
+    items.push(tsk.hotel_nights + " hotel night in " + tsk.hotel_cities.join(", "));
+    items.push("Total it");
+  }
+  items.push("Rule: gather every number with tools");
+  for (const it of items) ul.append(el("li", "", it));
+  body.append(ul);
+  const raw = detailsEl("mission-raw",
+                        "Raw Prompt (exactly what the model sees)");
+  raw.append(el("pre", "", S.task));
+  body.append(raw);
+}
+
+/* ------------------------------------------------------------ feed */
+function plainToolLine(t) {
+  const m = t.match(/^(\w+)\((\{.*?\})\) -> (.*)$/s);
+  if (!m) return { text: t, err: t.includes("Error:") };
+  const name = m[1];
+  let args = {};
+  try { args = JSON.parse(m[2]); } catch (e) { /* show raw-ish */ }
+  const res = m[3];
+  const err = res.startsWith("Error:");
+  let text;
+  switch (name) {
+    case "lookup_flight":
+      text = "Looked up flight " + (args.origin || "?") + " → " +
+             (args.destination || "?") + ":  " + res; break;
+    case "lookup_hotel":
+      text = "Checked hotel price in " + (args.city || "?") + ":  " + res; break;
+    case "get_weather":
+      text = "Checked weather in " + (args.city || "?") + ":  " + res; break;
+    case "search_catalog":
+      text = "Searched catalog for " + (args.item || "?") + ":  " + res; break;
+    case "calculator":
+      text = "Calculated " + (args.expression || "?") + " = " + res; break;
+    default:
+      text = name + ":  " + res;
+  }
+  if (err) text = "Tool failed — " + text;
+  return { text, err };
+}
+
+function actionLabel(a) {
+  return a === "tool_call" ? "Tool Call" : a === "synthesis" ? "Answer" : "Plan";
+}
+
+function scoreClass(v) {
+  if (v > 1.0) return "score over";
+  if (v >= 0.7) return "score hot";
+  return "score";
+}
+
+function renderFeed(alarmed, injected) {
+  // A COUNT, not an index. The step CARDS are 0-indexed ("Step 0".."Step
+  // N-1"); showing "Step {count}" here made the header read one higher than
+  // the last card (13 vs "Step 12"). Label it explicitly as a count.
+  setText($("step-count"),
+          S.steps.length + " of " + S.budget + " steps used");
+  const feed = $("feed");
+  const key = [S.steps.length, S.status, S.alarm_step,
+               S.injection && S.injection.step, S.hijacked].join("|");
+  if (key === lastFeedKey) return;
+  if (selectionInside(feed)) return;      // don't destroy a text selection
+  lastFeedKey = key;
+
+  const nearBottom =
+    feed.scrollHeight - feed.scrollTop - feed.clientHeight < 60;
+  feed.textContent = "";
+  if (!S.steps.length) {
+    feed.append(el("div", "placeholder",
+      S.running ? "Starting the agent…" : "Press “Run Agent” to start."));
+    return;
+  }
+  for (const st of S.steps) {
+    if (S.injection && st.t === S.injection.step) {
+      feed.append(el("div", "mark inject",
+        S.injection.class === "grounding_loss"
+          ? "▼ Hallucination armed before this step — the fabricated fee " +
+            "is inserted into the FINAL ANSWER when it comes (see " +
+            "“Injected Failure” panel)"
+          : "▼ " + FC_LABEL[S.injection.class] +
+            " injected before this step (see “Injected Failure” panel for exactly what)"));
+    }
+    const card = el("div", "step");
+    const head = el("div", "head");
+    head.append(el("span", "n", "Step " + (st.t + 1)),
+                el("span", "", "· " + actionLabel(st.action)),
+                el("span", "", "· " + st.latency_s + "s"));
+    head.append(el("span", scoreClass(st.score), "Score " + fmt(st.score)));
+    card.append(head);
+    if (st.probed) card.append(el("div", "probe-note",
+      "↳ Answering an automatic follow-up the DEMO sent (“double-check " +
+      "your figures”) — a stand-in for a user pressing the agent, which " +
+      "gives the Watchdog a few more steps to accumulate evidence"));
+    if (st.text) card.append(el("div", "txt", st.text));
+    if (st.tools && st.tools.length) {
+      const acts = el("div", "acts");
+      for (const t of st.tools) {
+        const p = plainToolLine(t);
+        acts.append(el("div", "act-line" + (p.err ? " err" : ""),
+                       (p.err ? "⚠ " : "· ") + p.text));
+      }
+      card.append(acts);
+    }
+    const raw = detailsEl("step-raw-" + st.t, "Raw");
+    raw.append(el("pre", "",
+      "action: " + st.action + "   latency: " + st.latency_s +
+      "s   output tokens: " + (st.tokens ?? "?") +
+      (st.tools && st.tools.length ? "\n" + st.tools.join("\n") : "")));
+    card.append(raw);
+    feed.append(card);
+    if (st.t === S.alarm_step) {
+      const m = el("div", "mark alarm", "⛔ Watchdog alarm at this step");
+      const top = (S.alarm_explain && S.alarm_explain[0]) || null;
+      if (top) m.append(el("span", "why",
+        "Main evidence: " + top.label + " — " + top.desc));
+      if (S.status === "halted")
+        m.append(el("span", "why", "Agent halted here (Halt on Alarm is on)."));
+      feed.append(m);
+    }
+  }
+  if (nearBottom) feed.scrollTop = feed.scrollHeight;
+}
+
+/* --------------------------------------------------------- contract */
+// The tool-boundary contract needs no answer to compare against, so unlike
+// the checks in the answer card it reports DURING the run, at the step the
+// bad result arrived. It renders in its own card for that reason: the answer
+// card stays hidden until the agent finishes, which would hide the very
+// property this check exists to show.
+let lastContractKey = "";
+function renderContract() {
+  const card = $("contract-card");
+  const cs = S.contract_step;
+  if (cs === null || cs === undefined) {
+    card.style.display = "none";
+    lastContractKey = "";
+    return;
+  }
+  card.style.display = "block";
+  const key = cs + "|" + S.alarm_step;
+  if (key === lastContractKey) return;
+  lastContractKey = key;
+
+  const tc = $("contract-check");
+  tc.textContent = "";
+  tc.append(el("span", "badge bad", "✗ Tool Returned A Malformed Result"));
+  tc.append(el("div", "subtle",
+    "Caught at step " + (cs + 1) + " — the step the corrupted result came " +
+    "back on, before the agent had used it. Each tool can only answer in a " +
+    "declared shape: lookup_flight returns a price or “No route found”. " +
+    "Anything else never should have reached the agent."));
+  const lead = (S.alarm_step === null || S.alarm_step === undefined)
+    ? null : S.alarm_step - cs;
+  tc.append(el("div", "subtle",
+    lead === null
+      ? "The behavioural Watchdog has not alarmed here: garbled results in " +
+        "this task are too terse to shift its statistics. This check needs " +
+        "no healthy baseline and no threshold, so that does not stop it."
+      : "The Watchdog reached the same run at step " + (S.alarm_step + 1) +
+        ", " + lead + " step" + (lead === 1 ? "" : "s") + " later. Checking " +
+        "the evidence beats waiting for the trajectory to look wrong."));
+  tc.append(el("div", "subtle",
+    "This one is not repaired by retrying. Rollback helps when the agent " +
+    "reasoned badly over sound evidence; here the tool itself returned " +
+    "something invalid, so a retry would fetch the same broken result. The " +
+    "correct response is to halt and escalate, which is what happened."));
+}
+
+/* ------------------------------------------------------------ answer */
+let lastAnswerKey = "";
+function renderAnswer() {
+  const card = $("answer-card");
+  if (!S.final_answer) {
+    card.style.display = "none";
+    lastAnswerKey = "";
+    return;
+  }
+  card.style.display = "block";
+  // Rebuild only on a real change; otherwise the 700 ms poll would rewrite
+  // these nodes and drop any selection the user is making (reported: the
+  // ground-truth explanation could not be selected or copied).
+  const key = S.final_answer + "|" + S.answer_check + "|" + S.expected_total +
+              "|" + S.grounding_verdict + "|" + S.check_verdict +
+              "|" + S.repair_state;
+  if (key === lastAnswerKey) return;
+  lastAnswerKey = key;
+  $("answer-text").textContent = S.final_answer;
+  const badge = $("answer-badge");
+  const exp = $("answer-expected");
+  badge.className = "badge";
+  if (S.answer_check === "correct") {
+    badge.classList.add("ok");
+    badge.textContent = "✓ Verified Correct";
+    exp.textContent = "Matches the ground-truth total ($" + S.expected_total +
+      ") computed independently from the same booking data.";
+  } else if (S.answer_check === "matches_hijacked_task") {
+    badge.classList.add("warn");
+    badge.textContent = "▲ Answered the WRONG Mission";
+    exp.textContent = "This total matches the hijacked task — the agent " +
+      "confidently completed a request the user never made. The original " +
+      "request ($" + S.expected_total + " grand tour) was abandoned.";
+  } else if (S.answer_check === "wrong") {
+    badge.classList.add("bad");
+    badge.textContent = "✗ Wrong Answer";
+    exp.textContent = "Does not match the ground-truth total ($" +
+      S.expected_total + "), computed independently from the same booking " +
+      "data. A behaviorally-normal run can still get the bill wrong — the " +
+      "Watchdog targets derailed behavior; this independent answer check " +
+      "is the complementary layer that catches quiet mistakes.";
+  } else {
+    badge.textContent = "";
+    exp.textContent = "";
+  }
+
+  // Grounding check — the deployable hallucination detector: does every
+  // figure the agent stated trace to a tool result it received?
+  const gc = $("grounding-check");
+  gc.textContent = "";
+  const gv = S.grounding_verdict;
+  if (gv === "fabricated") {
+    const b = el("span", "badge bad", "⚠ Hallucination — Ungrounded Figure");
+    gc.append(b);
+    const fabs = (S.grounding_fabricated || [])
+      .map((p) => "$" + p[1] + " (step " + (p[0] + 1) + ")").join(", ");
+    const inj = S.injection && S.injection.class === "grounding_loss";
+    gc.append(el("div", "subtle",
+      "Grounding check: the answer asserts " + fabs + " — a number NO tool " +
+      "returned. This is a fabrication (distinct from an arithmetic " +
+      "slip, where the parts are real but the sum is wrong)." +
+      (inj ? " This one was INJECTED by the demo (the model itself refuses " +
+             "to fabricate); the check found it on its own — see the " +
+             "Injected Failure panel for the verbatim edit." : "")));
+  } else if (gv === "grounded") {
+    const b = el("span", "badge ok", "✓ Fully Grounded — No Fabrication");
+    gc.append(b);
+    gc.append(el("div", "subtle",
+      "Grounding check: every figure the agent stated traces to a tool " +
+      "result it actually received. This deployable check (no ground truth " +
+      "needed) is the real hallucination detector; on well-aligned models " +
+      "like qwen2.5 it almost always passes — measured 0 fabrications in 91 " +
+      "runs, because these models abstain rather than invent numbers."));
+  }
+
+  // Consistency check — deployable, and the one that catches quiet
+  // arithmetic failures the behavioural monitor cannot see. It recomputes the
+  // total from the tool results this run received; it never sees the
+  // ground-truth answer, so it works in production where that answer is
+  // unavailable.
+  const cc = $("consistency-check");
+  cc.textContent = "";
+  const cv = S.check_verdict;
+  if (cv === "failed") {
+    cc.append(el("span", "badge bad", "✗ Consistency Check Failed"));
+    (S.check_findings || []).forEach((f) => {
+      cc.append(el("div", "subtle", f.check + ": " + f.detail));
+    });
+    cc.append(el("div", "subtle",
+      "Found WITHOUT the ground-truth answer — only the tool results " +
+      "this run received. That is why it is deployable: in production nobody " +
+      "knows the right total, but the agent's own numbers still have to add up."));
+  } else if (cv === "passed") {
+    cc.append(el("span", "badge ok", "✓ Consistent With Its Own Tool Results"));
+    cc.append(el("div", "subtle",
+      "The stated total equals the sum of the figures the tools returned (" +
+      (S.check_recomputed === null ? "—" : "$" + S.check_recomputed) +
+      "), and every call the task requires was made. No ground truth needed."));
+  }
+
+}
+
+/* ----------------------------------------------------------- repair */
+// The loop closing. Two things can trigger it and they arrive at different
+// times: the checks rejecting a finished answer, or the watchdog alarming
+// mid-episode. The second is why this renders on every poll in its own card
+// rather than inside the answer card, which stays hidden until the agent
+// finishes — an alarm-triggered repair happens while the run is still going.
+let lastRepairKey = "";
+function renderRepair() {
+  const card = $("repair-card");
+  const rs = S.repair_state;
+  if (!rs || rs === "none") {
+    card.style.display = "none";
+    lastRepairKey = "";
+    return;
+  }
+  card.style.display = "block";
+  const key = rs + "|" + S.repair_trigger + "|" + S.repair_from_step +
+              "|" + S.first_answer;
+  if (key === lastRepairKey) return;
+  lastRepairKey = key;
+
+  const rp = $("repair-panel");
+  rp.textContent = "";
+  if (rs === "repairing") {
+    rp.append(el("span", "badge warn", "↺ Repairing — Rolled Back"));
+  } else if (rs === "repaired") {
+    rp.append(el("span", "badge ok", "✓ Repaired After Rollback"));
+  } else {
+    rp.append(el("span", "badge bad", "✗ Repair Did Not Fix It"));
+  }
+  if (S.repair_trigger === "alarm") {
+    const a = S.alarm_repaired_from;
+    rp.append(el("div", "subtle",
+      "Triggered by the Watchdog" +
+      (a === null || a === undefined ? "" : " at step " + (a + 1)) +
+      ", mid-episode — before any answer existed to check. There is no " +
+      "located fault to quote: the alarm says the trajectory left the " +
+      "healthy null, not which figure is wrong, so the agent is simply " +
+      "asked to re-check. Undirected re-checking measured 39% recovery " +
+      "against naming the fault at 42% — the wording barely matters."));
+  } else if (S.repair_trigger === "checks") {
+    rp.append(el("div", "subtle",
+      "Triggered by the deterministic checks on the finished answer, which " +
+      "raise no false alarm — so this retry is never spent on a run that " +
+      "was already correct."));
+  }
+  if (S.first_answer) {
+    rp.append(el("div", "subtle", "Rejected answer: " + S.first_answer));
+  }
+  (S.first_check_findings || []).forEach((f) => {
+    rp.append(el("div", "subtle", "Check found — " + f.detail));
+  });
+  if (S.repair_from_step !== null && S.repair_from_step !== undefined) {
+    rp.append(el("div", "subtle",
+      "Agent rewound to step " + (S.repair_from_step + 1) +
+      " — the last step that was still gathering facts — and asked " +
+      "again. One attempt only. The steps above the rewind point are the " +
+      "retry; nothing was hidden."));
+  }
+}
+
+/* ------------------------------------------------------------ why panel */
+function reasonText(alarmed, injected) {
+  if (!alarmed) return "";
+  const top = (S.alarm_explain && S.alarm_explain[0]) || null;
+  const t1 = top ? top.label.toLowerCase() : "accumulated anomaly evidence";
+  if (!injected || S.injection.step === null) {
+    return "No failure was injected: one of the ~1-in-10 statistical false " +
+      "alarms the 10% false-alarm budget allows on healthy runs.";
+  }
+  if (injected === "grounding_loss") {
+    return "This behavioural alarm is SEPARATE from the hallucination: the " +
+      "fabrication targets the final answer and its detector is the " +
+      "grounding check, not this score. An alarm on such a run is one of " +
+      "the ~1-in-10 statistical false alarms the 10% budget allows.";
+  }
+  const d = S.alarm_step - S.injection.step;
+  const probedBefore = S.steps.some((s) => s.probed && s.t <= S.alarm_step);
+  if (d <= 1) {
+    return "Caught " + (d === 0 ? "immediately" : "in 1 step") + ": " +
+      FC_LABEL[injected].toLowerCase() + " changed the agent's behavior " +
+      "abruptly, and " + t1 + " pushed the score straight over the line.";
+  }
+  if (probedBefore) {
+    return "Caught " + d + " steps after injection: the agent still " +
+      "sounded plausible at first, so evidence built gradually — the " +
+      "demo's automatic “double-check” follow-ups kept it talking until " +
+      t1 + " pushed the score over the line.";
+  }
+  return "Caught " + d + " steps after injection: the failure's evidence (" +
+    t1 + ") accumulated step by step until it crossed the line — the " +
+    "Watchdog integrates evidence rather than reacting to single blips.";
+}
+
+function renderWhy(alarmed, injected) {
+  $("why-title").textContent =
+    alarmed ? "Why the Alarm Was Raised" : "Why the Score Moved";
+  const reason = $("reason");
+  const rt = reasonText(alarmed, injected);
+  reason.style.display = rt ? "block" : "none";
+  setText(reason, rt);
+
+  const box = $("factors-list");
+  const factors = alarmed ? S.alarm_explain : S.explain;
+  $("factors-cap").textContent = alarmed
+    ? "Evidence shares at the alarm, from the Watchdog's own measurements (frozen at the alarm):"
+    : "Evidence shares of the current score, from the Watchdog's own measurements:";
+  if (!selectionInside(box)) {
+    box.textContent = "";
+    const cur = S.scores.length ? S.scores[S.scores.length - 1] : 0;
+    if (!factors || !factors.length) {
+      box.append(el("div", "placeholder", "No score yet."));
+    } else if (!alarmed && cur < 0.3) {
+      box.append(el("div", "placeholder",
+        "Score is low (" + fmt(cur) + ") — nothing notable is driving it. " +
+        "Evidence appears here once the score builds toward the line."));
+    } else {
+      for (const f of factors.slice(0, 5)) {
+        const isContent = f.stream === "content";
+        const row = el("div", "factor" + (isContent ? " content" : ""));
+        const head = el("div", "head");
+        head.append(el("span", "label", f.label));
+        if (isContent) head.append(el("span", "tag", "content"));
+        head.append(el("span", "pct", f.pct.toFixed(1) + "%"));
+        row.append(head);
+        const track = el("div", "track");
+        const fill = el("div", "fill");
+        fill.style.width = Math.max(f.pct, 1.5) + "%";
+        track.append(fill);
+        row.append(track, el("div", "desc", f.desc));
+        box.append(row);
+      }
+    }
+  }
+
+  // Savings — real steps, tokens estimated from THIS run's own average.
+  const sav = $("savings");
+  sav.style.display = "none";
+  sav.textContent = "";
+  if (alarmed) {
+    sav.style.display = "block";
+    if (S.status === "halted") {
+      const used = S.alarm_step + 1;
+      const saved = S.budget - used;
+      const perStep = S.steps.length ? S.total_tokens / S.steps.length : 0;
+      const tokSaved = Math.round(saved * perStep);
+      const usd = (tokSaved / 1e6) * REF_USD_PER_1M_TOKENS;
+      sav.append(el("span", "big", "Saved by halting: "));
+      sav.append(saved + " of " + S.budget + " budget steps (" +
+        Math.round(100 * saved / S.budget) + "%), ≈ " + tokSaved +
+        " output tokens (estimated from this run's average of " +
+        Math.round(perStep) + " tokens/step)");
+      const est = el("div", "subtle");
+      est.textContent = "≈ $" + usd.toFixed(4) + " at reference cloud pricing " +
+        "($" + REF_USD_PER_1M_TOKENS + "/1M output tokens). Locally on " +
+        "Ollama the real cost is $0 — the point is the waste an alarm " +
+        "prevents at scale.";
+      sav.append(est);
+    } else {
+      sav.append(el("span", "big", "Nothing saved: "));
+      sav.append("Halt on Alarm is off, so the agent kept burning steps " +
+        "after the alarm — that is the cost of ignoring the Watchdog.");
+    }
+  }
+}
+
+/* ------------------------------------------------------------ injected */
+function renderInjectCard(injected) {
+  const card = $("inject-card");
+  if (!injected) { card.style.display = "none"; return; }
+  card.style.display = "block";
+  const plain = $("inject-plain");
+  const pay = S.injection.payload;
+  const armedTxt = S.injection.step === null
+    ? FC_LABEL[injected] + " is armed and fires at Step " + (S.min_inject_step + 1) + "."
+    : injected === "grounding_loss"
+      ? "Hallucination armed at Step " + (S.injection.step + 1) +
+        " — it strikes when the agent writes its final answer."
+      : FC_LABEL[injected] + " has been active since Step " + (S.injection.step + 1) + ".";
+  plain.textContent = armedTxt + (pay ? " " + pay.detail : "");
+  const box = $("inject-payload");
+  if (selectionInside(box)) return;
+  box.textContent = "";
+  if (!pay) return;
+  const d = detailsEl("inject-payload",
+                      "Verbatim Injected Input (nothing else was changed)",
+                      true);
+  let content = "";
+  if (pay.text) content = pay.text;
+  else if (pay.before !== undefined)
+    content = "BEFORE:\n" + pay.before + "\n\nAFTER:\n" + pay.after;
+  d.append(el("pre", "", content));
+  box.append(d);
+}
+
+/* ------------------------------------------------------------ chart */
+const canvas = $("chart");
+const ctx = canvas.getContext("2d");
+let plot = null;
+
+function visibleSeries() {
+  const out = ["fused"];
+  if (!showInternals) return out;
+  if (S && S.calib && S.calib.kind === "gate") out.push("b", "g");
+  out.push("e", "u", "m");
+  if (S && S.channels && S.channels.x && S.channels.x.some((v) => v > 0))
+    out.push("x");
+  return out;
+}
+function seriesData(k) {
+  if (k === "fused") return S.scores;
+  if (k === "b") return S.scores_b;
+  if (k === "g") return S.scores_g;
+  return S.channels[k] || [];
+}
+
+function drawChart() {
+  const box = $("chart-box");
+  const dpr = window.devicePixelRatio || 1;
+  const W = box.clientWidth, H = 250;
+  if (canvas.width !== W * dpr || canvas.height !== H * dpr) {
+    canvas.width = W * dpr; canvas.height = H * dpr;
+  }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  if (!S) return;
+
+  const padL = 34, padR = 84, padT = 12, padB = 22;
+  const pw = W - padL - padR, ph = H - padT - padB;
+  const nx = S.budget - 1;
+  const data = visibleSeries().map((k) => [k, seriesData(k)]);
+  const band = (S.calib && S.calib.band) || null;
+  let ymax = 1.5;
+  for (const [, arr] of data)
+    for (const v of arr) ymax = Math.max(ymax, v * 1.15);
+  ymax = Math.min(ymax, YMAX);
+  const ly = (v) => padT + ph * (1 - Math.min(v, ymax) / ymax);
+  const lx = (i) => padL + (pw * i) / nx;
+  plot = { padL, padT, pw, ph, nx, lx, ly, W, H };
+
+  // Healthy band (background reference, measured from real runs). Filled
+  // plus a visible upper edge so it reads clearly against the white plot.
+  // Its length is the healthy-envelope length (steps covered by >=10
+  // calibration runs), which can extend a step or two past a shorter live
+  // run — that is the real span of healthy runs, not a mismatch.
+  if (band && band.p10.length) {
+    ctx.fillStyle = C("--band");
+    ctx.beginPath();
+    band.p90.forEach((v, i) => {
+      const x = lx(i), y = ly(v);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    for (let i = band.p10.length - 1; i >= 0; i--) {
+      ctx.lineTo(lx(i), ly(band.p10[i]));
+    }
+    ctx.closePath();
+    ctx.fill();
+    // upper edge (p90) — the "healthy ceiling"
+    ctx.strokeStyle = C("--band-edge");
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    band.p90.forEach((v, i) => {
+      const x = lx(i), y = ly(v);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // washout wash
+  ctx.fillStyle = "rgba(11,11,11,0.04)";
+  ctx.fillRect(lx(0), padT, lx(WASHOUT - 0.02) - lx(0), ph);
+  ctx.fillStyle = C("--muted");
+  ctx.font = "10px system-ui";
+  ctx.fillText("warm-up", lx(0) + 3, padT + 11);
+
+  // gridlines
+  ctx.strokeStyle = C("--grid");
+  ctx.lineWidth = 1;
+  ctx.fillStyle = C("--muted");
+  ctx.font = "11px system-ui";
+  ctx.textAlign = "right";
+  for (let v = 0.5; v <= ymax + 1e-9; v += 0.5) {
+    if (Math.abs(v - 1.0) < 1e-9) continue;
+    const y = ly(v);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillText(v.toFixed(1), padL - 6, y + 4);
+  }
+  ctx.fillText("0", padL - 6, padT + ph + 4);
+  ctx.textAlign = "center";
+  for (let i = 0; i <= nx; i += 2) ctx.fillText(String(i + 1), lx(i), H - 6);
+  ctx.textAlign = "left";
+  ctx.strokeStyle = C("--axis");
+  ctx.beginPath(); ctx.moveTo(padL, padT + ph);
+  ctx.lineTo(W - padR, padT + ph); ctx.stroke();
+
+  // alarm line
+  const yAlarm = ly(1.0);
+  ctx.strokeStyle = C("--crit");
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(padL, yAlarm);
+  ctx.lineTo(W - padR, yAlarm); ctx.stroke();
+  ctx.fillStyle = C("--crit");
+  ctx.textAlign = "right";
+  ctx.fillText("1.0", padL - 6, yAlarm + 4);
+  ctx.textAlign = "left";
+  ctx.font = "700 11px system-ui";
+  ctx.fillText("Alarm", W - padR + 6, yAlarm + 4);
+
+  // event lines
+  if (S.injection && S.injection.step !== null) {
+    const x = lx(S.injection.step);
+    ctx.strokeStyle = C("--warn-mark");
+    ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + ph); ctx.stroke();
+    ctx.fillStyle = C("--warn");
+    ctx.fillText("▼ Inject", Math.min(x + 4, W - padR - 44), padT + 11);
+  }
+  if (S.alarm_step !== null) {
+    const x = lx(S.alarm_step);
+    ctx.strokeStyle = C("--crit");
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + ph); ctx.stroke();
+  }
+
+  // series
+  const order = data.slice().reverse();
+  const endLabels = [];
+  for (const [k, arr] of order) {
+    if (!arr.length) continue;
+    const sp = SERIES[k];
+    ctx.strokeStyle = sp.color;
+    ctx.lineWidth = sp.width;
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    arr.forEach((v, i) => {
+      const x = lx(i), y = ly(v);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = sp.color;
+    arr.forEach((v, i) => {
+      if (v > ymax) {
+        ctx.beginPath();
+        ctx.moveTo(lx(i) - 3, padT + 8); ctx.lineTo(lx(i) + 3, padT + 8);
+        ctx.lineTo(lx(i), padT + 2); ctx.closePath(); ctx.fill();
+      }
+    });
+    if (["fused", "b", "g"].includes(k)) {
+      const last = arr.length - 1;
+      endLabels.push({ x: lx(last) + 6, y: ly(arr[last]),
+                       color: sp.color, label: sp.label });
+    }
+  }
+  if (S.scores.length) {
+    const i = S.scores.length - 1;
+    ctx.fillStyle = SERIES.fused.color;
+    ctx.beginPath();
+    ctx.arc(lx(i), ly(S.scores[i]), 3, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+  if (S.alarm_step !== null && S.scores[S.alarm_step] !== undefined) {
+    ctx.fillStyle = C("--crit");
+    ctx.beginPath();
+    ctx.arc(lx(S.alarm_step), ly(S.scores[S.alarm_step]), 4, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+  endLabels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < endLabels.length; i++) {
+    if (endLabels[i].y - endLabels[i - 1].y < 12)
+      endLabels[i].y = endLabels[i - 1].y + 12;
+  }
+  ctx.font = "11px system-ui";
+  for (const t of endLabels) {
+    ctx.fillStyle = t.color;
+    ctx.fillText(t.label, t.x, t.y + 4);
+  }
+}
+
+canvas.addEventListener("pointermove", (ev) => {
+  if (!plot || !S || !S.scores.length) return;
+  const rect = canvas.getBoundingClientRect();
+  const px = ev.clientX - rect.left;
+  const i = Math.max(0, Math.min(S.scores.length - 1,
+    Math.round(((px - plot.padL) / plot.pw) * plot.nx)));
+  drawChart();
+  const x = plot.lx(i);
+  ctx.strokeStyle = "rgba(11,11,11,0.3)";
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(x, plot.padT);
+  ctx.lineTo(x, plot.padT + plot.ph); ctx.stroke();
+
+  const tt = $("tooltip");
+  tt.textContent = "";
+  const st = S.steps[i];
+  tt.append(el("div", "tt-head", "Step " + (i + 1) +
+    (st ? " · " + actionLabel(st.action) : "")));
+  for (const k of visibleSeries()) {
+    const arr = seriesData(k);
+    if (arr[i] === undefined) continue;
+    const row = el("div", "tt-row");
+    const sw = el("span", "sw");
+    sw.style.background = SERIES[k].color;
+    row.append(sw, el("span", "n", SERIES[k].label),
+               el("span", "v", fmt(arr[i])));
+    tt.append(row);
+  }
+  const band = S.calib && S.calib.band;
+  if (band && band.p10[i] !== undefined) {
+    const row = el("div", "tt-row");
+    const sw = el("span", "sw");
+    sw.style.background = C("--band");
+    row.append(sw, el("span", "n", "Healthy Range"),
+               el("span", "v", fmt(band.p10[i]) + "–" + fmt(band.p90[i])));
+    tt.append(row);
+  }
+  tt.style.display = "block";
+  const bw = $("chart-box").clientWidth;
+  const left = x + 12 + 190 > bw ? x - 12 - 190 : x + 12;
+  tt.style.left = Math.max(0, left) + "px";
+  tt.style.top = "18px";
+});
+canvas.addEventListener("pointerleave", () => {
+  $("tooltip").style.display = "none";
+  drawChart();
+});
+
+let lastLegendKey = "";
+function renderLegend() {
+  const leg = $("legend");
+  const vis = visibleSeries();
+  const key = vis.join(",");
+  if (key === lastLegendKey) return;
+  lastLegendKey = key;
+  leg.textContent = "";
+  const bandItem = el("span", "item");
+  const bandSw = el("span", "sw");
+  bandSw.style.background = C("--band");
+  bandItem.append(bandSw, document.createTextNode("Healthy Range (real runs)"));
+  leg.append(bandItem);
+  for (const k of vis) {
+    const item = el("span", "item");
+    const sw = el("span", "sw");
+    sw.style.background = SERIES[k].color;
+    item.append(sw, document.createTextNode(SERIES[k].label));
+    leg.append(item);
+  }
+  const alarmItem = el("span", "item");
+  const alarmSw = el("span", "sw");
+  alarmSw.style.background = C("--crit");
+  alarmItem.append(alarmSw, document.createTextNode("Alarm Line (1.0)"));
+  leg.append(alarmItem);
+  const tog = el("label", "toggle");
+  const cb = el("input");
+  cb.type = "checkbox";
+  cb.checked = showInternals;
+  cb.onchange = () => { showInternals = cb.checked; render(); };
+  tog.append(cb, document.createTextNode("Show Monitor Internals"));
+  leg.append(tog);
+}
+
+/* ------------------------------------------------------------ footer */
+function renderFooter() {
+  const c = S.calib || {};
+  $("foot-plain").textContent =
+    "How it works, in one line: the Watchdog learned what healthy runs of " +
+    "this task look like from " + (c.n_fit || "—") + " recorded real runs " +
+    "(a few minutes of statistics — no model training), and it raises an " +
+    "alarm when the live run stops looking like them.";
+  $("foot-tech").textContent =
+    "Monitor: per-channel ESN-CUSUM (max-fused) + delta-Mahalanobis blend " +
+    "+ content-grounding stream, dual-budget serving; every value shown is " +
+    "normalized so 1.0 = alarm. Threshold: recomputed from data at every " +
+    "startup (10% false-alarm budget — ~1 in 10 healthy runs may alarm; " +
+    "5-fold out-of-fold calibration, one-class, no failure examples). " +
+    "Warm-up: no alarms possible before Step " + WASHOUT + ". Step budget: " +
+    (S.budget || 20) + ". Healthy band: per-step 10th–90th percentile of " +
+    "out-of-fold scores on the calibration runs. Wall-clock latency " +
+    "features are excluded from this local demo's monitor: on a shared " +
+    "machine they measure the machine (GPU load, thermals), not the agent " +
+    "— cloud/API deployments, where latency is stationary infrastructure, " +
+    "keep them. Nothing in this page is scripted: agent output, tool " +
+    "results, scores and factors are live.";
+}
+
+new ResizeObserver(() => drawChart()).observe($("chart-box"));
+</script>
+</body>
+</html>

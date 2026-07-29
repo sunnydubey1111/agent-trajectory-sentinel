@@ -1,0 +1,13 @@
+{"text": "[lookup_flight({\"destination\": \"Cusco\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.6317, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Cusco\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 0.9165, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Lisbon\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4362, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Bergen\", \"origin\": \"Lisbon\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5331, "output_tokens": 22, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Bergen\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4314, "output_tokens": 16, "error": false}
+{"text": "[calculator({\"expression\": \"390 + (179 * 3)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.5395, "output_tokens": 23, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.536, "output_tokens": 22, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Tunis\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.2246, "output_tokens": 21, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Osaka\", \"origin\": \"Prague\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.8674, "output_tokens": 21, "error": false}
+{"text": "[lookup_flight({\"destination\": \"Tunis\", \"origin\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 2.563, "output_tokens": 21, "error": false}
+{"text": "[lookup_hotel({\"city\": \"Osaka\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.9444, "output_tokens": 15, "error": false}
+{"text": "[calculator({\"expression\": \"906 + (126 * 5)\"})]", "token_logprobs": [], "action": "tool_call", "latency_s": 1.4313, "output_tokens": 23, "error": false}
+{"text": "The total for the most expensive route (Prague->Tunis->Osaka) and 5 hotel nights in Osaka is $1536 USD.", "token_logprobs": [], "action": "synthesis", "latency_s": 1.1535, "output_tokens": 31, "error": false}
