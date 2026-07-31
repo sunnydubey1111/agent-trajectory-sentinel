@@ -52,9 +52,9 @@ from derail.experiments.collect_traces import (
 )
 
 TRACES_ROOT = Path(__file__).resolve().parents[2] / "traces"
-# qwen2.5:3b was the default until 2026-07-26, when it was removed from the
-# collection machine (`ollama rm`). The 3b corpora it produced stay frozen and
-# still reproduce; new collection defaults to the surviving family model.
+# qwen2.5:3b was the previous default and is no longer pulled on the collection
+# machine. The 3b corpora it produced stay frozen and still reproduce; new
+# collection defaults to the surviving family model.
 MODEL_DEFAULT = "qwen2.5:7b"
 INJECT_CLASSES = ("tool_cascade", "looping", "context_corruption")
 SYSTEM_TEXT = ("Solve the user's task using the tools. Call at most ONE "

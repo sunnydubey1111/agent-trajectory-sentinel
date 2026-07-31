@@ -132,7 +132,7 @@ def test_genuine_injections_are_not_flagged():
 def test_unverifiable_is_distinct_from_no_op():
     """A corpus with no recorded results cannot be called a no-op.
 
-    Uses a committed pre-remediation AutoGen-7B trace: those files record tool
+    Uses a committed legacy-format AutoGen-7B trace: those files record tool
     CALLS but no results at all, so the injection question is unanswerable from
     the file - which is a different (and weaker) statement than "the injector
     never fired".
@@ -192,10 +192,10 @@ def test_audit_report_is_committed_and_current():
     assert len(entries) > 1000
     blocking = [e for e in entries
                 if set(e["defects"]) & trace_audit.BLOCKING]
-    # 219 at the start of the remediation; 50 at the end of Phase 3. The
-    # remaining 50 are the unsuccessful demo calibration runs in demo7b and
-    # demo7b_scoped, which are the threshold decision in Phase 5, not
-    # a labelling error. Every other corpus is clean.
+    # Down from 219 before the corpora were re-collected. The remaining 50 are
+    # the unsuccessful demo calibration runs in demo7b and demo7b_scoped,
+    # which are a threshold decision, not a labelling error. Every other
+    # corpus is clean.
     assert len(blocking) == 50, (
         f"audit result moved: {len(blocking)} blocking episodes, expected 50 "
         f"- re-run py -m devtools.trace_audit --json and update this number "

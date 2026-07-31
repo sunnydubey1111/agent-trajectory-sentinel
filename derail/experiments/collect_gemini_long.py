@@ -3,8 +3,8 @@
 The committed Gemini corpus (`traces/real`) is 18 episodes with ONE positive
 and a mean length of 5 steps. With an ESN washout of 3, most of those episodes
 contribute one or two scored steps, so no labelled detection claim can rest on
-them - the Phase 3 report says as much, and PHASE10 L5 asks for the decision:
-lengthen the tasks or scope Gemini out of labelled detection.
+them. That leaves two options: lengthen the tasks, or scope Gemini out of
+labelled detection entirely.
 
 This lengthens them. It reuses the EXACT long research task, injection classes,
 onset and step budget as `collect_research7b_long` (the qwen long corpus), so

@@ -1,15 +1,15 @@
 """End-to-end behavioural regression snapshot for the synthetic study.
 
-The pipeline is bit-deterministic for a fixed master seed (verified 2026-07-24:
-two consecutive runs produced 1107/1107 identical leaf values), so a stored
-``results.json`` is a precise tripwire.  Every remediation change is run against
-it; an unexplained diff is a regression, an explained diff is re-snapshotted
-with the reason recorded in the commit message.
+The pipeline is bit-deterministic for a fixed master seed (verified: two
+consecutive runs produced 1107/1107 identical leaf values), so a stored
+``results.json`` is a precise tripwire.  Every change is run against it; an
+unexplained diff is a regression, an explained diff is re-snapshotted with the
+reason recorded in the commit message.
 
 A disposable seed is used so the run never touches published artifacts, and the
 temporary results directory is removed afterwards.
 
-    py -m devtools.behavior_snapshot --write --reason "phase 0 baseline"
+    py -m devtools.behavior_snapshot --write --reason "why the numbers moved"
     py -m devtools.behavior_snapshot --check
 """
 from __future__ import annotations

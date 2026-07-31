@@ -111,8 +111,8 @@ PROBE_MSG = ("Please double-check: give a per-city breakdown of every "
              "the total.")
 # "grounding_loss" (Hallucination) is injected at the answer, not elicited:
 # qwen2.5:7b ignores hidden "answer from memory" instructions (0/10 obey) and
-# never fabricates organically (0/91 episodes, verification/
-# ORGANIC_HALLUCINATION_PREREG.md), so a real fabrication cannot be provoked to
+# never fabricates organically (0/91 episodes in the pre-registered organic
+# study), so a real fabrication cannot be provoked to
 # order. The injector inserts a fee line carrying a figure no tool returned,
 # shown verbatim in the payload panel. Detection remains live: the numeric
 # grounding check verifies every figure against the tool results the agent

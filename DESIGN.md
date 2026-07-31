@@ -5,7 +5,7 @@ shared module (channel layout, dataclasses, `OnlineMonitor` ABC, `Standardizer`,
 `rng_for`). Every module below imports from it and MUST match the signatures
 given here exactly — the experiment runner is written against these signatures.
 
-## Problem recap (one paragraph)
+## Problem recap
 
 An LLM agent executes an episode of steps t = 1..T; each step emits an
 observable signal x_t = [e_t; u_t; m_t] (semantic embedding, token-uncertainty
@@ -512,7 +512,7 @@ Do NOT run the experiment in the smoke test — `__main__` IS the experiment.
     cascade 0.83, abrupt goal drift 0.59, corruption 0.24; slow drift
     remains the simulator-documented hard case.
 
-13. **Telemetry v3 — derived x channel (post-review amendment, 2026-07-14)**:
+13. **Telemetry v3 — derived x channel (post-review amendment)**:
     `common.py` registers an OPTIONAL extended layout `D_TOTAL_EXT = 51`
     (`CHANNEL_SLICES["x"]`, dims [43, 51)) computed causally by
     `telemetry/adapter.py` (`step_signal_ext` / `episode_from_trace(...,
@@ -532,7 +532,7 @@ Do NOT run the experiment in the smoke test — `__main__` IS the experiment.
     explainability panel splits the x channel per-dim by accumulated
     normalized squared prediction error.
 
-### Amendment 3 — optional content-grounding channel g_t (2026-07-17, exp/grounding-channel)
+### Amendment 3 — optional content-grounding channel g_t (exp/grounding-channel)
 
 Motivation: measured across seven datasets, behavioral (ESN), statistical
 (Mahalanobis), and fused hybrid monitors all sit near zero detection on the
@@ -567,7 +567,7 @@ Contract:
 - Citation/claim grounding is out of scope for the current task suite (no
   citation structure in the harness tasks); noted for future work.
 
-### Amendment 4 — context-corruption grounding dims + override fusion (2026-07-17, exp/context-corruption)
+### Amendment 4 — context-corruption grounding dims + override fusion (exp/context-corruption)
 
 Diagnosis (quantified on real_research7b): the grounding stream at its own
 5%-FA threshold detects 17/22 context_corruption episodes; the max-union
@@ -594,7 +594,7 @@ Contract changes:
   (behavioral stream keeps the full val budget, grounding trips at
   train-max; realized FA reported).
 
-### Amendment 5 — binary lexical relevance dim + clean-null override (2026-07-17, exp/wrong-document)
+### Amendment 5 — binary lexical relevance dim + clean-null override (exp/wrong-document)
 
 - `D_GRD` 8 → 9 (`D_TOTAL_GRD` = 60): dim 59 `lex_miss` — 1.0 iff a
   document-like tool result (>= 4 content words; not an error string, a
@@ -619,7 +619,7 @@ Contract changes:
   encode + 5.7 s load (measured, cached model) vs 2 µs for the lexical
   flag, for no additional wrong_document coverage on this corpus.
 
-### Amendment 6 — degenerate-scale contract and threshold feasibility (2026-07-28)
+### Amendment 6 — degenerate-scale contract and threshold feasibility
 
 Found while auditing why a 10% false-alarm budget realized 18–32% on the
 organic demo corpora. One mistake, repeated in five places.
@@ -682,7 +682,7 @@ rule already lands near the budget the tail fit overshoots it.
 
 ### Module 8 — `derail/verify/checks.py` (deterministic answer verification)
 
-Added 2026-07-28. The dominant organic failure on the demo task is
+The dominant organic failure on the demo task is
 behaviourally quiet: the agent prices every leg correctly, sounds confident,
 and combines the numbers wrongly. The behavioural monitor does detect it
 (arithmetic AUROC 0.733, 0.824 held out) but only at a 17% false-alarm cost and
@@ -719,7 +719,7 @@ item is priced **once** (`LineItem.distinct`): summing every result
 double-counted a re-checked hotel and produced the study's only
 money-relevant false positive.
 
-`tool_contract` (added 2026-07-29) is the third, and it inverts the direction
+`tool_contract` is the third, and it inverts the direction
 of the other two. They read what the agent *did* with its evidence; this one
 reads the evidence itself. Each tool in `TaskSpec.result_contracts` declares
 the shapes a successful result may take — `lookup_flight` returns `$361` or
@@ -1034,7 +1034,7 @@ measurably worse (35% against 47%, and not above the resampling control). It
 remains in `RUNGS` so the comparison stays reproducible, but it is not the
 policy to deploy.
 
-### Amendment 7 — the healthy null must contain only runs that DID the task (2026-07-28)
+### Amendment 7 — the healthy null must contain only runs that DID the task
 
 `verification.organic_hallucination.label` gained a fifth class, `incomplete`:
 a run that states the correct total but omits work the task specifies. On the
@@ -1071,11 +1071,14 @@ correctness-filtered the way the booking task's can. Correctness filtering is
 also the one policy a production deployment cannot copy for free — the demo
 knows the true total only because its world is seeded.
 
-**Provenance.** This is a post-hoc deviation from
-`SERVING_TEMPERATURE_PREREG.md`, which pre-registered four labels; it is
-disclosed there, together with what it does and does not license. The rule has
-no free parameter, and the held-out corpus was scored under the amended labels
-from the start.
+**Provenance.** This is a post-hoc deviation from the serving-temperature
+pre-registration, which declared four labels rather than five; the fifth
+(`incomplete`) was added after collection. It is disclosed as such because a
+label added after seeing the data cannot carry pre-registered weight. Two
+things limit the damage: the rule has no free parameter — it is derived from
+the task's own required-call structure, never from the checks it is used to
+evaluate — and the held-out corpus was scored under the amended labels from
+the start, so the held-out result is not itself post-hoc.
 
 ### Module 10 — `derail/monitor/baseline.py` (self-calibrating baseline)
 

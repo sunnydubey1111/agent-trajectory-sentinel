@@ -103,8 +103,7 @@ def main() -> None:
     if COLD_CSV.exists():
         print(f"[L2] the cost is NOT a high-temperature artefact: the serving "
               f"arm (T=0.2) realizes {cold_fa:.0%} against the same served 10% "
-              f"budget, above the T=0.9 arm's {organic_fa:.0%}. See "
-              "SERVING_TEMPERATURE_PREREG.md.")
+              f"budget, above the T=0.9 arm's {organic_fa:.0%}.")
 
     def _fisher(lab: str) -> None:
         d = org[org.label == lab]

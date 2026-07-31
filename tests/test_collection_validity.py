@@ -166,7 +166,7 @@ def test_collect_dataset_pairs_healthy_and_injected_tasks():
         "injected episodes no longer reuse the healthy task index")
 
 
-# ------------------------------------------- collection preflight (2026-07-27)
+# -------------------------------------------------------- collection preflight
 def test_collectors_do_not_default_to_a_removed_model():
     """qwen2.5:3b was `ollama rm`-ed; no collector may still default to it."""
     from derail.experiments import collect_framework_traces, collect_traces

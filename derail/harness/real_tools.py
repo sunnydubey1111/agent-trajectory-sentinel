@@ -876,7 +876,7 @@ if __name__ == "__main__":
     assert git_res.startswith("Error:"), f"Expected graceful error: {git_res}"
 
     # Browser automation: an internal/loopback host is refused BEFORE launching
-    # a browser (Phase 1 containment), so a localhost URL returns the
+    # a browser (SSRF containment), so a localhost URL returns the
     # refusal rather than a navigation error.
     browser = BrowserAutomation()
     b_err = browser.run("http://localhost:9999/nonexistent")

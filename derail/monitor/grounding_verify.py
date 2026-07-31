@@ -34,7 +34,8 @@ Scope and limits (measured, honest):
     a false positive, by design.
   - On well-aligned models (qwen2.5:7b/3b) genuine fabrication is rare, so
     this fires seldom on them; that is a property of the model, not the
-    check. See verification/ORGANIC_HALLUCINATION_PREREG.md.
+    check. The pre-registered organic study measured 0 fabrications in 91
+    episodes across three elicitation methods.
 """
 from __future__ import annotations
 

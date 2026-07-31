@@ -1,6 +1,6 @@
 # Online Derailment Detection for LLM Agents from Step Telemetry: From Echo-State Ensembles to Grounded Hybrid Monitoring
 
-*Capstone manuscript draft — 2026-07-17. Every number in this paper is
+*Manuscript draft. Every number in this paper is
 imported from a committed table in `results/`; Appendix A maps each
 section to its tables and merge commits. All results reproduce from clean
 checkouts at pinned seeds.*
@@ -223,7 +223,7 @@ while the demo-task organic sets are labeled objectively by script from each
 run's own tool results against a computable ground truth.
 
 The two demo-task organic sets are seed-paired arms of one controlled
-comparison (`verification/SERVING_TEMPERATURE_PREREG.md`, n=120 each,
+comparison (pre-registered, n=120 each,
 identical tasks and model, differing only in sampling temperature — the
 failure-provoking 0.9 used by all earlier organic work versus the 0.2
 actually served). Detection survives: organic arithmetic errors alarm at 46%

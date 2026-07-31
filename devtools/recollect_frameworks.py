@@ -28,8 +28,8 @@ from derail.harness.collection import ModelUnavailable, require_ollama_model
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # (out dir, framework, model, healthy, per-class) - matching the original plan.
-# Attempt counts, not accepted counts. The first re-collection (2026-07-24)
-# measured the acceptance rate of each cell under the new evidence gate:
+# Attempt counts, not accepted counts. The first re-collection measured the
+# acceptance rate of each cell under the evidence gate:
 # ~95% of healthy episodes at 7B but only ~65% at 3B (short episodes), and
 # only ~1/3 of tool_cascade attempts (the ramp needs a post-onset tool call to
 # bite). Attempts are sized from those rates to land near the original corpus
@@ -38,7 +38,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 #
 # The model column is part of each corpus's IDENTITY, not a convenience
 # default: `langgraph`/`autogen` ARE the 3b corpora the cross-model results
-# rest on. qwen2.5:3b was removed from this machine on 2026-07-26, so those
+# rest on. qwen2.5:3b is no longer pulled locally, so those
 # two cells can no longer be re-collected as themselves - the preflight below
 # refuses them rather than quietly producing a 7b corpus under a 3b name.
 # Re-pull qwen2.5:3b to re-collect them; changing the model here would need a

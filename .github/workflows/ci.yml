@@ -1,6 +1,5 @@
 name: ci
 
-# Automated gate for the remediation work (CODE_REVIEW_2026-07-21, NEW-L06).
 # The fast job must stay green on every push; the slow job carries the module
 # self-tests and the end-to-end behavioural snapshot.
 

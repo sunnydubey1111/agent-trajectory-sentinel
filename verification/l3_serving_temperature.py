@@ -1,6 +1,6 @@
 """L3 - Does organic detection survive at the SERVING temperature?
 
-See SERVING_TEMPERATURE_PREREG.md. Every organic detection number in this
+Every organic detection number in this
 repository was measured at sampling temperature 0.9; the demo and the shipped
 monitor serve at 0.2, and 0.9 is a failure-PROVOKING setting that also makes
 small models emit junk tokens and leak tool syntax. So "the monitor detects
@@ -47,7 +47,7 @@ def main() -> None:
         if not path.exists():
             raise SystemExit(
                 f"{path.name} not found - score the temperature-{temp} arm "
-                f"first (see SERVING_TEMPERATURE_PREREG.md).")
+                f"first.")
     hot, cold = pd.read_csv(HOT_CSV), pd.read_csv(COLD_CSV)
 
     rows = []

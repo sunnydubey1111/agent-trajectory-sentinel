@@ -494,14 +494,15 @@ def test_real_figures_exclude_the_simulator():
         assert '!= "sim"' in inspect.getsource(fn), fn.__name__
 
 
-# ---------------------------- Phase 9 decision: published scope stays pinned
+# ------------------------------------------ published scope stays pinned
 def test_published_table_scope_is_pinned_not_implicit():
     """A regeneration must reproduce the PUBLISHED scope, not silently widen it.
 
-    Phase 10 added three corpora to REAL_DATASETS. They are reported in their
-    own sections with their own --out-prefix tables; folding them into
-    results/tables/hybrid_*.csv would change every published table's scope
-    without anyone asking, and would invalidate the Phase 9 verdict.
+    Three corpora were added to REAL_DATASETS after the published tables were
+    generated. They are reported in their own sections with their own
+    --out-prefix tables; folding them into results/tables/hybrid_*.csv would
+    change every published table's scope without anyone asking, and would
+    invalidate the verdict those tables carry.
     """
     import inspect
 

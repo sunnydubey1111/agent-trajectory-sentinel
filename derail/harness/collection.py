@@ -79,9 +79,9 @@ def require_ollama_model(model: str,
     """Raise `ModelUnavailable` unless Ollama can serve `model` right now.
 
     Call this BEFORE any destructive step (clearing an output directory) and
-    before spending hours on a run. `qwen2.5:3b` was removed from this machine
-    on 2026-07-26 while it was still the default of three collectors, so a
-    re-collection would have deleted a frozen corpus and then failed.
+    before spending hours on a run. This guard exists because `qwen2.5:3b` was
+    once removed while it was still the default of three collectors: without
+    the preflight, a re-collection deletes a frozen corpus and only then fails.
     """
     import httpx
     try:

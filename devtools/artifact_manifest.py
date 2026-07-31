@@ -1,10 +1,9 @@
 """Content manifest for source and data artifacts.
 
-The remediation of rewrites a large amount of code and
-regenerates several result artifacts.  This tool makes every such change
-*visible*: it records a SHA-256 for each tracked source file, result artifact
-and trace, so an accidental edit to a committed artifact cannot pass unnoticed
-between phases.
+Refactoring rewrites code and regenerates result artifacts.  This tool makes
+every such change *visible*: it records a SHA-256 for each tracked source file,
+result artifact and trace, so an accidental edit to a committed artifact cannot
+pass unnoticed.
 
     py -m devtools.artifact_manifest --write            # snapshot current state
     py -m devtools.artifact_manifest --check            # diff against snapshot

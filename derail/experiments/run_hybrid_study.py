@@ -1,6 +1,6 @@
 """Hybrid ESN + Mahalanobis study (exp/hybrid-fusion).
 
-Answers three questions raised by the 2026-07-17 dataset expansion:
+Answers three questions raised by the dataset expansion:
 
 1. WHY does DeltaMahalanobis beat the ESN on real_research7b? The script
    records, per injected episode, the post-onset horizon (T - 1 - tau) and
@@ -76,8 +76,8 @@ REAL_DATASETS: dict[str, Path] = {
     "gemini": TRACES_DIR,
     "autogen7b": TRACES_DIR / "autogen7b",
     "ollama7b": TRACES_DIR / "ollama7b",
-    "langgraph7b": TRACES_DIR / "langgraph7b",   # held out until the
-    # generalization study (2026-07-17): never used to develop the hybrids
+    "langgraph7b": TRACES_DIR / "langgraph7b",   # held out for the
+    # generalization study: never used to develop the hybrids
     "real_research7b": TRACES_DIR / "real_research7b",
     "real_research7b_long": TRACES_DIR / "real_research7b_long",
     "real_research3b": TRACES_DIR / "real_research3b",  # T6c model transfer
@@ -98,7 +98,7 @@ REAL_DATASETS: dict[str, Path] = {
 }
 
 #: Datasets the PUBLISHED results/tables/hybrid_*.csv are computed from - the
-#: set the Phase 7/8 regeneration ran and Phase 9 verified. Phase 10 corpora
+#: set the last full regeneration ran and verified. Corpora added afterwards
 #: are deliberately excluded so a regeneration reproduces the published scope
 #: rather than quietly widening it.
 PUBLISHED_DATASETS: frozenset[str] = frozenset({
@@ -440,8 +440,8 @@ def main(argv: list[str] | None = None) -> None:
                              "configuration")
     args = parser.parse_args(argv)
 
-    # The PUBLISHED tables cover the datasets the Phase 7/8 regeneration ran
-    # and Phase 9 verified. Phase 10 added three more corpora
+    # The PUBLISHED tables cover the datasets the last full regeneration ran
+    # and verified. Three corpora were added afterwards
     # (ollama_llama8b, real_gemini_long, real_research7b_long_ext); they are
     # reported in their own sections with their own --out-prefix tables, and
     # folding them in here silently would change the scope of every published

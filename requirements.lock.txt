@@ -2,7 +2,7 @@
 # test suite is green.
 #
 #   Python 3.14.5, Windows 11 (win32), CPU-only.
-#   Recorded 2026-07-24 from the working environment.
+#   Recorded from the working environment.
 #
 # Reproduction claims ("bit-for-bit") are only made against THIS file.
 # requirements.txt keeps the loose bounds for casual installs; anything that

@@ -4,7 +4,7 @@
 quick study at a disposable seed.  The pipeline is bit-deterministic for a fixed
 seed, so any difference here is a real behavioural change - intended or not.
 
-When a remediation intentionally changes the numbers, re-snapshot with
+When a change intentionally moves the numbers, re-snapshot with
 
     py -m devtools.behavior_snapshot --write --reason "<finding id>: <what changed>"
 

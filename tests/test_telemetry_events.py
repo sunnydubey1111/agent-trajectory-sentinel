@@ -49,10 +49,11 @@ def test_out_of_bracket_form_with_several_calls():
 
 
 def test_legacy_arrow_form_corpus_results_are_recovered():
-    """A real pre-remediation LangGraph-7B trace, kept as a fixture.
+    """A real legacy-format LangGraph-7B trace, kept as a fixture.
 
-    Its results sit OUTSIDE the bracket, the form the old regex never matched. The corpora themselves were re-collected under the v5 schema,
-    so this fixture is what pins the parser against a regression.
+    Its results sit OUTSIDE the bracket, the form the old regex never
+    matched. The corpora themselves were re-collected under the v5 schema, so
+    this fixture is what pins the parser against a regression.
     """
     fixture = (REPO_ROOT / "tests" / "fixtures"
                / "legacy_langgraph7b_arrow_form.jsonl")

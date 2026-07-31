@@ -227,7 +227,7 @@ def audit_all(corpora: list[str] | None = None) -> list[EpisodeAudit]:
 
 
 #: Defects that make an episode unusable as labelled; the rest are provenance
-#: gaps that Phase 3 re-collection closes.
+#: gaps that a re-collection closes.
 BLOCKING = {"no_op_positive", "unverifiable_positive", "unsuccessful_healthy",
             "no_post_onset_steps", "labelled_without_tau", "missing_trace_file",
             "manifest_T_mismatch"}

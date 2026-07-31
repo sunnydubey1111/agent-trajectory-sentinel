@@ -1,6 +1,6 @@
 """Hybrid ESN + Mahalanobis monitors (exp/hybrid-fusion).
 
-Motivation (measured, 2026-07-17): the ESN-CUSUM ensemble dominates on
+Motivation (measured, not assumed): the ESN-CUSUM ensemble dominates on
 temporal/behavioral failures (looping, tool_cascade, rate_limit, timeout)
 and on long simulator episodes, while DeltaMahalanobis — memoryless plus a
 1-lag delta — wins on the short (T~5-6) real_research7b episodes where the

@@ -1,4 +1,4 @@
-"""Organic hallucination validation — see ORGANIC_HALLUCINATION_PREREG.md.
+"""Organic hallucination validation (pre-registered study).
 
 This module is the COLLECT + LABEL half: it collects NON-INJECTED demo-task
 episodes (temperature 0.9 by default) and labels them objectively from their

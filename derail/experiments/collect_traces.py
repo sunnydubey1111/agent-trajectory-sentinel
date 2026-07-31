@@ -69,9 +69,9 @@ def _enable_os_trust_store() -> None:
 
 TRACES_DIR = Path(__file__).resolve().parents[2] / "traces"
 MODEL_DEFAULT = "gemini-2.5-flash"
-# Local default: qwen2.5:3b was removed from the collection machine on
-# 2026-07-26, so it can no longer be a default. Its frozen corpora are
-# unaffected; only NEW collection defaults move to the surviving 7b.
+# Local default: qwen2.5:3b is no longer pulled on the collection machine, so
+# it can no longer be a default. Its frozen corpora are unaffected; only NEW
+# collection defaults move to the surviving 7b.
 OLLAMA_MODEL_DEFAULT = "qwen2.5:7b"
 MAX_STEPS = 14
 INJECT_CLASSES = ("tool_cascade", "looping", "goal_drift", "context_corruption")

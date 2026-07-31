@@ -1,16 +1,14 @@
 # Hybrid ESN + Mahalanobis monitor study — final report
 
-> **Provenance note (2026-07-26).** This report was
-> first written on the `exp/hybrid-fusion` branch (2026-07-17). Its headline
-> claims (grand-mean ordering, per-seed logistic advantage, the grounding
-> success criterion, the organic-failure decomposition, and cross-model
-> transfer) were **re-derived and synchronized** against the artifacts
-> regenerated under the corrected pipeline (ESN fit/score
-> alignment + the label-independent evaluation protocol). Where a specific
-> figure in the narrative below still differs from the regenerated CSVs, the
-> **CSVs in `results/tables/` govern** — they are the source of record.
+> **Source of record.** This report's headline claims — grand-mean ordering,
+> per-seed logistic advantage, the grounding success criterion, the
+> organic-failure decomposition and cross-model transfer — were re-derived
+> against the artifacts regenerated under the corrected pipeline (ESN
+> fit/score alignment plus the label-independent evaluation protocol). Where a
+> figure in the narrative below differs from the regenerated CSVs, the **CSVs
+> in `results/tables/` govern**.
 
-Branch `exp/hybrid-fusion`, 2026-07-17. Code: `derail/monitor/hybrid.py`,
+Code: `derail/monitor/hybrid.py`,
 `derail/experiments/run_hybrid_study.py`, `collect_research7b_long.py`.
 Tables: `results/tables/hybrid_*.csv` and `hybrid_long_*.csv`. Protocol:
 frozen baseline evaluation (same splits via `rng_for(0, "real-split")`, 5%
@@ -547,7 +545,7 @@ Findings, in decreasing comfort:
    served 10% budget — the healthy behavioural episode-max is genuinely
    heavy-tailed (0.2 arm: maxima run 30 → 2815 continuously, 8 of 74 above
    1000), so a 90th-percentile threshold is noisy. On the seed-paired
-   serving-temperature arm (`SERVING_TEMPERATURE_PREREG.md`,
+   serving-temperature arm (pre-registered;
    `serving_temperature.csv`, n=120 per arm) organic arithmetic errors alarm
    at 46% against a 17% false-alarm rate (AUROC 0.733) — but only once runs
    that skipped required work were removed from the healthy null; with them in

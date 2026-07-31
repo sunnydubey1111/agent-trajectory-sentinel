@@ -1,4 +1,4 @@
-"""Score the organic episodes per ORGANIC_HALLUCINATION_PREREG.md.
+"""Score the organic episodes per the pre-registered protocol.
 
 Null is TEMPERATURE-MATCHED: built from the healthy-labelled subset of the
 same temperature-0.9 runs, cross-fit 5-fold so no episode is scored by a
