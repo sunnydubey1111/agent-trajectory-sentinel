@@ -26,11 +26,11 @@ regime and which matches or beats both parents at every seed tested; and
 (3) a content-grounding telemetry channel — nine causal features
 of tool-result content, including a 2-microsecond lexical
 relevance flag — that lifts the monitors' shared blind spot
-(content corruption) from 0.23 to 0.40 pooled content detection (up to
-0.63 on the research collectors where the corruption is content-visible;
+(content corruption) from 0.28 to 0.59 pooled content detection (reaching
+1.00 on the research collectors where the corruption is content-visible;
 honestly inert on frameworks whose corruption leaves result text
-unchanged), a +0.175 gain that holds at every seed, without degrading
-behavioral detection. Validation on organic
+unchanged), a +0.31 gain that holds at every seed, while behavioral
+detection improves rather than degrades (+0.045). Validation on organic
 (non-injected) failures reveals a taxonomy with an honest boundary: a
 deterministic five-line completion check catches failures of omission
 (7/7 silent aborts), the telemetry monitors transfer only *weakly* to
@@ -43,10 +43,10 @@ seeds supported) once a real gemini-2.5-flash judge is measured and
 substituted; the call saving survives, the detection claim does not. The
 healthy null is specific to the (model,
 decoding-configuration) pair — cross-model transfer without
-recalibration collapses *below* chance (AUROC 0.29–0.38) — and
+recalibration falls to chance (AUROC 0.45–0.49) — and
 per-deployment calibration is label-free but not cheap in the way we
 previously claimed: measured against calibration budget, *ranking* is
-cheap (95% of full AUROC by n≈10–50 healthy episodes) while the
+cheap (95% of full AUROC by n≈15–50 healthy episodes) while the
 *operating point* is not (realized false alarms reach twice the 5%
 budget only at n≈15–48, and on one deployment never do), so a deployment
 must verify its realized FA rather than trust the budget. Calibration is
@@ -373,8 +373,9 @@ v1: det 0.71 at AUROC 0.840, against LSTM's 0.68 at 0.752), though on that
 corpus both sit at a 20-27% realized false-alarm rate over 15 healthy test
 episodes, and a 5% budget is unreachable from its 16 validation episodes by
 an empirical quantile. Two structural findings reframe the problem: monitors do
-not transfer across frameworks (off-diagonal AUC 0.35–0.60 vs 0.45–0.81
-in-domain), and — decisively for what follows — the memoryless
+not transfer across frameworks (off-diagonal AUC 0.06–0.74 vs 0.64–1.00
+in-domain, the extremes contributed by the 18-episode Gemini corpus, which
+carries a single positive and is degenerate at both ends), and — decisively for what follows — the memoryless
 delta-Mahalanobis *wins* on short-episode datasets (research7b: 0.839 vs
 0.784 AUC).
 
@@ -554,7 +555,7 @@ and not refit on this data):
   over-reading organic transfer.
 - **The healthy null is (model, decoding)-specific**: swapping the agent
   model (7b → 3b, same tasks/tools) collapses transferred monitors to
-  **below chance** (AUROC 0.29–0.38, FA 1.00); in-domain recalibration on
+  **at chance** (AUROC 0.45–0.49, FA 1.00); in-domain recalibration on
   3b's own healthy split recovers only to AUROC 0.56–0.67 (best:
   delta-Mahalanobis 0.67). Per-deployment calibration is mandatory — and
   cheap, since it is label-free — but on this hard organic 3b set even

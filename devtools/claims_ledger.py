@@ -130,6 +130,19 @@ def _horizon_advantage(lo: int, hi: int) -> float:
     return float(band.det_esn.mean() - band.det_maha.mean())
 
 
+def _criterion(monitor: str, group: str, column: str) -> float:
+    """Worst per-seed delta for one grounded fusion on one failure group."""
+    d = _table("grounding_multiseed_criterion.csv")
+    g = d[(d.monitor == monitor) & (d.group == group)]
+    return float(g[column].min())
+
+
+def _model_transfer_auroc(condition_contains: str) -> float:
+    """Best AUROC any monitor reaches under a transfer condition."""
+    d = _table("model_transfer.csv")
+    return float(d[d.condition.str.contains(condition_contains)].auroc.max())
+
+
 def _contract_within_one_step() -> int:
     d = _table("tool_contract_coverage.csv")
     return int((d.first_violation_step - d.tau <= 1).sum())
@@ -217,6 +230,22 @@ def build() -> list[Claim]:
               0.4042, "results/tables/hybrid_diagnosis.csv",
               "py -m derail.experiments.run_hybrid_study",
               lambda: _horizon_advantage(9, 10**6), "Monitor"),
+
+        Claim("grounding.content_gain",
+              "Content-gate detection gain on the content classes, worst seed",
+              0.3067, "results/tables/grounding_multiseed_criterion.csv",
+              "py -m derail.experiments.run_grounding_multiseed",
+              lambda: _criterion("hybrid_content_gate", "content", "delta"), "Monitor"),
+        Claim("grounding.no_degradation",
+              "Content gate does not degrade behavioural detection, worst seed",
+              0.0392, "results/tables/grounding_multiseed_criterion.csv",
+              "py -m derail.experiments.run_grounding_multiseed",
+              lambda: _criterion("hybrid_content_gate", "behavioral", "delta"), "Monitor"),
+        Claim("transfer.within_family",
+              "Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated",
+              0.4876, "results/tables/model_transfer.csv",
+              "py -m derail.experiments.run_model_transfer",
+              lambda: _model_transfer_auroc("transfer"), "Monitor"),
 
         # ------------------------------------------------------ verification
         Claim("holdout.totals", "Held-out failures caught by totals check", 0.5357,

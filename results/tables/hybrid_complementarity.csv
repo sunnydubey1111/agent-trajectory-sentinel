@@ -1,10 +1,10 @@
 dataset,n_injected,n_both,logistic_det_in_both,n_esn_only,logistic_det_in_esn_only,n_maha_only,logistic_det_in_maha_only,n_neither,logistic_det_in_neither
 sim,400,149,1.0,163,0.853,2,0.0,86,0.023
 gemini,79,43,1.0,13,0.923,3,0.0,20,0.0
-autogen7b,88,42,1.0,3,0.0,3,1.0,40,0.0
-ollama7b,85,44,0.977,38,0.0,0,,3,0.0
-langgraph7b,91,44,1.0,2,0.0,23,1.0,22,0.0
-real_research7b,171,55,0.982,9,0.0,17,0.882,90,0.0
+autogen7b,88,31,0.839,14,0.071,3,1.0,40,0.0
+ollama7b,85,25,0.6,57,0.088,0,,3,0.0
+langgraph7b,91,44,1.0,2,0.0,23,0.913,22,0.0
+real_research7b,171,54,0.981,10,0.0,17,0.882,90,0.0
 real_research7b_long,42,24,1.0,0,,5,0.6,13,0.077
 real_research3b,46,2,1.0,14,0.643,4,0.25,26,0.0
-ALL,1002,403,0.995,242,0.661,57,0.789,300,0.01
+ALL,1002,372,0.957,273,0.608,57,0.754,300,0.01

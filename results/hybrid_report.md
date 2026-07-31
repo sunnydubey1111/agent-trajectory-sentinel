@@ -372,10 +372,9 @@ and the fusion loss is eliminated.** Detection reaches 0.44–1.0 on the
 collectors whose corruption actually alters result content (real_research7b
 0.44, real_research7b_long 0.67, ollama7b 1.0) — at or near the standalone
 channel's own ceiling, i.e. fusion no longer loses what the channel sees.
-Pooled content-class detection (all datasets) rises from 0.23 (ungrounded)
-to 0.40 (content gate), a +0.175 gain that holds at every seed; on the
-research collectors alone the content gate reaches 0.47 and the standalone
-channel 0.63. The remaining misses are of a different kind: corruptions
+Pooled content-class detection (all ten datasets) rises from 0.28
+(ungrounded) to 0.59 (content gate), a +0.31 gain that holds at every seed;
+on the longest research collector the content gate reaches 1.00. The remaining misses are of a different kind: corruptions
 that are semantically plausible under hash embeddings (ollama7b sits at 0
 even for the standalone channel — the injected values look like ordinary
 results at the trigram level). That residual is an embedding-fidelity
@@ -442,15 +441,15 @@ byte-equal to the published tables). Tables: `grounding_multiseed.csv`,
 
 **Content gains hold at every seed** (regenerated): the pooled
 content-class delta vs the ungrounded hybrid is positive for every
-grounded fusion at every seed — content_gate min **+0.175**, adaptive min
-+0.095, weighted_g min +0.095.
+grounded fusion at every seed — content_gate min **+0.307**, adaptive min
++0.252, weighted_g min +0.182.
 
 **The behavioral no-degradation criterion is now passed by content_gate
 and adaptive at every seed, and failed by the weighted/logistic grounded
 fusions** (regenerated criterion). Post-remediation:
-- **content_gate**: content min +0.175, behavioral min **+0.051** → PASS
+- **content_gate**: content min +0.307, behavioral min **+0.039** → PASS
   at every seed.
-- **hybrid_adaptive**: content min +0.095, behavioral min **+0.043** →
+- **hybrid_adaptive**: content min +0.252, behavioral min **+0.030** →
   PASS at every seed.
 - **weighted_g**: content min +0.095 but behavioral min **−0.008** →
   FAILS (a shared threshold still lets a bad reservoir draw trade a

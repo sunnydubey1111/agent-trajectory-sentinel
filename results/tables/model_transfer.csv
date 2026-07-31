@@ -1,9 +1,9 @@
 condition,monitor,auroc,auprc,detection_rate,healthy_fa_rate,mean_lead_all
-in-domain(3b),esn_cusum_max,0.5559,0.8975,0.3478,0.2857,0.587
-in-domain(3b),delta_mahalanobis,0.6646,0.9145,0.1304,0.0,0.0
-in-domain(3b),hybrid_weighted50,0.5652,0.8989,0.3043,0.2857,0.5652
-in-domain(3b),hybrid_content_gate,0.5807,0.903,0.3261,0.2857,0.6739
-transfer(7b->3b),esn_cusum_max,0.3478,0.8325,0.7174,1.0,1.9348
-transfer(7b->3b),delta_mahalanobis,0.2857,0.8075,0.913,1.0,2.5
-transfer(7b->3b),hybrid_weighted50,0.354,0.8334,0.7174,1.0,1.9348
-transfer(7b->3b),hybrid_content_gate,0.3789,0.8376,0.7609,1.0,2.1739
+in-domain(real_research3b),esn_cusum_max,0.5559,0.8975,0.3478,0.2857,0.587
+in-domain(real_research3b),delta_mahalanobis,0.6646,0.9145,0.1304,0.0,0.0
+in-domain(real_research3b),hybrid_weighted50,0.5652,0.8989,0.3043,0.2857,0.5652
+in-domain(real_research3b),hybrid_content_gate,0.5807,0.903,0.3261,0.2857,0.6739
+transfer(real_research7b->real_research3b),esn_cusum_max,0.4472,0.8585,0.7174,1.0,1.6304
+transfer(real_research7b->real_research3b),delta_mahalanobis,0.4876,0.8944,0.8478,1.0,1.9783
+transfer(real_research7b->real_research3b),hybrid_weighted50,0.4503,0.8566,0.7174,1.0,1.6522
+transfer(real_research7b->real_research3b),hybrid_content_gate,0.4658,0.8595,0.7391,1.0,1.7174
