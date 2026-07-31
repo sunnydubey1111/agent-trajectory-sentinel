@@ -15,7 +15,7 @@ from conftest import REPO_ROOT
 
 RELEASE_DOCS = ["LICENSE", "CITATION.cff", "README.md", "DESIGN.md",
                 "CLAIMS.md", "DATA_CARD.md", "CHECKSUMS.md", "REPRODUCE.md",
-                "DEMO_GUIDE.md",
+                "USER_GUIDE.md",
                 "requirements.txt", "requirements.lock.txt",
                 "requirements-core.lock.txt"]
 

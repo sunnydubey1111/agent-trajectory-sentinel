@@ -402,7 +402,7 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CLAIMS.md`](CLAIMS.md) — claim-to-evidence ledger: every headline number
   above, the artifact it is read from, and the command that regenerates it.
   `py -m devtools.claims_ledger --check` recomputes all 28 and fails on drift.
-- [`DEMO_GUIDE.md`](DEMO_GUIDE.md) — a walkthrough of the live demo: what to
+- [`USER_GUIDE.md`](USER_GUIDE.md) — a walkthrough of the live demo: what to
   press, what to look for on the chart, the Why panel and the savings banner,
   and what does not work yet.
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
