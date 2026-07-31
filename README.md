@@ -342,77 +342,37 @@ monitor with real traces.
 
 ## Limitations and negative results
 
-Stated as measured. Each of these is a place the system does not yet work, and
-each has a number attached rather than a hedge.
+Measured, not hedged. Numbers and sources in [`CLAIMS.md`](CLAIMS.md).
 
-- **Repair coverage is partial, and the gap has a shape.** `located` recovers
-  45% of flagged failures — which leaves 55% unrecovered. Broken out by class
-  over 25 live episodes, `goal_drift` is the only class a retry actually fixes
-  (2 of 5). Where the tool layer itself is broken a retry fetches the same
-  broken result: `tool_cascade` and `looping` escalate rather than recover, and
-  the value of the intervention there is ending the episode fast, not producing
-  a correct answer. `grounding_loss` never alarms behaviourally at all (0 of 5).
-  A contract violation is escalated, never repaired.
-- **Hallucination detection is specific but only half sensitive.** On the
-  provoked corpus the numeric-grounding verifier catches **0.55** of ungrounded
-  input fabrications. It raises no false positives (0 across 89 healthy runs),
-  so what it flags is real — but roughly half of fabrications pass. It has one
-  documented false-negative mode: a fabricated figure that coincidentally equals
-  some real combination of tool values. And that 0.55 exists only under
-  provocation; unprovoked fabrication runs at 2 in 175 episodes, far below the
-  pre-registered minimum of 10, so no unprovoked detection claim is made in
-  either direction.
-- **Two repair rungs did not work, and are kept as measured.** `recompute`
-  routes the failing step to a calculator the agent is already holding, which
-  should fix the dominant arithmetic failure — it recovers 28% and does not beat
-  retry luck at this sample size (p=0.17). `adaptive` recovers 21% (p=0.61).
-  Both are retained as comparison arms rather than dropped.
-- **Monitors do not transfer across deployments.** Calibrated on qwen2.5:7b and
-  deployed on llama3.1:8b over a matched task and tool plan, the primary monitor
-  sits at chance (AUROC 0.527, healthy FA 0.75) while the same target
-  recalibrated on itself reaches 0.885. Within a family (7b → 3b) it collapses
-  below chance, 0.29–0.38. A healthy null must be collected under the exact
-  serving distribution.
+- **Repair coverage is partial.** `located` recovers 45%, leaving 55%
+  unrecovered. `goal_drift` is the only class a retry fixes (2 of 5); broken
+  tool layers escalate instead, and a contract violation is never repaired.
+- **Hallucination detection is specific but only half sensitive.** The
+  grounding verifier catches 0.55 of provoked fabrications at 0 false positives
+  in 89 healthy runs — and that number exists only under provocation.
+  Unprovoked fabrication is 2 in 175, below the pre-registered floor of 10, so
+  no unprovoked claim is made.
+- **Two repair rungs did not work.** `recompute` 28% (p=0.17) and `adaptive`
+  21% (p=0.61) do not beat retry luck. Kept as comparison arms.
+- **Monitors do not transfer across deployments.** qwen2.5:7b → llama3.1:8b
+  sits at chance (AUROC 0.527) where recalibrating on the target reaches 0.885;
+  7b → 3b falls below chance. The null must match the serving distribution.
 - **The judge-LLM claim is halved by measurement.** A real gemini-2.5-flash
   judge scores p_detect 0.548 / p_false 0.057 against the stipulated 0.90 /
-  0.02. The call-saving survives; the detection-recovery claim does not.
-- **Context corruption remains the weakest detected class** (0.29 on real
-  traces). Corruption that keeps a legal shape — a price altered from `$361` to
-  `$605` — is undetectable from telemetry by construction and needs an external
-  reference.
-- **On the live-trace corpus the false-alarm budget is unreachable, not just
-  missed.** 16 healthy validation episodes put the order-statistic floor at
-  1/(n+1) = 5.9%, so an empirical 5% quantile does not exist; realized FA is 20%
-  over a 15-episode test split, where one episode is worth 6.7 points.
-  `pick_threshold` warns instead of silently missing the budget. Any real-trace
-  false-alarm figure in this repository should be read as an order-of-magnitude
-  statement, not a rate.
-- **The main testbed is synthetic.** Failure-class channel signatures are
-  designed in, so H2's *direction* is partly by construction. The non-obvious
-  findings — dilution under naive fusion, CUSUM's slow-drift blindness, the
-  wrapper-vs-reservoir attribution — were not designed and are the actual
-  contribution. Real-trace validation confirms the per-class structure at
-  smaller scale, on one agent and task suite.
-- **Coverage is conditional on a telemetry contract.** The semantic and
-  content-grounding channels need structured tool-call/result events; the
-  uncertainty channel needs token-level logprobs. Where a provider omits
-  logprobs the collector degrades to `e+m` and says so — it never fabricates a
-  channel. Ablating the logprob channel costs almost nothing in practice
-  (AUROC +0.000, detection +0.002 across four corpora), so the real
-  requirement is structured tool results.
-- **The judge-LLM claim is halved by measurement.** A real gemini-2.5-flash
-  judge scores p_detect 0.548 / p_false 0.057 against the stipulated 0.90 /
-  0.02.
-- **Adversarial robustness is a measured limit, not a defended capability.**
-  Max-fusion blunts single-channel evasion (0.70 → 0.55–0.65), but a white-box
-  adversary shaping all three channels drops detection to the false-alarm
-  floor. A cross-channel tamper check closes that attack completely (0.00 →
-  1.00 for +3pp false alarms) — and an adaptive adversary replaying a real
-  healthy channel trace defeats the check. Closing the informed attack is open
-  work.
-- **The primary monitor was chosen after test-set diagnostics on the headline
-  seed.** The four untouched-seed replications are the guard against that
-  selection overfitting, and are reported per seed rather than pooled.
+  0.02. The call saving survives; the detection recovery does not.
+- **On live traces the false-alarm budget is unreachable, not just missed.**
+  16 healthy validation episodes put the floor at 5.9%; realized FA is 20% over
+  15 test episodes. Read those rates as orders of magnitude.
+- **Context corruption is the weakest class** (0.29). Corruption that keeps a
+  legal shape needs an external reference.
+- **Adversarial robustness is a measured limit.** A white-box adversary shaping
+  all three channels drops detection to the floor; a tamper check closes that,
+  and an adaptive replay defeats the check.
+- **The testbed is synthetic and the primary monitor was picked on the headline
+  seed.** H2's direction is partly by construction; four untouched-seed
+  replications guard the selection and are reported per seed.
+- **Coverage is conditional on telemetry.** No structured tool results, no
+  semantic or grounding channel. Logprobs barely matter (AUROC +0.000).
 
 ## Documentation
 
