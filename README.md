@@ -16,6 +16,12 @@ AgentTrajectorySentinel answers that with two layers that compose into a single 
 On a real qwen2.5:7b booking agent, the two layers plus rollback-and-retry
 take **task success from 52% to 73%** for about one extra model call per run.
 
+![System architecture: offline training builds one-class monitors from healthy
+episodes only; at serving time five telemetry channels feed a behavioural
+engine and a grounding/verification engine, whose scores are fused at a
+dual-budget decision gate that either passes the run or triggers alarm, rollback
+and repair.](assets/Architecture_D2.png)
+
 ## Install
 
 ```
@@ -244,6 +250,10 @@ detection sits near chance; re-collecting with the requirements met
 
 ## Live demo
 
+![A run in progress: the agent works its task while the monitor scores every
+step against the alarm line, a failure is injected mid-run, the score crosses
+the line, and the run is halted and explained.](assets/AgentTrajectorySentinel_GIF.gif)
+
 `py -m derail.experiments.demo` serves **AgentTrajectorySentinel Live** at
 `http://localhost:8765`. A real qwen2.5:7b agent works a long booking task
 while the shipped monitor scores every step. Five buttons inject a real
@@ -338,7 +348,7 @@ Published numbers need the pinned environment, not the loose bounds in
 
 ```
 pip install -r requirements.lock.txt
-py -m pytest -m "not network and not ollama"   # 306 tests
+py -m pytest -m "not network and not ollama"   # 312 tests
 py -m devtools.claims_ledger --check           # every headline number vs its artifact
 py -m devtools.behavior_snapshot --check       # end-to-end behavioural tripwire
 ```

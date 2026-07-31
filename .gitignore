@@ -67,9 +67,10 @@ paper/*.fls
 *.synctex.gz
 !results/**/*.log
 
-# Working images kept beside the repo (slide exports, generated previews).
-# Diagrams that document the system live in DESIGN.md as mermaid so they are
-# diffable and cannot drift out of sync with the code the way a PNG does.
+# Scratch images kept beside the repo (slide exports, generated previews).
+# Published diagrams live in assets/ and ARE committed; mermaid diagrams stay
+# inline in DESIGN.md, where they are diffable and cannot drift out of sync
+# with the code the way an exported image can.
 docs/
 
 # Scratch output of `collect_traces --mock-llm`: scripted pipeline-test traces,

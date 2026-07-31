@@ -29,9 +29,17 @@ Hypotheses:
 
 ## Runtime flow
 
-What actually happens per step at serving time. Kept as a diagram in source
-rather than an exported image so it is diffable and cannot drift out of sync
-with the code the way a PNG does.
+What actually happens per step at serving time.
+
+![Runtime flow across eight stages: the agent step, telemetry extraction, three
+parallel monitoring streams, deterministic guard checks, dual-budget fusion at
+the ContentGate, intervention on alarm, the agent resuming after rollback or
+repair, and the audit trail every stage writes
+to.](assets/Runtime_Flow.png)
+
+The mermaid version below is the source of record: it lives in this file, so it
+is diffable and cannot drift out of sync with the code the way an exported image
+can. The diagram above is the same flow, drawn for presentation.
 
 ```mermaid
 flowchart TD
@@ -109,6 +117,27 @@ only by `plots.py`, and torch only by the sequence baselines. Determinism: all
 randomness flows through `rng_for(seed, *tags)`.
 
 ---
+
+## Component contracts at a glance
+
+The per-step call sequence, end to end — who calls whom, in what order, and
+where a verdict can be raised:
+
+![Sequence diagram of one monitored step, from the agent emitting a step
+through telemetry extraction, the behavioural and grounding engines, the
+decision gate, and the intervention path back into the
+agent.](assets/Sequence_Diagram_1.png)
+
+And the objects those interactions run over — the frozen `common.py` contract,
+the `OnlineMonitor` implementations, and the verification and repair layers:
+
+![Class diagram of the monitor hierarchy: the OnlineMonitor abstract base and
+its ESN, Mahalanobis, sequence-baseline and hybrid implementations, alongside
+the Episode/Standardizer contract objects and the verification and repair
+components.](assets/Class_Diagram.png)
+
+The module contracts below are the authority; these two diagrams are a map into
+them.
 
 ## Module 1 — `derail/telemetry/generator.py`
 

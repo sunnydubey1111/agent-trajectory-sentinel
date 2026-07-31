@@ -148,3 +148,33 @@ def test_limitations_survive_in_the_readme() -> None:
                    "do not transfer across deployments",
                    "halved by measurement"):
         assert phrase in text, f"README no longer states: {phrase!r}"
+
+
+DIAGRAMS = {
+    "assets/Architecture_D2.png": "README.md",
+    "assets/AgentTrajectorySentinel_GIF.gif": "README.md",
+    "assets/Runtime_Flow.png": "DESIGN.md",
+    "assets/Sequence_Diagram_1.png": "DESIGN.md",
+    "assets/Class_Diagram.png": "DESIGN.md",
+}
+
+
+@pytest.mark.parametrize("path,doc", sorted(DIAGRAMS.items()))
+def test_published_diagram_is_present_and_referenced(path: str, doc: str) -> None:
+    """A diagram that moves or is dropped leaves a broken image in the README."""
+    asset = REPO_ROOT / path
+    assert asset.exists(), f"{path} is missing"
+    assert asset.stat().st_size > 0
+    assert path in (REPO_ROOT / doc).read_text("utf-8"), (
+        f"{path} is committed but {doc} does not reference it")
+
+
+def test_every_diagram_carries_alt_text() -> None:
+    """Alt text is what a screen reader and a failed image load fall back to."""
+    import re
+
+    for doc in ("README.md", "DESIGN.md"):
+        text = (REPO_ROOT / doc).read_text("utf-8")
+        for match in re.finditer(r"!\[([^\]]*)\]\(([^)]+)\)", text):
+            alt, target = match.group(1).strip(), match.group(2)
+            assert len(alt) > 20, f"{doc}: {target} has thin alt text {alt!r}"
