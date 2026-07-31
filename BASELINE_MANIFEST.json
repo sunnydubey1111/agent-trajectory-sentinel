@@ -26,7 +26,7 @@
    "derail/experiments/run_ablation.py": "900363f96b5db74b2566583387893ec821cf2723c8ba1b0d47c0b5482daddf52",
    "derail/experiments/run_benchmark.py": "181847c790ccba208c159eb26a8367816b5cbb5eee669c8ed6aabbe2d564b108",
    "derail/experiments/run_cross_framework.py": "103f74e99c228b5d2f60ab1b65ae7dd59a2572ebe52a44a0377cbc8e61df5e00",
-   "derail/experiments/run_experiment.py": "76c6e1438ebf6394b1c598eabfab6b0c10f37d1d3a66597cd2e536f4a505fe34",
+   "derail/experiments/run_experiment.py": "e6224529e865776e46bf5baa31211d6560a593c7c4fe955ae3364069c405f603",
    "derail/experiments/run_fairness.py": "af7bc4ab0026a84d02d18f887889604011dca652053c66a807c44d790ac0568f",
    "derail/experiments/run_grounding_multiseed.py": "626bd9e40406c822d758474a1c28611a6362acd050077ac2662f160ab813bbcc",
    "derail/experiments/run_grounding_study.py": "d4cfd07f2252bd0ec1a2834fe4b12a90d60464ba1de2b0df6346a4d34a415d24",
@@ -8471,7 +8471,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "f8b1df1d35f85244c4fe6b6e53e966bfecd209af40938aeb43cd346ae31e03db",
+   "CHECKSUMS.md": "5ea1f8d31d16734ee649ff6af9f474910bb0fcd064c68fa09b1fabfbca8f2b34",
    "CLAIMS.md": "587bb81bab01116db97d44423e356f81b7275199a468ee84bf3c66e0d9f120fb",
    "DATA_CARD.md": "f71b1dfdd680c75af790f1ce0217b88479b7b94ec8c2fc97691c6ff8b8d4bea7",
    "DESIGN.md": "1162926fe80d71495f382699f15126cb51f57b448ade2fe762ad753072310682",

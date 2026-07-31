@@ -969,6 +969,12 @@ def main(argv: list[str] | None = None) -> None:
                         help=argparse.SUPPRESS)   # escape hatch, never in CI
     args = parser.parse_args(argv)
 
+    # Provenance is captured BEFORE the run writes anything. `git_dirty` asks
+    # whether the tree that produced these artifacts was clean, and a run that
+    # writes into results/ dirties the tree itself -- sampled afterwards the
+    # flag would read `true` on every run and mean nothing.
+    provenance = _provenance(args.quick, args.seed)
+
     # Publication-path guard: a --quick run is a quarter-size
     # integration test, not a publication result, and must NOT overwrite the
     # primary results/ directory that the paper cites. A quick run therefore
@@ -1093,8 +1099,7 @@ def main(argv: list[str] | None = None) -> None:
     # byte-check compares the scientific tables + score arrays, which are
     # unaffected.)
     with open(RESULTS_DIR / "run_meta.json", "w", encoding="utf-8") as fh:
-        json.dump({"wall_time_sec": wall,
-                   "provenance": _provenance(args.quick, args.seed)}, fh, indent=2)
+        json.dump({"wall_time_sec": wall, "provenance": provenance}, fh, indent=2)
 
     line = "=" * 76
     print(f"\n{line}\nEXPERIMENT SUMMARY  (quick={args.quick}, "
