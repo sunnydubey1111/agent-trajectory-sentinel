@@ -525,3 +525,30 @@ def test_dockerignore_keeps_what_the_snapshot_needs():
                (root / ".dockerignore").read_text(encoding="utf-8").splitlines()
                if l.strip() and not l.startswith("#")}
     assert "results" not in ignored and "traces" not in ignored
+
+
+# --------------------------------------------------- dry runs are not collections
+def test_mock_dry_run_never_targets_a_committed_corpus():
+    """`--mock-llm` writes scripted traces; they must not land on real data.
+
+    The dry run shares the real collector's default output directory, so
+    before the guard below existed a "safe offline dry run" silently
+    overwrote 70 committed Gemini traces -- data that cost real money and is
+    not regenerable. The redirect is asserted here rather than trusted.
+    """
+    import inspect
+
+    from derail.experiments import collect_traces
+
+    src = inspect.getsource(collect_traces.main)
+    assert "args.mock_llm and not args.out_dir" in src, (
+        "the --mock-llm output redirect is gone; a dry run can overwrite a "
+        "committed corpus again")
+    assert "_mock_dry_run" in src
+
+
+def test_mock_dry_run_directory_is_gitignored():
+    """Scratch traces must not be committable, or a dry run pollutes the corpus."""
+    repo_root = Path(__file__).resolve().parents[1]
+    ignore = (repo_root / ".gitignore").read_text("utf-8")
+    assert "traces/_mock_dry_run/" in ignore

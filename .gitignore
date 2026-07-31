@@ -71,3 +71,7 @@ paper/*.fls
 # Diagrams that document the system live in DESIGN.md as mermaid so they are
 # diffable and cannot drift out of sync with the code the way a PNG does.
 docs/
+
+# Scratch output of `collect_traces --mock-llm`: scripted pipeline-test traces,
+# deliberately kept out of the committed corpora they must never overwrite.
+traces/_mock_dry_run/

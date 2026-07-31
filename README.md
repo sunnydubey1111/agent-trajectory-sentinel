@@ -50,7 +50,7 @@ py -m derail.experiments.run_ablation              # ESN hyperparameter sweep
 py -m derail.experiments.run_benchmark             # per-step latency / footprint
 py -m derail.experiments.run_fairness              # GRU/LSTM fairness diagnostics
 py -m derail.experiments.run_hybrid_study          # hybrid ESN + Mahalanobis
-py -m derail.experiments.collect_traces --mock-llm # real-trace pipeline dry run
+py -m derail.experiments.collect_traces --mock-llm # pipeline dry run -> traces/_mock_dry_run/
 py -m derail.experiments.run_real_traces           # evaluate collected real traces
 py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout
 py -m derail.intervene.evaluate_repair_policies --parallel 4   # offline; real model calls
@@ -255,6 +255,28 @@ the monitor's own attribution, not canned text.
 Nothing is mocked or hardcoded: θ is recomputed from data at startup, and all
 post-injection behaviour is real model output. Injected payloads are displayed
 verbatim, and when a check *misses*, the UI says which case occurred and why.
+
+**Rehearsal of record** (`py -m derail.experiments.demo --rehearse`, live
+qwen2.5:7b, all five injections plus two healthy controls). θ is calibrated at
+run time from 58 retained healthy traces — 62 of 120 are excluded because they
+priced the trip but skipped the weather lookups, or stated the wrong total —
+and the self-calibrating baseline reports `trusted` at a realized false-alarm
+rate of 8.6% against its 10% budget:
+
+| scenario | injected | alarm | verdict |
+|---|---|---|---|
+| healthy ×2 | — | — | clean, peak 0.18 |
+| `looping` | step 4 | step 6 | detected, +2 |
+| `goal_drift` | step 4 | step 5 | detected, +1 |
+| `tool_cascade` | step 4 | step 7 | detected, +3 |
+| `context_corruption` | step 4 | — | caught by `tool_contract` at step 4 |
+| `grounding_loss` | step 4 | — | caught by the grounding check |
+
+**0 missed, 0 false alarms.** Two classes are caught by the deterministic layer
+rather than the behavioural monitor, which is the design: `grounding_loss` lives
+in the content, and this world's tool results are too terse for garbling to
+carry statistical mass — so the contract check gets there first, at the step the
+malformed result arrives.
 
 Measured over five injection classes × five task seeds with halting off
 (`results/tables/alarm_repair.csv`, n=25 live episodes): every one of the 18

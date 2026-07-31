@@ -773,6 +773,16 @@ def main(argv: list[str] | None = None) -> None:
     out_dir = Path(args.out_dir) if args.out_dir else (
         TRACES_DIR if args.backend == "gemini" else TRACES_DIR / "ollama")
 
+    # A --mock-llm run is a PIPELINE test, not a collection: its traces are
+    # scripted, so writing them over a committed corpus destroys real data that
+    # cost money to gather and cannot be regenerated. It used to do exactly
+    # that, because the dry run shares the real run's default output directory.
+    # Send it somewhere disposable unless a directory was named explicitly.
+    if args.mock_llm and not args.out_dir:
+        out_dir = TRACES_DIR / "_mock_dry_run"
+        print(f"[collect] --mock-llm writes to {out_dir} (scripted traces "
+              "never overwrite a collected corpus); pass --out-dir to override")
+
     if args.backend == "ollama" and not args.mock_llm:
         print(f"[collect] local model {model} via Ollama — no API cost "
               "(CPU/GPU time instead)")
