@@ -1,21 +1,31 @@
-"""Script to expand the healthy Gemini real trace cohort by running additional seeds.
+"""Expand the healthy Gemini real-trace cohort by running additional seeds.
 
-Runs healthy episodes of the 10 real tasks across seeds [812, 813, 814]
-to increase the healthy cohort size to ~39 traces.
+Runs healthy episodes of the 10 real tasks across seeds [812, 813, 814].
 
-Run: py -m derail.experiments.expand_healthy
+This is a LIVE, PAID collector: it calls the Gemini API and writes into a
+committed corpus. It used to have no command line at all, so any invocation --
+including `--help` -- started a real collection against `traces/real/`. It now
+refuses to run without `--yes`, and refuses to write into a corpus that already
+holds episodes without `--allow-existing`.
+
+    py -m derail.experiments.expand_healthy --estimate
+    py -m derail.experiments.expand_healthy --yes --out-dir traces/_scratch
+    py -m derail.experiments.expand_healthy --yes --allow-existing   # the real thing
 """
 
 from __future__ import annotations
 
+import argparse
 import json
+import sys
 import time
 from pathlib import Path
 
 from derail.common import rng_for
 from derail.config import get_api_key
 from derail.common import stable_hash
-from derail.harness.collection import (accept_episode, make_provenance,
+from derail.harness.collection import (CorpusInUse, accept_episode,
+                                       guard_output_dir, make_provenance,
                                        write_episode, write_manifest)
 from derail.harness.real_tools import build_registry, _ensure_tls
 from derail.harness.agent_loop import run_real_episode
@@ -26,14 +36,18 @@ TRACES_DIR = Path(__file__).resolve().parents[2] / "traces" / "real"
 MAX_STEPS = 12
 
 
-def expand_cohort():
+def expand_cohort(out_dir: Path | None = None, budget_usd: float = 0.50):
+    global TRACES_DIR
+    if out_dir is not None:
+        TRACES_DIR = Path(out_dir)
+    TRACES_DIR.mkdir(parents=True, exist_ok=True)
     _ensure_tls()
     get_api_key("GEMINI_API_KEY", required=True)
 
     from derail.harness.tasks import REAL_TASKS
 
     repo_root = Path(__file__).resolve().parents[2]
-    meter = CostMeter(budget_usd=0.50)  # hard cap agreed before the run
+    meter = CostMeter(budget_usd=budget_usd)  # hard cap, set before the run
 
     # Load manifest
     manifest_path = TRACES_DIR / "manifest.json"
@@ -112,5 +126,39 @@ def expand_cohort():
     print("Healthy cohort expansion complete!")
 
 
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(
+        prog="py -m derail.experiments.expand_healthy",
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--yes", action="store_true",
+                    help="confirm a live, paid Gemini collection")
+    ap.add_argument("--estimate", action="store_true",
+                    help="print what a run would cost and do nothing")
+    ap.add_argument("--out-dir", default=None,
+                    help=f"where to collect (default: {TRACES_DIR})")
+    ap.add_argument("--allow-existing", action="store_true",
+                    help="write into a corpus that already holds episodes")
+    ap.add_argument("--budget-usd", type=float, default=0.50,
+                    help="hard spend cap for the run (default: 0.50)")
+    args = ap.parse_args(argv)
+
+    out_dir = Path(args.out_dir) if args.out_dir else TRACES_DIR
+    if args.estimate:
+        print(f"[expand] would collect 10 tasks x 3 seed cohorts into {out_dir}, "
+              f"capped at ${args.budget_usd:.2f} of live Gemini calls")
+        return 0
+    if not args.yes:
+        print("[expand] refusing to start a live, paid collection without --yes "
+              "(try --estimate first)")
+        return 1
+    try:
+        guard_output_dir(out_dir, allow_existing=args.allow_existing)
+    except CorpusInUse as exc:
+        raise SystemExit(f"[expand] {exc}")
+    expand_cohort(out_dir=out_dir, budget_usd=args.budget_usd)
+    return 0
+
+
 if __name__ == "__main__":
-    expand_cohort()
+    sys.exit(main())

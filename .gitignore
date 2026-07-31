@@ -75,3 +75,4 @@ docs/
 # Scratch output of `collect_traces --mock-llm`: scripted pipeline-test traces,
 # deliberately kept out of the committed corpora they must never overwrite.
 traces/_mock_dry_run/
+traces/_smoke/

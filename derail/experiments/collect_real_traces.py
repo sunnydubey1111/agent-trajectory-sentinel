@@ -13,7 +13,7 @@ from pathlib import Path
 
 from derail.common import rng_for, stable_hash
 from derail.config import get_api_key
-from derail.harness.collection import (accept_episode, make_provenance,
+from derail.harness.collection import (CorpusInUse, guard_output_dir,accept_episode, make_provenance,
                                        reusable, write_episode,
                                        write_manifest)
 from derail.harness.real_tools import build_registry, _ensure_tls
@@ -45,6 +45,7 @@ STUDY_CLASS_OF = {
 
 
 def main(argv: list[str] | None = None) -> None:
+    global TRACES_DIR
     parser = argparse.ArgumentParser(
         prog="py -m derail.experiments.collect_real_traces")
     parser.add_argument("--model", default=MODEL_DEFAULT)
@@ -53,7 +54,18 @@ def main(argv: list[str] | None = None) -> None:
                         help="confirm real API spend")
     parser.add_argument("--budget", type=float, default=0.50,
                         help="hard USD cap; the meter raises before exceeding it")
+    parser.add_argument("--out-dir", default=None,
+                        help=f"corpus directory (default: {TRACES_DIR})")
+    parser.add_argument("--allow-existing", action="store_true",
+                        help="collect into a corpus that already holds episodes")
     args = parser.parse_args(argv)
+
+    if args.out_dir:
+        TRACES_DIR = Path(args.out_dir)
+    try:
+        guard_output_dir(TRACES_DIR, allow_existing=args.allow_existing)
+    except CorpusInUse as exc:
+        raise SystemExit(f"[collect_real] {exc}")
 
     if not args.yes:
         print("[collect_real] Refusing to run without --yes to confirm Gemini API spend.")

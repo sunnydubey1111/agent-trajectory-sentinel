@@ -99,6 +99,44 @@ def require_ollama_model(model: str,
             "(`ollama list`).")
 
 
+class CorpusInUse(RuntimeError):
+    """A collector was about to write into a corpus that already has episodes."""
+
+
+def guard_output_dir(out_dir: Path, *, allow_existing: bool,
+                     flag: str = "--allow-existing") -> None:
+    """Refuse to collect into a populated corpus unless told to explicitly.
+
+    Collected traces cost real money and real hours and are not regenerable:
+    the same task run again is a different sample, not the same one. Yet the
+    collectors default to the very directories the published corpora live in,
+    so an exploratory invocation lands on top of them. That has happened twice
+    -- a `--mock-llm` dry run overwrote 70 committed Gemini traces with
+    scripted ones, and `expand_healthy` had no CLI at all, so even `--help`
+    started a live collection into `traces/real/`.
+
+    A collector must therefore say what it intends. Writing into an empty or
+    new directory is always fine; writing into one that already holds a
+    manifest with episodes needs `allow_existing` (surfaced as `flag`), which
+    is what a genuine resume or re-collection passes.
+    """
+    manifest = Path(out_dir) / "manifest.json"
+    if allow_existing or not manifest.exists():
+        return
+    try:
+        entries = json.loads(manifest.read_text(encoding="utf-8"))
+    except Exception:      # noqa: BLE001 - unreadable manifest is not a corpus
+        return
+    if not entries:
+        return
+    raise CorpusInUse(
+        f"{out_dir} already holds {len(entries)} collected episode(s).\n"
+        "Collected traces are not regenerable -- re-running produces a "
+        "different sample, not the same one.\n"
+        f"Pass --out-dir to collect somewhere new, or {flag} to write into "
+        "this corpus on purpose.")
+
+
 def registry_roster_sha256(registry) -> str:
     """Hash of the tool roster and its schemas (what the agent could call)."""
     from derail.harness.tools import tool_fingerprint

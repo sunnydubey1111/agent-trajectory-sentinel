@@ -552,3 +552,52 @@ def test_mock_dry_run_directory_is_gitignored():
     repo_root = Path(__file__).resolve().parents[1]
     ignore = (repo_root / ".gitignore").read_text("utf-8")
     assert "traces/_mock_dry_run/" in ignore
+
+
+# ------------------------------------------- collectors never clobber a corpus
+def test_guard_refuses_to_collect_over_an_existing_corpus(tmp_path: Path):
+    from derail.harness.collection import CorpusInUse, guard_output_dir
+
+    guard_output_dir(tmp_path, allow_existing=False)          # empty: fine
+    (tmp_path / "manifest.json").write_text("[]", "utf-8")
+    guard_output_dir(tmp_path, allow_existing=False)          # no episodes: fine
+
+    (tmp_path / "manifest.json").write_text('[{"episode_id": "a"}]', "utf-8")
+    with pytest.raises(CorpusInUse):
+        guard_output_dir(tmp_path, allow_existing=False)
+    guard_output_dir(tmp_path, allow_existing=True)           # explicit: fine
+
+
+def test_guard_ignores_an_unreadable_manifest(tmp_path: Path):
+    """A corrupt manifest is not evidence of a corpus, and must not wedge a run."""
+    from derail.harness.collection import guard_output_dir
+
+    (tmp_path / "manifest.json").write_text("{not json", "utf-8")
+    guard_output_dir(tmp_path, allow_existing=False)
+
+
+@pytest.mark.parametrize("module", [
+    "derail.experiments.collect_organic",
+    "derail.experiments.collect_real_traces",
+    "derail.experiments.expand_healthy",
+])
+def test_every_live_collector_wires_the_guard(module: str):
+    """A collector that skips the guard can silently destroy paid-for data."""
+    import importlib
+    import inspect
+
+    src = inspect.getsource(importlib.import_module(module).main)
+    assert "guard_output_dir" in src, f"{module} does not guard its output dir"
+    assert "--out-dir" in src, f"{module} offers no way to collect elsewhere"
+
+
+def test_expand_healthy_cannot_collect_without_confirmation():
+    """It had no CLI at all, so even --help started a paid live collection."""
+    import inspect
+
+    from derail.experiments import expand_healthy
+
+    src = inspect.getsource(expand_healthy.main)
+    assert "--yes" in src and "refusing" in src
+    assert expand_healthy.main(["--estimate"]) == 0     # never collects
+    assert expand_healthy.main([]) == 1                 # refuses without --yes

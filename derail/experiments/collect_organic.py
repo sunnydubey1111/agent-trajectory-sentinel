@@ -17,6 +17,8 @@ Then: review traces/organic7b/*.jsonl -> organic_labels.csv
 from __future__ import annotations
 
 import argparse
+
+from derail.harness.collection import CorpusInUse, guard_output_dir
 import json
 from pathlib import Path
 
@@ -53,18 +55,33 @@ class HotOllamaBackend(OllamaBackend):
 
 
 def main(argv: list[str] | None = None) -> None:
+    global TRACES_DIR
     parser = argparse.ArgumentParser(
         prog="py -m derail.experiments.collect_organic")
     parser.add_argument("--n", type=int, default=30)
     parser.add_argument("--model", default="qwen2.5:7b")
     parser.add_argument("--temperature", type=float, default=0.9)
     parser.add_argument("--max-steps", type=int, default=12)
+    parser.add_argument("--out-dir", default=None,
+                        help=f"corpus directory (default: {TRACES_DIR})")
+    parser.add_argument("--allow-existing", action="store_true",
+                        help="collect into a corpus that already holds episodes")
     args = parser.parse_args(argv)
+
+    if args.out_dir:
+        TRACES_DIR = Path(args.out_dir)
+    try:
+        guard_output_dir(TRACES_DIR, allow_existing=args.allow_existing)
+    except CorpusInUse as exc:
+        raise SystemExit(f"[organic] {exc}")
 
     _ensure_tls()
     # Capability allowlist for the shared research task.
     registry = build_registry(RESEARCH_TASK_TOOLS)
-    cassette = Cassette("traces/_cassettes/organic7b", mode="auto")
+    # The cassette follows the corpus: a scratch run must not deposit
+    # recordings into the shared committed cassette directory.
+    cassette = Cassette(str(TRACES_DIR.parent / "_cassettes" / TRACES_DIR.name),
+                        mode="auto")
     TRACES_DIR.mkdir(parents=True, exist_ok=True)
     manifest = []
     for i in range(args.n):
