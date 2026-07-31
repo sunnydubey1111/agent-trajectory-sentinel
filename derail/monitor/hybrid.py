@@ -316,16 +316,17 @@ def recommended_monitor(standardizer: Standardizer,
                         channels: tuple[str, ...] = ("e", "u", "m"),
                         K: int = 8, seed: int = 1300,
                         min_labeled: int = 20) -> _HybridBase:
-    """Build and fit the recommended production monitor (hybrid study, 2026-07).
+    """Build and fit the recommended production monitor (see the hybrid study).
 
     Default is HybridWeighted(w=0.5) — fully label-free, grand-mean AUROC
-    0.836 across the five benchmark datasets vs 0.831 (ESN) / 0.793
+    0.812 across the eight benchmark datasets vs 0.802 (ESN) / 0.807
     (DeltaMahalanobis), and never far from the per-dataset winner. When at
     least `min_labeled` labeled failure episodes are available (~20 is
     enough; injection runs produce them cheaply), returns HybridLogistic
-    fit-supervised on them instead — best grand mean (0.846) and
-    statistically at-or-above the better standalone on every dataset.
-    See results/hybrid_report.md for the full evidence.
+    fit-supervised on them instead — best grand mean (0.826) and
+    statistically at-or-above the better standalone on every development
+    dataset. See results/hybrid_report.md for the full evidence, and
+    CLAIMS.md for these figures checked against the table they come from.
     """
     from derail.common import D_TOTAL_EXT, D_TOTAL_GRD
 

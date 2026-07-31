@@ -117,6 +117,19 @@ def _runtime(monitor: str, column: str) -> float:
     return float(d.loc[d.monitor == monitor, column].iloc[0])
 
 
+def _hybrid_grand_mean(monitor: str) -> float:
+    """Grand-mean AUROC across the eight benchmark datasets."""
+    d = _table("hybrid_benchmark.csv")
+    return float(d.loc[d.monitor == monitor, "auroc"].mean())
+
+
+def _horizon_advantage(lo: int, hi: int) -> float:
+    """ESN-minus-Mahalanobis detection gap inside one post-onset horizon band."""
+    d = _table("hybrid_diagnosis.csv")
+    band = d[(d.horizon >= lo) & (d.horizon <= hi)]
+    return float(band.det_esn.mean() - band.det_maha.mean())
+
+
 def _contract_within_one_step() -> int:
     d = _table("tool_contract_coverage.csv")
     return int((d.first_violation_step - d.tau <= 1).sum())
@@ -153,9 +166,18 @@ def build() -> list[Claim]:
               "results/tables/multiseed_summary.csv",
               "py -m derail.experiments.run_multiseed",
               lambda: _multiseed("delta_mahalanobis", "detection_rate_mean"), "Monitor"),
-        Claim("runtime.latency_us", "Primary monitor median step latency (us)", 219.0,
-              "results/tables/runtime.csv", "py -m derail.experiments.run_benchmark",
-              lambda: _runtime("esn_cusum_max", "step_latency_us_median"), "Monitor"),
+        # Latency is the one published figure that is NOT bit-reproducible: it
+        # measures the machine, and re-running the benchmark on the same box
+        # moved it 219 -> 252 us. The committed runtime.csv is the source of
+        # record for the quoted value; what the ledger can honestly assert is
+        # the order of magnitude the "three orders below a judge call" claim
+        # rests on, so that is what it checks.
+        Claim("runtime.latency_order", "Primary monitor step latency is 100-999 us",
+              "100-999 us", "results/tables/runtime.csv",
+              "py -m derail.experiments.run_benchmark (timings are machine-specific)",
+              lambda: ("100-999 us"
+                       if 100.0 <= _runtime("esn_cusum_max", "step_latency_us_median") < 1000.0
+                       else "OUT OF RANGE"), "Monitor"),
         Claim("runtime.footprint_mb", "Primary monitor state footprint (MB)", 3.95,
               "results/tables/runtime.csv", "py -m derail.experiments.run_benchmark",
               lambda: _runtime("esn_cusum_max", "footprint_mb"), "Monitor"),
@@ -170,6 +192,31 @@ def build() -> list[Claim]:
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
               lambda: _real_traces("esn_cusum_max[e,m]", "det[context_corruption]"),
               "Monitor"),
+
+        Claim("hybrid.weighted50", "hybrid_weighted50 grand-mean AUROC (label-free default)",
+              0.8119, "results/tables/hybrid_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean("hybrid_weighted50"), "Monitor"),
+        Claim("hybrid.logistic", "hybrid_logistic grand-mean AUROC (with labels)",
+              0.8262, "results/tables/hybrid_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean("hybrid_logistic"), "Monitor"),
+        Claim("hybrid.esn", "esn_cusum_max grand-mean AUROC on the same eight datasets",
+              0.8020, "results/tables/hybrid_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean("esn_cusum_max"), "Monitor"),
+        Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
+              0.0887, "results/tables/hybrid_diagnosis.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _horizon_advantage(0, 3), "Monitor"),
+        Claim("horizon.mid", "ESN advantage at post-onset horizon 4-8 steps",
+              0.1353, "results/tables/hybrid_diagnosis.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _horizon_advantage(4, 8), "Monitor"),
+        Claim("horizon.long", "ESN advantage at post-onset horizon >= 9 steps",
+              0.4042, "results/tables/hybrid_diagnosis.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _horizon_advantage(9, 10**6), "Monitor"),
 
         # ------------------------------------------------------ verification
         Claim("holdout.totals", "Held-out failures caught by totals check", 0.5357,
@@ -245,9 +292,13 @@ def build() -> list[Claim]:
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
               lambda: int(_table("repair_policies.csv")
                           .query("not was_correct").episode_id.nunique()), "Repair"),
+        # No offline regenerator: this table is the record of 25 live episodes
+        # (5 injection classes x 5 task seeds, halting off) driven through the
+        # demo by hand. The committed CSV *is* the evidence; re-running it needs
+        # a served model and produces a fresh sample, not this one.
         Claim("repair.alarms", "Behavioural alarms followed by a repair attempt", 18,
               "results/tables/alarm_repair.csv",
-              "py -m derail.experiments.demo --alarm-repair-matrix",
+              "live demo run, halting off -- see REPRODUCE.md (not regenerable offline)",
               lambda: int(_table("alarm_repair.csv").alarm_step.notna().sum()), "Repair"),
     ]
 
@@ -289,6 +340,12 @@ def _render(claims: list[Claim], ok: bool) -> str:
         "by `tests/test_evaluation_validity.py`, not here. The same is true of",
         "the live-demo rehearsal figures, which are measured per run and are",
         "reported as ranges rather than as fixed values.",
+        "",
+        "One row above has no offline regenerator, and says so in its command",
+        "column: `alarm_repair.csv` records 25 live episodes driven through the",
+        "demo with halting off. Re-running it needs a served model and yields a",
+        "fresh sample rather than that one, so the committed CSV is itself the",
+        "evidence. Every other row regenerates from committed code and data.",
         "",
     ]
     return "\n".join(lines)

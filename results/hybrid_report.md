@@ -18,16 +18,23 @@ FA healthy-val-quantile thresholds, `evaluation/metrics.py` +
 ## 1. Why does Mahalanobis beat the ESN on real_research7b?
 
 **Cause identified: post-onset temporal horizon.** Per-episode diagnosis
-over all 716 injected episodes across the five benchmark datasets
+over all 1,002 injected episodes across the eight benchmark datasets
 (`hybrid_diagnosis.csv`):
 
 | post-onset horizon (T−1−τ) | n | ESN det | Maha det | ESN − Maha |
 |---|---|---|---|---|
-| ≤ 3 steps | 263 | 0.35 | 0.44 | **−0.09** |
-| 4–8 steps | 81 | 0.77 | 0.53 | **+0.23** |
-| ≥ 9 steps | 372 | 0.78 | 0.38 | **+0.40** |
+| ≤ 3 steps | 451 | 0.50 | 0.41 | **+0.09** |
+| 4–8 steps | 170 | 0.72 | 0.58 | **+0.14** |
+| ≥ 9 steps | 381 | 0.78 | 0.38 | **+0.40** |
 
-corr(horizon, ESN advantage) = **+0.37**. The ESN's CUSUM accumulates
+corr(horizon, ESN advantage) = **+0.25**. An earlier revision of this table
+reported **−0.09** in the top band from a 716-episode, six-dataset scope
+computed before the degenerate-scale correction (DESIGN.md Amendment 6),
+which moved the Mahalanobis stream. The monotone trend survives and is the
+finding; the sign of the shortest band does not. Averaged over episodes the
+ESN does not lose any band — Mahalanobis wins at the *dataset* level, on the
+corpora composed almost entirely of short-horizon episodes. The ESN's CUSUM
+accumulates
 evidence over steps; with ≤3 post-fault steps there is nothing to
 accumulate, while the memoryless Mahalanobis distance fires on the first
 anomalous step or never. real_research7b episodes are T≈5–6 with τ=2 —
@@ -83,14 +90,15 @@ AUROC by dataset (best in **bold**):
 
 | dataset | ESN | Maha | weighted | max | gated | logistic |
 |---|---|---|---|---|---|---|
-| sim | **0.889** | 0.786 | 0.878 | 0.872 | 0.844 | 0.886 |
-| gemini | 0.816 | 0.763 | 0.816 | 0.809 | 0.804 | **0.819** |
-| autogen7b | 0.843 | 0.762 | 0.840 | 0.845 | 0.831 | **0.866** |
-| ollama7b | 0.824 | 0.817 | **0.830** | 0.810 | 0.826 | 0.828 |
-| langgraph7b (held out, §7) | 0.643 | **0.738** | 0.671 | 0.700 | 0.710 | 0.671 |
-| real_research7b | 0.784 | 0.839 | 0.818 | 0.818 | 0.830 | **0.842** |
-| real_research7b_long | 0.813 | **0.845** | 0.813 | 0.794 | 0.829 | **0.845** |
-| **grand mean (7 datasets)** | 0.802 | 0.793 | 0.810 | 0.807 | 0.811 | **0.823** |
+| sim | **0.890** | 0.786 | 0.883 | 0.888 | 0.864 | 0.889 |
+| gemini | 0.749 | 0.756 | 0.751 | 0.746 | **0.759** | 0.731 |
+| autogen7b | **0.833** | 0.774 | 0.822 | 0.819 | 0.810 | 0.777 |
+| ollama7b | 0.994 | 0.895 | 0.994 | 0.994 | **0.997** | 0.982 |
+| langgraph7b (held out, §7) | 0.828 | 0.885 | 0.875 | **0.906** | 0.885 | 0.884 |
+| real_research3b | 0.556 | **0.665** | 0.565 | 0.609 | 0.556 | 0.643 |
+| real_research7b | 0.777 | 0.848 | 0.815 | 0.813 | **0.849** | 0.847 |
+| real_research7b_long | 0.790 | 0.849 | 0.790 | 0.790 | 0.782 | **0.857** |
+| **grand mean (8 datasets)** | 0.802 | 0.807 | 0.812 | 0.821 | 0.813 | **0.826** |
 
 Logistic features use robust-z clipping at ±50 (`HybridLogistic(clip=50)`).
 The bound was chosen empirically: unclipped features reach z ~ 1e6 and
@@ -110,9 +118,9 @@ p=3e-4; autogen7b vs Maha: McNemar p=0.03; research7b_long vs ESN:
 permutation p=5e-5 on lead).
 Supervision discipline: logistic weights come from the sim `cal` split or
 2-fold class-stratified cross-fit on real data — no episode is scored by a
-model that saw it in training. Weighted-0.5 is the best label-free
-variant (grand mean 0.833); gated never leads and its gate calibration is
-the weakest idea of the four; max is dominated by weighted.
+model that saw it in training. Weighted-0.5 is the recommended label-free
+variant (grand mean 0.812); gated never leads and its gate calibration is
+the weakest idea of the four; max now edges weighted (0.821 vs 0.812).
 
 ## 4. Runtime (sim test set, 560 episodes)
 
@@ -131,10 +139,10 @@ under 5 s). All remain orders of magnitude below a judge-LLM call.
 **Deploy the hybrid.** Concretely:
 
 1. **Default (label-free deployments): `hybrid_weighted50`** — no labels
-   needed, grand-mean AUROC 0.810 > ESN 0.802 > Maha 0.793 over seven
+   needed, grand-mean AUROC 0.812 > Maha 0.807 > ESN 0.802 over eight
    datasets, never far from the local winner, +9% latency over ESN.
 2. **When ≥ ~20 labeled failure episodes exist: `hybrid_logistic`** — best
-   grand mean (0.823), statistically at-or-above the better standalone on
+   grand mean (0.826), statistically at-or-above the better standalone on
    every development dataset (on the small, noisy held-out set its edge
    shrinks to parity with weighted — §7). The needed labels are cheap:
    injection runs already produce them.

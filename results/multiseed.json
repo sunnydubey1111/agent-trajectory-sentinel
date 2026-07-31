@@ -56,7 +56,7 @@
   "provenance": {
     "quick": false,
     "master_seed": 20260713,
-    "git_rev": "1f46541d7b0a6f5826441a1d1983c693886e8d50",
+    "git_rev": "0c0a882e3c471c4efb86207d1292d9f83209251c",
     "git_dirty": true,
     "python": "3.14.5",
     "platform": "Windows-11-10.0.26200-SP0",

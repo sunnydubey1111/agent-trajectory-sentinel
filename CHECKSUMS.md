@@ -11,7 +11,7 @@ py -m devtools.artifact_manifest --check     # verify every file
 py -m devtools.artifact_manifest --doc       # regenerate this summary
 ```
 
-**Root digest:** `2f2973a35e44773f1c953aedc22cb36a54c0d68f2db933d38da88de7dae8fc4a`
+**Root digest:** `ad008cafc68120bf8e749ce881458ea76d6428eeb55541e91f6dd7e5d225ffea`
 
 A single SHA-256 over every path and per-file hash in the manifest, in
 sorted order. Two checkouts agreeing on this value agree on every

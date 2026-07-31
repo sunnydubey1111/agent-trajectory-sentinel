@@ -68,30 +68,45 @@ violation is an escalation, not a retry.
 ## Repository layout
 
 ```
-Capstone/
-  DESIGN.md, README.md, requirements.txt
-  derail/
-    __init__.py
-    common.py                    # frozen contract (already written)
-    telemetry/generator.py       # healthy simulator + failure injector
-    monitor/esn.py               # ESN ensemble monitor (+ single-ESN ablation)
-    monitor/baselines.py         # cosine drift, rolling entropy, OCC baselines
-    monitor/calibration.py       # confidence calibration + ECE
-    monitor/escalation.py        # judge model + escalation policies + costs
-    evaluation/metrics.py        # alarms, thresholds, lead/delay, curves, bootstrap
-    experiments/run_experiment.py  # end-to-end: data -> fit -> eval -> results/
-    experiments/plots.py         # figures (written separately, not part of fan-out)
-  results/                       # generated: tables/, figures/, scores/, results.json
+DESIGN.md  README.md  CLAIMS.md  DATA_CARD.md  REPRODUCE.md  CHECKSUMS.md
+LICENSE  CITATION.cff  requirements*.txt  Dockerfile
+derail/
+  common.py                  # frozen contract: channels, Episode, OnlineMonitor
+  config.py                  # API-key resolution (OS vault > env > .env)
+  telemetry/generator.py     # healthy simulator + failure injector
+  telemetry/adapter.py       # real-trace JSONL -> Episode
+  monitor/esn.py             # ESN ensemble (+ single-ESN ablation)
+  monitor/baselines.py       # drift, entropy, Mahalanobis, isolation forest
+  monitor/seq_baselines.py   # VAR-ridge, GRU, LSTM, TCN
+  monitor/hybrid.py          # ESN + Mahalanobis fusion
+  monitor/hmt_esn.py         # hierarchical multi-timescale ESN
+  monitor/grounding.py       # content-grounding telemetry channel
+  monitor/grounding_verify.py# per-step numeric-grounding verifier
+  monitor/baseline.py        # self-calibrating rolling healthy reference
+  monitor/calibration.py     # confidence calibration + ECE
+  monitor/escalation.py      # judge model + escalation policies + costs
+  harness/                   # live agent loop, tools, sandbox, injector, replay
+  verify/checks.py           # deterministic answer / coverage / contract checks
+  intervene/                 # rollback + repair-policy evaluation
+  evaluation/                # metrics, protocol, paired significance tests
+  experiments/               # study runners, collectors, plots, live demo
+devtools/                    # manifest, snapshot, audits, ledger, data card
+verification/  experimental/ # pre-registered arms and exploratory studies
+tests/  traces/  results/  paper/
 ```
 
-Each module MUST include an `if __name__ == "__main__":` smoke test that runs
-in < 10 s, uses only that module + `derail.common` + third-party libs (NO
-sibling `derail` imports — construct synthetic `Episode`s with random X where
-needed), and prints a short PASS summary. Run from the repo root with
-`py -m derail.telemetry.generator` etc.
+Every library module carries an `if __name__ == "__main__":` smoke test that
+uses only that module + `derail.common` + third-party libs (NO sibling `derail`
+imports — construct synthetic `Episode`s with random X where needed) and prints
+a short PASS summary. `tests/test_module_selftests.py` runs them all as
+subprocesses, split into a fast set and a `slow`-marked set: most finish in
+under two seconds, a few (`seq_baselines`, `hybrid`, `hmt_esn`, `demo_real`)
+need longer because they fit real models.
 
-Python 3.14; numpy / scipy / scikit-learn / pandas only (matplotlib only in
-`plots.py`). Determinism: all randomness through `rng_for(seed, *tags)`.
+Python 3.13+ (developed on 3.14). Core dependencies are numpy / scipy /
+scikit-learn / pandas, plus httpx for the Ollama backend; matplotlib is used
+only by `plots.py`, and torch only by the sequence baselines. Determinism: all
+randomness flows through `rng_for(seed, *tags)`.
 
 ---
 

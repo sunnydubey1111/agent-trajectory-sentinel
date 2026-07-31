@@ -99,9 +99,9 @@ care what such a watchdog cannot do. Contributions:
    gemini-2.5-flash) across bespoke, LangGraph, and AutoGen loops — with
    every trace committed and every table reproducible (§5).
 3. **A diagnosis of when temporal monitoring pays**: the ESN's detection
-   advantage over a 50×-cheaper Mahalanobis baseline is a monotone
-   function of post-onset horizon (−9 points at ≤3 steps, +23 at 4–8,
-   +40 at ≥9; r = +0.37 over 716 injected episodes) (§6).
+   advantage over a 50×-cheaper Mahalanobis baseline grows monotonically
+   with post-onset horizon (+9 points at ≤3 steps, +14 at 4–8, +40 at ≥9;
+   r = +0.25 over 1,002 injected episodes) (§6).
 4. **A calibrated hybrid** whose supervised fusion weights learn which
    regime a deployment is in (Mahalanobis weight share 0.34 on
    long-horizon data → 0.95 on short), is never statistically below the
@@ -410,11 +410,17 @@ the commercial API is not harder to monitor than the local model.
 
 ## 6. When does temporal monitoring pay? The horizon diagnosis
 
-Per-episode analysis over 716 injected episodes across six datasets: the
-ESN−Mahalanobis detection gap is **−0.09** when the post-onset horizon
-(T−1−τ) is ≤3 steps, **+0.23** at 4–8, **+0.40** at ≥9 (correlation
-+0.37). The ESN's CUSUM needs steps to integrate evidence; the
-Mahalanobis distance fires on the first anomalous step or never. A
+Per-episode analysis over 1,002 injected episodes across eight datasets
+(`hybrid_diagnosis.csv`): the ESN−Mahalanobis detection gap is **+0.09**
+when the post-onset horizon (T−1−τ) is ≤3 steps, **+0.14** at 4–8, and
+**+0.40** at ≥9 (correlation +0.25). The ESN's CUSUM needs steps to
+integrate evidence; the Mahalanobis distance fires on the first anomalous
+step or never. Read the direction carefully: averaged over episodes the
+ESN never *loses* a horizon band, its margin merely collapses to almost
+nothing when there is nothing to accumulate. Where Mahalanobis wins is at
+the *dataset* level, on the corpora made almost entirely of short-horizon
+episodes (`real_research7b` 0.848 vs 0.777 AUROC, `real_research3b` 0.665
+vs 0.556). A
 controlled replication (research7b_long: identical tasks/tools/τ, 10
 tool calls instead of 5) moves ESN detection 0.27 → 0.60 and lead 0.23 →
 3.64 steps — horizon is a binding constraint, though the memoryless

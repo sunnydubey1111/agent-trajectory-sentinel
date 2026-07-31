@@ -29,7 +29,7 @@ Python 3.13+. The GRU/LSTM/TCN baselines additionally need
 ## Quick start
 
 ```
-py -m derail.experiments.run_experiment        # full synthetic study, ~2 min CPU
+py -m derail.experiments.run_experiment        # full synthetic study, ~3 min CPU
 py -m derail.experiments.plots                 # figures from results/
 py -m derail.verify.run_verification_study     # deterministic checks vs monitor, real traces
 py -m derail.intervene.evaluate_repair_policies --from-csv   # repair study, re-analysis only
@@ -115,7 +115,31 @@ seeds and not supported at seed 7; **H2** (channel complementarity) and
 
 **Cost.** ~219 µs median per step (p95 266 µs), 1.7 s to fit on 240 healthy
 episodes, 4.0 MB of state — roughly three orders of magnitude below one agent
-step.
+step. Latency is the one published figure that is not bit-reproducible: it
+measures the machine, and a re-run on the same box moved it to 252 µs.
+`results/tables/runtime.csv` is the source of record; the order of magnitude is
+the part the claim rests on.
+
+**What to actually deploy is a hybrid, not the ESN alone.** The ESN wins where
+failures have room to develop and loses on corpora made of very short episodes,
+so `derail.monitor.hybrid.recommended_monitor()` returns a fusion of the ESN
+and a delta-Mahalanobis distance. Grand-mean AUROC over the eight benchmark
+datasets (`results/tables/hybrid_benchmark.csv`):
+
+| monitor | grand-mean AUROC | needs labels |
+|---|---|---|
+| `esn_cusum_max` alone | 0.802 | no |
+| delta-Mahalanobis alone | 0.807 | no |
+| **`hybrid_weighted50`** (label-free default) | **0.812** | no |
+| **`hybrid_logistic`** (with ≥20 labelled failures) | **0.826** | yes |
+
+The mechanism is post-onset horizon. Over 1,002 injected episodes the ESN's
+detection advantage over the memoryless distance grows monotonically with the
+number of steps available after onset: **+0.09** at ≤3 steps, **+0.14** at 4–8,
+**+0.40** at ≥9. Averaged over episodes the ESN never *loses* a band — its
+margin just collapses when there is nothing to accumulate. Where the distance
+wins is at the dataset level, on corpora that are almost entirely short-horizon
+(`real_research7b` 0.848 vs 0.777). Full analysis: `results/hybrid_report.md`.
 
 ### Deterministic checks vs the behavioural monitor — real traces
 
