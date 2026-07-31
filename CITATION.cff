@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software or its data, please cite it as below."
-title: "AgentWatch: Real-Time Detection and Repair of LLM Agent Failures"
+title: "AgentTrajectorySentinel: Real-Time Detection and Repair of LLM Agent Failures"
 abstract: >-
   A two-layer system for catching LLM agent failures while they happen. A
   one-class behavioural monitor (echo-state-network CUSUM ensembles fit on

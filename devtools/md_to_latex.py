@@ -50,6 +50,7 @@ PREAMBLE = r"""\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{amsmath,amssymb}
@@ -106,16 +107,63 @@ def _inline(text: str) -> str:
     out = out.replace("\x03", r"\emph{").replace("\x04", "}")
 
     def restore(m: re.Match[str]) -> str:
-        return r"\texttt{" + _escape(spans[int(m.group(1))]) + "}"
+        # Long identifiers (`judge_calibration_summary.json`) are a single
+        # unbreakable word inside \texttt, which overruns a narrow table
+        # cell. Allow a break after each underscore and slash.
+        code = _escape(spans[int(m.group(1))])
+        code = code.replace(r"\_", r"\_\allowbreak{}")
+        code = code.replace("/", r"/\allowbreak{}")
+        return r"\texttt{" + code + "}"
 
     return re.sub("\x00(\\d+)\x00", restore, out)
+
+
+#: A column wider than this many characters is set as a wrapping paragraph
+#: column rather than a rigid one. Below it, `l`/`r` keep numbers and short
+#: labels tight; above it a rigid column runs off the page instead of wrapping,
+#: which is what made the manuscript's telemetry table overflow the text block.
+_WRAP_AT = 24
+
+_NUMERIC = re.compile(r"^[-+]?[\d.,]+\s*(%|x|s|ms|us|MB)?$")
+
+
+def _column_kind(values: list[str]) -> str:
+    """Pick `r`, `l` or a wrapping `p{}` from what a column actually holds."""
+    stripped = [re.sub(r"[*`$\\]", "", v).strip() for v in values if v.strip()]
+    if not stripped:
+        return "l"
+    if max(len(v) for v in stripped) > _WRAP_AT:
+        return "p"
+    if all(_NUMERIC.match(v) for v in stripped):
+        return "r"
+    return "l"
+
+
+def _column_spec(header: list[str], body: list[list[str]]) -> str:
+    """Build a column spec, sharing the free width between wrapping columns."""
+    kinds = [_column_kind([header[i]] + [row[i] for row in body])
+             for i in range(len(header))]
+    n_wrap = kinds.count("p")
+    if not n_wrap:
+        return "".join(kinds)
+    # Budget the text width. Every column carries inter-column padding, so
+    # shares that sum to 1 overrun the margin; rigid columns are charged a
+    # flat estimate and the remainder is split between the wrapping ones.
+    ncol = len(kinds)
+    rigid = ncol - n_wrap
+    share = (1.0 - 0.04 * ncol - 0.11 * rigid) / n_wrap
+    share = max(share, 0.15)
+    wrap = rf">{{\raggedright\arraybackslash}}p{{{share:.3f}\linewidth}}"
+    return "".join(wrap if k == "p" else k for k in kinds)
 
 
 def _table(rows: list[str]) -> list[str]:
     """Render a pipe table as a booktabs longtable.
 
     A longtable is used because several tables in the manuscript are taller
-    than a page; a plain tabular would silently overflow the text block.
+    than a page; a plain tabular would silently overflow the text block. Column
+    types are inferred from the cells (see `_column_kind`) so numbers stay
+    right-aligned and prose wraps instead of running into the margin.
     """
     cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
     header, body = cells[0], cells[2:]          # cells[1] is the ---|--- rule
@@ -123,10 +171,10 @@ def _table(rows: list[str]) -> list[str]:
     for row in body:
         if len(row) != ncol:
             raise ConversionError(f"ragged table row: {row!r} (expected {ncol})")
-    spec = "l" + "r" * (ncol - 1)
+    spec = _column_spec(header, body)
     out = [rf"\begin{{longtable}}{{{spec}}}", r"\toprule",
-           " & ".join(_inline(c) for c in header) + r" \\", r"\midrule",
-           r"\endhead"]
+           " & ".join(rf"\textbf{{{_inline(c)}}}" for c in header) + r" \\",
+           r"\midrule", r"\endhead"]
     out += [" & ".join(_inline(c) for c in row) + r" \\" for row in body]
     out += [r"\bottomrule", r"\end{longtable}", ""]
     return out

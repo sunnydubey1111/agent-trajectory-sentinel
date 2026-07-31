@@ -1020,7 +1020,7 @@ checks flagged no already-correct episode: their false-positive rate on this
 arm is 0/61.
 
 **Served live.** `demo.run_demo_episode` reuses `rollback_step`,
-`repair_message` and `rebuild_history`, so AgentWatch Live repairs a rejected
+`repair_message` and `rebuild_history`, so AgentTrajectorySentinel Live repairs a rejected
 run exactly as the study does: one attempt, rewound to the last fact-gathering
 step, asked again with the check's finding. The agent's conversation is
 rewound while the display keeps every step, so the rejected answer, the finding

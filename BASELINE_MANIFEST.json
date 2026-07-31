@@ -82,7 +82,7 @@
    "devtools/claims_ledger.py": "f12f8966d3f5bbeb38d16ab329315eb2f2cb9ceec8c9683ebbc92acf95ed99e3",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "2cc9cb718ed2bc0a51908d9019945c395675ff30c23d0e186131f7053a5ed5d5",
-   "devtools/md_to_latex.py": "0443dd386f65f2520b4552d57db3134c5d6308d5dbcbd7bbb4325ee758ab23e0",
+   "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
    "devtools/trace_audit.py": "94fa461367711a59c6eed3778871783c6bb8e2b04f029c9b58cd84e9dae74b2e",
@@ -102,7 +102,7 @@
    "tests/test_module_selftests.py": "513602fa4a9a8c712d3416f31eb892fdd3888bea31dc7e7dadac10f2ecbaf8b3",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
-   "tests/test_release_artifacts.py": "20088cbb1e2ade4ed7938557bcc26a1a80f7ebfa35f64bbea8050ec00fa88a44",
+   "tests/test_release_artifacts.py": "96c29837fd015a2022921e8d731f77ce38c33f7bc9abce5251adc31109fb4cfd",
    "tests/test_security_containment.py": "c98d8a47d021cdfcec5a9ab88bba5d1e8f88dca71590732a625c3885995556b5",
    "tests/test_telemetry_events.py": "74598558b69b30a69b10ed39663bd025eb37c83c8df8980a2668c15f2cd44c5b",
    "tests/test_trace_audit.py": "f0de3b83314cc3afa7e1bf25287721d6986a1c7d17f41423ffa589db1249fc25",
@@ -8473,15 +8473,16 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "ac21df0cce7625e38435845283d38b8ce296ab658ab901b9f9957b872e33eee2",
+   "CHECKSUMS.md": "eeec22f56a8e828d6285c7c0670036b9aa1107f1a9c22724b616717378487622",
    "CLAIMS.md": "8b452849bc405d0969a4ff66419104f9e8ba75304c62b3eab5f2bf3d372bcf8b",
    "DATA_CARD.md": "f71b1dfdd680c75af790f1ce0217b88479b7b94ec8c2fc97691c6ff8b8d4bea7",
-   "DESIGN.md": "0fd76948019215e3cf91b1a456539a23327a3ca9bd79a4f8b9acf38899c83e8b",
-   "README.md": "978bd1e3d7e76752bbdab07a115ff36beb64d17f3c30b4c73527698d5b39de32",
+   "DEMO_GUIDE.md": "4f4868a3a788e9860600065a9792f5d53172b7ba328eadd03a8c3f87ca716be8",
+   "DESIGN.md": "a40eacab95d133589cbaf345e6cb4dfdc40ba53f315f88a92e89ecc5f1bb1248",
+   "README.md": "263485b278858d45dd482c55fcb6b33a9f74482575442723621c4ea514efcad5",
    "REPRODUCE.md": "7abf16bbdc294741d63b6aeee1938683844d45c3c6a7bae4772cd0a7713c941f",
    "paper/main.tex": "02173e8aa56f7f08ad92c14eb5fc134bf7609f89437a7b6200839b3e95d1eefa",
-   "paper/paper.md": "c5577c96be2458c30dad5e2327899b8ab9bfa53a95de521d661ffd38021a2c54",
-   "paper/paper.tex": "2ef53090d8cd26e4eab2fc5bd7a223b5edf0c3c694b3760001a1d966489b3e84",
+   "paper/paper.md": "2aa6e6574a613345a294a9d257db004985df7f0f3cc5a2c5e5832079aee5e3e8",
+   "paper/paper.tex": "f998f0fbd3b3ec9f7ada0abac8eb781cbfc8012274d929411fdeedcd355aff09",
    "paper/references.bib": "0708e4552593b73ec6230a93f0cc03b3c1211225d317f76dafba590c12842845",
    "requirements-core.lock.txt": "bb3e752e98f256fd870f22bfb77ccfdf842ecafa8dba42a582c8a2b8b32b5144",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",
@@ -8489,5 +8490,5 @@
   }
  },
  "note": "",
- "file_count": 8479
+ "file_count": 8480
 }

@@ -15,6 +15,7 @@ from conftest import REPO_ROOT
 
 RELEASE_DOCS = ["LICENSE", "CITATION.cff", "README.md", "DESIGN.md",
                 "CLAIMS.md", "DATA_CARD.md", "CHECKSUMS.md", "REPRODUCE.md",
+                "DEMO_GUIDE.md",
                 "requirements.txt", "requirements.lock.txt",
                 "requirements-core.lock.txt"]
 
@@ -134,8 +135,13 @@ def test_reproduce_record_names_every_verification_gate() -> None:
 
 
 def test_limitations_survive_in_the_readme() -> None:
-    """Negative results are load-bearing; silently dropping one is a defect."""
+    """Negative results are load-bearing; silently dropping one is a defect.
+
+    They are framed as future work rather than as caveats, but the measured
+    content must stay: reframing is not the same as deleting.
+    """
     text = (REPO_ROOT / "README.md").read_text("utf-8")
+    assert "## Future work" in text
     for phrase in ("Repair coverage is partial",
                    "only half sensitive",
                    "did not work",

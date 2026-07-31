@@ -1,10 +1,10 @@
-# AgentWatch — Real-Time Detection and Repair of LLM Agent Failures
+# AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
 
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —
 steps before the task fails or the budget burns?
 
-AgentWatch answers that with two layers that compose into a single gate:
+AgentTrajectorySentinel answers that with two layers that compose into a single gate:
 
 1. **A behavioural monitor.** Echo-state-network CUSUM ensembles fit on
    healthy episodes only, scoring every step causally. It sees trajectory
@@ -244,7 +244,7 @@ detection sits near chance; re-collecting with the requirements met
 
 ## Live demo
 
-`py -m derail.experiments.demo` serves **AgentWatch Live** at
+`py -m derail.experiments.demo` serves **AgentTrajectorySentinel Live** at
 `http://localhost:8765`. A real qwen2.5:7b agent works a long booking task
 while the shipped monitor scores every step. Five buttons inject a real
 failure mid-run — loop trap, goal hijack, tool failures, data corruption,
@@ -329,8 +329,8 @@ Published numbers need the pinned environment, not the loose bounds in
 Dockerfile:
 
 ```
-docker build -t agentwatch-repro .        # full fidelity (incl. torch baselines)
-docker run  --rm agentwatch-repro         # deterministic gate: fast tests + snapshot --check
+docker build -t agenttrajectorysentinel-repro .        # full fidelity (incl. torch baselines)
+docker run  --rm agenttrajectorysentinel-repro         # deterministic gate: fast tests + snapshot --check
 ```
 
 > **Status: statically validated, never built.** Docker was not available in
@@ -362,9 +362,10 @@ monitor.fit(healthy)                       # one-class, as in the study
 Re-fit on healthy runs from your own source; do not mix a simulator-trained
 monitor with real traces.
 
-## Limitations and negative results
+## Future work
 
-Measured, not hedged. Numbers and sources in [`CLAIMS.md`](CLAIMS.md).
+Each item below is a measured gap with a number attached, and the next thing
+worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 
 - **Repair coverage is partial.** `located` recovers 45%, leaving 55%
   unrecovered. `goal_drift` is the only class a retry fixes (2 of 5); broken
@@ -401,6 +402,9 @@ Measured, not hedged. Numbers and sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CLAIMS.md`](CLAIMS.md) — claim-to-evidence ledger: every headline number
   above, the artifact it is read from, and the command that regenerates it.
   `py -m devtools.claims_ledger --check` recomputes all 28 and fails on drift.
+- [`DEMO_GUIDE.md`](DEMO_GUIDE.md) — a walkthrough of the live demo: what to
+  press, what to look for on the chart, the Why panel and the savings banner,
+  and what does not work yet.
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
   settings, and the exact command behind each result.
 - [`DATA_CARD.md`](DATA_CARD.md) — all 25 corpora: sizes, models, injected vs

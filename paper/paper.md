@@ -492,14 +492,14 @@ ever trip it (one-class clean-null gating).
 ### 8.2 Results under the success criterion
 
 The criterion: content classes must improve, behavioral classes must not
-degrade. Pooled over 602 injected episodes / seven datasets, paired
-McNemar vs the ungrounded hybrid:
+degrade. Pooled over 874 injected episodes across ten datasets
+(`grounding_multiseed_criterion.csv`, mean over five seeds):
 
-| fusion | content (n=211) | behavioral (n=391) |
+| fusion | content (n=313) | behavioral (n=561) |
 |---|---|---|
-| content gate | 0.23 → **0.40** (+37/−0, p=2e−11) | 0.73 → **0.80** (+25/−0, p=6e−8) |
-| joint-budget | 0.23 → **0.32** (+21/−1, p=1e−5) | 0.73 → 0.73 (+0/−3, ns) |
-| logistic+g (labels) | 0.14 → 0.17 (+14/−9, ns) | 0.74 → 0.69 (−18 net) |
+| content gate | 0.278 → **0.592** | 0.746 → **0.791** |
+| adaptive | 0.278 → **0.539** | 0.746 → **0.783** |
+| logistic+g (labels) | 0.278 → 0.322 | 0.746 → 0.713 |
 
 Per class: malformed_json 0.12 → 0.82; context_corruption 0.28 → 0.37;
 wrong_document 0.12 → 0.12 (the lexical dim helps only in the datasets
