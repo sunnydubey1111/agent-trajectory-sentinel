@@ -279,12 +279,21 @@ carry statistical mass — so the contract check gets there first, at the step t
 malformed result arrives.
 
 Measured over five injection classes × five task seeds with halting off
-(`results/tables/alarm_repair.csv`, n=25 live episodes): every one of the 18
-behavioural alarms was followed by a repair attempt, and no run that did not
-alarm was interrupted. `goal_drift` is the class a retry fixes (2 of 5); where
-the tool layer itself is broken the retry cannot win, and the value of the
-intervention is ending the episode fast — a loop trap escalates 5 of 5 at
-exactly 10 steps, against 30 steps before the circuit breaker existed.
+(`results/tables/alarm_repair.csv`, n=25 live episodes,
+`py -m derail.experiments.demo --alarm-repair-matrix`): **every behavioural
+alarm is followed by a repair attempt** — 21 of 21 here, and 18 of 18 in an
+earlier independent run of the same matrix. `goal_drift` is the class a retry
+fixes, repairing **4 of 5**. Where the tool layer itself is broken the retry
+cannot win, and the value of the intervention is ending the episode fast: a
+loop trap exits at exactly 10 steps in 5 of 5 runs, against 30 before the
+circuit breaker existed.
+
+Because this is a live study, per-class alarm rates move between runs — the two
+samples above differ on `grounding_loss` (0/5 vs 2/5) and `context_corruption`
+(3/5 vs 4/5). Read those per-class figures as a sample, not a constant. Runs
+that never alarm behaviourally can still be repaired, driven by the answer or
+contract checks rather than by the monitor; that is the design, not a
+spurious interruption.
 
 ## Layout
 

@@ -127,6 +127,8 @@ figures quoted, not a value you should expect to match.
 
 ```
 py -m derail.experiments.demo                            # live demo -> localhost:8765
+py -m derail.experiments.demo --rehearse                 # headless: all injections + controls
+py -m derail.experiments.demo --alarm-repair-matrix      # -> results/tables/alarm_repair.csv
 py -m derail.experiments.demo --collect-healthy N        # extend the demo healthy null
 py -m derail.intervene.evaluate_repair_policies --parallel 4   # re-runs real model calls
 py -m derail.experiments.collect_framework_traces        # LangGraph / AutoGen corpora
@@ -151,7 +153,7 @@ then a gitignored `.env`.
 ### Verification gates
 
 ```
-py -m pytest -m "not network and not ollama"     # 298 tests, the default gate
+py -m pytest -m "not network and not ollama"     # 307 tests, the default gate
 py -m devtools.behavior_snapshot --check          # end-to-end behavioural tripwire
 py -m devtools.artifact_manifest --check          # SHA-256 over every committed file
 py -m devtools.claims_ledger --check              # every headline number vs its artifact

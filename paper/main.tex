@@ -284,10 +284,11 @@ recovery is not coming from being handed the answer.
 
 Repair coverage is real but partial, and the shape of the gap is measured. Over
 five injection classes $\times$ five task seeds with halting off
-(\texttt{alarm\_repair.csv}, $n=25$ live episodes) every one of the 18
-behavioural alarms was followed by a repair attempt and no run that did not alarm
-was interrupted, but \texttt{goal\_drift} is the only class a retry fixes (2 of
-5). Where the tool layer itself is broken a retry fetches the same broken result:
+(\texttt{alarm\_repair.csv}, $n=25$ live episodes) every behavioural alarm is
+followed by a repair attempt --- 21 of 21, and 18 of 18 in an independent run of
+the same matrix --- but \texttt{goal\_drift} is the only class a retry fixes (4
+of 5). Per-class alarm rates move between runs of this live matrix, so they are
+a sample rather than a constant. Where the tool layer itself is broken a retry fetches the same broken result:
 \texttt{tool\_cascade} and \texttt{looping} escalate rather than recover, and the
 value of the intervention there is ending the episode fast --- a loop trap exits
 at exactly 10 steps in 5 of 5 runs, against 30 before the circuit breaker.

@@ -70,7 +70,7 @@ Status at generation: **all claims verified**
 | `resample` control recovery rate | `0.164` | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Correct runs broken by any repair policy | `0` | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Genuinely-wrong episodes in the repair study | `55` | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
-| Behavioural alarms followed by a repair attempt | `18` | `results/tables/alarm_repair.csv` | `live demo run, halting off -- see REPRODUCE.md (not regenerable offline)` |
+| Every behavioural alarm is followed by a repair attempt | `all alarms attempted` | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
 
 ## What this ledger does not cover
 

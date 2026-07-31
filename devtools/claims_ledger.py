@@ -143,6 +143,17 @@ def _model_transfer_auroc(condition_contains: str) -> float:
     return float(d[d.condition.str.contains(condition_contains)].auroc.max())
 
 
+def _every_alarm_attempted() -> str:
+    """Did every behavioural alarm get a repair attempt, by either trigger?"""
+    d = _table("alarm_repair.csv")
+    alarmed = d.alarm_step.notna()
+    attempted = (d.alarm_repair_used.astype(bool)
+                 | d.check_repair_used.astype(bool))
+    missed = int((alarmed & ~attempted).sum())
+    return ("all alarms attempted" if missed == 0
+            else f"{missed} alarm(s) with no repair attempt")
+
+
 def _judge(key: str) -> float:
     """A measured judge rate from the calibration summary sidecar."""
     path = TABLES / "judge_calibration_summary.json"
@@ -340,10 +351,14 @@ def build() -> list[Claim]:
         # (5 injection classes x 5 task seeds, halting off) driven through the
         # demo by hand. The committed CSV *is* the evidence; re-running it needs
         # a served model and produces a fresh sample, not this one.
-        Claim("repair.alarms", "Behavioural alarms followed by a repair attempt", 18,
-              "results/tables/alarm_repair.csv",
-              "live demo run, halting off -- see REPRODUCE.md (not regenerable offline)",
-              lambda: int(_table("alarm_repair.csv").alarm_step.notna().sum()), "Repair"),
+        # A live study: re-running samples the same experiment afresh rather
+        # than reproducing these bytes, so the ledger checks the invariant the
+        # claim rests on -- every alarm gets a repair attempt -- not the count.
+        Claim("repair.every_alarm_attempted",
+              "Every behavioural alarm is followed by a repair attempt",
+              "all alarms attempted", "results/tables/alarm_repair.csv",
+              "py -m derail.experiments.demo --alarm-repair-matrix (live)",
+              _every_alarm_attempted, "Repair"),
     ]
 
 
