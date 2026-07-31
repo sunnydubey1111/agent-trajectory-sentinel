@@ -34,7 +34,7 @@
 \maketitle
 
 \begin{abstract}
-LLM agents fail mid-episode---they loop, cascade tool errors, drift off their goal, fabricate results, or silently absorb corrupted content---and the standard remedy, judging every step with a second LLM, costs more than the agent itself. We ask how much failure detection is achievable from \textit{observable step telemetry alone} (semantic embeddings of step output, token-level uncertainty, action metadata), using monitors that cost microseconds per step and train only on healthy runs. Starting from a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build and validate, on $\sim$1,700 agent episodes across three frameworks, three local agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and a commercial API (gemini-2.5-flash), a sequence of increasingly capable monitors: (1) the ESN, which wins decisively when failures have temporal room to develop; (2) a calibrated ESN+Mahalanobis hybrid whose learned fusion weights track the deployment regime; and (3) a content-grounding telemetry channel that lifts the monitors' shared blind spot (content corruption) from 0.23 to 0.40 pooled content detection (up to 0.63 on the research collectors where the corruption is content-visible; honestly inert on frameworks whose corruption leaves result text unchanged), a $+0.175$ gain that holds at every seed, without degrading behavioral detection. Validation on organic (non-injected) failures reveals a taxonomy with an honest boundary: a completion check catches failures of omission (7/7 silent aborts), the monitors transfer only \emph{weakly} to organic commission (1 of 3 fabrications) and rank the organic set at/below chance without recalibration, and plausible-value corruption requires external reference (the escalation layer's job). A pre-registered fabrication study is explicitly underpowered (2 hallucinations in the pre-registered 55 episodes, 9 across all 175 organic episodes and only 2 of those fabricated \emph{inputs}, against a pre-registered minimum of 10) and makes no detection claim --- the models rarely invent --- so the fabrication class is covered by a deterministic numeric-grounding verifier rather than a statistical monitor. The full system runs at $\sim$200 $\mu$s per step, three orders of magnitude below a judge call.
+LLM agents fail mid-episode---they loop, cascade tool errors, drift off their goal, fabricate results, or silently absorb corrupted content---and the standard remedy, judging every step with a second LLM, costs more than the agent itself. We ask how much failure detection is achievable from \textit{observable step telemetry alone} (semantic embeddings of step output, token-level uncertainty, action metadata), using monitors that cost microseconds per step and train only on healthy runs. Starting from a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build and validate, on 2,823 committed agent episodes across three frameworks, three local agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and a commercial API (gemini-2.5-flash), a sequence of increasingly capable monitors: (1) the ESN, which wins decisively when failures have temporal room to develop; (2) a calibrated ESN+Mahalanobis hybrid whose learned fusion weights track the deployment regime; and (3) a content-grounding telemetry channel that lifts the monitors' shared blind spot (content corruption) from 0.23 to 0.40 pooled content detection (up to 0.63 on the research collectors where the corruption is content-visible; honestly inert on frameworks whose corruption leaves result text unchanged), a $+0.175$ gain that holds at every seed, without degrading behavioral detection. Validation on organic (non-injected) failures reveals a taxonomy with an honest boundary: a completion check catches failures of omission (7/7 silent aborts), the monitors transfer only \emph{weakly} to organic commission (1 of 3 fabrications) and rank the organic set at/below chance without recalibration, and plausible-value corruption requires external reference (the escalation layer's job). A pre-registered fabrication study is explicitly underpowered (2 hallucinations in the pre-registered 55 episodes, 9 across all 175 organic episodes and only 2 of those fabricated \emph{inputs}, against a pre-registered minimum of 10) and makes no detection claim --- the models rarely invent --- so the fabrication class is covered by a deterministic numeric-grounding verifier rather than a statistical monitor. Both burdens --- the per-deployment null and the residual false-alarm rate --- motivate a complementary layer that carries neither: \textbf{deterministic verification}, which recomputes a run's stated total from the tool results that run actually received and confirms every required call was made, needing no null, no threshold and no calibration. Head-to-head on the same episodes and labels it catches 60\% of failures (96\% with the coverage check) at \textbf{0 of 63 false positives} against the monitor's 54\% at 17\%; it replicates on 120 later episodes at disjoint seeds scored frozen (54\%, 93\% with coverage, 0 of 64), transfers unchanged across model families to llama3.1:8b (\textbf{110 of 110 at 0 of 10}), and catches \textbf{26 of 26} provoked fabrications --- the class on which a one-class monitor structurally cannot be scored. A third check validates tool results against the shapes their tool can return, flagging \textbf{0 of 1825} healthy episodes while catching 46\% of injected context corruption, 215 of 218 within one step of onset. Detection is then closed into \textbf{repair}: each flagged run is rolled back to its last fact-gathering step and re-run live, recovering \textbf{45\%} of failures against a 16\% resampling control ($p=0.0005$) and lifting net task success from \textbf{52\% to 73\%} for about one extra model call per run. The full system runs at $\sim$200 $\mu$s per step, three orders of magnitude below a judge call.
 \end{abstract}
 
 \section{Introduction}
@@ -44,7 +44,7 @@ An agent episode is a sequence of steps; each step emits observable telemetry: w
 This work answers that question constructively, and documents with equal care what such a watchdog cannot do. Contributions:
 
 \begin{enumerate}
-    \item \textbf{Real-ecosystem validation at scale, and it is the paper's spine}: $\sim$1,700 episodes over 17 datasets, of which $\sim$600 use real tools with live agents across bespoke, LangGraph and AutoGen loops, spanning three local agent models in two families and the gemini-2.5-flash API. Per-class coverage across nine real corpora is reported in full, including where it is poor.
+    \item \textbf{Real-ecosystem validation at scale, and it is the paper's spine}: 2,823 episodes over 25 datasets, of which 770 use real tools with live agents across bespoke, LangGraph and AutoGen loops, spanning three local agent models in two families and the gemini-2.5-flash API. Per-class coverage across nine real corpora is reported in full, including where it is poor.
     \item \textbf{A controlled testbed with ground-truth onsets} (failure injector, 43-dim telemetry) and an 11-monitor comparison under matched false-alarm budgets, used to expose detector \emph{mechanics} --- ground-truth onsets at arbitrary horizons, and classes the real corpora do not contain. Its telemetry is constructed, so no deployment claim rests on it.
     \item \textbf{A diagnosis of when temporal monitoring pays}: the ESN's detection advantage over a 50$\times$-cheaper Mahalanobis baseline is a monotone function of post-onset horizon.
     \item \textbf{A calibrated hybrid} whose supervised fusion weights learn which regime a deployment is in.
@@ -108,7 +108,7 @@ All monitors are one-class (fit on healthy episodes only) and causal. Alarm thre
 \section{Real-Ecosystem Validation: the Empirical Spine}
 \label{sec:real}
 
-\textbf{Everything this paper claims about deployment rests on this section.} The committed corpus spans $\sim$1,700 episodes over 17 datasets --- three frameworks, three local agent models across two families, and the gemini-2.5-flash API --- every episode a live agent run against real tools, with telemetry measured at the adapter rather than constructed.
+\textbf{Everything this paper claims about deployment rests on this section.} The committed corpus spans 2,823 episodes over 25 datasets --- three frameworks, three local agent models across two families, and the gemini-2.5-flash API --- every episode a live agent run against real tools, with telemetry measured at the adapter rather than constructed.
 
 Figure~\ref{fig:traces} shows the primary monitor on real streams: healthy runs stay two orders of magnitude below the alarm threshold, and each injected class alarms one step after its verified onset. Figure~\ref{fig:coverage} gives the coverage picture across all nine real corpora, and it is the honest one. Looping and tool cascade are caught almost everywhere (0.48--1.00); goal drift is caught wherever it is present (0.66--0.86 on four of five corpora); and the genuine weak spots are the content-corruption classes, \texttt{wrong\_document} (0.00--0.20) and \texttt{malformed\_json} (0.05--0.50) --- which is what motivates the grounding channel of \S\ref{sec:grounding}, not a post-hoc rationalisation of it.
 
@@ -195,6 +195,104 @@ Thirty non-injected high-temperature (0.9) episodes yield 11 organic failures: 7
 A \textbf{pre-registered replication} (design and analysis committed before data; $n=55$ episodes at temperature 0.9) built the null cross-fit from the healthy subset of the same-temperature runs, but is \textbf{explicitly underpowered}: only 2 candidate hallucinations arise (pre-registered minimum 10), at a 36\% healthy false-alarm rate, so it makes \textbf{no detection claim}. These well-aligned agent models rarely invent figures. Fabrication detection is therefore delivered not by a statistical monitor but by the mechanism that matches the failure: a deterministic per-step \textbf{numeric-grounding verifier} --- every monetary figure the agent asserts must trace to a tool result it actually received, or an arithmetic combination thereof --- which needs no ground-truth answer, runs online, flagged 0 false positives on the 25 healthy episodes, and catches an inserted ungrounded figure at the step it appears. The statistical monitors were never the right tool for this class; measuring that, and shipping the right tool, is the result.
 
 Observable step telemetry covers most of the agent-failure space using microsecond-scale monitors --- with failure classes it cannot cover delegated to mechanisms that can (completion check, grounding verifier, escalation to a judge) --- providing a vital first line of defense before escalating to full LLM judges.
+
+\section{Deterministic Verification and Repair}
+\label{sec:verify}
+
+The monitors above need a healthy null per deployment and still spend part of a
+false-alarm budget. A check needs neither. \texttt{total\_consistency}
+recomputes a run's stated total from the tool results \emph{that run actually
+received}; \texttt{required\_coverage} confirms every call the task requires was
+made; \texttt{tool\_contract} asks whether a result matched any shape its tool can
+return, and so reports at the step the result arrives rather than at the answer.
+None reads the hidden world the task was generated from, so all three are
+deployable as-is.
+
+\begin{table}[h]
+\centering
+\caption{Checks versus the behavioural monitor, same episodes and same objective
+labels (\texttt{verification\_vs\_monitor.csv}). Recall is comparable at the
+served temperature; the difference is precision.}
+\label{tab:verify}
+\begin{tabular}{lcc}
+\toprule
+ & checks & monitor \\
+\midrule
+failures caught, $T{=}0.2$ (served) & 60\% (\textbf{96\%} with coverage) & 54\% \\
+false positives, $T{=}0.2$ & \textbf{0/63 = 0\%} & 11/63 = 17\% \\
+failures caught, $T{=}0.9$ & 65\% (\textbf{96\%} with coverage) & 40\% \\
+false positives, $T{=}0.9$ & \textbf{0/38 = 0\%} & 6/38 = 16\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The checks were written by inspecting failures in the serving arm, so that arm
+cannot also be their test set. A further 120 episodes at disjoint task seeds
+(40000+, zero overlap) were collected afterwards and scored with the checks
+frozen: 54\% caught by totals, \textbf{93\%} with coverage, arithmetic errors
+36/36, and \textbf{0 of 64} false positives --- the overall figure drops by the
+margin a genuine held-out test should cost, driven by the small
+\texttt{hallucinated} class (4/8). A llama3.1:8b arm on the \emph{same} 120 task
+seeds, with nothing retuned, catches \textbf{110 of 110} failures at \textbf{0 of
+10} false positives. On the provoked corpus the checks catch \textbf{26 of 26}
+fabrications; that corpus cannot score a one-class monitor at all, because
+provoking enough fabrication leaves 2 healthy episodes against the 15 a null
+needs. Scored across every labelled corpus, \texttt{tool\_contract} trips on
+\textbf{0 of 1825} healthy episodes, flags 46\% of \texttt{context\_corruption}
+and 44\% of \texttt{looping} and 0\% of every other injected class, and where it
+fires is immediate: \textbf{215 of 218} flagged episodes within one step of onset.
+
+\textbf{Repair.} Every flagged episode is rolled back to the same checkpoint and
+re-run under each repair rung, paired on the identical prefix and task; the
+rollback is real (a committed trace plus its seed rebuilds the conversation at
+step $k$, and every step after is a fresh model call), and success is graded by
+the study oracle, which the repair prompt never sees. Each cell is the mean of
+three independent repeats over $n=55$ genuinely-wrong episodes.
+
+\begin{table}[h]
+\centering
+\caption{Repair rungs against a resampling control (\texttt{repair\_policies.csv}).
+Asking for a re-check is what works, and naming the failing check works best.}
+\label{tab:repair}
+\begin{tabular}{lccc}
+\toprule
+rung & recovery & vs \texttt{resample} & calls/recovery \\
+\midrule
+\texttt{none} --- untouched & 0\% & --- & --- \\
+\texttt{resample} --- rollback + fresh sample & 16\% & \emph{control} & 14.7 \\
+\textbf{\texttt{located}} --- + which check failed, no values & \textbf{45\%} & \textbf{$p=0.0005$} & 6.4 \\
+\texttt{generic} --- + a re-check instruction & 36\% & $p=0.0347$ & \textbf{5.8} \\
+\texttt{specific} --- + the finding, with values & 36\% & $p=0.0192$ & 8.1 \\
+\texttt{recompute} --- + use the calculator & 28\% & $p=0.17$ (n.s.) & 7.2 \\
+\texttt{adaptive} & 21\% & $p=0.61$ (n.s.) & 10.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Net over all 120 episodes, charging each policy for any correct run it broke,
+\texttt{located} lifts task success from \textbf{52\% to 73\%}: 25 failures
+recovered and \textbf{zero} correct runs broken, because the checks flagged no
+already-correct episode. Retry luck is controlled for --- plain resampling alone
+recovers 16\%, so only the margin above that is credited to the repair. Two
+negative results sit inside this table and are kept rather than dropped.
+\texttt{recompute} routes the step to a calculator the agent is already holding,
+which should fix the dominant arithmetic failure, and does not beat retry luck at
+this sample size ($p=0.17$). And supplying the recomputed answer buys nothing:
+26 of 55 \texttt{specific} hints contain the correct total outright, while
+\texttt{located} states no value at all and recovers at least as much --- so the
+recovery is not coming from being handed the answer.
+
+Repair coverage is real but partial, and the shape of the gap is measured. Over
+five injection classes $\times$ five task seeds with halting off
+(\texttt{alarm\_repair.csv}, $n=25$ live episodes) every one of the 18
+behavioural alarms was followed by a repair attempt and no run that did not alarm
+was interrupted, but \texttt{goal\_drift} is the only class a retry fixes (2 of
+5). Where the tool layer itself is broken a retry fetches the same broken result:
+\texttt{tool\_cascade} and \texttt{looping} escalate rather than recover, and the
+value of the intervention there is ending the episode fast --- a loop trap exits
+at exactly 10 steps in 5 of 5 runs, against 30 before the circuit breaker.
+\texttt{grounding\_loss} never alarms behaviourally (0 of 5) and is the grounding
+check's class by design. A contract violation is escalated, never repaired.
 
 \section{Limitations}
 \label{sec:limits}

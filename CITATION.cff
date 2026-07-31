@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this software or its data, please cite it as below."
+title: "AgentWatch: Real-Time Detection and Repair of LLM Agent Failures"
+abstract: >-
+  A two-layer system for catching LLM agent failures while they happen. A
+  one-class behavioural monitor (echo-state-network CUSUM ensembles fit on
+  healthy runs only) scores every step causally, and a deterministic
+  verification layer recomputes a run's answer from the tool results that run
+  actually received. Detection is closed into repair by rolling a flagged run
+  back to its last fact-gathering step and re-running it, which lifts task
+  success from 52% to 73% for about one extra model call per run. The
+  repository ships 2,823 committed agent episodes across 25 corpora, four agent
+  models, three frameworks, and the full evaluation harness.
+type: software
+license: MIT
+version: "1.0.0"
+date-released: "2026-07-31"
+repository-code: "https://github.com/sjkumardube/agent-derailment-monitor"
+authors:
+  - family-names: Dubey
+    given-names: Sunny
+    email: sjkumardube@gmail.com
+keywords:
+  - LLM agents
+  - anomaly detection
+  - change-point detection
+  - echo state networks
+  - agent monitoring
+  - failure recovery
+  - reproducible research
+references:
+  - type: article
+    title: "Real-Time Detection and Repair of LLM Agent Failures"
+    authors:
+      - family-names: Dubey
+        given-names: Sunny
+    year: 2026
+    notes: >-
+      Manuscript included in this repository as paper/main.pdf (conference
+      format) and paper/paper.pdf (full length).

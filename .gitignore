@@ -28,13 +28,16 @@ results/seed424242/
 # regenerable deterministically, and the frozen baseline must pin
 # "same dataset, same splits" for every future comparison.
 
-# LaTeX build products (main.tex + references.bib + neurips.sty are the sources)
+# LaTeX build products (main.tex + references.bib + neurips.sty are the sources).
+# The two manuscript PDFs are COMMITTED: they are the released artifact, and a
+# reader should not need a LaTeX toolchain to read the paper. paper/paper.tex is
+# generated from paper/paper.md by devtools/md_to_latex.py and is committed too,
+# so the PDF rebuilds with latexmk alone.
 paper/*.aux
 paper/*.log
 paper/*.out
 paper/*.blg
 paper/*.bbl
-paper/*.pdf
 paper/*.synctex.gz
 
 # Ephemeral disposable-seed study output (never published)
@@ -47,6 +50,8 @@ results/_sensitivity/
 # LaTeX build artifacts
 paper/main.fls
 paper/main.fdb_latexmk
+paper/paper.fls
+paper/paper.fdb_latexmk
 paper/*.aux
 paper/*.log
 paper/*.out

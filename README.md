@@ -198,10 +198,18 @@ Specific, about half sensitive — stated as measured.
 ### Real traces and other frameworks
 
 187 live gemini-2.5-flash episodes (`results/tables/real_traces.csv`): the
-channel-max monitor is strongest on real agent behaviour at AUC 0.787 /
-detection 0.63, and is the only strong monitor that respects the 5% false-alarm
-budget (6.7%). Per class: looping 0.94, tool cascade 0.83, goal drift 0.59,
-context corruption 0.24.
+channel-max monitor leads every other monitor on real agent behaviour at
+**AUC 0.840 / detection 0.71**. Per class: looping 1.00, tool cascade 0.83,
+goal drift 0.77, context corruption 0.29.
+
+Its realized false-alarm rate is **20%**, and that number should be read for
+what it is. The test split holds 15 healthy episodes, so a single episode moves
+the rate by 6.7 points; the validation split holds 16, and an empirical
+quantile over 16 episodes *cannot* deliver a 5% budget at all — the
+order-statistic floor is 1/(n+1) = 5.9%, and reaching 5% needs n >= 19.
+`pick_threshold` warns rather than silently missing the budget. On this corpus
+the budget is unreachable, not merely missed, and no monitor here should be
+described as respecting it.
 
 The same stack runs on LangGraph, AutoGen and native-Ollama traces. Those runs
 established an **operating envelope**, then confirmed it causally: with tiny
@@ -308,8 +316,53 @@ monitor.fit(healthy)                       # one-class, as in the study
 Re-fit on healthy runs from your own source; do not mix a simulator-trained
 monitor with real traces.
 
-## Limitations
+## Limitations and negative results
 
+Stated as measured. Each of these is a place the system does not yet work, and
+each has a number attached rather than a hedge.
+
+- **Repair coverage is partial, and the gap has a shape.** `located` recovers
+  45% of flagged failures — which leaves 55% unrecovered. Broken out by class
+  over 25 live episodes, `goal_drift` is the only class a retry actually fixes
+  (2 of 5). Where the tool layer itself is broken a retry fetches the same
+  broken result: `tool_cascade` and `looping` escalate rather than recover, and
+  the value of the intervention there is ending the episode fast, not producing
+  a correct answer. `grounding_loss` never alarms behaviourally at all (0 of 5).
+  A contract violation is escalated, never repaired.
+- **Hallucination detection is specific but only half sensitive.** On the
+  provoked corpus the numeric-grounding verifier catches **0.55** of ungrounded
+  input fabrications. It raises no false positives (0 across 89 healthy runs),
+  so what it flags is real — but roughly half of fabrications pass. It has one
+  documented false-negative mode: a fabricated figure that coincidentally equals
+  some real combination of tool values. And that 0.55 exists only under
+  provocation; unprovoked fabrication runs at 2 in 175 episodes, far below the
+  pre-registered minimum of 10, so no unprovoked detection claim is made in
+  either direction.
+- **Two repair rungs did not work, and are kept as measured.** `recompute`
+  routes the failing step to a calculator the agent is already holding, which
+  should fix the dominant arithmetic failure — it recovers 28% and does not beat
+  retry luck at this sample size (p=0.17). `adaptive` recovers 21% (p=0.61).
+  Both are retained as comparison arms rather than dropped.
+- **Monitors do not transfer across deployments.** Calibrated on qwen2.5:7b and
+  deployed on llama3.1:8b over a matched task and tool plan, the primary monitor
+  sits at chance (AUROC 0.527, healthy FA 0.75) while the same target
+  recalibrated on itself reaches 0.885. Within a family (7b → 3b) it collapses
+  below chance, 0.29–0.38. A healthy null must be collected under the exact
+  serving distribution.
+- **The judge-LLM claim is halved by measurement.** A real gemini-2.5-flash
+  judge scores p_detect 0.548 / p_false 0.057 against the stipulated 0.90 /
+  0.02. The call-saving survives; the detection-recovery claim does not.
+- **Context corruption remains the weakest detected class** (0.29 on real
+  traces). Corruption that keeps a legal shape — a price altered from `$361` to
+  `$605` — is undetectable from telemetry by construction and needs an external
+  reference.
+- **On the live-trace corpus the false-alarm budget is unreachable, not just
+  missed.** 16 healthy validation episodes put the order-statistic floor at
+  1/(n+1) = 5.9%, so an empirical 5% quantile does not exist; realized FA is 20%
+  over a 15-episode test split, where one episode is worth 6.7 points.
+  `pick_threshold` warns instead of silently missing the budget. Any real-trace
+  false-alarm figure in this repository should be read as an order-of-magnitude
+  statement, not a rate.
 - **The main testbed is synthetic.** Failure-class channel signatures are
   designed in, so H2's *direction* is partly by construction. The non-obvious
   findings — dilution under naive fusion, CUSUM's slow-drift blindness, the
@@ -339,7 +392,18 @@ monitor with real traces.
 
 ## Documentation
 
+- [`CLAIMS.md`](CLAIMS.md) — claim-to-evidence ledger: every headline number
+  above, the artifact it is read from, and the command that regenerates it.
+  `py -m devtools.claims_ledger --check` recomputes all 28 and fails on drift.
+- [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
+  settings, and the exact command behind each result.
+- [`DATA_CARD.md`](DATA_CARD.md) — all 25 corpora: sizes, models, injected vs
+  organic, episode lengths, channel availability.
+- [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
-- [`paper/paper.md`](paper/paper.md) — the write-up.
+- Papers — [`paper/main.pdf`](paper/main.pdf) (conference format) and
+  [`paper/paper.pdf`](paper/paper.pdf) (full length, source in
+  [`paper/paper.md`](paper/paper.md)).
 - `results/` — every table and figure the claims above cite.
+- [`LICENSE`](LICENSE) (MIT) and [`CITATION.cff`](CITATION.cff).

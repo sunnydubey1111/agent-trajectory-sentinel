@@ -15,7 +15,7 @@ from *observable step telemetry alone* (semantic embeddings of step
 output, token-level uncertainty, action metadata), using monitors that
 cost microseconds per step and train only on healthy runs. Starting from
 a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build
-and validate, on ~1,600 agent episodes across three frameworks, three local
+and validate, on 2,823 committed agent episodes across three frameworks, three local
 agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and the
 gemini-2.5-flash API, a sequence of increasingly capable
 monitors: (1) the ESN, which wins decisively when failures have temporal
@@ -89,14 +89,15 @@ care what such a watchdog cannot do. Contributions:
 
 1. **A controlled testbed with ground-truth onsets** (failure injector,
    43-dim telemetry) and an 11-monitor comparison under matched
-   false-alarm budgets. The ESN-ensemble CUSUM monitor detects 75% of
-   failures at a ~5% FA budget with a 5.5-step mean lead, beating trained
-   LSTM/GRU baselines by ~15 detection points (§4).
-2. **Real-ecosystem validation at scale**: ~1,400 episodes, of which
-   ~600 use real tools (arXiv/Wikipedia/web/SQL/Python) with live agents
-   (qwen2.5:7b, qwen2.5:3b, gemini-2.5-flash) across bespoke, LangGraph,
-   and AutoGen loops — with every trace committed and every table
-   reproducible (§5).
+   false-alarm budgets. The ESN-ensemble CUSUM channel-max monitor detects
+   0.71 ± 0.07 of failures at a 5% FA budget with a 4.6 ± 1.0-step mean
+   budget saving, beating trained LSTM (0.61) and GRU (0.60) baselines by
+   ~10 detection points over five dataset seeds (§4).
+2. **Real-ecosystem validation at scale**: 2,823 episodes over 25
+   corpora, of which 770 use real tools (arXiv/Wikipedia/web/SQL/Python)
+   with live agents (qwen2.5:7b, qwen2.5:3b, llama3.1:8b,
+   gemini-2.5-flash) across bespoke, LangGraph, and AutoGen loops — with
+   every trace committed and every table reproducible (§5).
 3. **A diagnosis of when temporal monitoring pays**: the ESN's detection
    advantage over a 50×-cheaper Mahalanobis baseline is a monotone
    function of post-onset horizon (−9 points at ≤3 steps, +23 at 4–8,
@@ -210,10 +211,10 @@ should be read as 44%, not 83%.
 
 ## 5. Real-ecosystem validation
 
-The committed corpus spans ~1,700 episodes over 17 datasets: the v1
-Gemini set (194), mock-tool framework sets (bespoke/LangGraph/AutoGen ×
-two model generations, ~450), the llama3.1:8b cross-family set (193), the
-lengthened Gemini set (125), and ~600 real-tool episodes (10 real-task
+The committed corpus spans 2,823 episodes over 25 datasets: the v1
+Gemini set (18), mock-tool framework sets (bespoke/LangGraph/AutoGen ×
+two model generations, 774), the llama3.1:8b cross-family set (193), the
+lengthened Gemini set (125), and 770 real-tool episodes (10 real-task
 Gemini set; qwen2.5:7b research sets standard/long; qwen2.5:3b set;
 organic high-temperature set; organic serving-temperature set; demo sets).
 Failure labels come from a tool-layer injector with exact τ (7–8 classes
@@ -367,9 +368,11 @@ runs and adds 2.8 calls and about 7.5 s to a flagged run, buying one recovered
 failure per ~6 model calls; amortised over every run, including the 65 never
 flagged, that is ~1.3 extra calls and ~3.4 s.
 
-On real traces at matched FA budgets the ESN remains the best single
-temporal monitor (e.g., Gemini v1: det 0.63 at 6.7% FA vs LSTM's 0.68 at
-26.7% FA), but two structural findings reframe the problem: monitors do
+On real traces the ESN remains the best single temporal monitor (Gemini
+v1: det 0.71 at AUROC 0.840, against LSTM's 0.68 at 0.752), though on that
+corpus both sit at a 20-27% realized false-alarm rate over 15 healthy test
+episodes, and a 5% budget is unreachable from its 16 validation episodes by
+an empirical quantile. Two structural findings reframe the problem: monitors do
 not transfer across frameworks (off-diagonal AUC 0.35–0.60 vs 0.45–0.81
 in-domain), and — decisively for what follows — the memoryless
 delta-Mahalanobis *wins* on short-episode datasets (research7b: 0.839 vs

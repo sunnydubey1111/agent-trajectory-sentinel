@@ -8,6 +8,7 @@ pass unnoticed.
     py -m devtools.artifact_manifest --write            # snapshot current state
     py -m devtools.artifact_manifest --check            # diff against snapshot
     py -m devtools.artifact_manifest --check --section results
+    py -m devtools.artifact_manifest --doc              # write CHECKSUMS.md
 
 Intentional changes are re-snapshotted and explained in the commit message;
 unexplained changes are defects.
@@ -22,6 +23,7 @@ import sys
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 MANIFEST_PATH = REPO_ROOT / "BASELINE_MANIFEST.json"
+CHECKSUMS_DOC = REPO_ROOT / "CHECKSUMS.md"
 
 # section -> (root directory, glob patterns)
 SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
@@ -97,16 +99,83 @@ def diff(sections: list[str] | None = None) -> dict[str, dict[str, list[str]]]:
     return report
 
 
+def root_digest(sections: dict[str, dict[str, str]]) -> str:
+    """One SHA-256 over every per-file hash: a single value to quote or compare.
+
+    `CHECKSUMS.md` is excluded because it *carries* this digest -- including it
+    would make the value depend on itself and never settle. Its own hash is
+    still recorded in the manifest like any other file.
+    """
+    h = hashlib.sha256()
+    for name in sorted(sections):
+        for path in sorted(sections[name]):
+            if path == CHECKSUMS_DOC.name:
+                continue
+            h.update(f"{path}|{sections[name][path]}|".encode())
+    return h.hexdigest()
+
+
+def write_doc() -> None:
+    """Write the reader-facing checksum summary."""
+    manifest = load_manifest()
+    sections = manifest["sections"]
+    lines = [
+        "# Checksums",
+        "",
+        "Every file this repository publishes is hashed with SHA-256 in",
+        "`BASELINE_MANIFEST.json`. Text files are hashed after CRLF to LF",
+        "normalisation, matching the `.gitattributes` policy, so a checkout on",
+        "Windows and one on Linux produce identical digests and a line-ending",
+        "flip is never mistaken for a data change.",
+        "",
+        "```",
+        "py -m devtools.artifact_manifest --check     # verify every file",
+        "py -m devtools.artifact_manifest --doc       # regenerate this summary",
+        "```",
+        "",
+        f"**Root digest:** `{root_digest(sections)}`",
+        "",
+        "A single SHA-256 over every path and per-file hash in the manifest, in",
+        "sorted order. Two checkouts agreeing on this value agree on every",
+        "tracked byte.",
+        "",
+        "| section | files | covers |",
+        "|---|---:|---|",
+    ]
+    covers = {
+        "code": "`derail/`, `verification/`, `experimental/`, `devtools/`, `tests/`",
+        "results": "every table, figure and results JSON the claims cite",
+        "traces": "every committed agent episode and replay cassette",
+        "docs": "`*.md`, the paper sources, and the requirements files",
+    }
+    for name in sorted(sections):
+        lines.append(f"| `{name}` | {len(sections[name]):,} | {covers.get(name, '')} |")
+    lines += [
+        f"| **total** | **{sum(len(v) for v in sections.values()):,}** | |",
+        "",
+        "Per-episode trace hashes are additionally recorded in each corpus's own",
+        "`manifest.json` where the collector wrote them (`trace_sha256`).",
+        "",
+    ]
+    CHECKSUMS_DOC.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    print(f"wrote {CHECKSUMS_DOC.name}")
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true", help="write the manifest")
     mode.add_argument("--check", action="store_true", help="diff against the manifest")
+    mode.add_argument("--doc", action="store_true", help="write CHECKSUMS.md")
     ap.add_argument("--section", action="append", choices=sorted(SECTIONS),
                     help="restrict to one section (repeatable)")
     ap.add_argument("--note", default="", help="free-text note stored with --write")
     args = ap.parse_args(argv)
+
+    if args.doc:
+        write_doc()
+        return 0
 
     if args.write:
         if args.section:
