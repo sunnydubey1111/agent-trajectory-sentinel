@@ -35,17 +35,9 @@ pip install -r requirements.lock.txt                       # exact pins
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 ```
 
-`requirements-core.lock.txt` is the smaller synthetic-study subset the container
-installs; it deliberately excludes the real-trace, framework and Gemini stack,
-because those collect new data rather than reproduce a committed number.
-
-**Container.** `Dockerfile` gives a network-free CPU reproduction of the
-synthetic study. It is statically validated and has never been built — Docker
-was unavailable on the development machine, and we say so rather than imply a
-verified path. `tests/test_collection_validity.py::test_docker_repro_lock_covers_the_gate`
-enforces what *can* be checked offline: the lockfile covers every module-level
-import the gate command reaches, the pytest markers it filters on are
-registered, and `.dockerignore` excludes neither `results/` nor `traces/`.
+`requirements-core.lock.txt` is a smaller subset sufficient for the synthetic
+study alone; it deliberately excludes the real-trace, framework and Gemini
+stack, because those collect new data rather than reproduce a committed number.
 
 ## 2. Models
 

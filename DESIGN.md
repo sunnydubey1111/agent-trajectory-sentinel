@@ -69,7 +69,7 @@ violation is an escalation, not a retry.
 
 ```
 DESIGN.md  README.md  CLAIMS.md  DATA_CARD.md  REPRODUCE.md  CHECKSUMS.md
-LICENSE  CITATION.cff  requirements*.txt  Dockerfile
+LICENSE  CITATION.cff  USER_GUIDE.md  requirements*.txt
 derail/
   common.py                  # frozen contract: channels, Episode, OnlineMonitor
   config.py                  # API-key resolution (OS vault > env > .env)

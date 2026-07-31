@@ -138,7 +138,7 @@ call per run. Detection alone changes nothing; this is the step that does.
 
 ---
 
-## 4. What does not work yet
+## 4. Future work
 
 Shown honestly, because the demo will show you these too.
 

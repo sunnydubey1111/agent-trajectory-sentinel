@@ -334,22 +334,17 @@ are statistically indistinguishable from healthy ones.
 ## Reproducing
 
 Published numbers need the pinned environment, not the loose bounds in
-`requirements.txt`. For a hermetic CPU-only, network-free repro there is a
-Dockerfile:
+`requirements.txt`:
 
 ```
-docker build -t agenttrajectorysentinel-repro .        # full fidelity (incl. torch baselines)
-docker run  --rm agenttrajectorysentinel-repro         # deterministic gate: fast tests + snapshot --check
+pip install -r requirements.lock.txt
+py -m pytest -m "not network and not ollama"   # 307 tests
+py -m devtools.claims_ledger --check           # every headline number vs its artifact
+py -m devtools.behavior_snapshot --check       # end-to-end behavioural tripwire
 ```
 
-> **Status: statically validated, never built.** Docker was not available in
-> the development environment, so the image has not been built even once — we
-> say so rather than imply a verified path. What *is* enforced by
-> `test_docker_repro_lock_covers_the_gate`: the lockfile covers every
-> module-level import the gate command reaches, the pytest markers it filters
-> on are registered, and `.dockerignore` excludes neither `results/` nor
-> `traces/`. What a first build would prove, and nothing offline can: that the
-> `python:3.14-slim` base image and the `torch==2.12.0+cpu` wheel resolve.
+Full detail — machine, models, seeds, settings and the command behind each
+result — is in [`REPRODUCE.md`](REPRODUCE.md).
 
 **Guarantees.** Monitors fit on healthy train only; thresholds from healthy val
 only; the labeled cal split feeds only the isotonic oracle and the escalation

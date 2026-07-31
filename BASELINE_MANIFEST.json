@@ -8473,13 +8473,13 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "f1ceb1422ebc259651a75449b8f796b4413a7d617fdef0d404fedf3d7a39e296",
+   "CHECKSUMS.md": "39e41bb94f2ebde6d222ff84ad902ca69321f8eb10e0b067a6b9a9a142a535ba",
    "CLAIMS.md": "d08165d4b0929fecfd80bec4ba356ad9938d0c06ccaca3b3126ca06c7ba68642",
    "DATA_CARD.md": "f71b1dfdd680c75af790f1ce0217b88479b7b94ec8c2fc97691c6ff8b8d4bea7",
-   "DESIGN.md": "a40eacab95d133589cbaf345e6cb4dfdc40ba53f315f88a92e89ecc5f1bb1248",
-   "README.md": "9204a08e42b69e6726907b156c159fd17cf253cdc9a7854c33712ba642eb6d71",
-   "REPRODUCE.md": "8d47a463603422e8f3bdc71db4f05398de917b7c65fa4d868f731f2c7fce9837",
-   "USER_GUIDE.md": "4f4868a3a788e9860600065a9792f5d53172b7ba328eadd03a8c3f87ca716be8",
+   "DESIGN.md": "28dd1dc63d78d76917c2a4405279a08ca9e244388a92800e0610451db8a8d05b",
+   "README.md": "c00e389e2162c751367ef5c76cdbb38140c32acf1140b0b39690d84032f83b16",
+   "REPRODUCE.md": "d64fbdd6b9b5695753a8360ca69753d0a8b33068a55c1896bc3ceb12ab1ffc3c",
+   "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
    "paper/main.tex": "4338a2755afa640f06300bcfcf329c2ed249d52c53ddc236cf1007cb809edcfc",
    "paper/paper.md": "2aa6e6574a613345a294a9d257db004985df7f0f3cc5a2c5e5832079aee5e3e8",
    "paper/paper.tex": "f998f0fbd3b3ec9f7ada0abac8eb781cbfc8012274d929411fdeedcd355aff09",
