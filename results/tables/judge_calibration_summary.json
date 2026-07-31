@@ -3,26 +3,26 @@
   "corpus": "ollama7b",
   "seed": 811,
   "prompt_version": 1,
-  "n_judged": 240,
-  "n_answered": 240,
-  "n_distinct_prompts": 172,
+  "n_judged": 205,
+  "n_answered": 205,
+  "n_distinct_prompts": 161,
   "n_positive": 84,
-  "n_negative": 88,
+  "n_negative": 77,
   "duplicated_view": {
     "n_positive": 85,
-    "n_negative": 155,
+    "n_negative": 120,
     "p_detect": 0.5412,
-    "p_false": 0.0323
+    "p_false": 0.0333
   },
   "p_detect_measured": 0.5476,
   "p_detect_ci95": [
     0.4414,
     0.6496
   ],
-  "p_false_measured": 0.0568,
+  "p_false_measured": 0.0519,
   "p_false_ci95": [
-    0.0245,
-    0.1262
+    0.0204,
+    0.1261
   ],
   "p_detect_stipulated": 0.9,
   "p_false_stipulated": 0.02,

@@ -380,7 +380,7 @@ Measured, not hedged. Numbers and sources in [`CLAIMS.md`](CLAIMS.md).
   sits at chance (AUROC 0.527) where recalibrating on the target reaches 0.885;
   7b → 3b falls below chance. The null must match the serving distribution.
 - **The judge-LLM claim is halved by measurement.** A real gemini-2.5-flash
-  judge scores p_detect 0.548 / p_false 0.057 against the stipulated 0.90 /
+  judge scores p_detect 0.548 / p_false 0.052 against the stipulated 0.90 /
   0.02. The call saving survives; the detection recovery does not.
 - **On live traces the false-alarm budget is unreachable, not just missed.**
   16 healthy validation episodes put the floor at 5.9%; realized FA is 20% over

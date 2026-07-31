@@ -10,7 +10,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (38 claims checked).
+ (40 claims checked).
 
 ## Corpus
 
@@ -42,6 +42,8 @@ Status at generation: **all claims verified**
 | Content-gate detection gain on the content classes, worst seed | `0.307` | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
 | Content gate does not degrade behavioural detection, worst seed | `0.039` | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
 | Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated | `0.488` | `results/tables/model_transfer.csv` | `py -m derail.experiments.run_model_transfer` |
+| Measured gemini-2.5-flash judge detection rate | `0.548` | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
+| Measured gemini-2.5-flash judge false-alarm rate | `0.052` | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
 
 ## Verification
 

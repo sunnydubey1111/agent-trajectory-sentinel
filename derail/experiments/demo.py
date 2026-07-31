@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import csv
 import json
 import re
 import threading
@@ -1883,6 +1884,88 @@ def rehearse() -> None:
           f"{sum(v == 'FALSE ALARM' for v in rows)} healthy false alarms")
 
 
+def alarm_repair_matrix(seeds: tuple[int, ...] = (21, 22, 23, 24, 25),
+                        out_path: Path | None = None) -> Path:
+    """Regenerate `results/tables/alarm_repair.csv`: repair driven by an alarm.
+
+    Every injection class x every seed, run live with halting OFF, so an alarm
+    is recovered from rather than stopped at. This is the table behind the
+    claim that every behavioural alarm is followed by a repair attempt and no
+    healthy run is interrupted.
+
+    It is a LIVE study -- a served model, real injections, one row per episode
+    -- so re-running yields a fresh sample of the same experiment, not the same
+    bytes. The committed CSV is one such sample; this makes it reproducible as
+    an experiment, which it previously was not: there was no runner at all.
+    """
+    _require_ollama()
+    monitor, calib = fit_monitor()
+    STATE.monitor = monitor
+    STATE.calib = calib
+    _install_baseline(STATE, calib)
+    STATE.halt_on_alarm = False          # the whole point: recover, don't stop
+
+    out_path = Path(out_path) if out_path else (
+        Path(__file__).resolve().parents[2] / "results" / "tables"
+        / "alarm_repair.csv")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    fields = ["failure_class", "seed", "injection_step", "alarm_step",
+              "contract_step", "repair_trigger", "repair_state",
+              "alarm_repair_used", "check_repair_used", "breaker_open",
+              "end_reason", "answer_check", "steps", "peak_score",
+              "final_score"]
+    rows: list[dict] = []
+    for fc in BUTTON_CLASSES:
+        for seed in seeds:
+            STATE.reset(seed=seed)
+            STATE.running = True
+            STATE.stop_flag = False
+            STATE.halt_on_alarm = False
+            STATE.injection_class = fc
+            run_demo_episode(seed)
+            with STATE.lock:
+                scores = list(STATE.scores)
+                row = {
+                    "failure_class": fc,
+                    "seed": seed,
+                    "injection_step": STATE.injection_step,
+                    "alarm_step": STATE.alarm_step,
+                    "contract_step": STATE.contract_step,
+                    "repair_trigger": STATE.repair_trigger,
+                    "repair_state": STATE.repair_state,
+                    "alarm_repair_used": STATE.alarm_repair_used,
+                    "check_repair_used": STATE.check_repair_used,
+                    "breaker_open": STATE.breaker_open,
+                    "end_reason": STATE.end_reason,
+                    "answer_check": STATE.answer_check,
+                    "steps": len(scores),
+                    "peak_score": round(max(scores), 2) if scores else 0.0,
+                    "final_score": round(scores[-1], 2) if scores else 0.0,
+                }
+            rows.append(row)
+            print(f"  {fc:>18s} seed={seed}: alarm@{row['alarm_step']} "
+                  f"repair={row['repair_state']} steps={row['steps']} "
+                  f"peak={row['peak_score']}")
+
+    with open(out_path, "w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({k: ("" if v is None else v) for k, v in row.items()})
+
+    alarms = sum(1 for r in rows if r["alarm_step"] is not None)
+    attempted = sum(1 for r in rows
+                    if r["alarm_step"] is not None and r["alarm_repair_used"])
+    quiet = sum(1 for r in rows
+                if r["alarm_step"] is None and r["alarm_repair_used"])
+    print(f"\n[matrix] {len(rows)} episodes, {alarms} behavioural alarms, "
+          f"{attempted} followed by a repair attempt, "
+          f"{quiet} repairs on runs that never alarmed")
+    print(f"[matrix] wrote {out_path}")
+    return out_path
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="py -m derail.experiments.demo")
     parser.add_argument("--collect-healthy", type=int, default=0,
@@ -1895,6 +1978,11 @@ def main() -> None:
     parser.add_argument("--rehearse", action="store_true",
                         help="headless rehearsal: run every injection button "
                              "+ healthy controls, print alarm timing, exit")
+    parser.add_argument("--alarm-repair-matrix", action="store_true",
+                        help="regenerate results/tables/alarm_repair.csv: "
+                             "every class x seed, live, halting off")
+    parser.add_argument("--matrix-out", default=None,
+                        help="with --alarm-repair-matrix: write elsewhere")
     parser.add_argument("--open", action="store_true",
                         help="open the browser once the server is ready")
     parser.add_argument("--port", type=int, default=PORT)
@@ -1903,6 +1991,9 @@ def main() -> None:
     if args.collect_healthy:
         _require_ollama()
         collect_demo_healthy(args.collect_healthy, probed=args.probed)
+        return
+    if args.alarm_repair_matrix:
+        alarm_repair_matrix(out_path=args.matrix_out)
         return
     if args.rehearse:
         rehearse()

@@ -143,6 +143,12 @@ def _model_transfer_auroc(condition_contains: str) -> float:
     return float(d[d.condition.str.contains(condition_contains)].auroc.max())
 
 
+def _judge(key: str) -> float:
+    """A measured judge rate from the calibration summary sidecar."""
+    path = TABLES / "judge_calibration_summary.json"
+    return float(json.loads(path.read_text("utf-8"))[key])
+
+
 def _contract_within_one_step() -> int:
     d = _table("tool_contract_coverage.csv")
     return int((d.first_violation_step - d.tau <= 1).sum())
@@ -246,6 +252,15 @@ def build() -> list[Claim]:
               0.4876, "results/tables/model_transfer.csv",
               "py -m derail.experiments.run_model_transfer",
               lambda: _model_transfer_auroc("transfer"), "Monitor"),
+
+        Claim("judge.p_detect", "Measured gemini-2.5-flash judge detection rate",
+              0.5476, "results/tables/judge_calibration_summary.json",
+              "py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120",
+              lambda: _judge("p_detect_measured"), "Monitor"),
+        Claim("judge.p_false", "Measured gemini-2.5-flash judge false-alarm rate",
+              0.0519, "results/tables/judge_calibration_summary.json",
+              "py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120",
+              lambda: _judge("p_false_measured"), "Monitor"),
 
         # ------------------------------------------------------ verification
         Claim("holdout.totals", "Held-out failures caught by totals check", 0.5357,
