@@ -97,7 +97,7 @@
    "experimental/telemetry_dependence.py": "6794646f26929798a0a7bbac8b2c0530e565e69d5b80b0d12cfb73c6e1e8eadb",
    "tests/conftest.py": "3c63abfcf3952bdb4f64a87a55f18b03e3c4884895e9aeca65351812bdea1f36",
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
-   "tests/test_collection_validity.py": "8cc077667d8319e20fd4f62b051454fe9f0ba8303e047373abced1b7eed3693d",
+   "tests/test_collection_validity.py": "7580dce9d671c7e1c26993a9a8a37b49907379ea9646ccd0516a17daeb00d07c",
    "tests/test_evaluation_validity.py": "1bb8d64337a6d65478faf33668c0b933ee5873cd9b89be72434c65f5a15ea5ad",
    "tests/test_module_selftests.py": "513602fa4a9a8c712d3416f31eb892fdd3888bea31dc7e7dadac10f2ecbaf8b3",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
@@ -8473,18 +8473,18 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "39e41bb94f2ebde6d222ff84ad902ca69321f8eb10e0b067a6b9a9a142a535ba",
+   "CHECKSUMS.md": "72fb7f91de1c8086332b969f15c46efd93707c16d222f752cd62941641d05ee9",
    "CLAIMS.md": "d08165d4b0929fecfd80bec4ba356ad9938d0c06ccaca3b3126ca06c7ba68642",
    "DATA_CARD.md": "f71b1dfdd680c75af790f1ce0217b88479b7b94ec8c2fc97691c6ff8b8d4bea7",
    "DESIGN.md": "28dd1dc63d78d76917c2a4405279a08ca9e244388a92800e0610451db8a8d05b",
-   "README.md": "c00e389e2162c751367ef5c76cdbb38140c32acf1140b0b39690d84032f83b16",
-   "REPRODUCE.md": "d64fbdd6b9b5695753a8360ca69753d0a8b33068a55c1896bc3ceb12ab1ffc3c",
+   "README.md": "21e9fdfabce0fdea5ac055a472f3c8f3ee534b021a21a3843ce821958d0e3825",
+   "REPRODUCE.md": "b1420f8b7e756abc9838320a15f18deb83599d0c913e33f7ef9addaace484a26",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
    "paper/main.tex": "4338a2755afa640f06300bcfcf329c2ed249d52c53ddc236cf1007cb809edcfc",
    "paper/paper.md": "2aa6e6574a613345a294a9d257db004985df7f0f3cc5a2c5e5832079aee5e3e8",
    "paper/paper.tex": "f998f0fbd3b3ec9f7ada0abac8eb781cbfc8012274d929411fdeedcd355aff09",
    "paper/references.bib": "0708e4552593b73ec6230a93f0cc03b3c1211225d317f76dafba590c12842845",
-   "requirements-core.lock.txt": "bb3e752e98f256fd870f22bfb77ccfdf842ecafa8dba42a582c8a2b8b32b5144",
+   "requirements-core.lock.txt": "c5517106b656c1891edc29752e11c31317721982012ed177dd7c503cebbfeea1",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }

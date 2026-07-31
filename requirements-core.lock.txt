@@ -11,7 +11,6 @@
 # record). torch is the CPU wheel; it is required because the study includes the
 # GRU/LSTM/TCN baselines when torch is present, and the committed behaviour
 # snapshot was taken WITH them — a torch-less run reproduces the ESN/statistical/
-# linear_ar results but a *reduced* snapshot (see Dockerfile REPRO_MODE).
 #
 #   pip install -r requirements-core.lock.txt
 #   pip install torch==2.12.0+cpu --index-url https://download.pytorch.org/whl/cpu

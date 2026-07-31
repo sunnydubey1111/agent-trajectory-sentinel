@@ -465,14 +465,15 @@ def test_nudge_names_only_real_tools():
 
 
 # ------------------------------------------------- L10: container repro path
-def test_docker_repro_lock_covers_the_gate():
-    """The container's CMD must be installable from requirements-core.lock.txt.
+def test_core_lock_covers_the_deterministic_gate():
+    """`requirements-core.lock.txt` must install everything the gate reaches.
 
-    The image cannot be built here, so this is the strongest offline check
-    available: every MODULE-LEVEL import reachable from the deterministic gate
-    (fast tests + behaviour snapshot) must be in the core lock. A collection
-    dependency imported at module level instead of lazily would break the
-    container silently, and nobody would find out until someone built it.
+    That lockfile is the lean environment: enough to run the fast tests and the
+    behaviour snapshot, and deliberately without the real-trace, framework and
+    Gemini stack. Every MODULE-LEVEL import reachable from the gate must be in
+    it. A collection dependency imported at module level instead of lazily
+    would make the lean environment fail on import, and nobody would notice
+    until someone installed from it.
     """
     import ast
     import re
@@ -512,19 +513,8 @@ def test_docker_repro_lock_covers_the_gate():
                         offenders.setdefault(mod, path.name)
     assert not offenders, (
         "module-level imports missing from requirements-core.lock.txt "
-        f"(the container gate would fail): {offenders}")
+        f"(the lean environment would fail on import): {offenders}")
 
-
-def test_dockerignore_keeps_what_the_snapshot_needs():
-    """behaviour_snapshot --check reads results/ and traces/; excluding them
-    would make the container's default command fail at run time."""
-    from pathlib import Path
-
-    root = Path(__file__).resolve().parents[1]
-    ignored = {l.strip().rstrip("/") for l in
-               (root / ".dockerignore").read_text(encoding="utf-8").splitlines()
-               if l.strip() and not l.startswith("#")}
-    assert "results" not in ignored and "traces" not in ignored
 
 
 # --------------------------------------------------- dry runs are not collections

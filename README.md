@@ -338,7 +338,7 @@ Published numbers need the pinned environment, not the loose bounds in
 
 ```
 pip install -r requirements.lock.txt
-py -m pytest -m "not network and not ollama"   # 307 tests
+py -m pytest -m "not network and not ollama"   # 306 tests
 py -m devtools.claims_ledger --check           # every headline number vs its artifact
 py -m devtools.behavior_snapshot --check       # end-to-end behavioural tripwire
 ```
