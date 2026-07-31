@@ -1,4 +1,4 @@
-# AgentWatch — online derailment detection for LLM agents
+# AgentWatch — Real-Time Detection and Repair of LLM Agent Failures
 
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —

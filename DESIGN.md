@@ -1,4 +1,4 @@
-# DESIGN — Online derailment detection for LLM agents from multi-channel step telemetry
+# DESIGN — Real-Time Detection and Repair of LLM Agent Failures
 
 This document is the implementation contract. `derail/common.py` is the frozen
 shared module (channel layout, dataclasses, `OnlineMonitor` ABC, `Standardizer`,

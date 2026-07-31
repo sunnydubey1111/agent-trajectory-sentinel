@@ -8467,10 +8467,10 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "DESIGN.md": "ac42a2072f34207406401645a21b0a47ce3296dd84c9491d74592865faa7ee87",
-   "README.md": "a268f311b4dbeb547df266ebd4c177f9a38cda9501eac6e82636317ee8402ab2",
-   "paper/main.tex": "d2547367d52e4d6afa94b7cd0eb1ee3851d7832c57b8b2fced1a2893ffd9c851",
-   "paper/paper.md": "894b733deeee274f4dd59b3929e24b0c1488ea96464237b177700d328ff96f0b",
+   "DESIGN.md": "0a1a38cd3f2231a0d60d3fc670ca625857674bfef64eb2ea9b5bd913dd012a35",
+   "README.md": "cfacd8f68d52e8f02ce6881283a87bb174e1359ede31d647fa0819bf42592343",
+   "paper/main.tex": "afdf4ffd505e93cb875fd598b8b0da0cfdad7ee01e630a98668baf9c99c6bca1",
+   "paper/paper.md": "ca8cffba342253b8631bb709ecbe07baa946a5fe543a892fac80cedf8c81e5be",
    "paper/references.bib": "0708e4552593b73ec6230a93f0cc03b3c1211225d317f76dafba590c12842845",
    "requirements-core.lock.txt": "bb3e752e98f256fd870f22bfb77ccfdf842ecafa8dba42a582c8a2b8b32b5144",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",

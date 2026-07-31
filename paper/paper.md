@@ -1,4 +1,4 @@
-# Online Derailment Detection for LLM Agents from Step Telemetry: From Echo-State Ensembles to Grounded Hybrid Monitoring
+# Real-Time Detection and Repair of LLM Agent Failures
 
 *Manuscript draft. Every number in this paper is
 imported from a committed table in `results/`; Appendix A maps each
