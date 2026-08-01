@@ -94,6 +94,24 @@ Every committed file is hashed in `BASELINE_MANIFEST.json`
 trace cannot pass unnoticed. Corpora with a `trace_sha256` field also
 carry a per-episode hash in the manifest itself.
 
+## Licensing
+
+The code, the trace format and this card are MIT. Recorded model
+output carries the terms of the model that produced it:
+
+- **`qwen2.5:7b`, `qwen2.5:3b`** (2,247 episodes) are Apache-2.0, which
+  places no condition on redistributing their output.
+- **`llama3.1:8b`** (433 episodes) is under the Llama 3.1 Community
+  License. This corpus is **Built with Llama**; the licence is at
+  <https://llama.meta.com/llama3_1/license/>.
+- **`gemini-2.5-flash`** (143 episodes) was called through the Gemini
+  API. Google's terms allow the output to be published but not to be
+  used to develop models that compete with Gemini.
+
+Cassette-replayed tool results are factual metadata from public
+services (arXiv, Wikipedia, public repositories) and remain subject to
+those services' terms.
+
 ## Intended use and limits
 
 These traces exist to evaluate monitors, not to train agents. Three
