@@ -1,4 +1,4 @@
-"""Shared contract for the agent-derailment-monitor project.
+"""Shared contract for the agent-trajectory-sentinel project.
 
 Every module imports from here. This file is the single source of truth for:
   - the step-signal channel layout of x_t = [e_t; u_t; m_t]
