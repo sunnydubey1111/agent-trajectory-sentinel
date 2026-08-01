@@ -83,3 +83,8 @@ traces/_smoke/
 # external-validation run and never redistributed from here.
 traces/_aftraj/
 traces/_atbench/
+
+# Release payload for the Hugging Face dataset (devtools/hf_dataset.py). It is
+# a derived copy of traces/ plus a generated card; committing it would store
+# the corpus twice and let the copy drift from the record.
+build/

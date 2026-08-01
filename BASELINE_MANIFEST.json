@@ -84,6 +84,7 @@
    "devtools/claims_ledger.py": "2fc330f85d7b7786e7d35a0635f74ef9c22bfd2e7e5646303201139389f91bd7",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "18e02af309c68fa104843e7380de0b40ed5b67e6f9406b8a57b7fdb95ff0f21a",
+   "devtools/hf_dataset.py": "d51be04eed601069dcfbee78ac6cd5fa8620929bfe37dcef975211b69398ca9c",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
@@ -103,6 +104,7 @@
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
    "tests/test_collection_validity.py": "7580dce9d671c7e1c26993a9a8a37b49907379ea9646ccd0516a17daeb00d07c",
    "tests/test_evaluation_validity.py": "4547832d92df08edbbb0d82c9796d632ef3dea4990de6c2df251c40ea934a015",
+   "tests/test_hf_dataset.py": "5286593ced2f791e9a3de442b91d5b8ee8cfe57e57bbdbf4dd31b5d75eacd18f",
    "tests/test_module_selftests.py": "513602fa4a9a8c712d3416f31eb892fdd3888bea31dc7e7dadac10f2ecbaf8b3",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
@@ -8502,5 +8504,5 @@
   }
  },
  "note": "",
- "file_count": 8492
+ "file_count": 8494
 }

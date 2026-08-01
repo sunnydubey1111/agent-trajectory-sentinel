@@ -20,6 +20,7 @@ authors:
   - family-names: Dubey
     given-names: Sunny
     email: sjkumardube@gmail.com
+    orcid: "https://orcid.org/0009-0002-8296-8631"
 keywords:
   - LLM agents
   - anomaly detection
