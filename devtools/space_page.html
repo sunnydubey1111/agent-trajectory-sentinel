@@ -1,0 +1,263 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentTrajectorySentinel Live</title>
+<style>
+  :root {
+    --bg: #fbfbfd; --fg: #1c1b1f; --muted: #5f5c66; --line: #d8d5de;
+    --card: #ffffff; --score: #1b6c6c; --alarm: #b3261e; --onset: #6750a4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131316; --fg: #e6e1e9; --muted: #a09da8; --line: #38353e;
+      --card: #1d1b20; --score: #4ec5c1; --alarm: #f2b8b5; --onset: #cfbcff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px 16px 56px; background: var(--bg);
+         color: var(--fg); font: 15px/1.55 -apple-system, "Segoe UI", Roboto,
+         system-ui, sans-serif; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 20px; font-size: 0.92rem; }
+  .card { background: var(--card); border: 1px solid var(--line);
+          border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  select { flex: 1 1 320px; padding: 9px 10px; border-radius: 8px;
+           border: 1px solid var(--line); background: var(--card);
+           color: var(--fg); font: inherit; }
+  button { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line);
+           background: var(--card); color: var(--fg); font: inherit;
+           cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--muted); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button.primary { background: var(--score); border-color: var(--score);
+                   color: #fff; font-weight: 600; }
+  .counter { color: var(--muted); font-variant-numeric: tabular-nums;
+             font-size: 0.9rem; }
+  svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted);
+            font-size: 0.82rem; margin-top: 8px; }
+  .swatch { display: inline-block; width: 12px; height: 3px; border-radius: 2px;
+            vertical-align: middle; margin-right: 5px; }
+  .verdict { font-weight: 600; margin: 0 0 4px; }
+  .verdict-note { color: var(--muted); margin: 0; font-size: 0.92rem; }
+  pre { background: var(--bg); border: 1px solid var(--line);
+        border-radius: 8px; padding: 10px 12px; overflow-x: auto;
+        font-size: 0.84rem; margin: 8px 0 0; white-space: pre-wrap;
+        word-break: break-word; }
+  .tag { display: inline-block; font-size: 0.75rem; padding: 2px 8px;
+         border-radius: 999px; border: 1px solid var(--line);
+         color: var(--muted); margin-left: 6px; vertical-align: middle; }
+  footer { color: var(--muted); font-size: 0.82rem; margin-top: 24px; }
+  a { color: inherit; }
+</style>
+
+<div class="wrap">
+  <h1>AgentTrajectorySentinel Live</h1>
+  <p class="sub" id="subtitle">loading…</p>
+
+  <div class="card">
+    <div class="row">
+      <select id="picker" aria-label="run"></select>
+      <span class="counter" id="counter"></span>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button id="play" class="primary">▶ play</button>
+      <button id="back">◀</button>
+      <button id="next">step ▶</button>
+      <button id="end">skip to end ⏭</button>
+      <button id="restart">restart</button>
+      <label class="counter" style="margin-left:auto">
+        speed
+        <input id="speed" type="range" min="120" max="1200" step="60"
+               value="620" style="vertical-align:middle; width:110px">
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <svg id="chart" viewBox="0 0 720 260" role="img"
+         aria-label="monitor score by step"></svg>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--score)"></span>monitor score</span>
+      <span><span class="swatch" style="background:var(--alarm)"></span>alarm line</span>
+      <span><span class="swatch" style="background:var(--onset)"></span>failure starts</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="verdict" id="verdict"></p>
+    <p class="verdict-note" id="verdictNote"></p>
+    <pre id="steptext"></pre>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+const S = { data: null, run: null, upto: 1, timer: null };
+
+const $ = (id) => document.getElementById(id);
+
+function stop() {
+  if (S.timer) { clearInterval(S.timer); S.timer = null; }
+  $("play").textContent = "▶ play";
+  $("play").classList.add("primary");
+}
+
+function play() {
+  if (S.timer) { stop(); render(); return; }
+  // Replaying from the start is what a viewer expects from "play" when the
+  // run is already finished; otherwise it would look like a dead button.
+  if (S.upto >= S.run.scores.length) S.upto = 1;
+  $("play").textContent = "⏸ pause";
+  $("play").classList.remove("primary");
+  const tick = () => {
+    if (S.upto >= S.run.scores.length) { stop(); render(); return; }
+    S.upto++;
+    render();
+    // Hold on the alarm step: it is the moment the demo exists to show.
+    if (S.run.alarm !== null && S.upto - 1 === S.run.alarm) {
+      clearInterval(S.timer);
+      S.timer = setTimeout(() => {
+        S.timer = setInterval(tick, +$("speed").value);
+      }, 900);
+    }
+  };
+  S.timer = setInterval(tick, +$("speed").value);
+  render();
+}
+
+function label(run) {
+  const kind = run.tau === null ? "healthy" : run.cls;
+  const n = run.scores.length;
+  const where = run.tau === null ? "" : `, fails at step ${run.tau + 1}`;
+  return `${kind} — ${run.id} (${n} steps${where})`;
+}
+
+function draw() {
+  const { scores } = S.run, theta = S.data.theta, n = scores.length;
+  const W = 720, H = 260, L = 48, R = 16, T = 16, B = 34;
+  const maxY = Math.max(theta * 1.35, ...scores) * 1.08 || 1;
+  const x = (i) => L + (n === 1 ? (W - L - R) / 2
+                                : (i * (W - L - R)) / (n - 1));
+  const y = (v) => H - B - (v / maxY) * (H - T - B);
+  const parts = [];
+
+  parts.push(`<line x1="${L}" y1="${H - B}" x2="${W - R}" y2="${H - B}"
+    stroke="var(--line)" stroke-width="1"/>`);
+  for (let g = 0; g <= 4; g++) {
+    const v = (maxY / 4) * g;
+    parts.push(`<line x1="${L}" y1="${y(v)}" x2="${W - R}" y2="${y(v)}"
+      stroke="var(--line)" stroke-width="0.5" opacity="0.6"/>`);
+    parts.push(`<text x="${L - 8}" y="${y(v) + 4}" text-anchor="end"
+      font-size="11" fill="var(--muted)">${v.toFixed(1)}</text>`);
+  }
+  parts.push(`<line x1="${L}" y1="${y(theta)}" x2="${W - R}" y2="${y(theta)}"
+    stroke="var(--alarm)" stroke-width="1.6" stroke-dasharray="6 4"/>`);
+  if (S.run.tau !== null) {
+    parts.push(`<line x1="${x(S.run.tau)}" y1="${T}" x2="${x(S.run.tau)}"
+      y2="${H - B}" stroke="var(--onset)" stroke-width="1.4"
+      stroke-dasharray="2 4"/>`);
+  }
+  for (let i = 0; i < n; i++) {
+    parts.push(`<text x="${x(i)}" y="${H - B + 18}" text-anchor="middle"
+      font-size="11" fill="var(--muted)">${i + 1}</text>`);
+  }
+  const pts = [];
+  for (let i = 0; i < S.upto; i++) pts.push(`${x(i)},${y(scores[i])}`);
+  if (pts.length > 1) {
+    parts.push(`<polyline points="${pts.join(" ")}" fill="none"
+      stroke="var(--score)" stroke-width="2.4" stroke-linejoin="round"/>`);
+  }
+  for (let i = 0; i < S.upto; i++) {
+    const hit = S.run.alarm !== null && i === S.run.alarm;
+    parts.push(`<circle cx="${x(i)}" cy="${y(scores[i])}" r="${hit ? 6 : 3.4}"
+      fill="${hit ? "var(--alarm)" : "var(--score)"}"/>`);
+  }
+  $("chart").innerHTML = parts.join("");
+}
+
+function verdict() {
+  const r = S.run, fired = r.alarm !== null && r.alarm < S.upto;
+  const done = S.upto >= r.scores.length;
+  let head, note;
+  if (r.tau === null) {
+    head = fired ? "🔴 False alarm" : "🟢 Silent, correctly";
+    note = fired
+      ? "This run is healthy. The monitor fired anyway — that is what a 5% false-alarm budget buys."
+      : "A healthy run. Staying under the line is the case that has to be right far more often than any other.";
+  } else if (fired) {
+    const lead = r.alarm - r.tau;
+    const when = lead === 0 ? "on the onset step"
+      : lead > 0 ? `${lead} step${lead > 1 ? "s" : ""} after the onset`
+                 : `${-lead} step${-lead > 1 ? "s" : ""} before the labelled onset`;
+    head = "🔴 Caught";
+    note = `Alarm at step ${r.alarm + 1}, ${when}. In the live system this is where the run is halted and rolled back.`;
+  } else if (!done) {
+    head = "⏳ Running";
+    note = `The failure starts at step ${r.tau + 1}. Keep stepping.`;
+  } else {
+    head = "⚪ Missed";
+    note = "The run failed and the score never crossed the line. Short runs leave too few steps after the onset to accumulate evidence — the paper measures exactly this.";
+  }
+  $("verdict").textContent = head;
+  $("verdictNote").textContent = note;
+  const step = r.steps[S.upto - 1] || { action: "?", text: "" };
+  $("steptext").textContent = `step ${S.upto} — action: ${step.action}\n\n${step.text}`;
+}
+
+function render() {
+  draw();
+  verdict();
+  const done = S.upto >= S.run.scores.length;
+  $("counter").textContent = `step ${S.upto} of ${S.run.scores.length}`;
+  $("back").disabled = S.upto <= 1 || !!S.timer;
+  $("next").disabled = done || !!S.timer;
+  $("end").disabled = done || !!S.timer;
+}
+
+function select(index) {
+  stop();
+  S.run = S.data.runs[index];
+  S.upto = 1;
+  render();
+}
+
+fetch("data.json").then((r) => r.json()).then((data) => {
+  S.data = data;
+  const failing = data.runs.filter((r) => r.tau !== null);
+  const caught = failing.filter((r) => r.alarm !== null).length;
+  $("subtitle").innerHTML =
+    `A one-class monitor scoring real agent runs, one step at a time. Alarm line
+     <b>${data.theta}</b>, set to spend a ${Math.round(data.fa_budget * 100)}%
+     false-alarm budget on ${data.n_val} held-out healthy runs.
+     <span class="tag">${caught}/${failing.length} failures caught</span>`;
+  $("picker").innerHTML = data.runs
+    .map((r, i) => `<option value="${i}">${label(r)}</option>`).join("");
+  $("footer").innerHTML =
+    `Scores were computed by the real monitor when this page was built, not in
+     your browser — Hugging Face charges for Spaces that run Python, so this one
+     is static. Everything here is reproducible with
+     <code>py -m devtools.hf_space --build</code>.
+     <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel">Code,
+     data and paper</a>.`;
+  $("picker").addEventListener("change", (e) => select(+e.target.value));
+  $("play").addEventListener("click", play);
+  $("next").addEventListener("click", () => { stop(); S.upto++; render(); });
+  $("back").addEventListener("click", () => { stop(); S.upto--; render(); });
+  $("end").addEventListener("click", () => {
+    stop(); S.upto = S.run.scores.length; render();
+  });
+  $("restart").addEventListener("click", () => {
+    stop(); S.upto = 1; render();
+  });
+  $("speed").addEventListener("input", () => {
+    if (S.timer) { stop(); play(); }      // restart the tick at the new rate
+  });
+  select(0);
+}).catch((err) => {
+  $("subtitle").textContent = "could not load data.json: " + err;
+});
+</script>

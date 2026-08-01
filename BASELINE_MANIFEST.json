@@ -85,6 +85,7 @@
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "18e02af309c68fa104843e7380de0b40ed5b67e6f9406b8a57b7fdb95ff0f21a",
    "devtools/hf_dataset.py": "d14d8291e515b43af0ad94923fcd51a59d68ab7f0ab98a065be8aed8354ceb04",
+   "devtools/hf_space.py": "244b7b648f570a1bbbffaf09112e1083dd9c5023a6c340abf0edac6c96ff12bf",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
@@ -105,6 +106,7 @@
    "tests/test_collection_validity.py": "7580dce9d671c7e1c26993a9a8a37b49907379ea9646ccd0516a17daeb00d07c",
    "tests/test_evaluation_validity.py": "4547832d92df08edbbb0d82c9796d632ef3dea4990de6c2df251c40ea934a015",
    "tests/test_hf_dataset.py": "d32ba4daff7d53249f4b09579e54698db23ea00f9848f52634f3f7f38c13f49e",
+   "tests/test_hf_space.py": "cc9b33e03933ce396774bb0f77b670ac9d38238f0c70e8c323c450dd0b56d9a0",
    "tests/test_module_selftests.py": "513602fa4a9a8c712d3416f31eb892fdd3888bea31dc7e7dadac10f2ecbaf8b3",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
@@ -8504,5 +8506,5 @@
   }
  },
  "note": "",
- "file_count": 8494
+ "file_count": 8496
 }
