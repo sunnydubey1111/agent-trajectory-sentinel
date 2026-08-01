@@ -35,6 +35,9 @@
                    color: #fff; font-weight: 600; }
   .counter { color: var(--muted); font-variant-numeric: tabular-nums;
              font-size: 0.9rem; }
+  .kicker { color: var(--muted); font-size: 0.82rem; text-transform: uppercase;
+            letter-spacing: 0.06em; margin: 0 0 6px; }
+  #topic { text-transform: none; letter-spacing: 0; font-size: 0.88rem; }
   svg { width: 100%; height: auto; display: block; }
   .legend { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted);
             font-size: 0.82rem; margin-top: 8px; }
@@ -57,11 +60,17 @@
   <h1>AgentTrajectorySentinel Live</h1>
   <p class="sub" id="subtitle">loading…</p>
 
+  <div class="card" id="taskcard">
+    <div class="kicker">the agent's job</div>
+    <p id="task" style="margin:2px 0 0"></p>
+  </div>
+
   <div class="card">
     <div class="row">
       <select id="picker" aria-label="run"></select>
       <span class="counter" id="counter"></span>
     </div>
+    <p class="kicker" id="topic" style="margin:12px 0 0"></p>
     <div class="row" style="margin-top:12px">
       <button id="play" class="primary">▶ play</button>
       <button id="back">◀</button>
@@ -133,7 +142,10 @@ function label(run) {
   const kind = run.tau === null ? "healthy" : run.cls;
   const n = run.scores.length;
   const where = run.tau === null ? "" : `, fails at step ${run.tau + 1}`;
-  return `${kind} — ${run.id} (${n} steps${where})`;
+  const topic = run.topic ? ` · ${run.topic}` : "";
+  // The episode id stays visible: it is how a viewer finds this exact run in
+  // the published dataset.
+  return `${kind}${topic} (${n} steps${where}) — ${run.id}`;
 }
 
 function draw() {
@@ -222,6 +234,10 @@ function select(index) {
   stop();
   S.run = S.data.runs[index];
   S.upto = 1;
+  $("topic").textContent = S.run.topic
+    ? `This run researches “${S.run.topic}” — the subject is read back from the
+       agent's first query; the corpus does not store the prompt itself.`
+    : "";
   render();
 }
 
@@ -229,6 +245,9 @@ fetch("data.json").then((r) => r.json()).then((data) => {
   S.data = data;
   const failing = data.runs.filter((r) => r.tau !== null);
   const caught = failing.filter((r) => r.alarm !== null).length;
+  $("task").innerHTML =
+    `${data.task} The agent is <b>${data.model}</b>, and every run here is a
+     real recording of it working — not a script.`;
   $("subtitle").innerHTML =
     `A one-class monitor scoring real agent runs, one step at a time. Alarm line
      <b>${data.theta}</b>, set to spend a ${Math.round(data.fa_budget * 100)}%

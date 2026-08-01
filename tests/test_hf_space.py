@@ -57,8 +57,8 @@ def test_frontmatter_respects_the_hubs_field_limits(bundle) -> None:
 
 #: The contract between the builder and the page. A rename on either side
 #: leaves a blank chart and raises nothing anywhere, so it is pinned.
-TOP_LEVEL_FIELDS = ("theta", "runs", "n_val", "fa_budget")
-RUN_FIELDS = ("id", "cls", "tau", "scores", "alarm", "steps")
+TOP_LEVEL_FIELDS = ("theta", "runs", "n_val", "fa_budget", "task", "model")
+RUN_FIELDS = ("id", "cls", "tau", "scores", "alarm", "steps", "topic")
 
 
 def test_every_field_the_page_reads_exists_in_the_data(bundle, data) -> None:
@@ -71,6 +71,27 @@ def test_every_field_the_page_reads_exists_in_the_data(bundle, data) -> None:
         assert field in run, f"a run record is missing {field}"
         assert re.search(rf"\b(r|run|S\.run)\.{field}\b", page), (
             f"page never reads run.{field}")
+
+
+def test_the_page_says_what_the_agent_was_asked_to_do(bundle, data) -> None:
+    """Scores with no task are uninterpretable: a visitor cannot tell whether
+    the run went wrong without knowing what going right looked like."""
+    assert len(data["task"]) > 40, "the task description is missing or a stub"
+    for tool in ("arXiv", "Wikipedia", "web search", "Python"):
+        assert tool in data["task"], f"{tool} not named in the task"
+    page = (bundle / "index.html").read_text("utf-8")
+    assert "data.task" in page, "the page never shows the task"
+    assert "the agent's job" in page
+
+
+def test_run_topics_are_derived_and_labelled_as_such(bundle, data) -> None:
+    """The corpus stores no prompt, so the topic is read back from the first
+    query. Presenting a derived value as a recorded one would be a small lie
+    in a project whose whole argument is not telling those."""
+    with_topic = [r for r in data["runs"] if r["topic"]]
+    assert len(with_topic) >= len(data["runs"]) - 2, "topics mostly missing"
+    page = " ".join((bundle / "index.html").read_text("utf-8").split())
+    assert "does not store the prompt itself" in page
 
 
 def test_run_records_are_complete_and_consistent(data) -> None:

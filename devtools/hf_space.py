@@ -22,6 +22,7 @@ import argparse
 import json
 import os
 import pathlib
+import re
 import shutil
 import sys
 
@@ -43,6 +44,32 @@ PER_CLASS = 2          # injected episodes offered per failure class
 N_HEALTHY_SHOWN = 6    # healthy runs offered, drawn from the held-out split
 FA_BUDGET = 0.05
 CHANNELS = ("e", "m")  # this corpus records no usable logprobs
+
+
+#: What the agent was asked to do. This corpus predates the per-step `task`
+#: field, so the instruction itself is not recoverable from the traces; this is
+#: the task definition the collector used, recorded here so the page can say
+#: what the runs are instead of showing scores with no context.
+TASK_DESCRIPTION = (
+    "Research a topic and report what you find. The agent has four real tools "
+    "— arXiv search, Wikipedia, web search and a Python interpreter — and must "
+    "gather evidence with them before answering."
+)
+
+_QUERY = re.compile(r'"query"\s*:\s*"([^"]{3,120})"')
+
+
+def _topic(steps: list[dict]) -> str | None:
+    """The run's subject, taken from the first query it issues.
+
+    Derived, not recorded: this corpus stores no task prompt, so the page
+    labels it as inferred rather than presenting it as the instruction given.
+    """
+    for step in steps:
+        match = _QUERY.search(str(step.get("text", "")))
+        if match:
+            return match.group(1)
+    return None
 
 
 def _load(corpus_dir: pathlib.Path, entry: dict):
@@ -112,6 +139,7 @@ def compute(corpus_dir: pathlib.Path) -> dict:
         runs.append({
             "id": entry["episode_id"],
             "cls": entry["failure_class"],
+            "topic": _topic(steps),
             "tau": entry["tau"],
             "scores": [round(float(s), 4) for s in scores],
             "alarm": int(fired[0]) if fired.size else None,
@@ -119,6 +147,7 @@ def compute(corpus_dir: pathlib.Path) -> dict:
         })
 
     return {"theta": round(theta, 4), "corpus": CORPUS,
+            "task": TASK_DESCRIPTION, "model": "qwen2.5:7b",
             "n_train": len(train), "n_val": len(val),
             "fa_budget": FA_BUDGET, "runs": runs}
 
