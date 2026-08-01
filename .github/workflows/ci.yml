@@ -2,6 +2,12 @@ name: ci
 
 # The fast job must stay green on every push; the slow job carries the module
 # self-tests and the end-to-end behavioural snapshot.
+#
+# Both jobs install requirements.txt rather than a hand-picked subset: the fast
+# suite exercises the Ollama transport (httpx) and the read-only SQL tool
+# (sqlalchemy), and hand-listing dependencies silently drops those tests into
+# ModuleNotFoundError. The framework wrappers are optional for a study run but
+# are installed here so their tests actually run.
 
 on:
   push:
@@ -12,14 +18,19 @@ jobs:
   fast:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - name: Install core dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install numpy scipy scikit-learn pandas matplotlib pytest
+          python -m pip install -r requirements.txt
+          python -m pip install pytest-github-actions-annotate-failures
+      - name: Install optional framework wrappers
+        run: |
+          python -m pip install langchain-core langgraph langchain-ollama \
+            autogen-agentchat autogen-core autogen-ext pydantic
       - name: Compile every module
         run: python -m compileall -q derail verification experimental devtools tests
       - name: Fast tests
@@ -29,14 +40,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - name: Install core dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install numpy scipy scikit-learn pandas matplotlib pytest
+          python -m pip install -r requirements.txt
+          python -m pip install pytest-github-actions-annotate-failures
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
       - name: Self-tests and behavioural snapshot
         run: python -m pytest -m "slow and not network and not ollama"
