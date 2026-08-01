@@ -111,6 +111,21 @@ py -m verification.l3_serving_temperature                # serving_temperature.c
 py -m derail.intervene.evaluate_repair_policies --from-csv   # re-analyse the repair study
 ```
 
+**The AFTraj-2K tables need one extra step**, because that corpus is not ours
+and is not committed. `results/tables/aftraj_*.csv` regenerate only after the
+corpus is fetched:
+
+```bash
+py -m derail.experiments.import_aftraj                   # download + convert -> traces/_aftraj/
+py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj
+```
+
+The import needs network access to Hugging Face; `--from DIR` converts an
+already-downloaded copy instead. The corpus is CC-BY-4.0 and is redistributed
+by its authors, not by this repository, so a checkout will not contain it and
+`run_hybrid_study` skips the dataset with a note rather than failing when it is
+absent.
+
 `run_benchmark` is the one exception to byte-identity: wall-clock latency is a
 property of the machine, so `runtime.csv` is the source of record for the
 figures quoted, not a value you should expect to match.

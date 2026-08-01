@@ -1166,3 +1166,54 @@ at n=58 with a realized false-alarm rate of 8.6% against the 10% budget. The
 served alarm line is unchanged; the baseline reports whether that line still
 matches the healthy runs actually being seen, and retires itself if the
 configuration moves.
+
+### Module 11 — `derail/experiments/import_aftraj.py` (external corpus import)
+
+Every other corpus here was collected by this project, which means none of them
+can say whether the benchmark is hard. This module imports AFTraj-2K
+(arXiv:2605.08715, CC-BY-4.0) so the monitors can be scored on data built by
+people with no stake in the result. `derail/telemetry/adapter.py` already states
+that external validation is an adapter problem rather than a rewrite; this is
+that adapter, and no monitor, threshold or metric changes for it.
+
+**Contract.**
+
+- **A step is an agent turn.** AFTraj turns carry `role`, `content`, `action`
+  and `thought`. `user` (the task) and `environment` (tool results) are not
+  steps; every other role is. An environment turn folds into the step that
+  issued the call, matched by call id, which is how a step and its results
+  already travel together in our own traces.
+- **tau is a step index, not a turn index.** `mistake_step` indexes turns, so
+  the two differ by every user and environment turn before it. The conversion
+  builds an explicit turn→step owner map. In 34 of 1,114 unsafe rows the
+  annotated step is an `environment` turn — the decisive error is a tool
+  result — and tau is then the step that issued the call. A mistake preceding
+  every agent step raises rather than defaulting to 0, because a fabricated
+  onset at step 0 would look like a detection the monitor never made.
+- **Missing channels are declared, not faked.** AFTraj has no token logprobs,
+  so every step sets `logprobs_available: false` and the surprisal dims take
+  `MISSING_SURPRISAL` — the same `e+m` path the Gemini corpora run on. It has
+  no per-step timings either, leaving latency constant and that dim degenerate.
+  This corpus cannot exercise the uncertainty channel at all, and the numbers
+  should be read knowing that.
+- **`failure_class` is `external`.** AFTraj's failure taxonomy does not map onto
+  ours, and forcing its failures into `goal_drift` or `context_corruption` would
+  assert a mechanism nobody measured. Their own label (`injected` vs
+  `diagnosed`) is kept in the manifest, and per-class numbers are grouped on
+  that.
+
+**Kept out of our totals.** The corpus writes to `traces/_aftraj/`, gitignored,
+and the leading underscore excludes it from `devtools/data_card.py`,
+`devtools/claims_ledger.py` and `devtools/artifact_manifest.py`. It is another
+project's data: counting it would restate their episodes as ours, and hashing it
+would report it missing on every fresh checkout. The dataset sits outside
+`PUBLISHED_DATASETS`, so no published table can absorb it, and a sweep skips it
+when it has not been imported. The result tables **are** committed — they are
+our measurements, not their data.
+
+**Measured.** 1,882 trajectories survive the `T >= 4` filter (1,111 healthy,
+771 failed). Episode AUROC 0.745 for the channel-max ESN, 0.760 for the best
+hybrid; detection 0.048 at the 5% budget. Ranking transfers, the operating point
+does not. The horizon diagnosis replicates: 0.509 detection at post-onset
+horizon >= 9 against Mahalanobis' 0.170, nothing from either below 4, and only
+53 of 771 failures sit in the regime this method serves. See paper §5.7.
