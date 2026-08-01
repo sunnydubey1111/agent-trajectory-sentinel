@@ -81,7 +81,7 @@
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
    "devtools/claims_ledger.py": "5f47a3ca8f3355752a6c2d360ae8629b3bca5a38909badbbb00b9619fa7e29a6",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
-   "devtools/data_card.py": "50183b796f01e386e720ff2487aded9888ef9efaba35f02f34193facac2efc14",
+   "devtools/data_card.py": "7d72fd069bfdb6788d394e01d15ebe5cfa139db2acd68f4d556fea7d019dedef",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
@@ -8475,7 +8475,7 @@
   "docs": {
    "CHECKSUMS.md": "b67fbabb6f0951b35f44871dae0b47502144108449ae1f3e10ffee738412afb4",
    "CLAIMS.md": "d08165d4b0929fecfd80bec4ba356ad9938d0c06ccaca3b3126ca06c7ba68642",
-   "DATA_CARD.md": "e5a9ef35e0770764879db8a24b2cc04d95de048a63fc5c952e509df663dfd47c",
+   "DATA_CARD.md": "bb46feabbe9a5a7bdcd271a7e18ee6d8158d479cd8c0667ffe3f7840559e3735",
    "DESIGN.md": "442df447d218f3a78a5b6e4e551618a20ba5cc2df17b755db73b16932aa82bcf",
    "README.md": "6d887b9c8cef65c34d20b88c0f60ccd53b20992744ef2b34224404c6c7f58b8e",
    "REPRODUCE.md": "d5bad1ecc144d90b14e8c74772b3ff7d18c932dfa1d27a4f15374552a6c68fd1",
