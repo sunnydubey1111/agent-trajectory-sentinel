@@ -15,7 +15,7 @@ type: software
 license: MIT
 version: "1.0.0"
 date-released: "2026-07-31"
-repository-code: "https://github.com/sjkumardube/agent-derailment-monitor"
+repository-code: "https://github.com/sunnydubey1111/agent-trajectory-sentinel"
 authors:
   - family-names: Dubey
     given-names: Sunny
