@@ -509,6 +509,66 @@ defensible claim from this section is that ranking transfers zero-shot to
 a foreign ecosystem at three orders of magnitude less compute, not that
 the accuracy is competitive.
 
+### 5.8 A second external corpus: ATBench
+
+AFTraj is one benchmark and could be idiosyncratic. ATBench (arXiv:2604.02022,
+Apache-2.0) is a second, from a different group, with a different idea of what
+going wrong means: 1,000 trajectories labelled safe or unsafe under a taxonomy
+of risk source, failure mode and real-world harm. 604 have the four agent steps
+our filter requires (279 safe, 325 unsafe). It labels *trajectories*, never
+steps, so there is no tau — lead, delay and the horizon diagnosis are undefined
+here and are not reported. Detection still is: an alarm anywhere in the run,
+against a threshold picked on held-out safe runs at the 5% budget.
+
+| monitor | AUROC | detection | FA |
+|---|---|---|---|
+| **esn_cusum_max** | **0.779** | **0.311** | 0.071 |
+| delta_mahalanobis | 0.457 | 0.268 | 0.161 |
+| hybrid_weighted50 | 0.463 | 0.277 | 0.179 |
+| hybrid_max | 0.463 | 0.277 | 0.161 |
+| hybrid_gated | 0.438 | 0.268 | 0.179 |
+
+Two results, one welcome and one not.
+
+**The ESN alarms here, where it could not on AFTraj**: 0.311 detection against
+0.048, at AUROC 0.779. The difference is the corpus, not the monitor — ATBench
+runs are shorter but their unsafe behaviour is a *pattern of action* (an
+over-privileged call, an unvalidated tool result) rather than a single wrong
+number, which is what a behavioural monitor is built to see.
+
+**The fusion collapses to chance.** Mahalanobis lands at 0.457 on this corpus,
+and every 50/50 blend goes with it — 0.438 to 0.463, against the ESN's 0.779
+alone. This is §7.2's point in the open: the hybrid buys robustness when you do
+not know the regime, and costs you badly when a parent is not merely weaker but
+uninformative. A deployment resembling ATBench should run the ESN alone.
+
+Per failure mode the split is sharp, and it lands exactly on the blind spot §8
+already documents:
+
+| failure mode | n | detection |
+|---|---|---|
+| unconfirmed or over-privileged action | 59 | 0.508 |
+| incorrect tool parameters | 20 | 0.500 |
+| failure to validate tool outputs | 55 | 0.473 |
+| insecure interaction or execution | 24 | 0.333 |
+| unauthorized information disclosure | 29 | 0.276 |
+| flawed planning or reasoning | 26 | 0.192 |
+| procedural deviation or inaction | 19 | 0.105 |
+| tool misuse in a specific context | 22 | 0.045 |
+| inaccurate or misleading information | 26 | 0.038 |
+
+Failures that change what the agent *does* are caught around half the time;
+failures that only change what it *says* are not caught at all. That is the
+same content blind spot the grounding channel was built for (§8), confirmed on
+labels we did not write.
+
+Two limits on how hard this can be read: the held-out safe set is 56 episodes,
+so the AUROC is directional rather than tight, and the realized false-alarm
+rate of 0.071 overshoots the 5% budget in the way §5.5 describes for small
+validation sets. We also discarded one number in analysis — an AUROC restricted
+to safe runs that themselves contained a handled risk looked much stronger, but
+only about five such episodes reach the test split, so it measures nothing.
+
 ## 6. When does temporal monitoring pay? The horizon diagnosis
 
 Per-episode analysis over 1,002 injected episodes across eight datasets

@@ -1217,3 +1217,53 @@ hybrid; detection 0.048 at the 5% budget. Ranking transfers, the operating point
 does not. The horizon diagnosis replicates: 0.509 detection at post-onset
 horizon >= 9 against Mahalanobis' 0.170, nothing from either below 4, and only
 53 of 771 failures sit in the regime this method serves. See paper §5.7.
+
+### Module 12 — `derail/experiments/run_atbench_study.py` (second external corpus)
+
+AFTraj-2K (Module 11) is one benchmark and could be idiosyncratic. ATBench
+(arXiv:2604.02022, Apache-2.0) is a second, built by a different group under a
+different taxonomy — risk source, failure mode, real-world harm — so agreement
+between them means more than either alone.
+
+**Why it is a separate module and not another `run_hybrid_study` dataset.**
+ATBench labels whole trajectories safe or unsafe and never says which step went
+wrong. There is no tau. Registering it as a dataset would require inventing one,
+and every lead and delay figure would then be a claim about earliness that the
+data cannot support. Two quantities survive without an onset, and only those are
+reported: episode AUROC on the per-episode peak score, and detection defined as
+an alarm at any step against a threshold picked on held-out safe runs at the 5%
+budget.
+
+**Contract.**
+
+- The turn mapping is Module 11's: `user` and `environment` turns are not steps,
+  an environment turn folds into the step that issued the call. The one
+  addition is that a terminal `Complete{...}` action is an answer, not a tool
+  call — counting it would inflate tool metadata on the last step of every
+  trajectory.
+- Episodes are built with `is_healthy=True`. That records the **absence of an
+  onset label**, not a claim the run was safe. The real label is carried outside
+  the Episode, where it cannot be mistaken for one of this project's own
+  annotations, and `tests/test_atbench_study.py` pins that.
+- `hybrid_logistic` is skipped: it needs labelled failures to fit, and ATBench
+  has no calibration split, so supervising it on the episodes it then scores
+  would leak.
+- No logprobs, so `e+m+x` again and the uncertainty channel is untested.
+- Splits copy `run_hybrid_study.load_real` — safe episodes 60/20/20 under
+  `rng_for(0, "real-split")` — so the numbers sit beside the published ones.
+
+**Kept out of our totals**, on the same terms as Module 11: the corpus writes to
+`traces/_atbench/`, gitignored and excluded from the artifact manifest. The
+result tables are committed; the data is not.
+
+**Measured.** 604 of 1,000 trajectories have ≥4 agent steps (279 safe, 325
+unsafe). `esn_cusum_max` reaches AUROC **0.779** at detection **0.311** — it
+alarms here, where on AFTraj it could not, because ATBench's unsafe behaviour is
+a pattern of action rather than a single wrong value. Delta-Mahalanobis is at
+chance (0.457) and drags every 50/50 fusion to 0.438–0.463, which is §7.2's
+pooled-not-dominant finding demonstrated on foreign data. Per failure mode,
+over-privileged actions 0.508 and unvalidated tool outputs 0.473 against
+inaccurate information 0.038: the content blind spot Module 3's grounding
+channel exists for, confirmed on labels we did not write. Held-out safe set is
+56 episodes, so the AUROC is directional; realized FA 0.071 overshoots the 5%
+budget as Amendment 5 describes for small validation sets. See paper §5.8.

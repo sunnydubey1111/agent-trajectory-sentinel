@@ -10,7 +10,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (44 claims checked).
+ (49 claims checked).
 
 ## Corpus
 
@@ -40,6 +40,11 @@ Status at generation: **all claims verified**
 | esn_cusum_max detection on AFTraj-2K at the 5% budget | `0.048` | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | esn_cusum_max detection on AFTraj-2K failures with >= 9 steps of post-onset horizon | `0.509` | `results/tables/aftraj_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | AFTraj-2K failures with >= 9 steps of post-onset horizon | `53` | `results/tables/aftraj_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
+| esn_cusum_max episode AUROC on ATBench (external) | `0.779` | `results/tables/atbench_benchmark.csv` | `py -m derail.experiments.run_atbench_study` |
+| esn_cusum_max detection on ATBench at the 5% budget | `0.311` | `results/tables/atbench_benchmark.csv` | `py -m derail.experiments.run_atbench_study` |
+| hybrid_weighted50 episode AUROC on ATBench (fusion collapses to chance when a parent does) | `0.463` | `results/tables/atbench_benchmark.csv` | `py -m derail.experiments.run_atbench_study` |
+| esn_cusum_max detection on unconfirmed/over-privileged actions (ATBench) | `0.508` | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
+| esn_cusum_max detection on inaccurate/misleading information (ATBench, the known content blind spot) | `0.038` | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
 | ESN advantage at post-onset horizon <= 3 steps | `0.089` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon 4-8 steps | `0.135` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon >= 9 steps | `0.404` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |

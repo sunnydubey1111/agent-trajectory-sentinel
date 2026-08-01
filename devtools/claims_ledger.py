@@ -153,6 +153,17 @@ def _aftraj_horizon(lo: int, hi: int, column: str) -> float:
     return float(band[column].mean()) if column in band else float(len(band))
 
 
+def _atbench(monitor: str, column: str) -> float:
+    d = _table("atbench_benchmark.csv")
+    return float(d.loc[d.monitor == monitor, column].iloc[0])
+
+
+def _atbench_mode(monitor: str, mode: str) -> float:
+    d = _table("atbench_per_mode.csv")
+    row = d[(d.monitor == monitor) & (d.failure_mode == mode)]
+    return float(row.detection_rate.iloc[0])
+
+
 def _criterion(monitor: str, group: str, column: str) -> float:
     """Worst per-seed delta for one grounded fusion on one failure group."""
     d = _table("grounding_multiseed_criterion.csv")
@@ -288,6 +299,42 @@ def build() -> list[Claim]:
               "py -m derail.experiments.run_hybrid_study --datasets aftraj "
               "--out-prefix aftraj",
               lambda: _aftraj_horizon(9, 10**6, "__count__"), "Monitor"),
+
+        # ATBench: a second external corpus, trajectory-labelled only, so
+        # AUROC and alarm-anywhere detection are the only defined quantities.
+        Claim("atbench.esn_auroc",
+              "esn_cusum_max episode AUROC on ATBench (external)", 0.7787,
+              "results/tables/atbench_benchmark.csv",
+              "py -m derail.experiments.run_atbench_study",
+              lambda: _atbench("esn_cusum_max", "auroc"), "Monitor"),
+        Claim("atbench.esn_detection",
+              "esn_cusum_max detection on ATBench at the 5% budget", 0.3108,
+              "results/tables/atbench_benchmark.csv",
+              "py -m derail.experiments.run_atbench_study",
+              lambda: _atbench("esn_cusum_max", "detection_rate"), "Monitor"),
+        Claim("atbench.hybrid_auroc",
+              "hybrid_weighted50 episode AUROC on ATBench (fusion collapses "
+              "to chance when a parent does)", 0.4626,
+              "results/tables/atbench_benchmark.csv",
+              "py -m derail.experiments.run_atbench_study",
+              lambda: _atbench("hybrid_weighted50", "auroc"), "Monitor"),
+        Claim("atbench.action_failure_detection",
+              "esn_cusum_max detection on unconfirmed/over-privileged actions "
+              "(ATBench)", 0.5085,
+              "results/tables/atbench_per_mode.csv",
+              "py -m derail.experiments.run_atbench_study",
+              lambda: _atbench_mode("esn_cusum_max",
+                                    "unconfirmed_or_over_privileged_action"),
+              "Monitor"),
+        Claim("atbench.content_failure_detection",
+              "esn_cusum_max detection on inaccurate/misleading information "
+              "(ATBench, the known content blind spot)", 0.0385,
+              "results/tables/atbench_per_mode.csv",
+              "py -m derail.experiments.run_atbench_study",
+              lambda: _atbench_mode(
+                  "esn_cusum_max",
+                  "provide_inaccurate_misleading_or_unverified_information"),
+              "Monitor"),
 
         Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
               0.0887, "results/tables/hybrid_diagnosis.csv",

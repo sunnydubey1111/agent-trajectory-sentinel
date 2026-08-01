@@ -120,7 +120,13 @@ py -m derail.experiments.import_aftraj                   # download + convert ->
 py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj
 ```
 
-The import needs network access to Hugging Face; `--from DIR` converts an
+`results/tables/atbench_*.csv` work the same way, in one command:
+
+```bash
+py -m derail.experiments.run_atbench_study               # download + score
+```
+
+The import needs network access to Hugging Face; `--from` converts an
 already-downloaded copy instead. The corpus is CC-BY-4.0 and is redistributed
 by its authors, not by this repository, so a checkout will not contain it and
 `run_hybrid_study` skips the dataset with a note rather than failing when it is

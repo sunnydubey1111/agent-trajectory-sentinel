@@ -128,6 +128,16 @@ regime this method has nothing to offer. AgentForesight-7B reports 66.44
 Exact-F1 there using an LLM auditor at every step; this runs at 173 µs with no
 model call, and the honest comparison is that one, not accuracy.
 
+A second external corpus, **ATBench** (arXiv:2604.02022, `py -m
+derail.experiments.run_atbench_study`), separates what transfers from what does
+not. The ESN reaches **AUROC 0.779** and **detection 0.311** there — it alarms,
+where on AFTraj it could not — while delta-Mahalanobis sits at chance (0.457)
+and drags every 50/50 fusion down with it (0.438–0.463). Per failure mode:
+over-privileged actions 0.508, unvalidated tool outputs 0.473, but inaccurate
+information **0.038**. Failures that change what the agent *does* are caught;
+failures that change only what it *says* are not — the content blind spot the
+grounding channel exists for, confirmed on someone else's labels.
+
 Hypothesis verdicts, reported per seed rather than pooled: **H1** (temporal
 advantage) and **H3b** (cost-accounted escalation) are supported at 4 of 5
 seeds and not supported at seed 7; **H2** (channel complementarity) and

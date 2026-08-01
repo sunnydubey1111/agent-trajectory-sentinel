@@ -82,3 +82,4 @@ traces/_smoke/
 # another project's data under CC-BY-4.0. It is fetched on demand for the
 # external-validation run and never redistributed from here.
 traces/_aftraj/
+traces/_atbench/

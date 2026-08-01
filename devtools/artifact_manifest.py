@@ -39,11 +39,12 @@ EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
                  # committed (see .gitignore), so manifesting them would
                  # make every fresh checkout report them as missing.
                  "scores",
-                 # Imported external corpora (traces/_aftraj). Someone else's
-                 # data, fetched on demand and not committed: hashing it here
-                 # would report it missing on every fresh checkout and would
-                 # fold another project's episodes into our integrity record.
-                 "_aftraj"}
+                 # Imported external corpora (traces/_aftraj, traces/_atbench).
+                 # Someone else's data, fetched on demand and not committed:
+                 # hashing it here would report it missing on every fresh
+                 # checkout and would fold another project's episodes into our
+                 # integrity record.
+                 "_aftraj", "_atbench"}
 # Text artifacts are hashed after CRLF -> LF normalisation, matching the
 # .gitattributes policy, so a manifest is identical on Windows and
 # Linux checkouts and a line-ending flip is never mistaken for a data change.
