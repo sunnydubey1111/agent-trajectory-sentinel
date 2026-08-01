@@ -77,3 +77,8 @@ docs/
 # deliberately kept out of the committed corpora they must never overwrite.
 traces/_mock_dry_run/
 traces/_smoke/
+
+# Externally imported corpus (derail.experiments.import_aftraj): AFTraj-2K is
+# another project's data under CC-BY-4.0. It is fetched on demand for the
+# external-validation run and never redistributed from here.
+traces/_aftraj/

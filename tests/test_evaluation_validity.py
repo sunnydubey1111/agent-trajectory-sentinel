@@ -498,11 +498,12 @@ def test_real_figures_exclude_the_simulator():
 def test_published_table_scope_is_pinned_not_implicit():
     """A regeneration must reproduce the PUBLISHED scope, not silently widen it.
 
-    Three corpora were added to REAL_DATASETS after the published tables were
-    generated. They are reported in their own sections with their own
-    --out-prefix tables; folding them into results/tables/hybrid_*.csv would
-    change every published table's scope without anyone asking, and would
-    invalidate the verdict those tables carry.
+    Corpora added to REAL_DATASETS after the published tables were generated
+    are reported in their own sections with their own --out-prefix tables;
+    folding them into results/tables/hybrid_*.csv would change every published
+    table's scope without anyone asking, and would invalidate the verdict those
+    tables carry. `aftraj` is additionally not ours and not committed, so it
+    could not be regenerated from a fresh checkout in any case.
     """
     import inspect
 
@@ -511,7 +512,8 @@ def test_published_table_scope_is_pinned_not_implicit():
 
     assert PUBLISHED_DATASETS < set(REAL_DATASETS), "pin no longer a subset"
     assert set(REAL_DATASETS) - PUBLISHED_DATASETS == {
-        "ollama_llama8b", "real_gemini_long", "real_research7b_long_ext"}
+        "ollama_llama8b", "real_gemini_long", "real_research7b_long_ext",
+        "aftraj"}
     src = inspect.getsource(main)
     assert "PUBLISHED_DATASETS" in src, "default run no longer honours the pin"
     assert "--all-datasets" in src, "no explicit way to sweep everything"

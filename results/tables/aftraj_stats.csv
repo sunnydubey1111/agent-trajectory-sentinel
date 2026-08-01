@@ -1,0 +1,9 @@
+dataset,hybrid,vs,dauc_ci_lo,dauc_ci_hi,mcnemar_n10,mcnemar_n01,mcnemar_p,perm_mean_dlead,perm_p,wilcoxon_p,mcnemar_p_holm,mcnemar_reject_holm,family_size
+aftraj,hybrid_weighted50,esn_cusum_max,0.0056,0.0243,0,1,1.0,-0.006,0.12404379781010949,0.04550040066774512,1.0,False,8
+aftraj,hybrid_weighted50,delta_mahalanobis,0.1064,0.1815,25,6,0.0008779102936387062,0.179,0.00014999250037498125,0.0006297818556933969,0.00615,True,8
+aftraj,hybrid_max,esn_cusum_max,-0.0074,0.0115,0,0,1.0,0.0,1.0,1.0,1.0,False,8
+aftraj,hybrid_max,delta_mahalanobis,0.0937,0.1691,26,6,0.0005350527353584766,0.185,0.00014999250037498125,0.0002466366637249002,0.00428,True,8
+aftraj,hybrid_gated,esn_cusum_max,-0.0007,0.0196,6,6,1.0,0.001,1.0,0.09003950063548254,1.0,False,8
+aftraj,hybrid_gated,delta_mahalanobis,0.1001,0.1774,29,9,0.0016580525261815637,0.187,9.99950002499875e-05,0.0003567362962121159,0.00995,True,8
+aftraj,hybrid_logistic,esn_cusum_max,-0.1117,-0.0496,1,12,0.00341796875,-0.077,4.999750012499375e-05,2.7285390056564062e-06,0.01709,True,8
+aftraj,hybrid_logistic,delta_mahalanobis,0.031,0.0666,15,6,0.0783538818359375,0.109,0.0035498225088745564,0.010249633517591353,0.31342,False,8

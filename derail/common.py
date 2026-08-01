@@ -154,6 +154,12 @@ REAL_FAILURE_CLASSES: tuple[str, ...] = (
     "sql_timeout",
     "mcp_unavailable",
     "browser_fail",
+    # Imported corpora label failures with their own taxonomy, which does not
+    # map onto ours. `external` says exactly that: a labelled failure whose
+    # mechanism this project did not define and must not claim to know. The
+    # importing corpus keeps its own label in its manifest, and per-class
+    # numbers for such a corpus are grouped on that, never on this.
+    "external",
 )
 
 MASTER_SEED = 20260713

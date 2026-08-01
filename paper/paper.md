@@ -446,6 +446,69 @@ closes the gap: Gemini **0.53** detection at AUROC **0.902**, qwen **0.56** at
 0.785. The provider difference was a horizon difference, and at matched horizon
 the commercial API is not harder to monitor than the local model.
 
+### 5.7 External validation: AFTraj-2K
+
+Every number above comes from corpora we built, so none of them can say
+whether the benchmark is hard. AFTraj-2K (arXiv:2605.08715, CC-BY-4.0) is
+someone else's: 2,276 multi-agent trajectories over math, coding and
+agentic domains, with an earliest-decisive-error step annotated by
+consensus of LLM judges. `derail.experiments.import_aftraj` converts it
+into our trace format — agent turns become steps, an environment turn is
+folded into the step that issued the call, and `mistake_step` becomes tau.
+Nothing about the monitors changes. 1,882 of the trajectories survive the
+same T ≥ 4 filter the other corpora use: 1,111 healthy, 771 failures. The
+corpus carries no token logprobs, so this runs on `e+m+x` — the u channel
+is not exercised at all.
+
+| monitor | AUROC | detection | FA | µs/step |
+|---|---|---|---|---|
+| esn_cusum_max | 0.745 | 0.048 | 0.023 | 173 |
+| hybrid_weighted50 | **0.760** | 0.047 | 0.018 | 177 |
+| hybrid_gated | 0.754 | 0.048 | 0.018 | 176 |
+| hybrid_logistic | 0.665 | 0.034 | 0.014 | — |
+| delta_mahalanobis | 0.616 | 0.022 | 0.032 | 3.7 |
+
+**Ranking transfers; the operating point does not.** AUROC 0.745 on
+another project's agents, frameworks and tasks, one channel short, against
+0.802 pooled on our own — the score still orders healthy above failing.
+Detection at the 5% budget is **0.048**, against roughly 0.60 on our
+corpora. A monitor that ranks well and cannot fire is not deployable, and
+we report it as such.
+
+**The horizon law explains it, and replicates.** Splitting AFTraj's
+failures by post-onset horizon reproduces §6 on data we did not build:
+
+| horizon | n | ESN | Mahalanobis | ESN − Maha |
+|---|---|---|---|---|
+| 0 | 51 | 0.000 | 0.000 | 0.000 |
+| 1–3 | 423 | 0.007 | 0.009 | −0.002 |
+| 4–8 | 244 | 0.029 | 0.016 | +0.012 |
+| ≥9 | 53 | **0.509** | 0.170 | **+0.340** |
+
+correlation +0.365 over 771 episodes. Where a failure has room to develop
+the ESN detects half of them and beats the memoryless baseline by 34
+points; where it does not, neither monitor detects anything and the
+ordering between them is noise. Only **53 of 771** AFTraj failures (6.9%)
+sit in that regime — 61% end within three steps of their onset. The
+method is not failing here so much as being measured almost entirely
+outside the conditions it claims. That is a real limit on where it can be
+deployed, and a reason the pooled number is the wrong summary.
+
+One asymmetry is worth recording: on failures AFTraj's judges *diagnosed*
+in uncorrupted runs detection is 0.114, against 0.004 on their *injected*
+corruptions — the monitor is far better on naturally occurring failures
+than on synthetic ones, the opposite of the direction an injection-trained
+method is usually accused of.
+
+**Against the auditor.** AgentForesight-7B reports 66.44 Exact-F1 on this
+corpus with a 7B LLM auditing every step. We do not match that and do not
+claim to; detection at a false-alarm budget is not Exact-F1, and the two
+should not be put in one column. The comparison we can make is cost:
+173 µs and no model call per step, against one 7B forward pass. The
+defensible claim from this section is that ranking transfers zero-shot to
+a foreign ecosystem at three orders of magnitude less compute, not that
+the accuracy is competitive.
+
 ## 6. When does temporal monitoring pay? The horizon diagnosis
 
 Per-episode analysis over 1,002 injected episodes across eight datasets

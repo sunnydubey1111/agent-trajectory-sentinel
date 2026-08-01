@@ -93,13 +93,23 @@ def _repair_rate(rung: str) -> float:
     return float(wrong[wrong.rung == rung].groupby("rep").now_correct.mean().mean())
 
 
+def _our_manifests() -> list[pathlib.Path]:
+    """Manifests of corpora this project collected.
+
+    A leading underscore marks a directory that is not ours - scratch output,
+    or a corpus imported from another project (traces/_aftraj). Counting those
+    would restate someone else's episodes as ours.
+    """
+    return [m for m in sorted(TRACES.glob("*/manifest.json"))
+            if not m.parent.name.startswith("_")]
+
+
 def _episode_total() -> int:
-    return sum(len(json.loads(m.read_text("utf-8")))
-               for m in sorted(TRACES.glob("*/manifest.json")))
+    return sum(len(json.loads(m.read_text("utf-8"))) for m in _our_manifests())
 
 
 def _corpus_count() -> int:
-    return len(list(TRACES.glob("*/manifest.json")))
+    return len(_our_manifests())
 
 
 def _real_tool_episodes() -> int:
@@ -128,6 +138,19 @@ def _horizon_advantage(lo: int, hi: int) -> float:
     d = _table("hybrid_diagnosis.csv")
     band = d[(d.horizon >= lo) & (d.horizon <= hi)]
     return float(band.det_esn.mean() - band.det_maha.mean())
+
+
+def _aftraj(monitor: str, column: str) -> float:
+    """One monitor's value on the imported AFTraj-2K corpus (one row)."""
+    d = _table("aftraj_benchmark.csv")
+    return float(d.loc[d.monitor == monitor, column].iloc[0])
+
+
+def _aftraj_horizon(lo: int, hi: int, column: str) -> float:
+    d = _table("aftraj_diagnosis.csv")
+    horizon = d["T"] - 1 - d["tau"]
+    band = d[(horizon >= lo) & (horizon <= hi)]
+    return float(band[column].mean()) if column in band else float(len(band))
 
 
 def _criterion(monitor: str, group: str, column: str) -> float:
@@ -235,6 +258,37 @@ def build() -> list[Claim]:
               0.8020, "results/tables/hybrid_benchmark.csv",
               "py -m derail.experiments.run_hybrid_study",
               lambda: _hybrid_grand_mean("esn_cusum_max"), "Monitor"),
+        # ------------------------------------------- external validation
+        # AFTraj-2K is another project's corpus, imported by
+        # derail.experiments.import_aftraj. The tables ARE committed; the
+        # traces are not, so these regenerate only after the import step.
+        Claim("aftraj.esn_auroc",
+              "esn_cusum_max episode AUROC on AFTraj-2K (external)", 0.7452,
+              "results/tables/aftraj_benchmark.csv",
+              "py -m derail.experiments.import_aftraj && "
+              "py -m derail.experiments.run_hybrid_study --datasets aftraj "
+              "--out-prefix aftraj",
+              lambda: _aftraj("esn_cusum_max", "auroc"), "Monitor"),
+        Claim("aftraj.esn_detection",
+              "esn_cusum_max detection on AFTraj-2K at the 5% budget", 0.0480,
+              "results/tables/aftraj_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study --datasets aftraj "
+              "--out-prefix aftraj",
+              lambda: _aftraj("esn_cusum_max", "detection_rate"), "Monitor"),
+        Claim("aftraj.deep_horizon_detection",
+              "esn_cusum_max detection on AFTraj-2K failures with >= 9 steps "
+              "of post-onset horizon", 0.5094,
+              "results/tables/aftraj_diagnosis.csv",
+              "py -m derail.experiments.run_hybrid_study --datasets aftraj "
+              "--out-prefix aftraj",
+              lambda: _aftraj_horizon(9, 10**6, "det_esn"), "Monitor"),
+        Claim("aftraj.deep_horizon_share",
+              "AFTraj-2K failures with >= 9 steps of post-onset horizon", 53,
+              "results/tables/aftraj_diagnosis.csv",
+              "py -m derail.experiments.run_hybrid_study --datasets aftraj "
+              "--out-prefix aftraj",
+              lambda: _aftraj_horizon(9, 10**6, "__count__"), "Monitor"),
+
         Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
               0.0887, "results/tables/hybrid_diagnosis.csv",
               "py -m derail.experiments.run_hybrid_study",

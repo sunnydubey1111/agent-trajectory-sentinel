@@ -10,7 +10,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (40 claims checked).
+ (44 claims checked).
 
 ## Corpus
 
@@ -36,6 +36,10 @@ Status at generation: **all claims verified**
 | hybrid_weighted50 grand-mean AUROC (label-free default) | `0.812` | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
 | hybrid_logistic grand-mean AUROC (with labels) | `0.826` | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
 | esn_cusum_max grand-mean AUROC on the same eight datasets | `0.802` | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
+| esn_cusum_max episode AUROC on AFTraj-2K (external) | `0.745` | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.import_aftraj && py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
+| esn_cusum_max detection on AFTraj-2K at the 5% budget | `0.048` | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
+| esn_cusum_max detection on AFTraj-2K failures with >= 9 steps of post-onset horizon | `0.509` | `results/tables/aftraj_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
+| AFTraj-2K failures with >= 9 steps of post-onset horizon | `53` | `results/tables/aftraj_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | ESN advantage at post-onset horizon <= 3 steps | `0.089` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon 4-8 steps | `0.135` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon >= 9 steps | `0.404` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |

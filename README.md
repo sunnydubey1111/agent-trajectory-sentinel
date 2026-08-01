@@ -114,6 +114,20 @@ margin**: giving a GRU that same wrapper lifts it to det 0.76 / AUC 0.873. The
 wrapper is the transferable contribution; the ESN stays primary for its
 false-alarm discipline (0.069 vs 0.113) and ~100× faster fit.
 
+**Tested on someone else's data.** Every number above comes from corpora built
+here, so none of them says whether the benchmark is hard. On **AFTraj-2K**
+(arXiv:2605.08715 — 1,882 trajectories after the same T ≥ 4 filter, imported by
+`py -m derail.experiments.import_aftraj`, monitors unchanged) the ESN reaches
+**AUROC 0.745** but detects only **0.048** at the 5% budget. Ranking transfers
+zero-shot to another project's agents and frameworks; the operating point does
+not. The horizon law replicates and explains why: at post-onset horizon ≥9 the
+ESN detects **0.509** against Mahalanobis' 0.170, and at ≤3 neither detects
+anything — but only 53 of 771 AFTraj failures have that much room. The corpus
+is mostly failures that end within three steps of going wrong, which is the
+regime this method has nothing to offer. AgentForesight-7B reports 66.44
+Exact-F1 there using an LLM auditor at every step; this runs at 173 µs with no
+model call, and the honest comparison is that one, not accuracy.
+
 Hypothesis verdicts, reported per seed rather than pooled: **H1** (temporal
 advantage) and **H3b** (cost-accounted escalation) are supported at 4 of 5
 seeds and not supported at seed 7; **H2** (channel complementarity) and

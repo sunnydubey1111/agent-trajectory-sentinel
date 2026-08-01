@@ -1,0 +1,7 @@
+dataset,monitor,failure_class,detection_rate,median_delay,mean_lead_all
+aftraj,esn_cusum_max,external,0.04798962386511025,8.0,0.23735408560311283
+aftraj,delta_mahalanobis,external,0.02204928664072633,5.0,0.05188067444876784
+aftraj,hybrid_weighted50,external,0.04669260700389105,8.0,0.23086900129701687
+aftraj,hybrid_max,external,0.04798962386511025,8.0,0.23735408560311283
+aftraj,hybrid_gated,external,0.04798962386511025,7.0,0.23865110246433205
+aftraj,hybrid_logistic,external,0.03372243839169909,9.5,0.1608300907911803

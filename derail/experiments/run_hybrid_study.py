@@ -95,6 +95,11 @@ REAL_DATASETS: dict[str, Path] = {
     # table was computed from. Unlike that pre-v5 corpus, every episode here
     # carries the v5 provenance fingerprint and trace checksum.
     "real_research7b_long_ext": TRACES_DIR / "real_research7b_long_ext",
+    # External validation: AFTraj-2K (arXiv:2605.08715), imported by
+    # derail.experiments.import_aftraj. Not one of ours and not committed -
+    # run the importer first or this dataset is simply absent. Deliberately
+    # outside PUBLISHED_DATASETS so no published table can pick it up.
+    "aftraj": TRACES_DIR / "_aftraj",
 }
 
 #: Datasets the PUBLISHED results/tables/hybrid_*.csv are computed from - the
@@ -462,7 +467,18 @@ def main(argv: list[str] | None = None) -> None:
         if name == "sim":
             data, channels = load_sim(seed=args.seed)
         else:
-            data, channels = load_real(REAL_DATASETS[name])
+            traces_dir = REAL_DATASETS[name]
+            if not (traces_dir / "manifest.json").exists():
+                # Imported corpora are not committed. A sweep must not die on
+                # one that has not been fetched; an explicit --datasets ask
+                # still fails loudly below.
+                if name in (args.datasets or []):
+                    raise SystemExit(
+                        f"{name}: no corpus at {traces_dir}. Import it first "
+                        f"(py -m derail.experiments.import_aftraj).")
+                print(f"[hybrid] skipping {name}: not imported ({traces_dir})")
+                continue
+            data, channels = load_real(traces_dir)
         out = evaluate_dataset(name, data, channels, seed=args.seed)
         all_rows += out["rows"]
         all_pc += out["per_class"]

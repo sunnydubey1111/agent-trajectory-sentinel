@@ -59,6 +59,11 @@ PURPOSE: dict[str, str] = {
 def _corpora() -> list[tuple[str, list[dict]]]:
     out = []
     for manifest in sorted(TRACES.glob("*/manifest.json")):
+        # A leading underscore marks a directory that is not one of our
+        # corpora: scratch output, or a corpus imported from another project.
+        # Counting those here would misstate what this repository collected.
+        if manifest.parent.name.startswith("_"):
+            continue
         entries = json.loads(manifest.read_text("utf-8"))
         if entries:
             out.append((manifest.parent.name, entries))
@@ -76,6 +81,8 @@ def _rejections() -> tuple[list[tuple[str, int, int, float]], dict[str, dict[str
     per_rule: dict[str, dict[str, int]] = collections.defaultdict(
         lambda: {"healthy": 0, "injected": 0})
     for rejected in sorted(TRACES.glob("*/rejected.json")):
+        if rejected.parent.name.startswith("_"):
+            continue
         records = json.loads(rejected.read_text("utf-8"))
         manifest = rejected.parent / "manifest.json"
         accepted = len(json.loads(manifest.read_text("utf-8"))) if manifest.exists() else 0
