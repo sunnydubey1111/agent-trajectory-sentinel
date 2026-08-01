@@ -38,6 +38,18 @@ def _corpora() -> list[pathlib.Path]:
                   if not p.parent.name.startswith("_"))
 
 
+#: Fields every corpus records, published as typed columns. Everything else a
+#: manifest carries is corpus-specific - the booking corpora record
+#: `expected_total` and `withhold_rate`, the framework corpora record
+#: `provenance` and `framework` - so a row-per-episode table cannot give them
+#: all one schema. They travel in `metadata` as JSON instead of being dropped.
+CORE_FIELDS: tuple[tuple[str, str], ...] = (
+    ("uid", "string"), ("episode_id", "string"), ("corpus", "string"),
+    ("model", "string"), ("failure_class", "string"),
+    ("tau", "int64"), ("T", "int64"), ("has_logprobs", "bool"),
+)
+
+
 def build_episodes() -> list[dict]:
     """One record per committed episode: manifest metadata plus its steps."""
     records: list[dict] = []
@@ -59,6 +71,44 @@ def build_episodes() -> list[dict]:
             record["steps"] = steps
             records.append(record)
     return records
+
+
+def to_table_rows(records: list[dict]) -> list[dict]:
+    """Flatten to one uniform, typed row per episode.
+
+    Written as Parquet with an explicit schema rather than JSONL: the hub
+    infers a JSONL schema from the first rows, and since corpora disagree on
+    which fields they record, inference picks a schema the later rows cannot
+    be cast to. The steps list has the same problem one level down - a tool
+    call's `args` is whatever that tool takes - so it is carried as JSON text
+    rather than pretending it has a fixed shape.
+    """
+    rows = []
+    for record in records:
+        row = {name: record.get(name) for name, _ in CORE_FIELDS}
+        extra = {k: v for k, v in record.items()
+                 if k not in dict(CORE_FIELDS) and k != "steps"}
+        row["n_steps"] = len(record["steps"])
+        row["steps"] = json.dumps(record["steps"], ensure_ascii=False)
+        row["metadata"] = json.dumps(extra, ensure_ascii=False, default=str)
+        rows.append(row)
+    return rows
+
+
+def write_parquet(records: list[dict], target: pathlib.Path) -> None:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    rows = to_table_rows(records)
+    kinds = {"string": pa.string(), "int64": pa.int64(), "bool": pa.bool_()}
+    schema = pa.schema(
+        [pa.field(name, kinds[kind]) for name, kind in CORE_FIELDS]
+        + [pa.field("n_steps", pa.int64()),
+           pa.field("steps", pa.string()),
+           pa.field("metadata", pa.string())])
+    table = pa.Table.from_pylist(rows, schema=schema)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    pq.write_table(table, target, compression="zstd")
 
 
 def card(n_episodes: int, n_corpora: int,
@@ -95,7 +145,7 @@ def card(n_episodes: int, n_corpora: int,
         "- observability",
         "configs:",
         "- config_name: default",
-        "  data_files: data/episodes.jsonl",
+        "  data_files: data/episodes.parquet",
         "---",
         "",
         f"# AgentTrajectorySentinel — {n_episodes} agent episodes "
@@ -110,15 +160,27 @@ def card(n_episodes: int, n_corpora: int,
         "## Loading",
         "",
         "```python",
+        "import json",
         "from datasets import load_dataset",
+        "",
         f'ds = load_dataset("{repo_id}", split="train")',
-        'ds[0]["steps"][0].keys()   # text, action, latency_s, token_logprobs, ...',
+        'row = ds[0]',
+        'steps = json.loads(row["steps"])          # the trajectory',
+        'meta  = json.loads(row["metadata"])       # corpus-specific fields',
+        'steps[0].keys()   # text, action, latency_s, token_logprobs, ...',
         "```",
         "",
-        "`data/episodes.jsonl` is a convenience view: one row per episode, with",
-        "its manifest metadata and full step list. The authoritative layout is",
-        "`traces/<corpus>/`, uploaded unchanged - one JSONL per episode plus the",
-        "`manifest.json` every published number is computed from.",
+        "`steps` and `metadata` are JSON strings, not nested columns, and that is",
+        "deliberate. Corpora disagree on which fields they record - the booking",
+        "sets carry `expected_total`, the framework sets carry `provenance` - and",
+        "a tool call's `args` is whatever that tool takes. There is no single",
+        "table schema that fits them, so the varying parts are carried as text",
+        "rather than dropped to make one fit. Nothing is lost: `metadata` holds",
+        "every manifest field outside the typed columns.",
+        "",
+        "`data/episodes.parquet` is a convenience view. The authoritative layout",
+        "is `traces/<corpus>/`, uploaded unchanged - one JSONL per episode plus",
+        "the `manifest.json` every published number is computed from.",
         "",
         "## Fields",
         "",
@@ -129,6 +191,9 @@ def card(n_episodes: int, n_corpora: int,
         "`autogen` and `autogen7b` both number from zero, so 645 ids appear "
         "twice. Key on `uid`. |",
         "| `corpus` | which corpus the episode belongs to |",
+        "| `n_steps` | number of steps, same as `T` |",
+        "| `steps` | JSON string: the trajectory (see Loading) |",
+        "| `metadata` | JSON string: every manifest field outside these columns |",
         "| `model` | the agent model that produced it |",
         "| `failure_class` | `null` for healthy, else the injected class |",
         "| `tau` | 0-indexed onset step; `null` for healthy |",
@@ -190,10 +255,8 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
     (out_dir / "data").mkdir(exist_ok=True)
 
     records = build_episodes()
-    target = out_dir / "data" / "episodes.jsonl"
-    with target.open("w", encoding="utf-8", newline="\n") as handle:
-        for record in records:
-            handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+    target = out_dir / "data" / "episodes.parquet"
+    write_parquet(records, target)
 
     n_corpora = len(_corpora())
     (out_dir / "README.md").write_text(card(len(records), n_corpora, repo_id),
@@ -207,6 +270,28 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
 
     return {"episodes": len(records), "corpora": n_corpora,
             "bytes": target.stat().st_size}
+
+
+#: Files an earlier release published that must not survive a re-upload.
+#: `data/episodes.jsonl` had a schema the hub could not cast, and uploading
+#: never deletes, so leaving it keeps a broken 32 MB file in the repo beside
+#: the parquet that replaced it.
+STALE_PATHS: tuple[str, ...] = ("data/episodes.jsonl",)
+
+
+def _prune(api, repo_id: str) -> None:
+    from huggingface_hub.errors import EntryNotFoundError
+
+    for path in STALE_PATHS:
+        try:
+            api.delete_file(path_in_repo=path, repo_id=repo_id,
+                            repo_type="dataset",
+                            commit_message=f"Remove superseded {path}")
+            print(f"[hf] removed stale {path}")
+        except EntryNotFoundError:
+            pass
+        except Exception as exc:                     # already gone, or no rights
+            print(f"[hf] could not remove {path}: {exc}")
 
 
 def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
@@ -232,6 +317,7 @@ def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
     api.upload_folder(folder_path=str(out_dir), repo_id=repo_id,
                       repo_type="dataset",
                       commit_message="Publish the agent-failure trace corpus")
+    _prune(api, repo_id)
     # The authoritative layout, uploaded unchanged beside the derived view.
     api.upload_folder(folder_path=str(TRACES), repo_id=repo_id,
                       repo_type="dataset", path_in_repo="traces",

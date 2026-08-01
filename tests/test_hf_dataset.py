@@ -88,6 +88,52 @@ def test_card_states_the_gemini_terms_and_the_llama_notice() -> None:
         assert section in text, section
 
 
+def test_published_rows_have_one_uniform_schema(records) -> None:
+    """The hub casts every row to one schema and fails the whole dataset if a
+    later row disagrees. Corpora record different manifest fields, so this is
+    the failure that actually happened once."""
+    rows = hf_dataset.to_table_rows(records)
+    shapes = {tuple(sorted(r)) for r in rows}
+    assert len(shapes) == 1, f"{len(shapes)} different row shapes published"
+
+
+def test_steps_and_metadata_round_trip(records) -> None:
+    rows = {r["uid"]: r for r in hf_dataset.to_table_rows(records)}
+    for record in (records[0], records[len(records) // 2], records[-1]):
+        row = rows[record["uid"]]
+        assert json.loads(row["steps"]) == record["steps"]
+        assert row["n_steps"] == record["T"]
+
+
+def test_metadata_carries_every_field_not_given_a_column(records) -> None:
+    """Nothing may be silently dropped to make the schema fit."""
+    core = {name for name, _ in hf_dataset.CORE_FIELDS} | {"steps"}
+    rows = {r["uid"]: r for r in hf_dataset.to_table_rows(records)}
+    for record in records[:200]:
+        extra = json.loads(rows[record["uid"]]["metadata"])
+        missing = {k for k in record if k not in core} - set(extra)
+        assert not missing, f"{record['uid']} lost {missing}"
+
+
+def test_the_parquet_file_matches_the_declared_schema(tmp_path, records) -> None:
+    pa = pytest.importorskip("pyarrow")
+    import pyarrow.parquet as pq
+
+    target = tmp_path / "episodes.parquet"
+    hf_dataset.write_parquet(records[:50], target)
+    table = pq.read_table(target)
+    assert table.num_rows == 50
+    assert table.schema.field("steps").type == pa.string()
+    assert table.schema.field("tau").type == pa.int64()
+    assert [f.name for f in table.schema][:3] == ["uid", "episode_id", "corpus"]
+
+
+def test_the_card_points_at_the_parquet_it_writes() -> None:
+    text = hf_dataset.card(2823, 25)
+    assert "data/episodes.parquet" in text
+    assert "data/episodes.jsonl" not in text, "stale path in the card"
+
+
 def _frontmatter(text: str) -> dict[str, str]:
     """Scalar keys of the card's YAML header, without a yaml dependency."""
     assert text.startswith("---\n")
