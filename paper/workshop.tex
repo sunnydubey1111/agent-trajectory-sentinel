@@ -44,10 +44,10 @@ commercial API, a one-class echo-state-network CUSUM ensemble detects
 $0.71\pm0.07$ of failures at a 5\% false-alarm budget. Two findings bound it.
 First, a \emph{horizon law}: the temporal monitor's advantage over a memoryless
 baseline grows from $+0.09$ detection points at $\le3$ post-onset steps to
-$+0.40$ at $\ge9$, and this law predicts its own failure region on two external
-corpora we did not build --- on AFTraj-2K, where 94\% of failures end within
-eight steps of onset, pooled detection is $0.048$ exactly as the law forecasts,
-while at $\ge9$ steps it is $0.509$. Second, an \emph{observability boundary}:
+$+0.40$ at $\ge9$, and it predicts its own failure region on an external corpus
+we did not build: on AFTraj-2K, where 94\% of failures end within eight steps of
+onset, pooled detection is $0.048$ exactly as the law forecasts, while at $\ge9$
+steps it is $0.509$. Second, an \emph{observability boundary}:
 a wrong-but-well-formed value perturbs no behavioural channel, so no
 reference-free monitor can see it. We therefore pair the monitor with
 deterministic checks that need no null and no threshold --- recomputing a run's
@@ -71,16 +71,21 @@ Two answers dominate. Check the final output, which is cheap but arrives after
 the budget is spent; or judge every step with a second LLM, which is accurate
 and costs a model call per step. This paper measures a third position: a
 one-class monitor over step telemetry at $\sim$200\,$\mu$s per step, fitted on
-healthy runs only, with no failure labels and no second model. We are
-interested less in its headline accuracy than in its \emph{boundary} --- what
-such a verifier structurally cannot see, and what to pair with it there.
+healthy runs only, with no failure labels and no second model. One optional
+variant --- the logistic fusion of \S\ref{sec:horizon} --- is supervised and
+needs on the order of twenty labelled failures; every other monitor and every
+check reported here is label-free. We are interested less in headline accuracy
+than in the \emph{boundary} --- what such a verifier structurally cannot see,
+and what to pair with it there.
 
 \paragraph{Contributions.}
 \begin{enumerate}\itemsep2pt
 \item \textbf{A horizon law with external validation.} The temporal monitor's
       advantage over a memoryless baseline is governed by post-onset runway,
       not by detector identity. The law predicts where the monitor will fail,
-      and holds on two corpora built by other groups (\S\ref{sec:external}).
+      and holds on a corpus built by another group (\S\ref{sec:external}). Only
+      one of our two external corpora can test it: the other labels
+      trajectories rather than steps, so it has no onset and no horizon.
 \item \textbf{A measured observability boundary.} Content corruption that
       changes data without changing behaviour is invisible to behavioural
       telemetry; we show richer embeddings do not fix it, and that a
@@ -170,8 +175,10 @@ shared threshold only episode-max \emph{ordering} matters, so the stream with
 the heavier healthy tail sets the bar for both: measured, one behavioural
 healthy episode destroyed \textbf{16 of 17} grounding-only detections of
 context corruption. No monotone rescaling fixes an ordering problem;
-independent thresholds do, and give a non-degradation property at serving time
---- no stream's evidence can be numerically cancelled by another's.
+independent thresholds do: no stream's evidence can be numerically cancelled by
+another's, which held at every seed we ran. The cost is paid in false alarms ---
+an OR over $J$ streams admits each stream's budget --- so this is a
+non-degradation property bought with alarm rate, not a free guarantee.
 
 \section{Real-Ecosystem Validation}
 \label{sec:real}
@@ -238,9 +245,17 @@ fusion of the two parents reaches grand-mean AUROC 0.826 against 0.802 (ESN)
 and 0.807 ($\Delta$-Mahalanobis), because each parent collapses on some dataset
 and the fusion never does. Measured against whichever parent is better
 \emph{on that dataset}, however, it is at or below it on 7 of 8 datasets in
-AUROC (mean $-0.014$) and on all 8 in detection rate (mean $-0.140$). The
-hybrid is the right default when the regime is unknown, and the wrong choice
-when it is known.
+AUROC (mean $-0.014$) and on all 8 in detection rate (mean $-0.140$).
+
+The robustness that buys is real but conditional, and \S\ref{sec:external}
+contains its counterexample: on ATBench the memoryless parent is at chance
+(0.457) and drags every 50/50 blend down with it (0.438--0.463) against the ESN
+alone at 0.779, while on AFTraj the same fusion is marginally ahead ($+0.015$).
+Fusion protects against \emph{a} parent being weaker; it does not protect
+against one being uninformative, because a 50/50 blend has no way to notice.
+The hybrid is a reasonable default when the regime is unknown \emph{and} both
+parents are known to carry signal --- not a general safety net, and not a
+dominance result.
 
 \section{External Validation on Corpora We Did Not Build}
 \label{sec:external}
@@ -444,8 +459,8 @@ admit the cheaper deterministic route of \S\ref{sec:verify}.
 
 A cheap verifier over step telemetry covers more of the agent-failure space than
 its cost suggests, and its failures are predictable rather than arbitrary: the
-horizon law says where it will not fire, and held on two corpora built by other
-groups. Where it structurally cannot see --- a wrong-but-well-formed value ---
+horizon law says where it will not fire, and held on a corpus built by another
+group. Where it structurally cannot see --- a wrong-but-well-formed value ---
 the answer is not a bigger encoder but a different mechanism, and a
 deterministic check that recomputes the answer from the evidence the run
 received is both more precise and more portable than the monitor it
