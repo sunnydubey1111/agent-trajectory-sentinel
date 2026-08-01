@@ -1,5 +1,9 @@
 # AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
 
+**[Try the live demo](https://huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo)**
+ · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
+ · [Paper](paper/main.pdf) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
+
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —
 steps before the task fails or the budget burns?
@@ -288,6 +292,15 @@ detection sits near chance; re-collecting with the requirements met
 step against the alarm line, a failure is injected mid-run, the score crosses
 the line, and the run is halted and explained.](assets/AgentTrajectorySentinel_GIF.gif)
 
+**Nothing to install:** the
+[Hugging Face Space](https://huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo)
+replays real recorded runs through the real monitor, step by step. It is a
+static page, so the scores are computed when the page is built rather than in
+your browser — the page says so. Rebuild it with
+`py -m devtools.hf_space --build`.
+
+The full demo below is the live one, and needs a local model.
+
 `py -m derail.experiments.demo` serves **AgentTrajectorySentinel Live** at
 `http://localhost:8765`. A real qwen2.5:7b agent works a long booking task
 while the shipped monitor scores every step. Five buttons inject a real
@@ -456,7 +469,10 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
   settings, and the exact command behind each result.
 - [`DATA_CARD.md`](DATA_CARD.md) — all 25 corpora: sizes, models, injected vs
-  organic, episode lengths, channel availability.
+  organic, episode lengths, channel availability. The same corpus is published
+  on Hugging Face as
+  [`sunnydubey1111/agent-trajectory-sentinel`](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel),
+  one row per episode plus the raw traces (`py -m devtools.hf_dataset --build`).
 - [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
