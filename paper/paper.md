@@ -22,7 +22,11 @@ monitors: (1) the ESN, which wins decisively when failures have temporal
 room to develop (its advantage over a memoryless Mahalanobis baseline
 grows monotonically with post-onset horizon); (2) a calibrated
 ESN+Mahalanobis hybrid whose learned fusion weights track the deployment
-regime and which matches or beats both parents at every seed tested; and
+regime, and which lifts grand-mean AUROC above either parent taken alone
+(0.826 against 0.802 for the ESN and 0.807 for Mahalanobis) while sitting
+at or below the *per-dataset* better parent on 7 of 8 datasets in AUROC
+and on all 8 in detection rate — a pooled advantage, not a per-deployment
+guarantee; and
 (3) a content-grounding telemetry channel — nine causal features
 of tool-result content, including a 2-microsecond lexical
 relevance flag — that lifts the monitors' shared blind spot
@@ -84,6 +88,27 @@ can raise a calibrated alarm at derailment onset — steps before the task
 fails or the budget burns — without model internals, without labels, and
 without a second LLM in the loop.
 
+**Where this sits.** Detecting failure while an episode is still running
+is no longer an unoccupied position. AgentForesight reframes failure
+attribution as online auditing — at each step the auditor sees only the
+prefix and must continue or alarm — and ships AFTraj-2K, 2,276 labelled
+multi-agent trajectories (arXiv:2605.08715); weakly supervised early
+alerting learns turn-level risk from trajectory-level labels alone and
+exposes an explicit accuracy/earliness dial (arXiv:2606.05414). Both use
+an LLM auditor. Separately, linear probes on hidden states predict
+eventual failure from the first interaction round, reported as
+substantially earlier than monitors restricted to observable behaviour
+(arXiv:2607.06503). We take that last result at face value: with the
+weights in hand, activations beat telemetry. So we claim neither
+mid-episode detection nor observable telemetry as novel. What we claim is
+the cost class and the deployment it serves — a one-class reservoir
+monitor at ~200 µs per step, fit on healthy runs only, with no LLM in the
+loop and no model internals, for the case where you are monitoring a
+hosted API or someone else's agent and internals are not on offer. We
+have not evaluated on AFTraj-2K; those corpora are not built to supply
+the healthy-only null this method needs, and closing that gap is the next
+comparison rather than a claim we can make here.
+
 This work answers that question constructively, and documents with equal
 care what such a watchdog cannot do. Contributions:
 
@@ -92,7 +117,13 @@ care what such a watchdog cannot do. Contributions:
    false-alarm budgets. The ESN-ensemble CUSUM channel-max monitor detects
    0.71 ± 0.07 of failures at a 5% FA budget with a 4.6 ± 1.0-step mean
    budget saving, beating trained LSTM (0.61) and GRU (0.60) baselines by
-   ~10 detection points over five dataset seeds (§4).
+   ~10 detection points over five dataset seeds (§4). With the credit
+   assigned honestly: **the per-channel max-fusion wrapper, not the
+   reservoir, carries most of that margin** — giving a GRU the same
+   wrapper lifts it to det 0.76 / AUROC 0.873, past the ESN. The wrapper
+   is the transferable contribution; the ESN stays the default for its
+   false-alarm discipline (0.069 against 0.113) and ~100× faster fit, not
+   because reservoirs are the only architecture that works here.
 2. **Real-ecosystem validation at scale**: 2,823 episodes over 25
    corpora, of which 770 use real tools (arXiv/Wikipedia/web/SQL/Python)
    with live agents (qwen2.5:7b, qwen2.5:3b, llama3.1:8b,
@@ -104,8 +135,14 @@ care what such a watchdog cannot do. Contributions:
    r = +0.25 over 1,002 injected episodes) (§6).
 4. **A calibrated hybrid** whose supervised fusion weights learn which
    regime a deployment is in (Mahalanobis weight share 0.34 on
-   long-horizon data → 0.95 on short), is never statistically below the
-   better parent, and whose advantage holds at every seed (§7).
+   long-horizon data → 0.95 on short). Its advantage is a *pooled* one:
+   grand-mean AUROC 0.826 beats either parent alone (ESN 0.802,
+   Mahalanobis 0.807), because each parent collapses on some dataset and
+   the fusion never does. Per dataset it is a different story — the
+   fusion is at or below whichever parent is better there on 7 of 8
+   datasets in AUROC (mean −0.014) and on 8 of 8 in detection rate (mean
+   −0.140, driven by `ollama7b`, 0.235 against the ESN's 0.965). We claim
+   robustness across deployments, not superiority within one (§7).
 5. **A content-grounding telemetry channel** that closes the content
    blind spot: malformed JSON 0.07 → 0.93, off-topic retrievals 0.13 →
    1.00 where applicable (via a binary lexical flag costing 2 µs), context
@@ -458,6 +495,53 @@ claim a consistent mean advantage, not a variance guarantee. On a
 held-out framework (LangGraph, never used during development) the best
 hybrid stays within CI of the local winner and significantly above the
 local loser, though the logistic's edge narrows there.
+
+**What the pooled mean hides.** The grand mean is an unweighted average
+over eight datasets, and it flatters the fusion: the logistic wins it
+because *each parent collapses somewhere* (the ESN at 0.556 on
+real_research3b, Mahalanobis at 0.294 detection on ollama7b) while the
+fusion never collapses. Compared instead against whichever parent is
+better *on that dataset*, the fusion is at or below it almost everywhere
+(`results/tables/hybrid_benchmark.csv`):
+
+| dataset | ESN | Δ-Maha | better parent | logistic | Δ |
+|---|---|---|---|---|---|
+| sim | 0.890 | 0.786 | 0.890 | 0.889 | −0.000 |
+| autogen7b | 0.833 | 0.774 | 0.833 | 0.777 | −0.056 |
+| langgraph7b | 0.828 | 0.885 | 0.885 | 0.884 | −0.002 |
+| ollama7b | 0.994 | 0.895 | 0.994 | 0.982 | −0.013 |
+| real_research3b | 0.556 | 0.665 | 0.665 | 0.643 | −0.022 |
+| real_research7b | 0.777 | 0.848 | 0.848 | 0.847 | −0.001 |
+| real_research7b_long | 0.790 | 0.849 | 0.849 | 0.857 | **+0.008** |
+| gemini | 0.749 | 0.756 | 0.756 | 0.731 | −0.025 |
+| **grand mean** | **0.802** | **0.807** | **0.840** | **0.826** | **−0.014** |
+
+Table: Episode AUROC. The fusion is below the per-dataset better parent
+on 7 of 8 datasets; it is above on one (real_research7b_long).
+
+| dataset | ESN | Δ-Maha | better parent | logistic | Δ |
+|---|---|---|---|---|---|
+| sim | 0.780 | 0.378 | 0.780 | 0.725 | −0.055 |
+| autogen7b | 0.511 | 0.386 | 0.511 | 0.341 | −0.170 |
+| langgraph7b | 0.505 | 0.736 | 0.736 | 0.714 | −0.022 |
+| ollama7b | 0.965 | 0.294 | 0.965 | 0.235 | −0.729 |
+| real_research3b | 0.348 | 0.130 | 0.348 | 0.261 | −0.087 |
+| real_research7b | 0.374 | 0.415 | 0.415 | 0.398 | −0.018 |
+| real_research7b_long | 0.571 | 0.690 | 0.690 | 0.667 | −0.024 |
+| gemini | 0.709 | 0.582 | 0.709 | 0.696 | −0.013 |
+| **grand mean** | **0.595** | **0.452** | **0.644** | **0.505** | **−0.140** |
+
+Table: Detection rate at the operating threshold. The fusion is below the
+per-dataset better parent on all 8, and the ollama7b cell (0.235 against
+0.965) is a collapse, not a rounding difference — the learned weights put
+0.99 share on Mahalanobis there, which is the wrong parent for that set.
+
+So the honest statement is: **the hybrid is the best choice when you do
+not know which regime you are in, and the wrong choice when you do.** A
+deployment that can identify its own regime should run that regime's
+parent. This is a robustness result, not a dominance result, and the
+"matches or beats both parents at every seed" framing of earlier drafts
+conflated a per-seed grand mean with per-dataset performance.
 
 ### 7.3 The fusion lesson
 
