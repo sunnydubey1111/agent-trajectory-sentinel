@@ -88,6 +88,37 @@ def test_card_states_the_gemini_terms_and_the_llama_notice() -> None:
         assert section in text, section
 
 
+def _frontmatter(text: str) -> dict[str, str]:
+    """Scalar keys of the card's YAML header, without a yaml dependency."""
+    assert text.startswith("---\n")
+    block = text.split("---\n", 2)[1]
+    out = {}
+    for line in block.splitlines():
+        if line.startswith(" ") or line.startswith("-") or ":" not in line:
+            continue
+        key, _, value = line.partition(":")
+        out[key.strip()] = value.strip()
+    return out
+
+
+def test_license_link_is_an_https_uri() -> None:
+    """The hub validates this field and rejects a bare filename with a 400.
+
+    That failure only surfaces at upload time, after the whole payload has been
+    built and scanned, so it is pinned here instead.
+    """
+    meta = _frontmatter(hf_dataset.card(2823, 25, "someone/some-dataset"))
+    assert meta["license_link"].startswith("https://"), meta["license_link"]
+    assert "someone/some-dataset" in meta["license_link"], (
+        "the link must resolve inside the dataset it is published to")
+
+
+def test_card_follows_the_repo_id_it_is_built_for() -> None:
+    text = hf_dataset.card(2823, 25, "someone/some-dataset")
+    assert 'load_dataset("someone/some-dataset"' in text
+    assert hf_dataset.DEFAULT_REPO_ID not in text
+
+
 def test_uid_is_unique_and_episode_id_is_not() -> None:
     """Pins the reason `uid` exists, so nobody 'simplifies' it away later."""
     records = hf_dataset.build_episodes()

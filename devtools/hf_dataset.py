@@ -61,7 +61,8 @@ def build_episodes() -> list[dict]:
     return records
 
 
-def card(n_episodes: int, n_corpora: int) -> str:
+def card(n_episodes: int, n_corpora: int,
+         repo_id: str = DEFAULT_REPO_ID) -> str:
     """The dataset card: HF frontmatter, then DATA_CARD.md unchanged.
 
     The body is not rewritten for HF. DATA_CARD.md is generated from the
@@ -77,7 +78,10 @@ def card(n_episodes: int, n_corpora: int) -> str:
         # model that produced it. See the Licensing section of the body.
         "license: other",
         "license_name: mixed-see-licensing",
-        "license_link: LICENSING.md",
+        # The hub validates this as a URI and rejects a bare filename, so it
+        # must be the resolved URL of LICENSING.md inside this dataset repo.
+        f"license_link: https://huggingface.co/datasets/{repo_id}/blob/main/"
+        "LICENSING.md",
         "pretty_name: AgentTrajectorySentinel agent-failure traces",
         "size_categories:",
         "- 1K<n<10K",
@@ -100,14 +104,14 @@ def card(n_episodes: int, n_corpora: int) -> str:
         "Committed agent trajectories with step-level telemetry, used to fit and",
         "evaluate one-class monitors for real-time failure detection. Code,",
         "paper and the full evaluation harness:",
-        f"<https://github.com/{DEFAULT_REPO_ID.split('/')[0]}/"
+        f"<https://github.com/{repo_id.split('/')[0]}/"
         "agent-trajectory-sentinel>",
         "",
         "## Loading",
         "",
         "```python",
         "from datasets import load_dataset",
-        f'ds = load_dataset("{DEFAULT_REPO_ID}", split="train")',
+        f'ds = load_dataset("{repo_id}", split="train")',
         'ds[0]["steps"][0].keys()   # text, action, latency_s, token_logprobs, ...',
         "```",
         "",
@@ -181,7 +185,7 @@ def scan_for_secrets(paths: list[pathlib.Path]) -> list[str]:
     return findings
 
 
-def build(out_dir: pathlib.Path) -> dict:
+def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "data").mkdir(exist_ok=True)
 
@@ -192,7 +196,7 @@ def build(out_dir: pathlib.Path) -> dict:
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
 
     n_corpora = len(_corpora())
-    (out_dir / "README.md").write_text(card(len(records), n_corpora),
+    (out_dir / "README.md").write_text(card(len(records), n_corpora, repo_id),
                                        encoding="utf-8", newline="\n")
     (out_dir / "LICENSING.md").write_text(
         "See the Licensing section of the dataset card. In short: the code and\n"
@@ -249,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     out_dir = pathlib.Path(args.out)
-    summary = build(out_dir)
+    summary = build(out_dir, args.repo_id)
     print(f"[hf] {summary['episodes']} episodes from {summary['corpora']} "
           f"corpora -> {summary['bytes'] / 1e6:.1f} MB")
     print(f"[hf] built {out_dir}")
