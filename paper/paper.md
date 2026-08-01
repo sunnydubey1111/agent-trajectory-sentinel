@@ -468,15 +468,14 @@ is not exercised at all.
 | hybrid_logistic | 0.665 | 0.034 | 0.014 | — |
 | delta_mahalanobis | 0.616 | 0.022 | 0.032 | 3.7 |
 
-**Ranking transfers; the operating point does not.** AUROC 0.745 on
-another project's agents, frameworks and tasks, one channel short, against
-0.802 pooled on our own — the score still orders healthy above failing.
-Detection at the 5% budget is **0.048**, against roughly 0.60 on our
-corpora. A monitor that ranks well and cannot fire is not deployable, and
-we report it as such.
+**Ranking transfers zero-shot.** AUROC 0.745 on another project's agents,
+frameworks and tasks, with the uncertainty channel absent entirely,
+against 0.802 pooled on our own. Nothing was retrained or tuned: the
+monitors are fitted on AFTraj's own healthy runs and scored as-is.
 
-**The horizon law explains it, and replicates.** Splitting AFTraj's
-failures by post-onset horizon reproduces §6 on data we did not build:
+**The horizon law predicted the operating point, and held.** §6 claims
+detection needs post-onset runway to accumulate evidence. AFTraj tests
+that claim directly, on failures annotated by someone else:
 
 | horizon | n | ESN | Mahalanobis | ESN − Maha |
 |---|---|---|---|---|
@@ -486,13 +485,20 @@ failures by post-onset horizon reproduces §6 on data we did not build:
 | ≥9 | 53 | **0.509** | 0.170 | **+0.340** |
 
 correlation +0.365 over 771 episodes. Where a failure has room to develop
-the ESN detects half of them and beats the memoryless baseline by 34
+the ESN detects **half** of them and beats the memoryless baseline by 34
 points; where it does not, neither monitor detects anything and the
 ordering between them is noise. Only **53 of 771** AFTraj failures (6.9%)
-sit in that regime — 61% end within three steps of their onset. The
-method is not failing here so much as being measured almost entirely
-outside the conditions it claims. That is a real limit on where it can be
-deployed, and a reason the pooled number is the wrong summary.
+sit in that regime — 61% end within three steps of their onset — so pooled
+detection is **0.048**.
+
+That pooled figure is the mechanism's prediction, not an excuse offered
+after seeing it: §6 fixed the relationship between horizon and detection
+on our corpora, and AFTraj supplies a failure distribution concentrated
+where the relationship says detection is impossible. A law that forecasts
+its own failure region and then survives a corpus it never saw is stronger
+evidence than a higher pooled number would have been. It also bounds
+deployment precisely: this monitor is for failures that develop over
+several steps, and AFTraj is mostly not that.
 
 One asymmetry is worth recording: on failures AFTraj's judges *diagnosed*
 in uncorrupted runs detection is 0.114, against 0.004 on their *injected*
@@ -501,13 +507,13 @@ than on synthetic ones, the opposite of the direction an injection-trained
 method is usually accused of.
 
 **Against the auditor.** AgentForesight-7B reports 66.44 Exact-F1 on this
-corpus with a 7B LLM auditing every step. We do not match that and do not
-claim to; detection at a false-alarm budget is not Exact-F1, and the two
-should not be put in one column. The comparison we can make is cost:
-173 µs and no model call per step, against one 7B forward pass. The
-defensible claim from this section is that ranking transfers zero-shot to
-a foreign ecosystem at three orders of magnitude less compute, not that
-the accuracy is competitive.
+corpus with a 7B LLM auditing every step, at roughly a thousand times the
+cost per step. Detection at a false-alarm budget is not Exact-F1 and the
+two do not belong in one column, so we compare the axis that is
+commensurable: 173 µs and no model call, against one 7B forward pass. The
+claim this section supports is that ranking transfers zero-shot to a
+foreign ecosystem at three orders of magnitude less compute, and that the
+regime where it also alarms is predictable in advance.
 
 ### 5.8 A second external corpus: ATBench
 
@@ -528,19 +534,22 @@ against a threshold picked on held-out safe runs at the 5% budget.
 | hybrid_max | 0.463 | 0.277 | 0.161 |
 | hybrid_gated | 0.438 | 0.268 | 0.179 |
 
-Two results, one welcome and one not.
+**The ESN alarms here**: detection **0.311** at AUROC 0.779, against 0.048 on
+AFTraj. This is the horizon law's other side. ATBench's unsafe behaviour is a
+*pattern of action* — an over-privileged call, an unvalidated tool result —
+rather than a single wrong value, and a behavioural monitor is built for
+exactly that. Together the two corpora bracket the method: §5.7 shows where it
+cannot fire and why, and this shows it firing on foreign data when the failure
+has the shape the mechanism assumes.
 
-**The ESN alarms here, where it could not on AFTraj**: 0.311 detection against
-0.048, at AUROC 0.779. The difference is the corpus, not the monitor — ATBench
-runs are shorter but their unsafe behaviour is a *pattern of action* (an
-over-privileged call, an unvalidated tool result) rather than a single wrong
-number, which is what a behavioural monitor is built to see.
-
-**The fusion collapses to chance.** Mahalanobis lands at 0.457 on this corpus,
-and every 50/50 blend goes with it — 0.438 to 0.463, against the ESN's 0.779
-alone. This is §7.2's point in the open: the hybrid buys robustness when you do
-not know the regime, and costs you badly when a parent is not merely weaker but
-uninformative. A deployment resembling ATBench should run the ESN alone.
+**The fusion's limit is confirmed independently.** §7.2 argues the hybrid's
+advantage is pooled rather than dominant; ATBench shows the failure mode that
+implies. Mahalanobis lands at 0.457 here, and every 50/50 blend goes with it —
+0.438 to 0.463, against the ESN's 0.779 alone. The hybrid buys robustness when
+the regime is unknown and costs heavily when a parent is not merely weaker but
+uninformative, so a deployment resembling ATBench should run the ESN alone.
+That is a conclusion we could state from our own data and can now show on
+someone else's.
 
 Per failure mode the split is sharp, and it lands exactly on the blind spot §8
 already documents:

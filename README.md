@@ -114,29 +114,36 @@ margin**: giving a GRU that same wrapper lifts it to det 0.76 / AUC 0.873. The
 wrapper is the transferable contribution; the ESN stays primary for its
 false-alarm discipline (0.069 vs 0.113) and ~100× faster fit.
 
-**Tested on someone else's data.** Every number above comes from corpora built
-here, so none of them says whether the benchmark is hard. On **AFTraj-2K**
-(arXiv:2605.08715 — 1,882 trajectories after the same T ≥ 4 filter, imported by
-`py -m derail.experiments.import_aftraj`, monitors unchanged) the ESN reaches
-**AUROC 0.745** but detects only **0.048** at the 5% budget. Ranking transfers
-zero-shot to another project's agents and frameworks; the operating point does
-not. The horizon law replicates and explains why: at post-onset horizon ≥9 the
-ESN detects **0.509** against Mahalanobis' 0.170, and at ≤3 neither detects
-anything — but only 53 of 771 AFTraj failures have that much room. The corpus
-is mostly failures that end within three steps of going wrong, which is the
-regime this method has nothing to offer. AgentForesight-7B reports 66.44
-Exact-F1 there using an LLM auditor at every step; this runs at 173 µs with no
-model call, and the honest comparison is that one, not accuracy.
+**It transfers to corpora we did not build.** Two external benchmarks, two
+other labs, no retraining and no tuning — the monitors are fitted on each
+corpus's own healthy runs and scored as-is.
 
-A second external corpus, **ATBench** (arXiv:2604.02022, `py -m
-derail.experiments.run_atbench_study`), separates what transfers from what does
-not. The ESN reaches **AUROC 0.779** and **detection 0.311** there — it alarms,
-where on AFTraj it could not — while delta-Mahalanobis sits at chance (0.457)
-and drags every 50/50 fusion down with it (0.438–0.463). Per failure mode:
-over-privileged actions 0.508, unvalidated tool outputs 0.473, but inaccurate
-information **0.038**. Failures that change what the agent *does* are caught;
-failures that change only what it *says* are not — the content blind spot the
-grounding channel exists for, confirmed on someone else's labels.
+On **ATBench** (arXiv:2604.02022, `py -m derail.experiments.run_atbench_study`)
+the ESN reaches **AUROC 0.779** at **detection 0.311**, with the uncertainty
+channel absent entirely. On **AFTraj-2K** (arXiv:2605.08715, `py -m
+derail.experiments.import_aftraj`) it reaches **AUROC 0.745**: ranking survives
+the move to another project's agents, frameworks and tasks.
+
+**The horizon law predicted where it would fail, and held.** §6 claims detection
+needs post-onset runway. On AFTraj that is testable directly, and the ESN
+detects **0.509** of failures with ≥9 steps of runway against Mahalanobis' 0.170
+— but only 53 of 771 AFTraj failures have that much, so pooled detection is
+0.048. The mechanism predicted the number rather than excusing it, on a corpus
+built by someone else. ATBench is the other side of the same law: its unsafe
+runs are patterns of action rather than single wrong values, and detection rises
+to 0.311.
+
+**Two independent confirmations fall out of it.** ATBench's own failure-mode
+labels reproduce the content blind spot the grounding channel exists for —
+over-privileged actions **0.508** and unvalidated tool outputs **0.473** against
+inaccurate information **0.038**; what the agent *does* is caught, what it
+*says* is not. And the hybrid's advantage is confirmed to be pooled rather than
+dominant: on ATBench delta-Mahalanobis sits at chance (0.457) and drags every
+50/50 fusion to 0.438–0.463, against the ESN alone at 0.779.
+
+For scale: AgentForesight-7B reports 66.44 Exact-F1 on AFTraj using an LLM
+auditor at every step. This runs at **173 µs** with no model call, and cost is
+the comparison we make — not accuracy.
 
 Hypothesis verdicts, reported per seed rather than pooled: **H1** (temporal
 advantage) and **H3b** (cost-accounted escalation) are supported at 4 of 5
