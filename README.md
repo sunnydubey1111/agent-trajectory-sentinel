@@ -128,9 +128,12 @@ the part the claim rests on.
 
 **What to actually deploy is a hybrid, not the ESN alone.** The ESN wins where
 failures have room to develop and loses on corpora made of very short episodes,
-so `derail.monitor.hybrid.recommended_monitor()` returns a fusion of the ESN
-and a delta-Mahalanobis distance. Grand-mean AUROC over the eight benchmark
-datasets (`results/tables/hybrid_benchmark.csv`):
+so `derail.monitor.hybrid.recommended_monitor()` returns a fusion rather than
+the ESN alone. It branches on the telemetry it is handed: on grounded (v4)
+telemetry it returns the content gate, so the grounding detector is never
+dropped; otherwise a 50/50 weighted ESN + delta-Mahalanobis fusion, upgraded to
+the supervised logistic once ~20 labelled failures exist. Grand-mean AUROC over
+the eight benchmark datasets (`results/tables/hybrid_benchmark.csv`):
 
 | monitor | grand-mean AUROC | needs labels |
 |---|---|---|

@@ -87,6 +87,47 @@ uncertainty channel.
   reason, so the acceptance rate stays visible rather than being hidden
   behind a larger N.
 
+## What the acceptance gate discarded
+
+Twelve corpora record rejections. The discard rate is not uniform and
+the reader should not assume it is:
+
+| corpus | attempted | rejected | discard |
+|---|---|---|---|
+| `real_research3b` | 83 | 1 | 1.2% |
+| `real_ollama7b` | 62 | 1 | 1.6% |
+| `real_research7b` | 296 | 5 | 1.7% |
+| `ollama7b` | 166 | 11 | 6.6% |
+| `langgraph7b` | 218 | 22 | 10.1% |
+| `autogen7b` | 170 | 22 | 12.9% |
+| `autogen` | 140 | 38 | 27.1% |
+| `real_gemini_long` | 178 | 53 | 29.8% |
+| `ollama` | 156 | 58 | 37.2% |
+| `ollama_llama8b` | 380 | 187 | 49.2% |
+| `real` | 39 | 21 | 53.8% |
+| `langgraph` | 168 | 93 | 55.4% |
+| **total** | **2056** | **512** | **24.9%** |
+
+The range is 1.2% (`real_research3b`) to 55.4% (`langgraph`), so a per-corpus N in
+the table above is not a fixed fraction of what was attempted.
+
+The rules are also asymmetric, which matters more than the rate. Only
+the length rule can reject a healthy episode; every other rule fires
+solely on injected ones, because it checks that the injection actually
+landed. Positives are therefore filtered on a condition negatives are
+never tested against:
+
+| rejection rule | healthy | injected |
+|---|---|---|
+| too short: T=N < N | 136 | 226 |
+| injection never applied | 0 | 128 |
+| mutation landed at step N with no following step | 0 | 15 |
+| retroactive gate: no_op_positive | 0 | 7 |
+
+An injected episode whose mutation never applied is not a failure
+episode, so keeping it would mislabel the data; dropping it still
+means the surviving positives are the ones injection succeeded on.
+
 ## Provenance and integrity
 
 Every committed file is hashed in `BASELINE_MANIFEST.json`

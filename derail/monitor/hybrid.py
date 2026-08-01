@@ -323,10 +323,14 @@ def recommended_monitor(standardizer: Standardizer,
     (DeltaMahalanobis), and never far from the per-dataset winner. When at
     least `min_labeled` labeled failure episodes are available (~20 is
     enough; injection runs produce them cheaply), returns HybridLogistic
-    fit-supervised on them instead — best grand mean (0.826) and
-    statistically at-or-above the better standalone on every development
-    dataset. See results/hybrid_report.md for the full evidence, and
-    CLAIMS.md for these figures checked against the table they come from.
+    fit-supervised on them instead — best grand mean (0.826). That
+    advantage is pooled, not local: against whichever parent is better on a
+    given dataset the logistic is at or below it on 7 of 8 datasets by
+    AUROC and on 8 of 8 by detection rate. It wins the mean because each
+    parent collapses somewhere and the fusion does not, so it is the right
+    default when the deployment regime is unknown, not a dominant monitor.
+    See results/hybrid_report.md for the full evidence, and CLAIMS.md for
+    these figures checked against the table they come from.
     """
     from derail.common import D_TOTAL_EXT, D_TOTAL_GRD
 

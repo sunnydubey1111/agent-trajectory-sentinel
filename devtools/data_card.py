@@ -16,6 +16,7 @@ import argparse
 import collections
 import json
 import pathlib
+import re
 import statistics
 import sys
 
@@ -64,6 +65,33 @@ def _corpora() -> list[tuple[str, list[dict]]]:
     return out
 
 
+def _rejections() -> tuple[list[tuple[str, int, int, float]], dict[str, dict[str, int]]]:
+    """Per-corpus discard rates and the healthy/injected split of each rule.
+
+    Reasons carry episode-specific numbers ("too short: T=3 < 4"), so digits
+    are collapsed to N and any parenthetical detail dropped; otherwise every
+    episode would look like its own rule.
+    """
+    per_corpus: list[tuple[str, int, int, float]] = []
+    per_rule: dict[str, dict[str, int]] = collections.defaultdict(
+        lambda: {"healthy": 0, "injected": 0})
+    for rejected in sorted(TRACES.glob("*/rejected.json")):
+        records = json.loads(rejected.read_text("utf-8"))
+        manifest = rejected.parent / "manifest.json"
+        accepted = len(json.loads(manifest.read_text("utf-8"))) if manifest.exists() else 0
+        attempted = accepted + len(records)
+        if not attempted:
+            continue
+        for record in records:
+            reason = re.sub(r"\d+(\.\d+)?", "N", record["reason"]).split(" (")[0].strip()
+            kind = "healthy" if record.get("requested_class") is None else "injected"
+            per_rule[reason][kind] += 1
+        per_corpus.append((rejected.parent.name, attempted, len(records),
+                           100.0 * len(records) / attempted))
+    per_corpus.sort(key=lambda row: row[3])
+    return per_corpus, dict(per_rule)
+
+
 def _summarise(entries: list[dict]) -> dict[str, object]:
     lengths = [e.get("T") for e in entries if isinstance(e.get("T"), int)]
     classes = collections.Counter(e.get("failure_class") for e in entries)
@@ -86,6 +114,9 @@ def _summarise(entries: list[dict]) -> dict[str, object]:
 
 def render() -> str:
     corpora = _corpora()
+    rejections, rule_split = _rejections()
+    rej_attempted = sum(row[1] for row in rejections)
+    rej_total = sum(row[2] for row in rejections)
     total = sum(len(e) for _, e in corpora)
     real_tool = sum(len(e) for name, e in corpora if name.startswith("real"))
     models = collections.Counter()
@@ -169,6 +200,39 @@ def render() -> str:
         "  acceptance gate is written to the corpus's `rejected.json` with its",
         "  reason, so the acceptance rate stays visible rather than being hidden",
         "  behind a larger N.",
+        "",
+        "## What the acceptance gate discarded",
+        "",
+        "Twelve corpora record rejections. The discard rate is not uniform and",
+        "the reader should not assume it is:",
+        "",
+        "| corpus | attempted | rejected | discard |",
+        "|---|---|---|---|",
+        *[f"| `{name}` | {att} | {rej} | {pct:.1f}% |"
+          for name, att, rej, pct in rejections],
+        f"| **total** | **{rej_attempted}** | **{rej_total}** | "
+        f"**{100.0 * rej_total / rej_attempted:.1f}%** |",
+        "",
+        f"The range is {rejections[0][3]:.1f}% (`{rejections[0][0]}`) to "
+        f"{rejections[-1][3]:.1f}% (`{rejections[-1][0]}`), so a per-corpus N in",
+        "the table above is not a fixed fraction of what was attempted.",
+        "",
+        "The rules are also asymmetric, which matters more than the rate. Only",
+        "the length rule can reject a healthy episode; every other rule fires",
+        "solely on injected ones, because it checks that the injection actually",
+        "landed. Positives are therefore filtered on a condition negatives are",
+        "never tested against:",
+        "",
+        "| rejection rule | healthy | injected |",
+        "|---|---|---|",
+        *[f"| {reason} | {counts['healthy']} | {counts['injected']} |"
+          for reason, counts in sorted(
+              rule_split.items(),
+              key=lambda kv: -(kv[1]["healthy"] + kv[1]["injected"]))],
+        "",
+        "An injected episode whose mutation never applied is not a failure",
+        "episode, so keeping it would mislabel the data; dropping it still",
+        "means the surviving positives are the ones injection succeeded on.",
         "",
         "## Provenance and integrity",
         "",

@@ -1108,7 +1108,9 @@ and one over-permissive label still hid the signal completely.
 measurement, not a tautology.
 
 **Applied to both demo engines.** `demo.fit_monitor` (booking task) excludes
-glitched runs, task-incomplete runs and wrong-total runs, retaining 67 of 120.
+glitched runs, task-incomplete runs and wrong-total runs, retaining 58 of 120:
+0 glitched, 20 that priced the trip without the weather lookups the task asks
+for, and 42 that stated the wrong total.
 `demo_real.fit_monitor` (real-tools research task) applies the completeness
 half via `checks.RESEARCH_SPEC`; it currently excludes 0 of 48, so that corpus
 is clean, and the filter stands as a guard against drift. **Stated limitation:**
