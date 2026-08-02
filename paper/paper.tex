@@ -226,7 +226,10 @@ hybrid\_gated & 0.438 & 0.268 & 0.179 \\
 \end{longtable}
 
 
-\textbf{The ESN alarms here}: detection \textbf{0.311} at AUROC 0.779, against 0.048 on AFTraj. This is the horizon law's other side. ATBench's unsafe behaviour is a \emph{pattern of action} --- an over-privileged call, an unvalidated tool result --- rather than a single wrong value, and a behavioural monitor is built for exactly that. Together the two corpora bracket the method: \S{}5.7 shows where it cannot fire and why, and this shows it firing on foreign data when the failure has the shape the mechanism assumes.
+\textbf{The ESN alarms here}: detection \textbf{0.311} at AUROC 0.779, against 0.048 on AFTraj. ATBench's unsafe behaviour is a \emph{pattern of action} --- an over-privileged call, an unvalidated tool result --- rather than a single wrong value, and a behavioural monitor is built for exactly that.
+
+
+This is consistent with the horizon law but is \textbf{not a test of it}, and should not be read as one: ATBench labels whole trajectories and never says which step went wrong, so there is no onset, no post-onset horizon, and nothing to regress detection against. \S{}5.7 is the law's only out-of-sample test. What the two corpora jointly show is narrower and still worth having --- the monitor fires on foreign data when the failure has the shape the mechanism assumes, and does not when it does not.
 
 
 \textbf{The fusion's limit is confirmed independently.} \S{}7.2 argues the hybrid's advantage is pooled rather than dominant; ATBench shows the failure mode that implies. Mahalanobis lands at 0.457 here, and every 50/50 blend goes with it --- 0.438 to 0.463, against the ESN's 0.779 alone. The hybrid buys robustness when the regime is unknown and costs heavily when a parent is not merely weaker but uninformative, so a deployment resembling ATBench should run the ESN alone. That is a conclusion we could state from our own data and can now show on someone else's.

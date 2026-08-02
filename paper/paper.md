@@ -535,12 +535,17 @@ against a threshold picked on held-out safe runs at the 5% budget.
 | hybrid_gated | 0.438 | 0.268 | 0.179 |
 
 **The ESN alarms here**: detection **0.311** at AUROC 0.779, against 0.048 on
-AFTraj. This is the horizon law's other side. ATBench's unsafe behaviour is a
-*pattern of action* — an over-privileged call, an unvalidated tool result —
-rather than a single wrong value, and a behavioural monitor is built for
-exactly that. Together the two corpora bracket the method: §5.7 shows where it
-cannot fire and why, and this shows it firing on foreign data when the failure
-has the shape the mechanism assumes.
+AFTraj. ATBench's unsafe behaviour is a *pattern of action* — an
+over-privileged call, an unvalidated tool result — rather than a single wrong
+value, and a behavioural monitor is built for exactly that.
+
+This is consistent with the horizon law but is **not a test of it**, and should
+not be read as one: ATBench labels whole trajectories and never says which step
+went wrong, so there is no onset, no post-onset horizon, and nothing to regress
+detection against. §5.7 is the law's only out-of-sample test. What the two
+corpora jointly show is narrower and still worth having — the monitor fires on
+foreign data when the failure has the shape the mechanism assumes, and does not
+when it does not.
 
 **The fusion's limit is confirmed independently.** §7.2 argues the hybrid's
 advantage is pooled rather than dominant; ATBench shows the failure mode that
