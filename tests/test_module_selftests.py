@@ -90,14 +90,41 @@ def test_selftest_real_tools() -> None:
     _run_selftest("derail.harness.real_tools")
 
 
+@pytest.fixture
+def no_new_cassettes():
+    """Leave `traces/_cassettes/` exactly as the test found it.
+
+    A live agent picks its own search queries, so it misses the committed
+    cassettes and records replacements. Those recordings are incidental --- an
+    artefact of whatever the model happened to ask this time --- not corpus
+    data, and leaving them behind dirties the working tree and shifts the
+    artifact manifest's trace count. The marks on the live test do not prevent
+    this: `slow`/`network`/`ollama` only exclude when a `-m` filter is passed,
+    and a bare `py -m pytest` runs it.
+    """
+    root = REPO_ROOT / "traces" / "_cassettes"
+    before = {p for p in root.rglob("*.json")} if root.exists() else set()
+    yield
+    if not root.exists():
+        return
+    for path in root.rglob("*.json"):
+        if path not in before:
+            path.unlink()
+    for directory in sorted((p for p in root.rglob("*") if p.is_dir()),
+                            key=lambda p: -len(p.parts)):
+        if not any(directory.iterdir()):
+            directory.rmdir()
+
+
 @pytest.mark.slow
 @pytest.mark.ollama
 @pytest.mark.network
-def test_selftest_frameworks_live() -> None:
+def test_selftest_frameworks_live(no_new_cassettes) -> None:
     """The live half of the frameworks self-test: a real agent episode.
 
-    Needs a served model and network access, and records any cassette it
-    misses, so it is excluded from the default gate. The offline `--check`
-    half runs there instead and covers the LangGraph/AutoGen wrapping.
+    Needs a served model and network access. It records any cassette it
+    misses, so it runs under `no_new_cassettes`, which removes recordings this
+    test created rather than leaving them in the tree. The offline `--check`
+    half covers the LangGraph/AutoGen wrapping without a model.
     """
     _run_selftest("derail.harness.frameworks", args=[])
