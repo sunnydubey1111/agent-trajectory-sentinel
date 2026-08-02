@@ -66,6 +66,8 @@
   </div>
 
   <div class="card">
+    <div class="kicker">choose a run, then press play
+      <span id="pickerhint"></span></div>
     <div class="row">
       <select id="picker" aria-label="run"></select>
       <span class="counter" id="counter"></span>
@@ -146,6 +148,34 @@ function label(run) {
   // The episode id stays visible: it is how a viewer finds this exact run in
   // the published dataset.
   return `${kind}${topic} (${n} steps${where}) — ${run.id}`;
+}
+
+function options(runs) {
+  // Grouped, and failures first. Left ungrouped and in data order, the default
+  // selection was a healthy run: a visitor pressed play, watched a flat line,
+  // and had no reason to look further. The misses stay in the same group as
+  // the catches rather than being hidden.
+  const failing = runs.map((r, i) => [r, i]).filter(([r]) => r.tau !== null);
+  const healthy = runs.map((r, i) => [r, i]).filter(([r]) => r.tau === null);
+  const group = (name, list) => !list.length ? "" :
+    `<optgroup label="${name}">` +
+    list.map(([r, i]) => `<option value="${i}">${label(r)}</option>`).join("") +
+    "</optgroup>";
+  return group(`failing runs (${failing.length})`, failing)
+       + group(`healthy runs (${healthy.length})`, healthy);
+}
+
+function firstInterestingRun(runs) {
+  // Open on a failure the monitor catches with room to see it develop, so the
+  // first thing shown is the behaviour the page exists to demonstrate. Falls
+  // back to any failure, then to whatever exists.
+  const caught = runs
+    .map((r, i) => ({ r, i }))
+    .filter(({ r }) => r.tau !== null && r.alarm !== null)
+    .sort((a, b) => (b.r.scores.length - b.r.tau) - (a.r.scores.length - a.r.tau));
+  if (caught.length) return caught[0].i;
+  const failing = runs.findIndex((r) => r.tau !== null);
+  return failing >= 0 ? failing : 0;
 }
 
 function draw() {
@@ -253,8 +283,10 @@ fetch("data.json").then((r) => r.json()).then((data) => {
      <b>${data.theta}</b>, set to spend a ${Math.round(data.fa_budget * 100)}%
      false-alarm budget on ${data.n_val} held-out healthy runs.
      <span class="tag">${caught}/${failing.length} failures caught</span>`;
-  $("picker").innerHTML = data.runs
-    .map((r, i) => `<option value="${i}">${label(r)}</option>`).join("");
+  $("picker").innerHTML = options(data.runs);
+  $("pickerhint").textContent =
+    ` — ${failing.length} failing and ${data.runs.length - failing.length}`
+    + " healthy runs to compare";
   $("footer").innerHTML =
     `Scores were computed by the real monitor when this page was built, not in
      your browser — Hugging Face charges for Spaces that run Python, so this one
@@ -275,7 +307,9 @@ fetch("data.json").then((r) => r.json()).then((data) => {
   $("speed").addEventListener("input", () => {
     if (S.timer) { stop(); play(); }      // restart the tick at the new rate
   });
-  select(0);
+  const opening = firstInterestingRun(data.runs);
+  $("picker").value = String(opening);
+  select(opening);
 }).catch((err) => {
   $("subtitle").textContent = "could not load data.json: " + err;
 });

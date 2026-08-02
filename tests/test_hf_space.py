@@ -94,6 +94,32 @@ def test_run_topics_are_derived_and_labelled_as_such(bundle, data) -> None:
     assert "does not store the prompt itself" in page
 
 
+def test_the_picker_prompts_and_groups_the_runs(bundle) -> None:
+    """Ungrouped, the list read as one undifferentiated set and the default
+    selection was healthy: press play, watch a flat line, leave."""
+    page = (bundle / "index.html").read_text("utf-8")
+    assert "optgroup" in page, "runs are not grouped"
+    assert "failing runs" in page and "healthy runs" in page
+    assert "choose a run" in page.lower(), "nothing tells the visitor to pick"
+
+
+def test_the_page_opens_on_a_failure_the_monitor_catches(bundle, data) -> None:
+    """Mirrors firstInterestingRun(): the opening run must be a caught failure
+    with post-onset runway, so the first thing shown is the behaviour the page
+    exists to demonstrate."""
+    page = (bundle / "index.html").read_text("utf-8")
+    assert "firstInterestingRun" in page
+
+    caught = [r for r in data["runs"]
+              if r["tau"] is not None and r["alarm"] is not None]
+    assert caught, "no caught failure to open on"
+    opening = max(caught, key=lambda r: len(r["scores"]) - r["tau"])
+    assert opening["alarm"] >= opening["tau"], (
+        "the opening run alarms before its own onset")
+    assert max(opening["scores"]) > data["theta"], (
+        "the opening run never crosses the alarm line")
+
+
 def test_run_records_are_complete_and_consistent(data) -> None:
     for run in data["runs"]:
         assert len(run["scores"]) == len(run["steps"]), run["id"]
