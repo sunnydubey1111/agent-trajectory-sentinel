@@ -10,11 +10,13 @@ abstract: >-
   back to its last fact-gathering step and re-running it, which lifts task
   success from 52% to 73% for about one extra model call per run. The
   repository ships 2,823 committed agent episodes across 25 corpora, four agent
-  models, three frameworks, and the full evaluation harness.
+  models, three frameworks, and the full evaluation harness. The MIT licence
+  below covers the software; recorded model output carries the terms of the
+  model that produced it, itemised in DATA_CARD.md and traces/NOTICE_gemini.md.
 type: software
 license: MIT
-version: "1.0.0"
-date-released: "2026-07-31"
+version: "1.2.0"
+date-released: "2026-08-02"
 repository-code: "https://github.com/sunnydubey1111/agent-trajectory-sentinel"
 authors:
   - family-names: Dubey
