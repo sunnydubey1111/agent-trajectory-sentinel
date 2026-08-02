@@ -154,6 +154,17 @@ advantage) and **H3b** (cost-accounted escalation) are supported at 4 of 5
 seeds and not supported at seed 7; **H2** (channel complementarity) and
 **H3a** (calibration) hold at all five.
 
+The horizon law and H1 are **different kinds of evidence, and neither rescues
+the other**. H1 is a per-seed test of whether the ESN beats the memoryless
+baseline overall, and it fails at seed 7. The horizon law is a pooled
+cross-dataset analysis — 1,002 injected episodes over 8 datasets — and it has
+**never been computed per seed**: `hybrid_diagnosis.csv` carries no seed
+column, so no per-seed claim is available for it in either direction. What
+supports the law instead is that it holds out of sample, on AFTraj-2K, a corpus
+built by another group (see below). Read H1's seed-7 failure as what it is: on
+one seed the pooled advantage is not there, which is consistent with a law
+saying the advantage depends on how much runway the failures happen to have.
+
 **Cost.** ~219 µs median per step (p95 266 µs), 1.7 s to fit on 240 healthy
 episodes, 4.0 MB of state — roughly three orders of magnitude below one agent
 step. Latency is the one published figure that is not bit-reproducible: it
@@ -176,6 +187,13 @@ the eight benchmark datasets (`results/tables/hybrid_benchmark.csv`):
 | delta-Mahalanobis alone | 0.807 | no |
 | **`hybrid_weighted50`** (label-free default) | **0.812** | no |
 | **`hybrid_logistic`** (with ≥20 labelled failures) | **0.826** | yes |
+
+**What labels buy: +0.014 AUROC.** That is the whole difference between the
+best label-free fusion (0.812) and the supervised one (0.826), and it costs a
+per-deployment corpus of at least 20 labelled failures — which has to be
+recollected whenever the null is, because nothing here transfers across
+deployments. Take the label-free default unless labelled failures are already
+falling out of an injection harness you run anyway.
 
 The mechanism is post-onset horizon. Over 1,002 injected episodes the ESN's
 detection advantage over the memoryless distance grows monotonically with the

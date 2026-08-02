@@ -157,6 +157,19 @@ step differences $\Delta\mathbf{x}_t$ against a shrinkage
 covariance~\cite{lee2018simple}, and covers exactly the regime the temporal
 stream cannot (\S\ref{sec:horizon}).
 
+\paragraph{The wrapper, not the reservoir, carries the margin.} The temporal
+stream is presented as an ESN because that is what we ship, but the credit
+belongs elsewhere and the measurement says so. Giving a GRU the same
+per-channel max-fusion wrapper lifts it to detection \textbf{0.76} at AUROC
+0.873, past the ESN's 0.71 / 0.872; a linear vector-autoregression leads the
+ESN by roughly 1.9 steps of lead while trailing badly on detection. The
+transferable contribution is the wrapper --- score each channel separately and
+take the max, rather than scoring a pooled vector. The reservoir stays the
+default for two practical properties rather than for accuracy: a lower healthy
+false-alarm rate (0.069 against 0.113) and a fit roughly 100$\times$ faster,
+which is what makes the per-deployment recalibration of \S\ref{sec:real}
+affordable at all.
+
 \paragraph{Calibration and the serving decision.} Each stream's threshold is a
 quantile of per-episode maxima over \emph{held-out} healthy episodes,
 \begin{equation}
