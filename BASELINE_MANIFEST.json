@@ -82,7 +82,7 @@
    "devtools/artifact_manifest.py": "2a85f25d06bd5ce2037cdb0876e357e1559d27e306303ed1aec82365e89f58c2",
    "devtools/arxiv_package.py": "86cd8b8bd389f3cfcb5be6bb0a75d6fab57c6f3550bf628e81908f455fa0ca59",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
-   "devtools/claims_ledger.py": "21f42e53375514a2acf5bd51479262c1f2d2c43438afe84c48f5d6b7d15532b1",
+   "devtools/claims_ledger.py": "abbf8f08bcbd82d5636cec16f1c74e29e25728193bca4b71a2e300ef3391c810",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "809f8435f3f8c62b473802e1fcc14fc5a4a3ee1d891fd5272f88470657d50336",
    "devtools/hf_dataset.py": "d14d8291e515b43af0ad94923fcd51a59d68ab7f0ab98a065be8aed8354ceb04",
@@ -8495,7 +8495,7 @@
   },
   "docs": {
    "CHECKSUMS.md": "b67fbabb6f0951b35f44871dae0b47502144108449ae1f3e10ffee738412afb4",
-   "CLAIMS.md": "74929946c295030e110d572e99876d276d699524f6dea652867a44c163db2bad",
+   "CLAIMS.md": "e9004f41ffdb16f16ba342775cb868bc38c97de91fa593ed03ea4b12e9a17c76",
    "CONTRIBUTIONS.md": "2ff9a57d4ffdb3fb2874541da40f8bc1a29deb923a47093cc177faea5f8f6f83",
    "DATA_CARD.md": "d15c46143d5ce014f4b9b1b19435fa645325b39f23675ebf810ed14c6a898f8e",
    "DESIGN.md": "1cacfd626ae0b9997797a3ed6c3d08413a31c2fa3b446b22f142f8fbc07da959",

@@ -16,7 +16,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (54 claims checked).
+ (71 claims checked).
 
 ## Corpus
 
@@ -64,6 +64,14 @@ Status at generation: **all claims verified**
 | Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated | `0.488` | `53` episodes | `results/tables/model_transfer.csv` | `py -m derail.experiments.run_model_transfer` |
 | Measured gemini-2.5-flash judge detection rate | `0.548` | `84` positives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
 | Measured gemini-2.5-flash judge false-alarm rate | `0.052` | `77` negatives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
+| Pooled injected episodes in the grounding table | `874` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Content-class episodes in the grounding table | `313` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Behavioural-class episodes in the grounding table | `561` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Ungrounded parent detection on the content classes | `0.272` | `313` episodes | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Content-gate detection on the content classes | `0.578` | `313` episodes | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Ungrounded parent detection on the behavioural classes | `0.738` | `561` episodes | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Content-gate detection on the behavioural classes -- the gate must not cost behavioural detection | `0.786` | `561` episodes | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
+| Joint-budget fusion detection on the content classes | `0.454` | `313` episodes | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
 
 ## Verification
 
@@ -77,6 +85,12 @@ Status at generation: **all claims verified**
 | Provoked fabrications caught | `26` | — | `results/tables/verification_provoked.csv` | `py -m verification.score_provoked_fabrication` |
 | Episodes flagged by tool_contract | `218` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
 | Flagged episodes caught within one step of onset | `215` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
+| Checks: failures caught at T=0.2 (totals only) | `0.597` | `57` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
+| Checks: failures caught at T=0.2 with coverage | `0.965` | `57` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
+| Monitor: failures caught at T=0.2 | `0.544` | `57` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
+| Monitor false-alarm rate at T=0.2, against the checks' 0 | `0.175` | `63` healthy episodes | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
+| Checks: failures caught at T=0.9 (totals only) | `0.646` | `82` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
+| Monitor: failures caught at T=0.9 | `0.402` | `82` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
 
 ## Repair
 
@@ -91,6 +105,9 @@ Status at generation: **all claims verified**
 | Correct runs broken by any repair policy | `0` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Genuinely-wrong episodes in the repair study | `55` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Every behavioural alarm is followed by a repair attempt | `all alarms attempted` | — | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| Net task success with no intervention | `0.525` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
+| Net task success under `located` | `0.733` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
+| Failures `located` recovers, mean of 3 repeats | `25` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 
 ## What this ledger does not cover
 

@@ -155,6 +155,73 @@ def _aftraj_latency(monitor: str) -> float:
     return float(d.loc[d.monitor == monitor, "step_latency_us"].iloc[0])
 
 
+# ---------------------------------------------------------------------------
+# Table-shaped claims.
+#
+# Everything below backs a TABLE that appears in a document rather than a
+# single number in a sentence. Those were the ledger's blind spot: a table is
+# reconstructed by hand in prose, so it drifts cell by cell and no single
+# claim covers it. Two did drift -- the grounding table sat at an n=602 run
+# after the study grew to 874, and DESIGN.md's repair table disagreed with its
+# own CSV on every rung -- and neither was caught by anything here.
+# ---------------------------------------------------------------------------
+
+def _grounding_group(content: bool) -> pd.DataFrame:
+    d = _table("grounding_diagnosis.csv")
+    return d[d.is_content.astype(bool) == content]
+
+
+def _grounding_n(content: bool) -> int:
+    return int(len(_grounding_group(content)))
+
+
+def _grounding_rate(column: str, content: bool) -> float:
+    return float(_grounding_group(content)[column].astype(bool).mean())
+
+
+def _vs_monitor(arm: str, column: str, healthy: bool = False) -> float:
+    """One cell of the checks-versus-monitor table.
+
+    The table is quoted in four documents, so a drifted cell would have to be
+    corrected in all four; recomputing it here is what makes that visible.
+    """
+    d = _table("verification_vs_monitor.csv")
+    a = d[d.arm.str.startswith(arm)]
+    rows = a[a.label == "healthy"] if healthy else a[a.label != "healthy"]
+    return float(rows[column].sum() / rows["n"].sum())
+
+
+def _vs_monitor_n(arm: str, healthy: bool = False) -> int:
+    d = _table("verification_vs_monitor.csv")
+    a = d[d.arm.str.startswith(arm)]
+    rows = a[a.label == "healthy"] if healthy else a[a.label != "healthy"]
+    return int(rows["n"].sum())
+
+
+def _repair_recovered(rung: str) -> float:
+    """Mean count of episodes a rung turns correct, over the three repeats."""
+    d = _table("repair_policies.csv")
+    wrong = d[~d.was_correct.astype(bool)]
+    return float(wrong[wrong.rung == rung].groupby("rep")
+                 .now_correct.apply(lambda s: s.astype(bool).sum()).mean())
+
+
+def _repair_net(rung: str | None) -> float:
+    """Net task success over the whole 120-episode arm, not just the flagged.
+
+    The 65 unflagged episodes are untouched by any policy, so the net rate is
+    the baseline correct count plus what the rung recovers. The baseline comes
+    from the same corpus's verification table (63 healthy of 120), which is
+    why this is recomputable rather than a number copied from a runner's
+    stdout.
+    """
+    v = _table("verification_cold.csv")
+    baseline = int((v.label == "healthy").sum())
+    total = int(len(v))
+    recovered = 0.0 if rung is None else _repair_recovered(rung)
+    return (baseline + recovered) / total
+
+
 def _hybrid_grand_mean(monitor: str) -> float:
     """Grand-mean AUROC across the eight benchmark datasets."""
     d = _table("hybrid_benchmark.csv")
@@ -180,6 +247,14 @@ def _aftraj_horizon(lo: int, hi: int, column: str) -> float:
     band = d[(horizon >= lo) & (horizon <= hi)]
     return float(band[column].mean()) if column in band else float(len(band))
 
+
+#: Sources and regenerate commands shared by the table claims below, named
+#: once so a table's provenance cannot drift between its own cells.
+GROUNDING_SRC = "results/tables/grounding_diagnosis.csv"
+GROUNDING_CMD = "py -m derail.experiments.run_grounding_study"
+VS_SRC = "results/tables/verification_vs_monitor.csv"
+VS_CMD = "py -m derail.verify.run_verification_study"
+REPAIR_CMD = "py -m derail.intervene.evaluate_repair_policies --from-csv"
 
 #: The episode-length floor every real-trace study applies before splitting.
 #: Kept here so the denominators below cannot silently disagree with the
@@ -686,6 +761,100 @@ def build() -> list[Claim]:
               "all alarms attempted", "results/tables/alarm_repair.csv",
               "py -m derail.experiments.demo --alarm-repair-matrix (live)",
               _every_alarm_attempted, "Repair"),
+
+        # ---------------------------------------------------- table claims
+        # Cells of tables that appear in the papers and DESIGN.md. Registered
+        # after two of these tables were found stale: prose reconstructs a
+        # table by hand, so it drifts a cell at a time and no sentence-level
+        # claim covers it. The grounding table sat at an n=602 run long after
+        # the study grew to 874, and DESIGN.md's repair table disagreed with
+        # its own CSV on every rung.
+
+        # -- grounding detection table (main.tex, workshop.tex, paper.md)
+        Claim("grounding.pooled_n", "Pooled injected episodes in the grounding table",
+              874, GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_n(True) + _grounding_n(False), "Monitor"),
+        Claim("grounding.content_n", "Content-class episodes in the grounding table",
+              313, GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_n(True), "Monitor"),
+        Claim("grounding.behavioural_n", "Behavioural-class episodes in the grounding table",
+              561, GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_n(False), "Monitor"),
+        Claim("grounding.ref_content",
+              "Ungrounded parent detection on the content classes", 0.2716,
+              GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_rate("det_hybrid_weighted50", True), "Monitor",
+              denominator=lambda: _grounding_n(True), expected_denominator=313),
+        Claim("grounding.gate_content",
+              "Content-gate detection on the content classes", 0.5783,
+              GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_rate("det_hybrid_content_gate", True), "Monitor",
+              denominator=lambda: _grounding_n(True), expected_denominator=313),
+        Claim("grounding.ref_behavioural",
+              "Ungrounded parent detection on the behavioural classes", 0.7380,
+              GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_rate("det_hybrid_weighted50", False), "Monitor",
+              denominator=lambda: _grounding_n(False), expected_denominator=561),
+        Claim("grounding.gate_behavioural",
+              "Content-gate detection on the behavioural classes -- the gate "
+              "must not cost behavioural detection", 0.7861,
+              GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_rate("det_hybrid_content_gate", False), "Monitor",
+              denominator=lambda: _grounding_n(False), expected_denominator=561),
+        Claim("grounding.joint_budget_content",
+              "Joint-budget fusion detection on the content classes", 0.4537,
+              GROUNDING_SRC, GROUNDING_CMD,
+              lambda: _grounding_rate("det_joint_budget", True), "Monitor",
+              denominator=lambda: _grounding_n(True), expected_denominator=313),
+
+        # -- checks-versus-monitor table (quoted in four documents)
+        Claim("verify.checks_served", "Checks: failures caught at T=0.2 (totals only)",
+              0.5965, VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.2", "total_consistency"), "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.2"),
+              expected_denominator=57, denominator_unit="failures"),
+        Claim("verify.checks_served_cov", "Checks: failures caught at T=0.2 with coverage",
+              0.9649, VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.2", "with_coverage"), "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.2"),
+              expected_denominator=57, denominator_unit="failures"),
+        Claim("verify.monitor_served", "Monitor: failures caught at T=0.2",
+              0.5439, VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.2", "monitor_alarmed"), "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.2"),
+              expected_denominator=57, denominator_unit="failures"),
+        Claim("verify.monitor_fp_served",
+              "Monitor false-alarm rate at T=0.2, against the checks' 0", 0.1746,
+              VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.2", "monitor_alarmed", healthy=True),
+              "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.2", healthy=True),
+              expected_denominator=63, denominator_unit="healthy episodes"),
+        Claim("verify.checks_provoking", "Checks: failures caught at T=0.9 (totals only)",
+              0.6463, VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.9", "total_consistency"), "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.9"),
+              expected_denominator=82, denominator_unit="failures"),
+        Claim("verify.monitor_provoking", "Monitor: failures caught at T=0.9",
+              0.4024, VS_SRC, VS_CMD,
+              lambda: _vs_monitor("T=0.9", "monitor_alarmed"), "Verification",
+              denominator=lambda: _vs_monitor_n("T=0.9"),
+              expected_denominator=82, denominator_unit="failures"),
+
+        # -- net task-success table (DESIGN.md, and the 52->73 headline)
+        Claim("repair.net_baseline", "Net task success with no intervention", 0.525,
+              "results/tables/repair_policies.csv", REPAIR_CMD,
+              lambda: _repair_net(None), "Repair",
+              denominator=lambda: int(len(_table("verification_cold.csv"))),
+              expected_denominator=120),
+        Claim("repair.net_located", "Net task success under `located`", 0.7333,
+              "results/tables/repair_policies.csv", REPAIR_CMD,
+              lambda: _repair_net("located"), "Repair",
+              denominator=lambda: int(len(_table("verification_cold.csv"))),
+              expected_denominator=120),
+        Claim("repair.recovered_located", "Failures `located` recovers, mean of 3 repeats",
+              25.0, "results/tables/repair_policies.csv", REPAIR_CMD,
+              lambda: _repair_recovered("located"), "Repair"),
     ]
 
 
