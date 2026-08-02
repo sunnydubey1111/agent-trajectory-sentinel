@@ -302,17 +302,21 @@ Specific, about half sensitive — stated as measured.
 
 ### Real traces and other frameworks
 
-187 live gemini-2.5-flash episodes (`results/tables/real_traces.csv`): the
-channel-max monitor leads every other monitor on real agent behaviour at
-**AUC 0.840 / detection 0.71**. Per class: looping 1.00, tool cascade 0.83,
-goal drift 0.77, context corruption 0.29.
+A 187-episode live gemini-2.5-flash corpus (`results/tables/real_traces.csv`):
+the channel-max monitor leads every other monitor on real agent behaviour at
+**AUC 0.840 / detection 0.71**, computed on a held-out split of **79 injected
+and 15 healthy** episodes drawn from it — not on all 187. With 15 healthy test
+episodes one false alarm is worth 6.7 points, which is why the realized FA of
+0.20 should be read as an order of magnitude. Per class: looping 1.00, tool
+cascade 0.83, goal drift 0.77, context corruption 0.29.
 
-These 187 are the corpus listed in the top-level `traces/manifest.json`, and
-they are a *different* set from the 143 gemini episodes the data card counts
-(`real` 18 + `real_gemini_long` 125). Every count in `DATA_CARD.md` enumerates
+**Gemini episodes, once: 330 collected, 143 exported, headline computed on the
+other 187.** The 187 are listed in the top-level `traces/manifest.json`; the 143
+the data card counts are `real` (18) plus `real_gemini_long` (125). Every count
+in `DATA_CARD.md`, in the claim ledger and in the Hugging Face export enumerates
 corpora by globbing `traces/*/manifest.json`, which matches subdirectories only,
-so this set appears in none of them. All 330 gemini episodes are committed, and
-`traces/NOTICE_gemini.md` covers all of them.
+so the 187 appear in none of them — they are committed here and are not in the
+HF dataset. `traces/NOTICE_gemini.md` covers all 330.
 
 Its realized false-alarm rate is **20%**, and that number should be read for
 what it is. The test split holds 15 healthy episodes, so a single episode moves

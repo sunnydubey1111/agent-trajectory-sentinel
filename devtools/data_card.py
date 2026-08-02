@@ -256,9 +256,14 @@ def render() -> str:
         "",
         "## One corpus this card does not count",
         "",
+        f"**Gemini episodes, once: {_root_corpus_size() + 143} collected, 143 "
+        "exported in this dataset, and the published channel-max AUC of 0.840 "
+        f"computed on the other {_root_corpus_size()}.**",
+        "",
         "`traces/manifest.json` — the top level, not a subdirectory — lists",
         f"**{_root_corpus_size()} `gemini-2.5-flash` episodes** that are",
-        "committed here but appear in none of the totals above. Every count on",
+        "committed in the repository but appear in none of the totals above,",
+        "and are not part of this dataset. Every count on",
         "this page enumerates corpora by globbing `traces/*/manifest.json`,",
         "which matches subdirectories only, so this set is invisible to the",
         "card, to the claims ledger and to the Hugging Face export.",

@@ -30,8 +30,8 @@ Status at generation: **all claims verified**
 | delta-Mahalanobis detection (5 seeds) | `0.374` | `results/tables/multiseed_summary.csv` | `py -m derail.experiments.run_multiseed` |
 | Primary monitor step latency is 100-999 us | `100-999 us` | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark (timings are machine-specific)` |
 | Primary monitor state footprint (MB) | `3.95` | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark` |
-| Channel-max AUC on 187 live Gemini episodes | `0.84` | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
-| Channel-max realized false-alarm rate (real traces) | `0.2` | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
+| Channel-max AUC, held-out split of the 187-episode Gemini corpus (79 injected + 15 healthy) | `0.84` | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
+| Channel-max realized false-alarm rate, 15 healthy test episodes (real traces) | `0.2` | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
 | Channel-max detection on context corruption (real traces) | `0.286` | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
 | hybrid_weighted50 grand-mean AUROC (label-free default) | `0.812` | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
 | hybrid_logistic grand-mean AUROC (with labels) | `0.826` | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |

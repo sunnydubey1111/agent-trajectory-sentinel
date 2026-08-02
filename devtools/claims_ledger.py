@@ -245,10 +245,20 @@ def build() -> list[Claim]:
         Claim("runtime.footprint_mb", "Primary monitor state footprint (MB)", 3.95,
               "results/tables/runtime.csv", "py -m derail.experiments.run_benchmark",
               lambda: _runtime("esn_cusum_max", "footprint_mb"), "Monitor"),
-        Claim("real.auc", "Channel-max AUC on 187 live Gemini episodes", 0.840084,
+        # Named for the evaluation set, not the corpus. The corpus is 187
+        # episodes; the number is computed on a held-out split of 79 injected
+        # and 15 healthy drawn from it, and calling it "on 187" reads as a
+        # denominator it never had.
+        Claim("real.auc",
+              "Channel-max AUC, held-out split of the 187-episode Gemini "
+              "corpus (79 injected + 15 healthy)", 0.840084,
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
               lambda: _real_traces("esn_cusum_max[e,m]", "episode_auc"), "Monitor"),
-        Claim("real.fa", "Channel-max realized false-alarm rate (real traces)", 0.20,
+        # 0.20 is 3 of 15 healthy test episodes: one episode is worth 6.7
+        # points, which is the whole reason the 5% budget is unreachable here.
+        Claim("real.fa",
+              "Channel-max realized false-alarm rate, 15 healthy test "
+              "episodes (real traces)", 0.20,
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
               lambda: _real_traces("esn_cusum_max[e,m]", "healthy_fa_rate"), "Monitor"),
         Claim("real.context_corruption",
