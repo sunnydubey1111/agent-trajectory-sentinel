@@ -29,10 +29,13 @@ results/seed424242/
 # "same dataset, same splits" for every future comparison.
 
 # LaTeX build products (main.tex + references.bib + neurips.sty are the sources).
-# The two manuscript PDFs are COMMITTED: they are the released artifact, and a
-# reader should not need a LaTeX toolchain to read the paper. paper/paper.tex is
-# generated from paper/paper.md by devtools/md_to_latex.py and is committed too,
-# so the PDF rebuilds with latexmk alone.
+# The two manuscript PDFs are now build products too, not committed artifacts:
+# they are regenerated from committed sources with latexmk and were only
+# churning the history. paper/paper.tex is generated from paper/paper.md by
+# devtools/md_to_latex.py and stays committed, so both PDFs rebuild from a
+# clean checkout with no manual steps. See REPRODUCE.md for the commands.
+paper/main.pdf
+paper/paper.pdf
 paper/*.aux
 paper/*.log
 paper/*.out

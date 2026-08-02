@@ -2,7 +2,7 @@
 
 **[Try the live demo](https://huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo)**
  · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
- · [Paper](paper/main.pdf) · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
+ · [Paper](paper/main.tex) · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
 
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —
@@ -525,8 +525,11 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
-- Papers — [`paper/main.pdf`](paper/main.pdf) (conference format) and
-  [`paper/paper.pdf`](paper/paper.pdf) (full length, source in
-  [`paper/paper.md`](paper/paper.md)).
+- Papers — [`paper/main.tex`](paper/main.tex) (conference format) and
+  [`paper/paper.md`](paper/paper.md) (full length, converted to
+  [`paper/paper.tex`](paper/paper.tex) by `py -m devtools.md_to_latex`). The
+  PDFs are build products rather than committed files: `cd paper && latexmk
+  -pdf main.tex` produces them from a clean checkout, and
+  [`REPRODUCE.md`](REPRODUCE.md) lists both commands.
 - `results/` — every table and figure the claims above cite.
 - [`LICENSE`](LICENSE) (MIT) and [`CITATION.cff`](CITATION.cff).

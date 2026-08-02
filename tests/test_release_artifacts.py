@@ -101,12 +101,25 @@ def test_readme_links_resolve() -> None:
     assert not broken, f"broken README links: {broken}"
 
 
-def test_manuscript_pdfs_are_published() -> None:
-    """Both papers ship as PDFs so a reader needs no LaTeX toolchain."""
+def test_manuscript_pdfs_rebuild_from_committed_sources() -> None:
+    """The PDFs are build products; their sources must be committed.
+
+    They used to ship, and no longer do. What has to hold instead is that a
+    clean checkout can produce them: the sources, the bibliography and the
+    style file are present, and REPRODUCE.md says how. A PDF that happens to
+    exist locally is still checked for being a real PDF rather than a stub.
+    """
+    for name in ("main.tex", "paper.tex", "references.bib", "neurips.sty"):
+        assert (REPO_ROOT / "paper" / name).exists(), f"paper/{name} missing"
+
+    reproduce = (REPO_ROOT / "REPRODUCE.md").read_text("utf-8")
+    assert "latexmk -pdf main.tex" in reproduce, (
+        "REPRODUCE.md no longer says how to build the manuscripts")
+
     for name in ("main.pdf", "paper.pdf"):
         pdf = REPO_ROOT / "paper" / name
-        assert pdf.exists(), f"paper/{name} is missing; see REPRODUCE.md"
-        assert pdf.read_bytes()[:5] == b"%PDF-", f"paper/{name} is not a PDF"
+        if pdf.exists():
+            assert pdf.read_bytes()[:5] == b"%PDF-", f"paper/{name} is not a PDF"
 
 
 def test_markdown_to_latex_converts_the_manuscript_without_loss() -> None:
