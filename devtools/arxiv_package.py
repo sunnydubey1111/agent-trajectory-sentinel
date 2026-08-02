@@ -28,10 +28,17 @@ PAPER = REPO_ROOT / "paper"
 FIGURES = REPO_ROOT / "results" / "figures"
 BUILD_DIR = REPO_ROOT / "build" / "arxiv"
 
-#: Files the upload needs beside main.tex. The .bbl is included deliberately:
+#: What the submitted files are called. `main` says nothing once the upload
+#: leaves this repository - on arXiv, in a referee's downloads folder and in
+#: the source tarball anyone can fetch, the name is the only label the file
+#: carries. The bibliography is renamed with it, because latexmk resolves the
+#: .bbl by job name.
+STEM = "agent_trajectory_sentinel"
+
+#: Files the upload needs beside the source. The .bbl is included deliberately:
 #: arXiv runs BibTeX only when it must, and shipping the compiled bibliography
 #: removes a class of build failure that is invisible until after submission.
-SUPPORT = ("neurips.sty", "references.bib", "main.bbl")
+SUPPORT = ("neurips.sty", "references.bib")
 
 
 def _figures(tex: str) -> list[str]:
@@ -49,7 +56,7 @@ def build(out_dir: pathlib.Path) -> dict:
     # graphics path is not just wrong there, it fails silently.
     tex = tex.replace("\\graphicspath{{../results/figures/}}",
                       "% graphicspath removed: the arXiv upload is flat")
-    (out_dir / "main.tex").write_text(tex, encoding="utf-8", newline="\n")
+    (out_dir / f"{STEM}.tex").write_text(tex, encoding="utf-8", newline="\n")
 
     missing = []
     for name in SUPPORT:
@@ -58,6 +65,14 @@ def build(out_dir: pathlib.Path) -> dict:
             shutil.copy2(source, out_dir / name)
         else:
             missing.append(name)
+
+    # latexmk resolves the bibliography by job name, so main.bbl would be
+    # ignored once the source is renamed.
+    bbl = PAPER / "main.bbl"
+    if bbl.exists():
+        shutil.copy2(bbl, out_dir / f"{STEM}.bbl")
+    else:
+        missing.append("main.bbl")
 
     figures = _figures(tex)
     for name in figures:
@@ -75,20 +90,21 @@ def check(out_dir: pathlib.Path) -> tuple[bool, str]:
     """Compile the package in its own directory, as arXiv will."""
     try:
         subprocess.run(["latexmk", "-pdf", "-interaction=nonstopmode",
-                        "main.tex"], cwd=out_dir, capture_output=True,
+                        f"{STEM}.tex"], cwd=out_dir, capture_output=True,
                        text=True)
     except OSError as exc:
         return False, f"could not run latexmk ({exc}); compile it by hand"
 
-    log_path = out_dir / "main.log"
+    log_path = out_dir / f"{STEM}.log"
     if not log_path.exists():
         # latexmk exited without producing a log at all, which on this
         # toolchain means it never really started rather than that the
         # document is broken. Say which, instead of blaming the source.
         return False, ("latexmk produced no log; it likely did not run. "
-                       f"Compile by hand: cd {out_dir} && latexmk -pdf main.tex")
-    if not (out_dir / "main.pdf").exists():
-        return False, "no PDF produced; see main.log"
+                       f"Compile by hand: cd {out_dir} && "
+                       f"latexmk -pdf {STEM}.tex")
+    if not (out_dir / f"{STEM}.pdf").exists():
+        return False, f"no PDF produced; see {STEM}.log"
 
     log = log_path.read_text("utf-8", errors="ignore")
     problems = []

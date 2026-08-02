@@ -30,25 +30,27 @@ def test_nothing_the_source_needs_is_missing(tmp_path) -> None:
 
 
 def test_every_figure_sits_beside_the_source(package) -> None:
-    tex = (package / "main.tex").read_text("utf-8")
+    tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     for name in arxiv_package._figures(tex):
         assert (package / name).exists(), f"{name} not in the upload"
 
 
 def test_the_checkout_relative_graphics_path_is_gone(package) -> None:
     """It resolves here and nowhere else; on arXiv it yields empty boxes."""
-    tex = (package / "main.tex").read_text("utf-8")
+    tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     assert "../results/figures" not in tex
 
 
 def test_the_bibliography_ships_compiled(package) -> None:
     """arXiv does not always run BibTeX; a missing .bbl loses every citation."""
-    assert (package / "main.bbl").exists()
+    assert (package / f"{arxiv_package.STEM}.bbl").exists(), (
+        "latexmk resolves the bibliography by job name, so a main.bbl would "
+        "be ignored once the source is renamed")
     assert (package / "references.bib").exists()
 
 
 def test_the_style_file_is_included(package) -> None:
-    tex = (package / "main.tex").read_text("utf-8")
+    tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     for match in re.findall(r"\\usepackage(?:\[[^\]]*\])?\{([^}]+)\}", tex):
         for name in match.split(","):
             local = package / f"{name.strip()}.sty"
@@ -58,7 +60,7 @@ def test_the_style_file_is_included(package) -> None:
 
 def test_the_arxiv_version_is_not_anonymous(package) -> None:
     """The opposite of the workshop submission, and deliberately so."""
-    tex = (package / "main.tex").read_text("utf-8")
+    tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     assert "Sunny Dubey" in tex
     assert "0009-0002-8296-8631" in tex, "ORCID missing from the preprint"
     assert "Anonymous" not in tex
@@ -66,7 +68,7 @@ def test_the_arxiv_version_is_not_anonymous(package) -> None:
 
 def test_the_preprint_points_at_the_public_artifacts(package) -> None:
     """A preprint whose artifact is public should say where it is."""
-    tex = (package / "main.tex").read_text("utf-8")
+    tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     for target in ("github.com/sunnydubey1111/agent-trajectory-sentinel",
                    "huggingface.co/datasets/sunnydubey1111",
                    "huggingface.co/spaces/sunnydubey1111"):
