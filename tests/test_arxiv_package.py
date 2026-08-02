@@ -41,12 +41,25 @@ def test_the_checkout_relative_graphics_path_is_gone(package) -> None:
     assert "../results/figures" not in tex
 
 
-def test_the_bibliography_ships_compiled(package) -> None:
-    """arXiv does not always run BibTeX; a missing .bbl loses every citation."""
-    assert (package / f"{arxiv_package.STEM}.bbl").exists(), (
-        "latexmk resolves the bibliography by job name, so a main.bbl would "
-        "be ignored once the source is renamed")
+def test_the_bibliography_source_always_ships(package) -> None:
+    """Without references.bib arXiv cannot build a bibliography at all."""
     assert (package / "references.bib").exists()
+
+
+def test_the_compiled_bibliography_is_renamed_with_the_source(package) -> None:
+    """When a .bbl exists it must carry the job name, not `main`.
+
+    latexmk resolves the bibliography by job name, so a main.bbl beside a
+    renamed source is silently ignored and every citation degrades to a
+    question mark --- visible only after submission. The .bbl is a build
+    product and is gitignored, so a fresh checkout has none until the paper
+    has been compiled; that is not a packaging error, and arXiv will run
+    BibTeX from references.bib instead.
+    """
+    if not (REPO_ROOT / "paper" / "main.bbl").exists():
+        pytest.skip("no main.bbl in this checkout; compile paper/main.tex")
+    assert (package / f"{arxiv_package.STEM}.bbl").exists()
+    assert not (package / "main.bbl").exists(), "the old job name shipped too"
 
 
 def test_the_style_file_is_included(package) -> None:
@@ -76,7 +89,17 @@ def test_the_preprint_points_at_the_public_artifacts(package) -> None:
 
 
 def test_the_workshop_submission_stays_anonymous() -> None:
-    """Guards the pair: the arXiv edits must not leak into the blind one."""
-    tex = (REPO_ROOT / "paper" / "workshop.tex").read_text("utf-8")
+    """Guards the pair: the arXiv edits must not leak into the blind one.
+
+    The workshop source is deliberately untracked while it is under
+    double-blind review --- a public copy in a repository under the author's
+    own name defeats the anonymity it is written for --- so a fresh checkout
+    will not have it. Skip there rather than fail; the check still runs for
+    whoever is actually editing the submission.
+    """
+    source = REPO_ROOT / "paper" / "workshop.tex"
+    if not source.exists():
+        pytest.skip("workshop.tex is untracked during blind review")
+    tex = source.read_text("utf-8")
     for probe in ("Sunny", "Dubey", "0009-0002", "github.com", "huggingface"):
         assert probe not in tex, f"{probe!r} leaked into the blind submission"

@@ -66,13 +66,19 @@ def build(out_dir: pathlib.Path) -> dict:
         else:
             missing.append(name)
 
-    # latexmk resolves the bibliography by job name, so main.bbl would be
-    # ignored once the source is renamed.
+    # The .bbl is a build product and is gitignored, so a fresh checkout will
+    # not have one until paper/main.tex has been compiled. That is not a
+    # packaging error: arXiv runs BibTeX from references.bib when no .bbl is
+    # supplied. Ship it when it exists, because doing so removes a class of
+    # remote build failure, and say so plainly when it does not.
+    #
+    # It is renamed with the source: latexmk resolves the bibliography by job
+    # name, so a main.bbl beside a renamed .tex is silently ignored and every
+    # citation degrades to a question mark.
     bbl = PAPER / "main.bbl"
-    if bbl.exists():
+    shipped_bbl = bbl.exists()
+    if shipped_bbl:
         shutil.copy2(bbl, out_dir / f"{STEM}.bbl")
-    else:
-        missing.append("main.bbl")
 
     figures = _figures(tex)
     for name in figures:
@@ -82,7 +88,7 @@ def build(out_dir: pathlib.Path) -> dict:
         else:
             missing.append(name)
 
-    return {"figures": len(figures), "missing": missing,
+    return {"figures": len(figures), "missing": missing, "bbl": shipped_bbl,
             "bytes": sum(p.stat().st_size for p in out_dir.iterdir())}
 
 
@@ -135,6 +141,10 @@ def main(argv: list[str] | None = None) -> int:
     if summary["missing"]:
         print(f"[arxiv] MISSING: {summary['missing']}", file=sys.stderr)
         return 1
+    if not summary["bbl"]:
+        print("[arxiv] no main.bbl to ship — arXiv will run BibTeX from "
+              "references.bib. To include it, compile paper/main.tex first "
+              "(cd paper && latexmk -pdf main.tex).")
 
     if args.check:
         ok, detail = check(out_dir)

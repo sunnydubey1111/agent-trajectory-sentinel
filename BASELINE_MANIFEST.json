@@ -79,8 +79,8 @@
    "derail/verify/checks.py": "32c7058b0ebce48a58fe928c1b78abfc3f77c81791f5c176e3e8d5485916f90f",
    "derail/verify/run_verification_study.py": "eff9e2ff831d4abc898ced832778465268d31aa9bacb9fe9768b333754c8d06d",
    "devtools/__init__.py": "7546f153e7482286da7350c05dc402c39956405db90472ece6f3c050a0ce68d5",
-   "devtools/artifact_manifest.py": "921722e8e2fa4ef658a1f58e44e44b6d92041ab03980fd56566d6e6092a93630",
-   "devtools/arxiv_package.py": "df749fda90589534f6d43f47449369069c6498023cd4d0ee0c136ed3a271d7c9",
+   "devtools/artifact_manifest.py": "1309174b4b27de5cdbe845374fafa77eb621cf44746325023cbb2d1aa048a810",
+   "devtools/arxiv_package.py": "86cd8b8bd389f3cfcb5be6bb0a75d6fab57c6f3550bf628e81908f455fa0ca59",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
    "devtools/claims_ledger.py": "bf2e2fb66616918935af90a6b1c92e2d756dc51c67f63b79116b4253780670af",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
@@ -102,7 +102,7 @@
    "experimental/telemetry_dependence.py": "6794646f26929798a0a7bbac8b2c0530e565e69d5b80b0d12cfb73c6e1e8eadb",
    "tests/conftest.py": "3c63abfcf3952bdb4f64a87a55f18b03e3c4884895e9aeca65351812bdea1f36",
    "tests/test_aftraj_import.py": "d01382b590e2cf24af7f597fefee86c4a9167b789627b70737be542d18e9d409",
-   "tests/test_arxiv_package.py": "4d3de28c3bed398583f0f26c1863f87b5ba7b12b374dc7c5e65524a0b959fd74",
+   "tests/test_arxiv_package.py": "118cd94d6462e3f4a57366b1f0b05ebc3c5422fc4d5690f9bb6aaa7602f6ae09",
    "tests/test_atbench_study.py": "cd1fefcdc81f31506f05ae2eb44c0f333ddc6aa75c4f568a33ae94ad86fb2cd2",
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
    "tests/test_collection_validity.py": "7580dce9d671c7e1c26993a9a8a37b49907379ea9646ccd0516a17daeb00d07c",
@@ -8504,12 +8504,11 @@
    "paper/paper.md": "2bccabe2ac318e7f0833b9ee1aad2004863dddeff07a89a65f8def7921e4dc74",
    "paper/paper.tex": "30868b41c9fd619bef791e4c6195a3604a3acff3c3765c12ccae8f3c0b05a9f3",
    "paper/references.bib": "048a8c55b736fcb34f0c9ddcdb1049fd3453d765be5af26972f0c138649b55d3",
-   "paper/workshop.tex": "a3010f6d39ac7528e8eefe8d17cb01152ff3a5cc2ec99d7bb17288bcbe932e8c",
    "requirements-core.lock.txt": "c5517106b656c1891edc29752e11c31317721982012ed177dd7c503cebbfeea1",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
  "note": "",
- "file_count": 8501
+ "file_count": 8500
 }

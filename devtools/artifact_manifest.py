@@ -44,7 +44,14 @@ EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
                  # hashing it here would report it missing on every fresh
                  # checkout and would fold another project's episodes into our
                  # integrity record.
-                 "_aftraj", "_atbench"}
+                 "_aftraj", "_atbench",
+                 # The NeurIPS workshop submission, untracked while it is under
+                 # double-blind review (see .gitignore): a public copy in a
+                 # repository under the author's own name defeats the anonymity
+                 # it is written for. It exists on the author's machine and in
+                 # no checkout, so hashing it would fail the integrity check
+                 # for everyone else.
+                 "workshop.tex", "workshop.pdf", "neurips_2026.sty"}
 # Text artifacts are hashed after CRLF -> LF normalisation, matching the
 # .gitattributes policy, so a manifest is identical on Windows and
 # Linux checkouts and a line-ending flip is never mistaken for a data change.

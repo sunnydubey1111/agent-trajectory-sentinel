@@ -88,3 +88,14 @@ traces/_atbench/
 # a derived copy of traces/ plus a generated card; committing it would store
 # the corpus twice and let the copy drift from the record.
 build/
+
+# The NeurIPS workshop submission is under double-blind review. It is
+# anonymised, and a public copy in a repository under the author's own name
+# defeats that, so the source, the built PDF and the venue style file are kept
+# out of the published tree until notification. They still build locally:
+#   cd paper && latexmk -pdf workshop.tex
+# NOTE: earlier commits still contain them; removing them from HEAD does not
+# remove them from history.
+paper/workshop.tex
+paper/workshop.pdf
+paper/neurips_2026.sty
