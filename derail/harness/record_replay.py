@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import re
 import threading
@@ -149,6 +150,21 @@ def request_key(*parts: Any, namespace: str | None = None) -> str:
     return hashlib.sha256(_canonical(payload).encode()).hexdigest()[:32]
 
 
+def recorded_at_stamp() -> float:
+    """The wall-clock stamp written into a recording, to the millisecond.
+
+    Floored, never rounded. `round(t, 3)` goes to the NEAREST millisecond, so
+    it can stamp a recording up to half a millisecond into the FUTURE. A read
+    landing inside that window computes a negative age, and a negative age
+    makes an expired record look fresh — which is how a zero TTL replayed on a
+    fast machine and passed on a slow one, where the write itself takes longer
+    than the window. Flooring cannot produce a stamp later than the moment of
+    writing, and it is a separate function so that property can be tested
+    without racing file I/O to observe it.
+    """
+    return math.floor(time.time() * 1000) / 1000
+
+
 class Cassette:
     """A directory of recorded request->response pairs (one JSON file each).
 
@@ -212,12 +228,14 @@ class Cassette:
         except (OSError, json.JSONDecodeError):
             return False, None
         if self.ttl_s is not None:
-            age = time.time() - float(payload.get("recorded_at", 0.0))
+            # Clamped at zero: a stamp from the future would otherwise make a
+            # record look fresh no matter how old the caller says it may be.
+            # That can happen without a broken clock - see `_write` - and it
+            # can also happen with one, after an NTP step backwards.
+            age = max(0.0, time.time() - float(payload.get("recorded_at", 0.0)))
             # `>=`, not `>`: a TTL of zero means "never replay", and a record
             # read in the same clock tick it was written has an age of exactly
-            # 0.0, which `>` calls fresh. That made the boundary depend on how
-            # fast the machine was --- the TTL test passed locally and failed
-            # on CI, on the same commit, intermittently.
+            # 0.0, which `>` calls fresh.
             if age >= self.ttl_s:
                 self.n_expired += 1
                 return False, None
@@ -227,7 +245,7 @@ class Cassette:
         """Atomic write: a crash or a concurrent writer cannot leave a torn
         file behind, which the previous direct write_text could."""
         payload = _canonical({"key": key, "response": result,
-                              "recorded_at": round(time.time(), 3)})
+                              "recorded_at": recorded_at_stamp()})
         tmp = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex[:8]}.tmp")
         try:
             tmp.write_text(payload, "utf-8")

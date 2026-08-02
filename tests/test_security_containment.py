@@ -270,6 +270,52 @@ def test_cassette_honours_ttl():
         assert stale == {"t": 3}, "an expired recording was replayed"
 
 
+def test_recorded_at_is_never_in_the_future():
+    """The stamp must not be later than the moment of writing.
+
+    `round(t, 3)` goes to the nearest millisecond, so it stamped recordings up
+    to half a millisecond ahead. A read inside that window computes a negative
+    age, and a zero TTL then replays an expired record. That is why the TTL
+    test passed here and failed on CI: the window is real, and a fast machine
+    lands inside it.
+    """
+    # Tested on the stamp itself rather than through a written file: a write
+    # takes longer than the half-millisecond window on a slow machine, which
+    # is exactly why the defect was invisible locally and fired on CI. One
+    # sample is also not enough, since rounding to nearest goes up only about
+    # half the time.
+    ahead = []
+    for _ in range(500):
+        stamp = record_replay.recorded_at_stamp()
+        now = time.time()
+        if stamp > now:
+            ahead.append(stamp - now)
+
+    assert not ahead, (
+        f"{len(ahead)} of 500 stamps were in the future, by up to "
+        f"{max(ahead) * 1000:.3f} ms — a read inside that window computes a "
+        f"negative age and replays an expired recording")
+
+
+def test_zero_ttl_expires_a_future_dated_recording():
+    """Even a stamp from the future must not read as fresh.
+
+    Clock steps backwards happen, and a record that looks newer than now would
+    otherwise be replayed forever regardless of the TTL asked for.
+    """
+    with tempfile.TemporaryDirectory() as d:
+        key = request_key("weather", "Faro", namespace="test")
+        Cassette(d, mode="auto").call(key, lambda: {"t": 1})
+
+        recording = next(Path(d).glob("*.json"))
+        payload = json.loads(recording.read_text("utf-8"))
+        payload["recorded_at"] = time.time() + 60.0      # a minute ahead
+        recording.write_text(json.dumps(payload), encoding="utf-8")
+
+        served = Cassette(d, mode="auto", ttl_s=0.0).call(key, lambda: {"t": 2})
+        assert served == {"t": 2}, "a future-dated recording was replayed"
+
+
 def test_cassette_zero_ttl_expires_a_same_tick_recording(monkeypatch):
     """A zero TTL must expire a record read in the clock tick it was written.
 
