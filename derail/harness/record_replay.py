@@ -213,7 +213,12 @@ class Cassette:
             return False, None
         if self.ttl_s is not None:
             age = time.time() - float(payload.get("recorded_at", 0.0))
-            if age > self.ttl_s:
+            # `>=`, not `>`: a TTL of zero means "never replay", and a record
+            # read in the same clock tick it was written has an age of exactly
+            # 0.0, which `>` calls fresh. That made the boundary depend on how
+            # fast the machine was --- the TTL test passed locally and failed
+            # on CI, on the same commit, intermittently.
+            if age >= self.ttl_s:
                 self.n_expired += 1
                 return False, None
         return True, payload.get("response")

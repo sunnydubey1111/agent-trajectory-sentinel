@@ -9,11 +9,12 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import time
 from pathlib import Path
 
 import pytest
 
-from derail.harness import real_tools, sandbox
+from derail.harness import real_tools, record_replay, sandbox
 from derail.harness.record_replay import (Cassette, price_call, request_key)
 from derail.harness.tasks import REAL_TASKS
 from derail.harness.tools import SimpleTool, ToolRegistry
@@ -267,6 +268,31 @@ def test_cassette_honours_ttl():
         assert fresh == {"t": 1}
         stale = Cassette(d, mode="auto", ttl_s=0.0).call(key, lambda: {"t": 3})
         assert stale == {"t": 3}, "an expired recording was replayed"
+
+
+def test_cassette_zero_ttl_expires_a_same_tick_recording(monkeypatch):
+    """A zero TTL must expire a record read in the clock tick it was written.
+
+    Read and write can land on one `time.time()` value, giving an age of
+    exactly 0.0, which a `>` comparison calls fresh. Whether the TTL held then
+    depended on how fast the machine was: this passed locally and failed on CI
+    on the same commit, intermittently.
+
+    The clock is frozen rather than raced, so age is exactly zero every run.
+    Freezing it also gives the test teeth --- with the boundary written as `>`
+    it fails, which a wall-clock version does not, because a few microseconds
+    of real elapsed time hide the defect.
+    """
+    with tempfile.TemporaryDirectory() as d:
+        key = request_key("weather", "Porto", namespace="test")
+        Cassette(d, mode="auto").call(key, lambda: {"t": 1})
+
+        recording = next(Path(d).glob("*.json"))
+        frozen = json.loads(recording.read_text("utf-8"))["recorded_at"]
+        monkeypatch.setattr(record_replay.time, "time", lambda: frozen)
+
+        served = Cassette(d, mode="auto", ttl_s=0.0).call(key, lambda: {"t": 2})
+        assert served == {"t": 2}, "a zero TTL replayed a same-tick recording"
 
 
 def test_cassette_migrates_legacy_keys_instead_of_re_paying():
