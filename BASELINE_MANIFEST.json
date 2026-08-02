@@ -23,7 +23,7 @@
    "derail/experiments/expand_healthy.py": "acb5c8e3a5ac60bc9b4ed7196cdcb247bc29feb3d63a04c4cd9ad0e12ff57c31",
    "derail/experiments/explain_hybrid.py": "7a4191769dbfb0a749942fcc4072a1ccb9b3b44d6669f6e32f74c40474b7ec60",
    "derail/experiments/import_aftraj.py": "334ae9cbdc6a8c639899c85d9029ee5cd358e2fb093a77dee7e250b4bb903639",
-   "derail/experiments/plots.py": "bf6416639decd570e1a9194617994e1d1540a967a3ff1c8e65c7eed6cbf9b565",
+   "derail/experiments/plots.py": "fd75a990bfcd3745ec3ec7e24709b1df6b4afffc462e73f967fbfabc32abaf6a",
    "derail/experiments/run_ablation.py": "900363f96b5db74b2566583387893ec821cf2723c8ba1b0d47c0b5482daddf52",
    "derail/experiments/run_atbench_study.py": "8c3c5c2dcbce8573336b7da52ec933ed0abb238b738a98c529155b4d2ab9c6ce",
    "derail/experiments/run_benchmark.py": "181847c790ccba208c159eb26a8367816b5cbb5eee669c8ed6aabbe2d564b108",
@@ -135,6 +135,7 @@
    "results/figures/fig4_reliability.png": "1bda5f40177f8160da72e00969dd8163e6de919a0cd628aa71f570de041dbc2c",
    "results/figures/fig5_escalation.png": "8f2d98d8025c4599ab3a0bfc7c5c022b2e9a77a2571011dbf7fe7f079b6656ff",
    "results/figures/fig5_judge_complementarity_real.png": "18881c16e1b56b492b7c5be14a87146286d616be17d0760263f2883105eabd6a",
+   "results/figures/fig6_horizon_law.png": "255b91a07b1f01acc3ebf2cb2cc9c0c65fdc0aaa4c21723f699b604977e88800",
    "results/figures/hybrid_explain.png": "ba5719d55dde1b3aaba8b32c8a389095992d20fd139abd5e73632f7c96e257d4",
    "results/hybrid_report.md": "265c259fc6f83985bc644f3e0171aac87810ca6f15914504e7cedfa33fb36cd8",
    "results/multiseed.json": "31bd75254051837c52febed9f44620f768d910fe76962bc6634e88de0141f17b",
@@ -8511,5 +8512,5 @@
   }
  },
  "note": "",
- "file_count": 8501
+ "file_count": 8502
 }

@@ -449,6 +449,73 @@ def fig_monitor_benchmark_real(table: str = "l7b_benchmark") -> None:
     plt.close(fig)
 
 
+#: Post-onset horizon bands. The boundaries are the ones every horizon claim in
+#: the papers is stated at, kept here so a figure cannot quietly use different
+#: ones from the text.
+_HORIZON_BANDS = ((0, 3, r"$\leq 3$"), (4, 8, "4-8"), (9, 10**6, r"$\geq 9$"))
+
+
+def _horizon_panel(ax, df, title: str) -> None:
+    """Detection rate per horizon band for the two parent detectors.
+
+    Both parents on one axis, because the claim is about the GAP between them
+    rather than either level: the ESN needs post-onset steps to integrate
+    evidence, so its margin over a memoryless distance should grow with the
+    horizon and collapse without it.
+    """
+    width = 0.36
+    ticks = []
+    for j, (lo, hi, label) in enumerate(_HORIZON_BANDS):
+        band = df[(df.horizon >= lo) & (df.horizon <= hi)]
+        # n per band is the other half of the story: on the external corpus the
+        # long-horizon band is where the ESN wins and is also nearly empty. It
+        # goes in the tick label rather than free text, so it cannot collide
+        # with the axis at any figure size.
+        ticks.append(f"{label}\n$n$={len(band)}")
+        if band.empty:
+            continue
+        esn = float(band.det_esn.mean())
+        maha = float(band.det_maha.mean())
+        ax.bar(j - width / 2, esn, width, color=BLUE,
+               label="ESN + CUSUM" if j == 0 else None)
+        ax.bar(j + width / 2, maha, width, color=MUTED,
+               label=r"$\Delta$-Mahalanobis" if j == 0 else None)
+        ax.text(j, max(esn, maha) + 0.045, f"{esn - maha:+.3f}",
+                ha="center", fontsize=8.5, color=INK, fontweight="bold")
+    ax.set_xticks(range(len(_HORIZON_BANDS)))
+    ax.set_xticklabels(ticks)
+    ax.set_xlabel("post-onset horizon (steps after $\\tau$)")
+    ax.set_ylim(0, 1.0)
+    ax.grid(axis="y")
+    ax.grid(False, axis="x")
+    ax.set_title(title, fontsize=10, color=INK, loc="left")
+    _despine_all(ax)
+
+
+def fig_horizon_law() -> None:
+    """The horizon law, and its replication on a corpus we did not build.
+
+    Left: our 1,002 injected episodes. Right: AFTraj-2K, imported unchanged.
+    The same monotone gap appears in both, which is what makes it a law rather
+    than a property of our injector -- and the n annotations explain the
+    external result, where ranking transfers but the operating point does not.
+    """
+    ours = pd.read_csv(RESULTS / "tables" / "hybrid_diagnosis.csv")
+    ext = pd.read_csv(RESULTS / "tables" / "aftraj_diagnosis.csv")
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 3.5), sharey=True)
+    _horizon_panel(axes[0], ours,
+                   f"ours: {len(ours)} injected episodes")
+    _horizon_panel(axes[1], ext,
+                   f"AFTraj-2K (external): {len(ext)} failures")
+    axes[0].set_ylabel("detection rate at the 5% budget")
+    axes[0].legend(frameon=False, fontsize=8.5, loc="upper left")
+    fig.suptitle("Temporal monitoring pays in proportion to post-onset horizon",
+                 x=0.02, ha="left", fontsize=11, color=INK)
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
+    fig.savefig(FIGURES / "fig6_horizon_law.png", dpi=150)
+    plt.close(fig)
+
+
 def fig_h1_lead() -> None:
     """H1: expected budget saved (mean lead over ALL failures) per monitor."""
     h1 = pd.read_csv(RESULTS / "tables" / "h1_main.csv")
@@ -659,13 +726,14 @@ def main() -> None:
     fig_class_coverage_real()    # PRIMARY: per-class coverage, real datasets
     fig_judge_complementarity_real()   # PRIMARY: measured judge vs monitor
     fig_monitor_benchmark_real()       # PRIMARY: monitors on real corpora
+    fig_horizon_law()            # PRIMARY: the horizon law + its replication
     fig_score_traces()           # secondary: simulated telemetry, labelled
     fig_h1_lead()
     fig_h2_heatmap()
     fig_reliability()
     fig_escalation()
     results = json.loads((RESULTS / "results.json").read_text(encoding="utf-8"))
-    print("wrote 9 figures to", FIGURES)
+    print("wrote 10 figures to", FIGURES)
     for name, verdict in results["verdicts"].items():
         print(f"  {name}: {verdict[:100]}")
 
