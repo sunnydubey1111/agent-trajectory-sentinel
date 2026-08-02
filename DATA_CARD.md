@@ -128,6 +128,23 @@ An injected episode whose mutation never applied is not a failure
 episode, so keeping it would mislabel the data; dropping it still
 means the surviving positives are the ones injection succeeded on.
 
+## One corpus this card does not count
+
+`traces/manifest.json` — the top level, not a subdirectory — lists
+**187 `gemini-2.5-flash` episodes** that are
+committed here but appear in none of the totals above. Every count on
+this page enumerates corpora by globbing `traces/*/manifest.json`,
+which matches subdirectories only, so this set is invisible to the
+card, to the claims ledger and to the Hugging Face export.
+
+It is not abandoned data: it is the corpus behind the published
+channel-max AUC of 0.84 on 187 live Gemini episodes. It is recorded
+here so that a reader who counts the `.jsonl` files does not find more
+episodes than the card admits to, and so that the Gemini terms in
+`traces/NOTICE_gemini.md` are understood to cover it. The totals are
+left as they are rather than restated, because every published number
+was computed against the corpora the glob finds.
+
 ## Provenance and integrity
 
 Every committed file is hashed in `BASELINE_MANIFEST.json`

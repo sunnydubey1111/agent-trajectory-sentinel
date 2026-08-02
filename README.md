@@ -249,9 +249,17 @@ amortised that is ~1.3 extra calls and ~3.6 s per run.
 
 The project's core goal was hallucination-onset detection, and the measurement
 reshaped the delivery. Across **91 real episodes** and three elicitation
-methods, qwen2.5:7b and :3b produced **zero genuine numeric fabrications** —
-lacking a number, they abstain or mis-add rather than invent. That is good
-alignment, and it means hallucination cannot be elicited on demand.
+methods — deliberate attempts to make the model invent a figure — qwen2.5:7b
+and :3b produced **zero genuine numeric fabrications**: lacking a number, they
+abstain or mis-add rather than invent. That is good alignment, and it means
+hallucination cannot be elicited on demand.
+
+Two different denominators appear below and they are not in conflict. This
+paragraph is about *elicitation* (91 episodes, 0 fabrications). The organic
+corpora are a separate, larger set collected without any attempt to provoke:
+175 episodes, of which the objective labeller flags 9 as hallucinated and **2
+as fabricated inputs** — the class the grounding verifier targets. Zero under
+elicitation, two in the wild.
 
 So hallucination onset is caught by the right mechanism rather than the
 statistical monitor: a deterministic per-step **numeric-grounding verifier**
@@ -269,6 +277,13 @@ Specific, about half sensitive — stated as measured.
 channel-max monitor leads every other monitor on real agent behaviour at
 **AUC 0.840 / detection 0.71**. Per class: looping 1.00, tool cascade 0.83,
 goal drift 0.77, context corruption 0.29.
+
+These 187 are the corpus listed in the top-level `traces/manifest.json`, and
+they are a *different* set from the 143 gemini episodes the data card counts
+(`real` 18 + `real_gemini_long` 125). Every count in `DATA_CARD.md` enumerates
+corpora by globbing `traces/*/manifest.json`, which matches subdirectories only,
+so this set appears in none of them. All 330 gemini episodes are committed, and
+`traces/NOTICE_gemini.md` covers all of them.
 
 Its realized false-alarm rate is **20%**, and that number should be read for
 what it is. The test split holds 15 healthy episodes, so a single episode moves
@@ -395,7 +410,7 @@ Published numbers need the pinned environment, not the loose bounds in
 
 ```
 pip install -r requirements.lock.txt
-py -m pytest -m "not network and not ollama"   # 312 tests
+py -m pytest -m "not network and not ollama"   # the offline gate
 py -m devtools.claims_ledger --check           # every headline number vs its artifact
 py -m devtools.behavior_snapshot --check       # end-to-end behavioural tripwire
 ```
@@ -432,10 +447,11 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   unrecovered. `goal_drift` is the only class a retry fixes (2 of 5); broken
   tool layers escalate instead, and a contract violation is never repaired.
 - **Hallucination detection is specific but only half sensitive.** The
-  grounding verifier catches 0.55 of provoked fabrications at 0 false positives
-  in 89 healthy runs — and that number exists only under provocation.
-  Unprovoked fabrication is 2 in 175, below the pre-registered floor of 10, so
-  no unprovoked claim is made.
+  grounding verifier catches 0.55 of provoked fabrications — 6 of the 11
+  ungrounded-input fabrications the provocation produced — at 0 false positives
+  in 89 healthy runs, and that number exists only under provocation. Unprovoked
+  fabricated inputs are 2 in 175 organic episodes, below the pre-registered
+  floor of 10, so no unprovoked claim is made.
 - **Two repair rungs did not work.** `recompute` 28% (p=0.17) and `adaptive`
   21% (p=0.61) do not beat retry luck. Kept as comparison arms.
 - **Monitors do not transfer across deployments.** qwen2.5:7b → llama3.1:8b
@@ -462,7 +478,8 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 
 - [`CLAIMS.md`](CLAIMS.md) — claim-to-evidence ledger: every headline number
   above, the artifact it is read from, and the command that regenerates it.
-  `py -m devtools.claims_ledger --check` recomputes all 28 and fails on drift.
+  `py -m devtools.claims_ledger --check` recomputes every one of them and fails
+  on drift. The ledger prints its own count, so this sentence cannot go stale.
 - [`USER_GUIDE.md`](USER_GUIDE.md) — a walkthrough of the live demo: what to
   press, what to look for on the chart, the Why panel and the savings banner,
   and what does not work yet.

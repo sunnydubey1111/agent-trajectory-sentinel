@@ -178,3 +178,30 @@ def test_every_diagram_carries_alt_text() -> None:
         for match in re.finditer(r"!\[([^\]]*)\]\(([^)]+)\)", text):
             alt, target = match.group(1).strip(), match.group(2)
             assert len(alt) > 20, f"{doc}: {target} has thin alt text {alt!r}"
+
+
+def test_the_uncounted_root_corpus_stays_disclosed() -> None:
+    """`traces/manifest.json` holds episodes no total on the data card counts.
+
+    Every corpus count in the project globs `traces/*/manifest.json`, which
+    matches subdirectories only, so the top-level manifest is invisible to the
+    data card, the claims ledger and the Hugging Face export. Those episodes are
+    committed and a published claim rests on them, so the card must say they
+    exist. Without this test the disclosure can be regenerated away silently.
+    """
+    import json
+
+    manifest = REPO_ROOT / "traces" / "manifest.json"
+    if not manifest.exists():                     # nothing to disclose
+        return
+    n = len(json.loads(manifest.read_text("utf-8")))
+    assert n, "traces/manifest.json is empty"
+
+    card = (REPO_ROOT / "DATA_CARD.md").read_text("utf-8")
+    assert "One corpus this card does not count" in card, (
+        "the data card no longer discloses the uncounted root corpus")
+    assert str(n) in card, f"the card does not state the {n} uncounted episodes"
+
+    notice = (REPO_ROOT / "traces" / "NOTICE_gemini.md").read_text("utf-8")
+    assert str(n) in notice, (
+        f"the Gemini notice does not cover the {n} root-corpus episodes")

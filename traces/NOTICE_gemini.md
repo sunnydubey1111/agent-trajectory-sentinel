@@ -1,7 +1,16 @@
 # Notice for the Gemini-generated corpora
 
-Applies to `traces/real/` (18 episodes) and `traces/real_gemini_long/`
-(125 episodes) — 143 episodes in total.
+Applies to every `gemini-2.5-flash` episode in this repository — **330 in
+total**:
+
+- `traces/real/` — 18 episodes
+- `traces/real_gemini_long/` — 125 episodes
+- `traces/` itself — **187 episodes**, listed in the top-level
+  `traces/manifest.json` rather than in a corpus subdirectory. These are easy to
+  miss: the data card, the claims ledger and the Hugging Face export all
+  enumerate corpora by globbing `traces/*/manifest.json`, which matches
+  subdirectories only, so this set appears in none of their totals. It is
+  committed here all the same, and this notice covers it.
 
 ## What these are
 
@@ -42,6 +51,7 @@ Studio. This condition is in addition to the repository's MIT licence, which
 covers the code and the trace format but cannot grant rights over the model
 output these episodes contain.
 
-The remaining 2,680 episodes are unaffected: the `qwen2.5` corpora are
+The other 2,680 episodes counted in `DATA_CARD.md` are unaffected: the
+`qwen2.5` corpora are
 Apache-2.0 and unconditioned, and the `llama3.1:8b` corpora carry the Llama 3.1
 Community License terms recorded in `DATA_CARD.md`.

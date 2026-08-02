@@ -70,6 +70,19 @@ def _corpora() -> list[tuple[str, list[dict]]]:
     return out
 
 
+def _root_corpus_size() -> int:
+    """Episodes in `traces/manifest.json`, which `_corpora()` cannot see.
+
+    `_corpora()` globs `*/manifest.json`, so the top-level manifest is matched
+    by nothing and its episodes appear in no total on this card. Counting them
+    here keeps the omission stated rather than silent.
+    """
+    manifest = TRACES / "manifest.json"
+    if not manifest.exists():
+        return 0
+    return len(json.loads(manifest.read_text("utf-8")))
+
+
 def _rejections() -> tuple[list[tuple[str, int, int, float]], dict[str, dict[str, int]]]:
     """Per-corpus discard rates and the healthy/injected split of each rule.
 
@@ -240,6 +253,23 @@ def render() -> str:
         "An injected episode whose mutation never applied is not a failure",
         "episode, so keeping it would mislabel the data; dropping it still",
         "means the surviving positives are the ones injection succeeded on.",
+        "",
+        "## One corpus this card does not count",
+        "",
+        "`traces/manifest.json` — the top level, not a subdirectory — lists",
+        f"**{_root_corpus_size()} `gemini-2.5-flash` episodes** that are",
+        "committed here but appear in none of the totals above. Every count on",
+        "this page enumerates corpora by globbing `traces/*/manifest.json`,",
+        "which matches subdirectories only, so this set is invisible to the",
+        "card, to the claims ledger and to the Hugging Face export.",
+        "",
+        "It is not abandoned data: it is the corpus behind the published",
+        "channel-max AUC of 0.84 on 187 live Gemini episodes. It is recorded",
+        "here so that a reader who counts the `.jsonl` files does not find more",
+        "episodes than the card admits to, and so that the Gemini terms in",
+        "`traces/NOTICE_gemini.md` are understood to cover it. The totals are",
+        "left as they are rather than restated, because every published number",
+        "was computed against the corpora the glob finds.",
         "",
         "## Provenance and integrity",
         "",
