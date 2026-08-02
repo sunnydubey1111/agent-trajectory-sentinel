@@ -80,7 +80,7 @@
    "derail/verify/run_verification_study.py": "eff9e2ff831d4abc898ced832778465268d31aa9bacb9fe9768b333754c8d06d",
    "devtools/__init__.py": "7546f153e7482286da7350c05dc402c39956405db90472ece6f3c050a0ce68d5",
    "devtools/artifact_manifest.py": "2a85f25d06bd5ce2037cdb0876e357e1559d27e306303ed1aec82365e89f58c2",
-   "devtools/arxiv_package.py": "86cd8b8bd389f3cfcb5be6bb0a75d6fab57c6f3550bf628e81908f455fa0ca59",
+   "devtools/arxiv_package.py": "d2773523020fef248435480c136c5b468b8f3ac4f323578c7e94e39330cc3c01",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
    "devtools/claims_ledger.py": "abbf8f08bcbd82d5636cec16f1c74e29e25728193bca4b71a2e300ef3391c810",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",

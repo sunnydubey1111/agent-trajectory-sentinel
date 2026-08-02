@@ -95,9 +95,9 @@ def build(out_dir: pathlib.Path) -> dict:
 def check(out_dir: pathlib.Path) -> tuple[bool, str]:
     """Compile the package in its own directory, as arXiv will."""
     try:
-        subprocess.run(["latexmk", "-pdf", "-interaction=nonstopmode",
-                        f"{STEM}.tex"], cwd=out_dir, capture_output=True,
-                       text=True)
+        run = subprocess.run(["latexmk", "-pdf", "-interaction=nonstopmode",
+                              f"{STEM}.tex"], cwd=out_dir,
+                             capture_output=True, text=True)
     except OSError as exc:
         return False, f"could not run latexmk ({exc}); compile it by hand"
 
@@ -106,8 +106,17 @@ def check(out_dir: pathlib.Path) -> tuple[bool, str]:
         # latexmk exited without producing a log at all, which on this
         # toolchain means it never really started rather than that the
         # document is broken. Say which, instead of blaming the source.
-        return False, ("latexmk produced no log; it likely did not run. "
-                       f"Compile by hand: cd {out_dir} && "
+        #
+        # Surface its exit code and stderr too. Without them "it likely did
+        # not run" is untestable: a sandbox that blocks the subprocess and a
+        # machine with no latexmk installed produce the identical message,
+        # and the first is a false alarm about a package that is actually
+        # fine while the second is a real missing dependency.
+        tail = (run.stderr or run.stdout or "").strip().splitlines()
+        hint = f" (exit {run.returncode}" + (
+            f"; last output: {tail[-1][:120]!r})" if tail else ")")
+        return False, ("latexmk produced no log; it likely did not run"
+                       + hint + f". Compile by hand: cd {out_dir} && "
                        f"latexmk -pdf {STEM}.tex")
     if not (out_dir / f"{STEM}.pdf").exists():
         return False, f"no PDF produced; see {STEM}.log"
