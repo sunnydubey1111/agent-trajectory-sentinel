@@ -81,7 +81,7 @@
    "devtools/__init__.py": "7546f153e7482286da7350c05dc402c39956405db90472ece6f3c050a0ce68d5",
    "devtools/artifact_manifest.py": "921722e8e2fa4ef658a1f58e44e44b6d92041ab03980fd56566d6e6092a93630",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
-   "devtools/claims_ledger.py": "2fc330f85d7b7786e7d35a0635f74ef9c22bfd2e7e5646303201139389f91bd7",
+   "devtools/claims_ledger.py": "bf2e2fb66616918935af90a6b1c92e2d756dc51c67f63b79116b4253780670af",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "087362304b815b1a71175d395f366b2840ad096d46b972fc575033c9e6ebebb5",
    "devtools/hf_dataset.py": "d14d8291e515b43af0ad94923fcd51a59d68ab7f0ab98a065be8aed8354ceb04",
@@ -8491,22 +8491,23 @@
   },
   "docs": {
    "CHECKSUMS.md": "b67fbabb6f0951b35f44871dae0b47502144108449ae1f3e10ffee738412afb4",
-   "CLAIMS.md": "c8eb874afabfff4c8aeecc4ca94088da30922e78da250bda1c3f1c4000ab6843",
+   "CLAIMS.md": "cee72adc3cfe725420dee9321929674412f574e91e57c8cc6e9a9551e2edc456",
+   "CONTRIBUTIONS.md": "5655147e37ffa481dc4b1cfcd6aaa5a1957f2bd9976c3141f717706537e9f513",
    "DATA_CARD.md": "23efda973b3a5715720694815c4f8f92de737638a149b03544584de2a29e00f5",
    "DESIGN.md": "c894a3edaba54cb10ed1866bb959e9575a36fae82325df5506605ab20ab5eb75",
-   "README.md": "13c0949cfa669fd27eaa44277d44c1fb5e3c230b0f826cea08d825a4cd561dde",
+   "README.md": "379f8261053673a25c2ca5be9810ca2f9718dc46aad4baeddd2797ef6c1b9604",
    "REPRODUCE.md": "1bdd512c70315c9fb4f40d8eddf3703ae505c75be4ec3ae440b123afeba4f25a",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
-   "paper/main.tex": "c33fc6bd68ff43853ef28b0f76f65f9031de904c77b40c61c87a98b77fc7fd2f",
-   "paper/paper.md": "94328f83b45e3d5d9a709295df9019d4183deabc03d190b324db2883868e8b86",
-   "paper/paper.tex": "e66cf3d0a77d1017ef8fde3ee743908d3711ffb0104ff41015f081cbe1d9b8d5",
+   "paper/main.tex": "8c8fe190ff99df31bf1947d968ac8a308bbdbdc192ea02e8e5d0d7fe11e78aa6",
+   "paper/paper.md": "2bccabe2ac318e7f0833b9ee1aad2004863dddeff07a89a65f8def7921e4dc74",
+   "paper/paper.tex": "30868b41c9fd619bef791e4c6195a3604a3acff3c3765c12ccae8f3c0b05a9f3",
    "paper/references.bib": "048a8c55b736fcb34f0c9ddcdb1049fd3453d765be5af26972f0c138649b55d3",
-   "paper/workshop.tex": "aa42f1414de7fd38b7b00b048b85e224db439a0079bc177aa16d9cb41df15163",
+   "paper/workshop.tex": "a3010f6d39ac7528e8eefe8d17cb01152ff3a5cc2ec99d7bb17288bcbe932e8c",
    "requirements-core.lock.txt": "c5517106b656c1891edc29752e11c31317721982012ed177dd7c503cebbfeea1",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
  "note": "",
- "file_count": 8498
+ "file_count": 8499
 }

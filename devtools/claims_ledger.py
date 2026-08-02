@@ -337,7 +337,7 @@ def build() -> list[Claim]:
               "Monitor"),
 
         Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
-              0.0887, "results/tables/hybrid_diagnosis.csv",
+              0.0865, "results/tables/hybrid_diagnosis.csv",
               "py -m derail.experiments.run_hybrid_study",
               lambda: _horizon_advantage(0, 3), "Monitor"),
         Claim("horizon.mid", "ESN advantage at post-onset horizon 4-8 steps",

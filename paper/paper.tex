@@ -274,7 +274,7 @@ Per-episode analysis over 1,002 injected episodes across eight datasets (\texttt
 \subsection{7.1 Mechanism, not just metrics}
 
 
-Of 1,002 injected episodes, 403 are detected by both parents, \textbf{242 by the ESN only, 57 by Mahalanobis only} --- about a third of failures are visible to exactly one detector. The cross-fit logistic fusion recovers \textbf{100\% / 66\% / 79\%} of the both/ESN-only/Maha-only cells and fires on just \textbf{1\%} of the cases neither parent flags. Its learned Mahalanobis weight share tracks the regime: 0.38 (simulator, long horizons) $\rightarrow$ 0.99 (short-horizon research sets). In the 2-D calibrated-score plane the decision boundary rotates from horizontal (ESN decides) through diagonal to vertical (Mahalanobis decides) across datasets (Figure 1, \texttt{results/\allowbreak{}figures/\allowbreak{}hybrid\_\allowbreak{}explain.png}).
+Of 1,002 injected episodes, 372 are detected by both parents, \textbf{273 by the ESN only, 57 by Mahalanobis only}, and 300 by neither --- \textbf{330 of 1,002 (32.9\%)} are visible to exactly one detector. The cross-fit logistic fusion recovers \textbf{100\% / 66\% / 79\%} of the both/ESN-only/Maha-only cells and fires on just \textbf{1\%} of the cases neither parent flags. Its learned Mahalanobis weight share tracks the regime: 0.38 (simulator, long horizons) $\rightarrow$ 0.99 (short-horizon research sets). In the 2-D calibrated-score plane the decision boundary rotates from horizontal (ESN decides) through diagonal to vertical (Mahalanobis decides) across datasets (Figure 1, \texttt{results/\allowbreak{}figures/\allowbreak{}hybrid\_\allowbreak{}explain.png}).
 
 
 \subsection{7.2 Stability and generalization}

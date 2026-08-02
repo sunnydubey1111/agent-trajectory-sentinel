@@ -45,7 +45,7 @@ Status at generation: **all claims verified**
 | hybrid_weighted50 episode AUROC on ATBench (fusion collapses to chance when a parent does) | `0.463` | `results/tables/atbench_benchmark.csv` | `py -m derail.experiments.run_atbench_study` |
 | esn_cusum_max detection on unconfirmed/over-privileged actions (ATBench) | `0.508` | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
 | esn_cusum_max detection on inaccurate/misleading information (ATBench, the known content blind spot) | `0.038` | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
-| ESN advantage at post-onset horizon <= 3 steps | `0.089` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
+| ESN advantage at post-onset horizon <= 3 steps | `0.086` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon 4-8 steps | `0.135` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | ESN advantage at post-onset horizon >= 9 steps | `0.404` | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | Content-gate detection gain on the content classes, worst seed | `0.307` | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |

@@ -605,9 +605,9 @@ baseline also benefits from more chances to fire.
 
 ### 7.1 Mechanism, not just metrics
 
-Of 1,002 injected episodes, 403 are detected by both parents, **242 by the
-ESN only, 57 by Mahalanobis only** — about a third of failures are visible
-to exactly one detector. The cross-fit logistic fusion recovers **100% /
+Of 1,002 injected episodes, 372 are detected by both parents, **273 by the
+ESN only, 57 by Mahalanobis only**, and 300 by neither — **330 of 1,002
+(32.9%)** are visible to exactly one detector. The cross-fit logistic fusion recovers **100% /
 66% / 79%** of the both/ESN-only/Maha-only cells and fires on just **1%**
 of the cases neither parent flags. Its learned Mahalanobis weight share
 tracks the regime: 0.38 (simulator, long horizons) → 0.99 (short-horizon
