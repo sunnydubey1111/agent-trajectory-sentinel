@@ -206,6 +206,21 @@ content-corruption classes, \texttt{wrong\_document} (0.00--0.20) and
 \texttt{malformed\_json} (0.05--0.50), which is what motivates
 \S\ref{sec:grounding} rather than a rationalisation of it.
 
+\paragraph{The breadth claim rests on the most filtered corpora.} An episode is
+discarded when it is too short to score or when its injection never landed, and
+the rate is nowhere near uniform: \texttt{langgraph} \textbf{55.4\%},
+\texttt{real} \textbf{53.8\%} and \texttt{ollama\_llama8b} \textbf{49.2\%},
+against \texttt{real\_research7b} at \textbf{1.7\%}. The corpora carrying the
+cross-framework and cross-model claims are precisely the ones where most
+attempts were discarded, so those breadth results rest on a more selected sample
+than the headline numbers do. The filter is also asymmetric: of the four
+rejection rules, only the length rule can reject a healthy episode, and the
+other three fire solely on injected ones because they check that the injection
+actually landed --- positives are filtered on a condition negatives are never
+tested against. Every rejection is written to its corpus's
+\texttt{rejected.json} with a reason, and the per-corpus and per-rule tables are
+released with the data.
+
 Two structural findings shape the rest. First, \textbf{monitors do not transfer
 across deployments}: calibrated on qwen2.5:7b and deployed on llama3.1:8b over
 a matched task, tool and injector plan, the primary monitor sits at chance
