@@ -146,6 +146,15 @@ def _runtime(monitor: str, column: str) -> float:
     return float(d.loc[d.monitor == monitor, column].iloc[0])
 
 
+def _telemetry_runtime(column: str) -> float:
+    return float(_table("telemetry_runtime.csv")[column].iloc[0])
+
+
+def _aftraj_latency(monitor: str) -> float:
+    d = _table("aftraj_benchmark.csv")
+    return float(d.loc[d.monitor == monitor, "step_latency_us"].iloc[0])
+
+
 def _hybrid_grand_mean(monitor: str) -> float:
     """Grand-mean AUROC across the eight benchmark datasets."""
     d = _table("hybrid_benchmark.csv")
@@ -373,6 +382,52 @@ def build() -> list[Claim]:
         Claim("runtime.footprint_mb", "Primary monitor state footprint (MB)", 3.95,
               "results/tables/runtime.csv", "py -m derail.experiments.run_benchmark",
               lambda: _runtime("esn_cusum_max", "footprint_mb"), "Monitor"),
+        # The claims below pin the EXACT timings the papers quote, which the
+        # range claim above deliberately does not. The two answer different
+        # questions and both are worth asking. The range asks whether the
+        # architectural claim ("three orders below a judge call") still holds,
+        # and must survive a hardware change. These ask whether the number
+        # printed in a paper still equals the committed CSV it was read from --
+        # and that is the check that was missing: a paper carried 608 us/step
+        # for the telemetry cost against a committed 673.7 for months, because
+        # no claim named it and nothing recomputes prose. Re-running the
+        # benchmark on different hardware SHOULD fail these, because the prose
+        # is then stale and wants updating.
+        Claim("runtime.latency_us",
+              "Primary monitor step latency, median us (machine-specific)",
+              219.0, "results/tables/runtime.csv",
+              "py -m derail.experiments.run_benchmark (timings are machine-specific)",
+              lambda: _runtime("esn_cusum_max", "step_latency_us_median"),
+              "Monitor",
+              denominator=lambda: int(_runtime("esn_cusum_max", "n_steps_timed")),
+              expected_denominator=4316, denominator_unit="timed steps"),
+        Claim("runtime.maha_latency_us",
+              "delta-Mahalanobis step latency, median us -- the baseline the "
+              "reservoir is ~50x more expensive than", 4.0,
+              "results/tables/runtime.csv",
+              "py -m derail.experiments.run_benchmark (timings are machine-specific)",
+              lambda: _runtime("delta_mahalanobis", "step_latency_us_median"),
+              "Monitor",
+              denominator=lambda: int(_runtime("delta_mahalanobis", "n_steps_timed")),
+              expected_denominator=4316, denominator_unit="timed steps"),
+        Claim("telemetry.v4_step_us",
+              "Full v4 telemetry construction cost at the adapter, median us",
+              673.7, "results/tables/telemetry_runtime.csv",
+              "py -m experimental.telemetry_runtime (timings are machine-specific)",
+              lambda: _telemetry_runtime("median_us"), "Monitor",
+              denominator=lambda: int(_telemetry_runtime("n_steps")),
+              expected_denominator=491, denominator_unit="timed steps"),
+        Claim("telemetry.v4_step_p95_us",
+              "Full v4 telemetry construction cost, p95 us", 1045.0,
+              "results/tables/telemetry_runtime.csv",
+              "py -m experimental.telemetry_runtime (timings are machine-specific)",
+              lambda: _telemetry_runtime("p95_us"), "Monitor"),
+        Claim("aftraj.esn_latency_us",
+              "Channel-max ESN step latency on AFTraj-2K, median us "
+              "(NOT the hybrid's 172.6 -- the two were once conflated)",
+              162.8, "results/tables/aftraj_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj",
+              lambda: _aftraj_latency("esn_cusum_max"), "Monitor"),
         # Named for the evaluation set, not the corpus. The corpus is 187
         # episodes; the number is computed on a held-out split of 79 injected
         # and 15 healthy drawn from it, and calling it "on 187" reads as a

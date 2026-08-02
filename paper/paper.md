@@ -76,7 +76,7 @@ then closed into repair: each flagged run is rolled back to its last
 fact-gathering step and re-run live, which recovers up to 45% of failures
 against a 16% resampling control and lifts net task success from **52% to
 73%** for about one extra model call per run. The full system runs at
-~200 µs per step, three orders of magnitude below a judge call.
+219 µs per step, three orders of magnitude below a judge call.
 
 ## 1. Introduction
 
@@ -102,7 +102,7 @@ substantially earlier than monitors restricted to observable behaviour
 weights in hand, activations beat telemetry. So we claim neither
 mid-episode detection nor observable telemetry as novel. What we claim is
 the cost class and the deployment it serves — a one-class reservoir
-monitor at ~200 µs per step, fit on healthy runs only, with no LLM in the
+monitor at 219 µs per step, fit on healthy runs only, with no LLM in the
 loop and no model internals, for the case where you are monitoring a
 hosted API or someone else's agent and internals are not on offer. We
 have not evaluated on AFTraj-2K; those corpora are not built to supply
@@ -177,8 +177,10 @@ channels behave identically on wider episodes):
 
 The embedding is a deterministic char-3-gram feature hash (no model, no
 network); a MiniLM alternative exists strictly behind an explicit opt-in
-and is nowhere required (§8.4). v4 telemetry costs 608 µs/step at the
-adapter (355 µs for v3); the lexical flag alone costs 2 µs/result.
+and is nowhere required (§8.4). v4 telemetry costs a median 674 µs/step at
+the adapter (mean 702, p95 1045, over 491 timed steps —
+`telemetry_runtime.csv`); the lexical flag alone costs 2 µs/result. Only the
+v4 layout is timed in the committed artifact, so no v3 figure is quoted.
 
 ## 3. Monitors
 
@@ -462,9 +464,9 @@ is not exercised at all.
 
 | monitor | AUROC | detection | FA | µs/step |
 |---|---|---|---|---|
-| esn_cusum_max | 0.745 | 0.048 | 0.023 | 173 |
-| hybrid_weighted50 | **0.760** | 0.047 | 0.018 | 177 |
-| hybrid_gated | 0.754 | 0.048 | 0.018 | 176 |
+| esn_cusum_max | 0.745 | 0.048 | 0.023 | 163 |
+| hybrid_weighted50 | **0.760** | 0.047 | 0.018 | 173 |
+| hybrid_gated | 0.754 | 0.048 | 0.018 | 180 |
 | hybrid_logistic | 0.665 | 0.034 | 0.014 | — |
 | delta_mahalanobis | 0.616 | 0.022 | 0.032 | 3.7 |
 
@@ -510,7 +512,7 @@ method is usually accused of.
 corpus with a 7B LLM auditing every step, at roughly a thousand times the
 cost per step. Detection at a false-alarm budget is not Exact-F1 and the
 two do not belong in one column, so we compare the axis that is
-commensurable: 173 µs and no model call, against one 7B forward pass. The
+commensurable: 163 µs and no model call, against one 7B forward pass. The
 claim this section supports is that ranking transfers zero-shot to a
 foreign ecosystem at three orders of magnitude less compute, and that the
 regime where it also alarms is predictable in advance.

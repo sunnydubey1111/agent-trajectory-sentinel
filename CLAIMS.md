@@ -16,7 +16,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (49 claims checked).
+ (54 claims checked).
 
 ## Corpus
 
@@ -36,6 +36,11 @@ Status at generation: **all claims verified**
 | delta-Mahalanobis detection (5 seeds) | `0.374` | — | `results/tables/multiseed_summary.csv` | `py -m derail.experiments.run_multiseed` |
 | Primary monitor step latency is 100-999 us | `100-999 us` | — | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark (timings are machine-specific)` |
 | Primary monitor state footprint (MB) | `3.95` | — | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark` |
+| Primary monitor step latency, median us (machine-specific) | `219` | `4316` timed steps | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark (timings are machine-specific)` |
+| delta-Mahalanobis step latency, median us -- the baseline the reservoir is ~50x more expensive than | `4` | `4316` timed steps | `results/tables/runtime.csv` | `py -m derail.experiments.run_benchmark (timings are machine-specific)` |
+| Full v4 telemetry construction cost at the adapter, median us | `673.7` | `491` timed steps | `results/tables/telemetry_runtime.csv` | `py -m experimental.telemetry_runtime (timings are machine-specific)` |
+| Full v4 telemetry construction cost, p95 us | `1045` | — | `results/tables/telemetry_runtime.csv` | `py -m experimental.telemetry_runtime (timings are machine-specific)` |
+| Channel-max ESN step latency on AFTraj-2K, median us (NOT the hybrid's 172.6 -- the two were once conflated) | `162.8` | — | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | Channel-max AUC, held-out split of the 187-episode Gemini corpus (79 injected + 15 healthy) | `0.84` | `94` episodes | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
 | Channel-max realized false-alarm rate, 15 healthy test episodes (real traces) | `0.2` | `15` episodes | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
 | Channel-max detection on context corruption (real traces) | `0.286` | — | `results/tables/real_traces.csv` | `py -m derail.experiments.run_real_traces` |
