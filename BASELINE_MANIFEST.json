@@ -82,7 +82,7 @@
    "devtools/artifact_manifest.py": "1309174b4b27de5cdbe845374fafa77eb621cf44746325023cbb2d1aa048a810",
    "devtools/arxiv_package.py": "86cd8b8bd389f3cfcb5be6bb0a75d6fab57c6f3550bf628e81908f455fa0ca59",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
-   "devtools/claims_ledger.py": "104c97e89e0b9b1b97eefb59872eb93969c39a260e72bd8d5ac956ab899377f7",
+   "devtools/claims_ledger.py": "9e6298147fbfc19550e1e34959e7f3f9472c39b49658bd562309d34fc474b5e2",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "440cdaa542c6d559838d2f3cf1b57cc1d27f6cb5c4a85d3565d81b9a55956510",
    "devtools/hf_dataset.py": "d14d8291e515b43af0ad94923fcd51a59d68ab7f0ab98a065be8aed8354ceb04",
@@ -105,6 +105,7 @@
    "tests/test_arxiv_package.py": "118cd94d6462e3f4a57366b1f0b05ebc3c5422fc4d5690f9bb6aaa7602f6ae09",
    "tests/test_atbench_study.py": "cd1fefcdc81f31506f05ae2eb44c0f333ddc6aa75c4f568a33ae94ad86fb2cd2",
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
+   "tests/test_claim_denominators.py": "0cc5c49a52cd17cb0f6cfc0ef836c860ccce8676e37118480f4700488620ff24",
    "tests/test_collection_validity.py": "7580dce9d671c7e1c26993a9a8a37b49907379ea9646ccd0516a17daeb00d07c",
    "tests/test_evaluation_validity.py": "4547832d92df08edbbb0d82c9796d632ef3dea4990de6c2df251c40ea934a015",
    "tests/test_hf_dataset.py": "d32ba4daff7d53249f4b09579e54698db23ea00f9848f52634f3f7f38c13f49e",
@@ -8493,7 +8494,7 @@
   },
   "docs": {
    "CHECKSUMS.md": "b67fbabb6f0951b35f44871dae0b47502144108449ae1f3e10ffee738412afb4",
-   "CLAIMS.md": "d7798122dd08de688516972e59fccaa530944467a99647c1549bc6c21ddf29ae",
+   "CLAIMS.md": "79a77e9bed6c8216899920a041daac0625d2341dbe9e6edeb54a9e70b19d43cb",
    "CONTRIBUTIONS.md": "5655147e37ffa481dc4b1cfcd6aaa5a1957f2bd9976c3141f717706537e9f513",
    "DATA_CARD.md": "436b7e816c6d65f002a1f81e65ae98e2950abf80c51e6184746ac846ce90bbd6",
    "DESIGN.md": "c894a3edaba54cb10ed1866bb959e9575a36fae82325df5506605ab20ab5eb75",
@@ -8510,5 +8511,5 @@
   }
  },
  "note": "",
- "file_count": 8500
+ "file_count": 8501
 }

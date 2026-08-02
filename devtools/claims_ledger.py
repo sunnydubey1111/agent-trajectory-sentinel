@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
+import re
 import sys
 from dataclasses import dataclass, field
 from typing import Callable
@@ -46,10 +47,28 @@ class Claim:
     regenerate: str
     compute: Callable[[], float | int | str]
     section: str = "general"
+    #: How many episodes the rate was computed over, and what that count must
+    #: be. A rate with no denominator cannot be sanity-checked against
+    #: anything: "AUC 0.840 on 187 episodes" passed for months while the
+    #: number came from a held-out split of 94, because the table carries no
+    #: n column and the ledger had nothing to compare. Supplying a callable
+    #: makes the denominator drift-checked like every other number here.
+    denominator: Callable[[], int] | None = None
+    expected_denominator: int | None = None
+    #: What the denominator counts. Not every rate here averages over
+    #: episodes -- some are grand means over datasets, some over seeds -- and
+    #: a bare "8" next to an AUROC reads as eight episodes, which would be a
+    #: fresh version of the error this field exists to stop.
+    denominator_unit: str = "episodes"
     actual: float | int | str | None = field(default=None, init=False)
+    actual_denominator: int | None = field(default=None, init=False)
 
     def check(self) -> bool:
         self.actual = self.compute()
+        if self.denominator is not None:
+            self.actual_denominator = int(self.denominator())
+            if self.actual_denominator != self.expected_denominator:
+                return False
         if isinstance(self.expected, str):
             return str(self.actual) == self.expected
         return abs(float(self.actual) - float(self.expected)) <= TOL
@@ -153,6 +172,113 @@ def _aftraj_horizon(lo: int, hi: int, column: str) -> float:
     return float(band[column].mean()) if column in band else float(len(band))
 
 
+#: The episode-length floor every real-trace study applies before splitting.
+#: Kept here so the denominators below cannot silently disagree with the
+#: runners about which episodes were in scope.
+_MIN_T = 4
+
+
+def _real_split() -> dict[str, int]:
+    """Split sizes of the root Gemini corpus, from the committed manifest.
+
+    Recomputed rather than read: real_traces.csv has no n column, which is
+    precisely how "AUC on 187 episodes" survived when the number came from a
+    held-out split. The rule is the runner's - drop episodes under _MIN_T,
+    then 60/20/20 over the healthy ones - so this stays honest as long as the
+    two agree, and `tests/` asserts that they do.
+    """
+    manifest = json.loads((TRACES / "manifest.json").read_text("utf-8"))
+    kept = [e for e in manifest if e["T"] >= _MIN_T]
+    healthy = [e for e in kept if e["tau"] is None]
+    n_train = round(0.6 * len(healthy))
+    n_val = round(0.2 * len(healthy))
+    return {"healthy_train": n_train, "healthy_val": n_val,
+            "healthy_test": len(healthy) - n_train - n_val,
+            "injected": sum(1 for e in kept if e["tau"] is not None)}
+
+
+def _real_eval_n() -> int:
+    """Episodes the real-trace AUC is computed over: held-out healthy + all
+    injected. Not the 187 the corpus contains."""
+    split = _real_split()
+    return split["healthy_test"] + split["injected"]
+
+
+def _corpus_eval_n(corpus: str) -> int:
+    """Held-out healthy plus all injected for a corpus subdirectory.
+
+    Same rule as `_real_split`, applied to the corpora that live under
+    `traces/<name>/`.
+    """
+    manifest = json.loads(
+        (TRACES / corpus / "manifest.json").read_text("utf-8"))
+    kept = [e for e in manifest if e["T"] >= _MIN_T]
+    healthy = [e for e in kept if e["tau"] is None]
+    held_out = len(healthy) - round(0.6 * len(healthy)) - round(0.2 * len(healthy))
+    return held_out + sum(1 for e in kept if e["tau"] is not None)
+
+
+def _atbench_eval_n() -> int:
+    """ATBench scores held-out safe against every unsafe trajectory."""
+    d = _table("atbench_benchmark.csv").iloc[0]
+    return int(d.n_safe_test) + int(d.n_unsafe)
+
+
+def _atbench_mode_n(mode: str) -> int:
+    d = _table("atbench_per_mode.csv")
+    row = d[(d.monitor == "esn_cusum_max") & (d.failure_mode == mode)]
+    return int(row.n.iloc[0])
+
+
+def _judge_n(field_name: str) -> int:
+    """Positives or negatives the measured judge was scored on."""
+    payload = json.loads(
+        (TABLES / "judge_calibration_summary.json").read_text("utf-8"))
+    return int(payload[field_name])
+
+
+def _multiseed_seed_count() -> int:
+    """How many master seeds the multiseed means average over.
+
+    Read from the runner's own SEEDS tuple rather than hard-coded, so adding
+    a seed without regenerating the summary fails the ledger.
+    """
+    source = (REPO_ROOT / "derail" / "experiments"
+              / "run_multiseed.py").read_text("utf-8")
+    match = re.search(r"^SEEDS\s*=\s*\(([^)]*)\)", source, re.M)
+    if not match:
+        raise RuntimeError("run_multiseed.py no longer defines SEEDS")
+    return len([p for p in match.group(1).split(",") if p.strip()])
+
+
+def _sim_test_n() -> int:
+    """Simulator test episodes per seed, from the config the runners use.
+
+    Arithmetic on DatasetConfig rather than a generated dataset, so it costs
+    nothing and still fails if a split size changes.
+    """
+    from derail.common import FAILURE_CLASSES, DatasetConfig
+
+    cfg = DatasetConfig()
+    return (cfg.n_test_healthy
+            + cfg.n_test_injected_per_class * len(FAILURE_CLASSES))
+
+
+def _repair_episodes() -> int:
+    """Distinct genuinely-wrong episodes every repair rung is scored over."""
+    d = _table("repair_policies.csv")
+    return int(d.episode_id.nunique())
+
+
+def _hybrid_datasets() -> int:
+    """Datasets a hybrid grand mean is averaged over."""
+    return int(_table("hybrid_benchmark.csv").dataset.nunique())
+
+
+def _aftraj_injected() -> int:
+    return int(len(_table("aftraj_diagnosis.csv")))
+
+
 def _atbench(monitor: str, column: str) -> float:
     d = _table("atbench_benchmark.csv")
     return float(d.loc[d.monitor == monitor, column].iloc[0])
@@ -221,7 +347,9 @@ def build() -> list[Claim]:
         Claim("h1.auc", "esn_cusum_max episode AUC (5 seeds)", 0.87205,
               "results/tables/multiseed_summary.csv",
               "py -m derail.experiments.run_multiseed",
-              lambda: _multiseed("esn_cusum_max", "episode_auc_mean"), "Monitor"),
+              lambda: _multiseed("esn_cusum_max", "episode_auc_mean"), "Monitor",
+              denominator=_sim_test_n, expected_denominator=560,
+              denominator_unit="episodes/seed, 5 seeds"),
         Claim("h1.lead", "esn_cusum_max mean budget saved (5 seeds)", 4.613,
               "results/tables/multiseed_summary.csv",
               "py -m derail.experiments.run_multiseed",
@@ -253,14 +381,17 @@ def build() -> list[Claim]:
               "Channel-max AUC, held-out split of the 187-episode Gemini "
               "corpus (79 injected + 15 healthy)", 0.840084,
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
-              lambda: _real_traces("esn_cusum_max[e,m]", "episode_auc"), "Monitor"),
+              lambda: _real_traces("esn_cusum_max[e,m]", "episode_auc"), "Monitor",
+              denominator=_real_eval_n, expected_denominator=94),
         # 0.20 is 3 of 15 healthy test episodes: one episode is worth 6.7
         # points, which is the whole reason the 5% budget is unreachable here.
         Claim("real.fa",
               "Channel-max realized false-alarm rate, 15 healthy test "
               "episodes (real traces)", 0.20,
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
-              lambda: _real_traces("esn_cusum_max[e,m]", "healthy_fa_rate"), "Monitor"),
+              lambda: _real_traces("esn_cusum_max[e,m]", "healthy_fa_rate"), "Monitor",
+              denominator=lambda: _real_split()["healthy_test"],
+              expected_denominator=15),
         Claim("real.context_corruption",
               "Channel-max detection on context corruption (real traces)", 0.285714,
               "results/tables/real_traces.csv", "py -m derail.experiments.run_real_traces",
@@ -270,15 +401,21 @@ def build() -> list[Claim]:
         Claim("hybrid.weighted50", "hybrid_weighted50 grand-mean AUROC (label-free default)",
               0.8119, "results/tables/hybrid_benchmark.csv",
               "py -m derail.experiments.run_hybrid_study",
-              lambda: _hybrid_grand_mean("hybrid_weighted50"), "Monitor"),
+              lambda: _hybrid_grand_mean("hybrid_weighted50"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
         Claim("hybrid.logistic", "hybrid_logistic grand-mean AUROC (with labels)",
               0.8262, "results/tables/hybrid_benchmark.csv",
               "py -m derail.experiments.run_hybrid_study",
-              lambda: _hybrid_grand_mean("hybrid_logistic"), "Monitor"),
+              lambda: _hybrid_grand_mean("hybrid_logistic"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
         Claim("hybrid.esn", "esn_cusum_max grand-mean AUROC on the same eight datasets",
               0.8020, "results/tables/hybrid_benchmark.csv",
               "py -m derail.experiments.run_hybrid_study",
-              lambda: _hybrid_grand_mean("esn_cusum_max"), "Monitor"),
+              lambda: _hybrid_grand_mean("esn_cusum_max"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
         # ------------------------------------------- external validation
         # AFTraj-2K is another project's corpus, imported by
         # derail.experiments.import_aftraj. The tables ARE committed; the
@@ -289,7 +426,8 @@ def build() -> list[Claim]:
               "py -m derail.experiments.import_aftraj && "
               "py -m derail.experiments.run_hybrid_study --datasets aftraj "
               "--out-prefix aftraj",
-              lambda: _aftraj("esn_cusum_max", "auroc"), "Monitor"),
+              lambda: _aftraj("esn_cusum_max", "auroc"), "Monitor",
+              denominator=_aftraj_injected, expected_denominator=771),
         Claim("aftraj.esn_detection",
               "esn_cusum_max detection on AFTraj-2K at the 5% budget", 0.0480,
               "results/tables/aftraj_benchmark.csv",
@@ -316,7 +454,8 @@ def build() -> list[Claim]:
               "esn_cusum_max episode AUROC on ATBench (external)", 0.7787,
               "results/tables/atbench_benchmark.csv",
               "py -m derail.experiments.run_atbench_study",
-              lambda: _atbench("esn_cusum_max", "auroc"), "Monitor"),
+              lambda: _atbench("esn_cusum_max", "auroc"), "Monitor",
+              denominator=_atbench_eval_n, expected_denominator=381),
         Claim("atbench.esn_detection",
               "esn_cusum_max detection on ATBench at the 5% budget", 0.3108,
               "results/tables/atbench_benchmark.csv",
@@ -327,7 +466,8 @@ def build() -> list[Claim]:
               "to chance when a parent does)", 0.4626,
               "results/tables/atbench_benchmark.csv",
               "py -m derail.experiments.run_atbench_study",
-              lambda: _atbench("hybrid_weighted50", "auroc"), "Monitor"),
+              lambda: _atbench("hybrid_weighted50", "auroc"), "Monitor",
+              denominator=_atbench_eval_n, expected_denominator=381),
         Claim("atbench.action_failure_detection",
               "esn_cusum_max detection on unconfirmed/over-privileged actions "
               "(ATBench)", 0.5085,
@@ -344,7 +484,10 @@ def build() -> list[Claim]:
               lambda: _atbench_mode(
                   "esn_cusum_max",
                   "provide_inaccurate_misleading_or_unverified_information"),
-              "Monitor"),
+              "Monitor",
+              denominator=lambda: _atbench_mode_n(
+                  "provide_inaccurate_misleading_or_unverified_information"),
+              expected_denominator=26),
 
         Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
               0.0865, "results/tables/hybrid_diagnosis.csv",
@@ -373,16 +516,22 @@ def build() -> list[Claim]:
               "Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated",
               0.4876, "results/tables/model_transfer.csv",
               "py -m derail.experiments.run_model_transfer",
-              lambda: _model_transfer_auroc("transfer"), "Monitor"),
+              lambda: _model_transfer_auroc("transfer"), "Monitor",
+              denominator=lambda: _corpus_eval_n("real_research3b"),
+              expected_denominator=53),
 
         Claim("judge.p_detect", "Measured gemini-2.5-flash judge detection rate",
               0.5476, "results/tables/judge_calibration_summary.json",
               "py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120",
-              lambda: _judge("p_detect_measured"), "Monitor"),
+              lambda: _judge("p_detect_measured"), "Monitor",
+              denominator=lambda: _judge_n("n_positive"),
+              expected_denominator=84, denominator_unit="positives"),
         Claim("judge.p_false", "Measured gemini-2.5-flash judge false-alarm rate",
               0.0519, "results/tables/judge_calibration_summary.json",
               "py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120",
-              lambda: _judge("p_false_measured"), "Monitor"),
+              lambda: _judge("p_false_measured"), "Monitor",
+              denominator=lambda: _judge_n("n_negative"),
+              expected_denominator=77, denominator_unit="negatives"),
 
         # ------------------------------------------------------ verification
         Claim("holdout.totals", "Held-out failures caught by totals check", 0.5357,
@@ -427,27 +576,39 @@ def build() -> list[Claim]:
         Claim("repair.located", "`located` recovery rate", 0.4545,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("located"), "Repair"),
+              lambda: _repair_rate("located"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.generic", "`generic` recovery rate", 0.3576,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("generic"), "Repair"),
+              lambda: _repair_rate("generic"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.specific", "`specific` recovery rate", 0.3636,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("specific"), "Repair"),
+              lambda: _repair_rate("specific"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.recompute", "`recompute` recovery rate (not significant)", 0.2788,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("recompute"), "Repair"),
+              lambda: _repair_rate("recompute"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.adaptive", "`adaptive` recovery rate (not significant)", 0.2121,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("adaptive"), "Repair"),
+              lambda: _repair_rate("adaptive"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.resample", "`resample` control recovery rate", 0.1636,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
-              lambda: _repair_rate("resample"), "Repair"),
+              lambda: _repair_rate("resample"), "Repair",
+              denominator=_repair_episodes,
+              expected_denominator=55),
         Claim("repair.broken", "Correct runs broken by any repair policy", 0,
               "results/tables/repair_policies.csv",
               "py -m derail.intervene.evaluate_repair_policies --from-csv",
@@ -495,10 +656,15 @@ def _render(claims: list[Claim], ok: bool) -> str:
         if not group:
             continue
         lines += [f"## {section}", "",
-                  "| claim | value | source artifact | regenerate with |",
-                  "|---|---|---|---|"]
+                  "| claim | value | n | source artifact | regenerate with |",
+                  "|---|---|---|---|---|"]
         for c in group:
-            lines.append(f"| {c.claim} | `{c.render()}` | `{c.source}` | "
+            # `n` is the denominator the value was computed over, recomputed
+            # and checked like the value itself. A rate shown without one is a
+            # rate nobody can sanity-check.
+            n = ("—" if c.expected_denominator is None
+                 else f"`{c.expected_denominator}` {c.denominator_unit}")
+            lines.append(f"| {c.claim} | `{c.render()}` | {n} | `{c.source}` | "
                          f"`{c.regenerate}` |")
         lines.append("")
     lines += [
