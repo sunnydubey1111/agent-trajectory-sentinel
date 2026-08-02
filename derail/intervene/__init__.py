@@ -11,7 +11,8 @@ harness is offline.
 
 Detection and localization come from `derail.verify.checks` rather than the
 behavioural monitor. At the served temperature the two have comparable recall,
-but the checks raise no false alarm, need no calibration corpus, and — the part
-a rollback depends on — say *what* is wrong. See `derail.intervene.rollback`
+but the checks show 0 observed false positives on the 63 healthy runs of the
+serving arm, need no calibration corpus, and — the part a rollback depends on —
+say *what* is wrong. See `derail.intervene.rollback`
 and DESIGN.md Module 9.
 """

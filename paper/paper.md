@@ -893,8 +893,9 @@ grounded, verified-correct answer.
 2. **Plausible-value corruption is out of reach** for any reference-free
    monitor (measured through hash and MiniLM alike). Corruption that
    *destroys* a result's declared shape is not: the tool-contract check
-   catches 46% of the injected class at zero false positives, which bounds
-   this limitation to the plausible-value half rather than the whole of it.
+   catches 46% of the injected class at 0 observed false positives in 1825
+   healthy episodes, which bounds this limitation to the plausible-value
+   half rather than the whole of it.
 3. **Synthetic slow goal drift** remains undetectable at budget for all
    monitors; only its realistic prompt-hijack variant is solved.
 4. **Short-horizon failures** bound temporal detection: timeout
@@ -922,7 +923,8 @@ semantically plausible corruption — is precisely characterized and
 priced: it is the escalation layer's job, at 8% of the always-judge
 cost. Where a run's answer can be recomputed from what the agent
 observed, a deterministic check is the stronger instrument: it needs no
-null and no calibration, raises no false alarm on this task, transfers
+null and no calibration, showed 0 false positives in the 1825 healthy
+episodes evaluated, transfers
 across model families unchanged, and can be evaluated on failure classes
 too rare to leave a one-class monitor a null at all. Detection is worth
 having only if it changes the outcome, and here it does — rolling a

@@ -157,8 +157,11 @@ carry a per-episode hash in the manifest itself.
 
 ## Licensing
 
-The code, the trace format and this card are MIT. Recorded model
-output carries the terms of the model that produced it:
+MIT covers what this project wrote: the source, the trace format and
+schema, the result tables, and this card. It cannot cover what the
+project only recorded or called, because a licence cannot grant
+rights the licensor never held. Recorded model output carries the
+terms of the model that produced it:
 
 - **`qwen2.5:7b`, `qwen2.5:3b`** (2,247 episodes) are Apache-2.0, which
   places no condition on redistributing their output.
@@ -168,12 +171,26 @@ output carries the terms of the model that produced it:
   Policy it carries forward is at
   <https://llama.meta.com/llama3_1/use-policy/>. Reuse of these
   episodes is bound by both.
-- **`gemini-2.5-flash`** (143 episodes, corpora `real` and
-  `real_gemini_long`) was called through the Gemini API on the unpaid
-  tier. Google's terms bar using the Services to develop competing
-  models, and a condition on reuse follows from that. The clause is
-  quoted and the condition stated in `traces/NOTICE_gemini.md`, which
-  anyone reusing those two corpora should read first.
+- **`gemini-2.5-flash`** was called through the Gemini API on the
+  unpaid tier. Google's terms bar using the Services to develop
+  competing models, and a condition on reuse follows from that. The
+  clause is quoted and the condition stated in
+  `traces/NOTICE_gemini.md`, which anyone reusing this output should
+  read first.
+
+  That condition covers **330 episodes**, of which only
+  **143** appear in this card: corpora `real` (18) and `real_gemini_long` (125).
+  The other
+  **187** are listed in the top-level
+  `traces/manifest.json` rather than in a corpus subdirectory, and this
+  card enumerates corpora by globbing `traces/*/manifest.json`, so they
+  fall outside its total above. They are committed all the same and the
+  notice covers them; the three counts are reconciled in a table there.
+
+External benchmark corpora (AFTraj-2K, ATBench) are **not**
+redistributed here. They download into gitignored directories and are
+never committed; only our measurements of them are, and those are MIT.
+Anyone importing them is bound by the terms at the source.
 
 Cassette-replayed tool results come from public services and keep
 their own terms. Most are uncopyrightable facts - arXiv titles and

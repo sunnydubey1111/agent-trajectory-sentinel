@@ -1200,7 +1200,8 @@ function renderRepair() {
   } else if (S.repair_trigger === "checks") {
     rp.append(el("div", "subtle",
       "Triggered by the deterministic checks on the finished answer, which " +
-      "raise no false alarm — so this retry is never spent on a run that " +
+      "showed 0 false positives across the 1,825 healthy episodes " +
+      "evaluated — so this retry is almost never spent on a run that " +
       "was already correct."));
   }
   if (S.first_answer) {

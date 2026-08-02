@@ -15,7 +15,8 @@ AgentTrajectorySentinel answers that with two layers that compose into a single 
    failures live, while the run is still going.
 2. **Deterministic verification.** Checks that recompute a run's answer from
    the tool results that run actually received. No healthy null, no
-   threshold, no calibration — and no false alarms.
+   threshold, no calibration — and **0 observed false positives across the
+   1,825 healthy episodes evaluated**.
 
 On a real qwen2.5:7b booking agent, the two layers plus rollback-and-retry
 take **task success from 52% to 73%** for about one extra model call per run.
@@ -539,3 +540,32 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   [`REPRODUCE.md`](REPRODUCE.md) lists both commands.
 - `results/` — every table and figure the claims above cite.
 - [`LICENSE`](LICENSE) (MIT) and [`CITATION.cff`](CITATION.cff).
+
+## Licensing
+
+**MIT covers what this project wrote**: all source under `derail/`,
+`verification/`, `devtools/` and `tests/`, the trace *format* and schema, the
+result tables and figures, and every document here. See [`LICENSE`](LICENSE).
+
+**MIT does not cover things this project only recorded or called.** A licence
+cannot grant rights the licensor never held, so these keep their own terms:
+
+| what | terms |
+|---|---|
+| `qwen2.5:7b` / `qwen2.5:3b` model output (2,247 episodes) | Apache-2.0 — no condition on redistributing output |
+| `llama3.1:8b` model output (433 episodes) | Llama 3.1 Community License + its Acceptable Use Policy. **Built with Llama.** |
+| `gemini-2.5-flash` model output (330 episodes) | Gemini API Additional Terms. Reuse must not train language models or build anything competing with the Gemini API or Google AI Studio — clause quoted and scope itemised in [`traces/NOTICE_gemini.md`](traces/NOTICE_gemini.md) |
+| Cassette-replayed weather results | Open-Meteo, CC BY 4.0 |
+| Cassette-replayed search snippets | Wikipedia, CC BY-SA 4.0 |
+| arXiv / GitHub tool results | uncopyrightable facts — titles, identifiers, repository names, star counts |
+
+**External benchmarks are not redistributed here at all.** The AFTraj-2K
+(`ZBox008003/AFTraj`) and ATBench (`AI45Research/ATBench`) comparisons in
+[`CLAIMS.md`](CLAIMS.md) are computed from corpora this repository downloads
+into gitignored directories and never commits. The *measurements* are ours and
+are MIT; the underlying trajectories are the original authors' and are governed
+by whatever terms those datasets carry, which anyone importing them should
+check at the source.
+
+Per-corpus detail, including which episode counts each condition applies to,
+is in [`DATA_CARD.md`](DATA_CARD.md#licensing).

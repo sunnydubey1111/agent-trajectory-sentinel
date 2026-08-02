@@ -45,13 +45,26 @@ or Google AI Studio.
 
 ## Condition on reuse
 
-Anyone reusing these 143 episodes must not use them to train language models,
-or to develop any model or service competing with the Gemini API or Google AI
-Studio. This condition is in addition to the repository's MIT licence, which
-covers the code and the trace format but cannot grant rights over the model
-output these episodes contain.
+Anyone reusing **any of these 330 episodes** — all three sets listed above, not
+only the 143 that sit in corpus subdirectories — must not use them to train
+language models, or to develop any model or service competing with the Gemini
+API or Google AI Studio. This condition is in addition to the repository's MIT
+licence, which covers the code and the trace format but cannot grant rights
+over the model output these episodes contain.
 
-The other 2,680 episodes counted in `DATA_CARD.md` are unaffected: the
-`qwen2.5` corpora are
+## Which counts appear where
+
+The three numbers in circulation are all correct and all mean different things.
+Stating them together, because a reader who meets them one at a time will read
+one as contradicting another:
+
+| count | what it is |
+|---|---|
+| **330** | every Gemini episode in this repository — the scope of this notice |
+| **143** | the Gemini episodes in corpus subdirectories (`real/` 18 + `real_gemini_long/` 125), so the only ones `DATA_CARD.md`, the claims ledger and the Hugging Face export can see |
+| **187** | the Gemini episodes in the top-level `traces/manifest.json`, invisible to those three tools but committed and covered here |
+
+`DATA_CARD.md` totals 2,823 episodes; 143 of those are Gemini, leaving 2,680
+unaffected. The 187 are not in that 2,823 at all. The `qwen2.5` corpora are
 Apache-2.0 and unconditioned, and the `llama3.1:8b` corpora carry the Llama 3.1
 Community License terms recorded in `DATA_CARD.md`.

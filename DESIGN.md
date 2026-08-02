@@ -838,7 +838,8 @@ Measured live end-to-end on an injected run: `contract_step=5` against
 | T=0.9 false positives | **0/38** | 6/38 = 16% |
 
 Recall is comparable at the served temperature; the difference is precision.
-The checks reach 97% with coverage at no false alarms at all, and need no
+The checks reach 97% with coverage at 0 observed false positives — 0/63 at
+T=0.2 and 0/38 at T=0.9, the healthy runs in this comparison — and need no
 calibration corpus, whereas the monitor buys the same recall at 13% false
 alarms and one fitted null per configuration. Organic arithmetic errors are
 caught 39/39.
@@ -856,7 +857,8 @@ price identical worlds, and scored with the checks frozen:
 
 llama fails far more often on this task — 53 of its runs never produce a
 parsable answer — but every failure it does produce is caught, and the checks
-raise no false alarm on either model. Nothing in them was tuned for llama; the
+show 0 observed false positives on either model — 0/63 healthy qwen runs and
+0/10 healthy llama runs. Nothing in them was tuned for llama; the
 same `BOOKING_SPEC` and the same code ran on both.
 
 The arm needed `AGENTWATCH_TOOL_NUDGE=1` (103 of 120 runs used it): without it
@@ -915,8 +917,9 @@ by the small `hallucinated` class (4/8). Coverage is what catches the
 Closes the loop the study previously left open: it showed failures could be
 detected, never that detection improved the agent. Detection and localization
 come from Module 8 rather than the behavioural monitor: at the served
-temperature the two have comparable recall, but the checks raise no false alarm
-and, decisively for a rollback, they say *what* is wrong.
+temperature the two have comparable recall, but the checks show 0 observed
+false positives on the 63 healthy runs of the serving arm and, decisively for a
+rollback, they say *what* is wrong.
 
 **Two triggers, with separate budgets.** The checks reject a finished answer;
 the watchdog alarms mid-episode. Each gets one retry and neither may consume
