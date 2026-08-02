@@ -1,0 +1,80 @@
+"""The arXiv upload must compile without this repository around it.
+
+arXiv receives a flat directory, not a checkout. A figure path that resolves
+here and nowhere else does not fail the build — it leaves a blank box in the
+published PDF, which is discovered by a reader rather than by the author.
+"""
+from __future__ import annotations
+
+import pathlib
+import re
+
+import pytest
+
+from devtools import arxiv_package
+
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+
+@pytest.fixture(scope="module")
+def package(tmp_path_factory) -> pathlib.Path:
+    out = tmp_path_factory.mktemp("arxiv") / "pkg"
+    arxiv_package.build(out)
+    return out
+
+
+def test_nothing_the_source_needs_is_missing(tmp_path) -> None:
+    summary = arxiv_package.build(tmp_path / "pkg")
+    assert not summary["missing"], summary["missing"]
+    assert summary["figures"] >= 5
+
+
+def test_every_figure_sits_beside_the_source(package) -> None:
+    tex = (package / "main.tex").read_text("utf-8")
+    for name in arxiv_package._figures(tex):
+        assert (package / name).exists(), f"{name} not in the upload"
+
+
+def test_the_checkout_relative_graphics_path_is_gone(package) -> None:
+    """It resolves here and nowhere else; on arXiv it yields empty boxes."""
+    tex = (package / "main.tex").read_text("utf-8")
+    assert "../results/figures" not in tex
+
+
+def test_the_bibliography_ships_compiled(package) -> None:
+    """arXiv does not always run BibTeX; a missing .bbl loses every citation."""
+    assert (package / "main.bbl").exists()
+    assert (package / "references.bib").exists()
+
+
+def test_the_style_file_is_included(package) -> None:
+    tex = (package / "main.tex").read_text("utf-8")
+    for match in re.findall(r"\\usepackage(?:\[[^\]]*\])?\{([^}]+)\}", tex):
+        for name in match.split(","):
+            local = package / f"{name.strip()}.sty"
+            if (REPO_ROOT / "paper" / f"{name.strip()}.sty").exists():
+                assert local.exists(), f"{name} is local but was not shipped"
+
+
+def test_the_arxiv_version_is_not_anonymous(package) -> None:
+    """The opposite of the workshop submission, and deliberately so."""
+    tex = (package / "main.tex").read_text("utf-8")
+    assert "Sunny Dubey" in tex
+    assert "0009-0002-8296-8631" in tex, "ORCID missing from the preprint"
+    assert "Anonymous" not in tex
+
+
+def test_the_preprint_points_at_the_public_artifacts(package) -> None:
+    """A preprint whose artifact is public should say where it is."""
+    tex = (package / "main.tex").read_text("utf-8")
+    for target in ("github.com/sunnydubey1111/agent-trajectory-sentinel",
+                   "huggingface.co/datasets/sunnydubey1111",
+                   "huggingface.co/spaces/sunnydubey1111"):
+        assert target in tex, f"{target} not cited in the preprint"
+
+
+def test_the_workshop_submission_stays_anonymous() -> None:
+    """Guards the pair: the arXiv edits must not leak into the blind one."""
+    tex = (REPO_ROOT / "paper" / "workshop.tex").read_text("utf-8")
+    for probe in ("Sunny", "Dubey", "0009-0002", "github.com", "huggingface"):
+        assert probe not in tex, f"{probe!r} leaked into the blind submission"
