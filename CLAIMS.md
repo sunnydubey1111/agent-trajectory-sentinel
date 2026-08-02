@@ -4,6 +4,12 @@ Every headline number in the README, `DESIGN.md` and both papers, with
 the artifact it is read from and the command that regenerates that
 artifact. This file is generated -- edit the study, not the ledger:
 
+`n` is the denominator the value was computed over, recomputed and
+drift-checked like the value itself, and labelled with what it counts:
+these are not all episodes. A rate shown without one is a rate nobody
+can sanity-check, which is how an AUC computed on a held-out split of
+94 was published as being on a corpus of 187.
+
 ```
 py -m devtools.claims_ledger --check    # recompute and verify
 py -m devtools.claims_ledger --write    # regenerate this file

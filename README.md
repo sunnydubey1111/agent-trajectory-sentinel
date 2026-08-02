@@ -513,9 +513,11 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   scientifically, in eight sections, each result named with the artifact it is
   computed from and its bounds stated alongside it.
 - [`CLAIMS.md`](CLAIMS.md) — claim-to-evidence ledger: every headline number
-  above, the artifact it is read from, and the command that regenerates it.
-  `py -m devtools.claims_ledger --check` recomputes every one of them and fails
-  on drift. The ledger prints its own count, so this sentence cannot go stale.
+  above, the denominator it was computed over, the artifact it is read from,
+  and the command that regenerates it.
+  `py -m devtools.claims_ledger --check` recomputes every one of them — value
+  and denominator both — and fails on drift. The ledger prints its own count,
+  so this sentence cannot go stale.
 - [`USER_GUIDE.md`](USER_GUIDE.md) — a walkthrough of the live demo: what to
   press, what to look for on the chart, the Why panel and the savings banner,
   and what does not work yet.

@@ -552,9 +552,11 @@ Do NOT run the experiment in the smoke test — `__main__` IS the experiment.
     vault; OS trust store for TLS-intercepting AV), `experiments/
     run_real_traces.py` (fit/evaluate on real traces; channel set driven
     by logprobs availability — tier-gated on free Gemini keys). Findings
-    on 187 real episodes: channel-max AUC 0.840 at 20% realized FA (15
-    healthy test episodes, so one episode is worth 6.7 points, and the 16
-    validation episodes cannot deliver a 5% budget at all); looping 1.00,
+    on a 187-episode corpus, scored on the held-out split of 94 it yields
+    (79 injected + 15 healthy) and not on all 187: channel-max AUC 0.840
+    at 20% realized FA (15 healthy test episodes, so one episode is worth
+    6.7 points, and the 16 validation episodes cannot deliver a 5% budget
+    at all); looping 1.00,
     cascade 0.83, abrupt goal drift 0.77, corruption 0.29; slow drift
     remains the simulator-documented hard case.
 

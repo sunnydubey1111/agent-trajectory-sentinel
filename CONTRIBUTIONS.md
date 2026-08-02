@@ -258,7 +258,11 @@ argument for why AUROC alone is insufficient for a verifier permitted to halt.
   and three frameworks — public, loadable, and checksummed.
 - **A self-checking claim ledger**: every headline number carries its source
   artifact and regeneration command, and is recomputed from that file on every
-  run, gated in CI.
+  run, gated in CI. Every published rate also carries the denominator it was
+  computed over, labelled with what it counts and drift-checked like the value
+  — a rate with no `n` cannot be sanity-checked by a reader or by CI, which is
+  how an AUC measured on a held-out split of 94 was published as being on a
+  corpus of 187.
 - **A SHA-256 manifest over every file**, a behavioural-snapshot tripwire that
   re-runs the study and diffs every value, and one master seed that reproduces
   bit-for-bit within an environment.
