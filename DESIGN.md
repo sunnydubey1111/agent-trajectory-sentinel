@@ -994,23 +994,25 @@ p across repeats):
 
 | rung | rate | range | vs `none` | vs `resample` | extra model calls |
 |---|---|---|---|---|---|
-| none | 0% | — | — | — | 0 |
-| resample | 15% | 11–22% | p=0.0156 | — | 2.2 |
-| **generic** | 39% | 38–40% | p<0.0001 | **p=0.0013** | 2.0 |
-| **located** | **42%** | 38–49% | p<0.0001 | **p=0.0043** | 2.9 |
-| specific | 38% | 33–40% | p<0.0001 | p=0.0118 | 3.0 |
-| adaptive | 19% | 16–22% | p=0.0010 | p=0.58 (n.s.) | 2.3 |
+| none | 0% | — | — | — | 0.0 |
+| resample | 16% | 15–18% | p=0.0039 | — | 2.4 |
+| generic | 36% | 35–38% | p<0.0001 | p=0.0347 | 2.1 |
+| **located** | **45%** | 44–47% | p<0.0001 | **p=0.0005** | 2.9 |
+| specific | 36% | 29–42% | p<0.0001 | p=0.0192 | 3.0 |
+| recompute | 28% | 25–31% | p=0.0001 | p=0.17 (n.s.) | 2.0 |
+| adaptive | 21% | 16–24% | p=0.0002 | p=0.61 (n.s.) | 2.3 |
 
 Net over all 120 episodes, charging each policy for any correct run it broke:
 
 | policy | correct | rate | recovered | broken |
 |---|---|---|---|---|
 | none | 63 | 52% | — | — |
-| resample | 71 | 59% | 8.3 | 0 |
-| generic | 84 | 70% | 21.3 | 0 |
-| **located** | **86** | **72%** | 23.0 | 0 |
-| **specific** | **89** | **74%** | 26.0 | 0 |
-| adaptive | 79 | 66% | 15.7 | 0 |
+| resample | 72 | 60% | 9.0 | 0 |
+| generic | 83 | 69% | 19.7 | 0 |
+| **located** | **88** | **73%** | 25.0 | 0 |
+| specific | 83 | 69% | 20.0 | 0 |
+| recompute | 78 | 65% | 15.3 | 0 |
+| adaptive | 75 | 62% | 11.7 | 0 |
 
 **What it costs.** The repair fires on 55 of 120 runs (46%), and every figure
 below is measured, not assumed — extra model calls from the study rows, step
@@ -1018,25 +1020,29 @@ latency from the retried traces themselves:
 
 | rung | extra calls | s/step | added wall-clock | calls per recovery |
 |---|---|---|---|---|
-| resample | 2.24 | 2.68 | 6.0 s | 14.8 |
-| **generic** | 2.04 | 2.68 | **5.5 s** | **5.2** |
-| **located** | 2.92 | 2.68 | 7.8 s | 7.0 |
-| specific | 3.02 | 2.69 | 8.1 s | 8.0 |
-| adaptive | 2.34 | 2.68 | 6.3 s | 12.1 |
+| resample | 2.41 | 2.68 | 6.5 s | 14.7 |
+| **generic** | 2.07 | 2.68 | **5.6 s** | **5.8** |
+| **located** | 2.89 | 2.69 | 7.8 s | 6.4 |
+| specific | 2.96 | 2.69 | 7.9 s | 8.1 |
+| recompute | 2.00 | 2.68 | 5.4 s | 7.2 |
+| adaptive | 2.25 | 2.68 | 6.0 s | 10.6 |
 
-A recommended policy adds 5.5-7.8 s to a flagged run and buys one recovered
-failure per 5-7 model calls. Amortised over every run, including the 65 never
+A recommended policy adds 5.6-7.8 s to a flagged run and buys one recovered
+failure per 6-8 model calls. Amortised over every run, including the 65 never
 flagged, that is ~1 extra call and ~3 s per run.
 
-**52% -> 72% task success for ~1 extra model call per run.** Retry luck is real
-and is controlled for: plain resampling recovers 15% (11-22%), and only the
+**52% -> 73% task success for ~1 extra model call per run.** Retry luck is real
+and is controlled for: plain resampling recovers 16% (15-18%), and only the
 margin above it is credited to the repair.
 
-**Asking for a re-check is what works; the wording barely matters.** Undirected
-(39%), fault-named (42%) and fault-named-with-values (38%) are
-indistinguishable from one another and all clearly above the control. Only
-`adaptive`, which withholds the prompt when just completeness is at fault,
-fails to beat it (19%, p=0.58).
+**Asking for a re-check is what works, and naming the fault works best.**
+Fault-named `located` (45%) is the strongest rung and the only one that clears
+the control decisively (p=0.0005); undirected (36%) and
+fault-named-with-values (36%) are indistinguishable from each other and still
+clearly above it. Two rungs fail to beat retry luck: `recompute` (28%, p=0.17),
+which routes the step to a calculator the agent already holds and should have
+fixed the dominant arithmetic failure, and `adaptive` (21%, p=0.61), which
+withholds the prompt when just completeness is at fault.
 
 **Supplying the recomputed answer buys nothing.** `total_consistency` derives
 the total from the agent's own figures, so for a run that merely mis-added that

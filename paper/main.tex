@@ -183,14 +183,16 @@ Behavioral and statistical monitors share one blind spot: corruption that change
 
 \begin{table}[tbp]
 \centering
-\caption{Detection rate (pooled injected episodes, n=602). Ungrounded $\rightarrow$ grounded; McNemar discordant (gained/lost) vs the ungrounded parent.}
+\caption{Detection rate (pooled injected episodes, n=874 over ten datasets,
+\texttt{grounding\_diagnosis.csv}). Ungrounded $\rightarrow$ grounded; McNemar
+discordant (gained/lost) vs the ungrounded parent.}
 \begin{tabular}{lcc}
 \toprule
-Fusion & Content (n=211) & Behavioral (n=391) \\
+Fusion & Content (n=313) & Behavioral (n=561) \\
 \midrule
-Content gate & 0.23 $\rightarrow$ \textbf{0.40} (+37/-0) & 0.73 $\rightarrow$ \textbf{0.80} (+25/-0) \\
-Joint-budget & 0.23 $\rightarrow$ \textbf{0.32} (+21/-1) & 0.73 $\rightarrow$ 0.73 (+0/-3) \\
-Logistic+g (labels) & 0.14 $\rightarrow$ 0.17 (+14/-9) & 0.74 $\rightarrow$ 0.69 (+5/-23) \\
+Content gate & 0.27 $\rightarrow$ \textbf{0.58} (+96/-0) & 0.74 $\rightarrow$ \textbf{0.79} (+27/-0) \\
+Joint-budget & 0.27 $\rightarrow$ \textbf{0.45} (+58/-1) & 0.74 $\rightarrow$ 0.73 (+0/-3) \\
+Logistic+g (labels) & 0.21 $\rightarrow$ 0.32 (+42/-9) & 0.71 $\rightarrow$ 0.69 (+23/-32) \\
 \bottomrule
 \end{tabular}
 \end{table}
