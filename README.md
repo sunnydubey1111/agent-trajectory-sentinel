@@ -118,6 +118,17 @@ margin**: giving a GRU that same wrapper lifts it to det 0.76 / AUC 0.873. The
 wrapper is the transferable contribution; the ESN stays primary for its
 false-alarm discipline (0.069 vs 0.113) and ~100× faster fit.
 
+**The generality corpora are the most heavily filtered, and that cuts against
+us.** An episode is discarded when it is too short to score or when an injection
+never landed, and the rate is nowhere near uniform: `langgraph` **55.4%**,
+`real` **53.8%**, `ollama_llama8b` **49.2%**, against `real_research7b` at
+**1.7%**. The corpora carrying the cross-framework and cross-model claims are
+exactly the ones where the most attempts were thrown away, so those breadth
+results rest on a more selected sample than the headline ones do. Every
+rejection is written to the corpus's `rejected.json` with its reason, and the
+per-corpus table and the per-rule split are in
+[`DATA_CARD.md`](DATA_CARD.md#what-the-acceptance-gate-discarded).
+
 **It transfers to corpora we did not build.** Two external benchmarks, two
 other labs, no retraining and no tuning — the monitors are fitted on each
 corpus's own healthy runs and scored as-is.

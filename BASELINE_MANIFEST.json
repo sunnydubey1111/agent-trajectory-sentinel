@@ -110,7 +110,7 @@
    "tests/test_module_selftests.py": "a09662384d90abdae57caf8ee982e2bbb214ded28ae699cf411416f13c62b70b",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
-   "tests/test_release_artifacts.py": "3411fa9beb8036e1a61e6b6435ed0769fc9f001d65b34091d36e89d74fbebf5c",
+   "tests/test_release_artifacts.py": "36bc5c8799e16fdcc09b289fd83d7415989e4904cdc772e7d01bafccdbb4717d",
    "tests/test_security_containment.py": "ac96a825b61488d2684f439a710a84ad7fceda9b675ea71f89de5bf0c5504c7a",
    "tests/test_telemetry_events.py": "74598558b69b30a69b10ed39663bd025eb37c83c8df8980a2668c15f2cd44c5b",
    "tests/test_trace_audit.py": "f0de3b83314cc3afa7e1bf25287721d6986a1c7d17f41423ffa589db1249fc25",
@@ -226,6 +226,7 @@
    "results/tables/h3_calibration.csv": "8874c406d938fb4cd2ffa333da7a9700629917c92b37affd862055e8d144edfc",
    "results/tables/h3_escalation.csv": "ae0350e467f7a040295e85537572497c919503741d2d7ec22b91b5f57e6a435a",
    "results/tables/h3_reliability.csv": "09ec5adf798fbbaf21bacba86db27c832a206d618be8073a7dead3d660b22e4f",
+   "results/tables/healthy_intervention.csv": "aaa3bf99e8ea074a8cb72eec836d0bf726265cfb8ebc6a9e2d61c60843a7d188",
    "results/tables/hmt_ab_real.csv": "2500992c70e820024ef5c7c05a443f2a2a95c936928a45724320cc2fe9aec230",
    "results/tables/hmt_ab_sim.csv": "1cdbca5d8667ec02836e5e1c03309bcbd64e0da9a3bd39d4e8f37ce52a835c2a",
    "results/tables/hmte_vs_baseline.csv": "2e54cdc1ba8f74cef21431f95b791d2a3203b1563595186278873e8834faf53c",
@@ -8493,7 +8494,7 @@
    "CLAIMS.md": "c8eb874afabfff4c8aeecc4ca94088da30922e78da250bda1c3f1c4000ab6843",
    "DATA_CARD.md": "23efda973b3a5715720694815c4f8f92de737638a149b03544584de2a29e00f5",
    "DESIGN.md": "c894a3edaba54cb10ed1866bb959e9575a36fae82325df5506605ab20ab5eb75",
-   "README.md": "f62c04ac9da58403ea9a0c708bc934894494b032f184e568dbfc16fd3850bd77",
+   "README.md": "13c0949cfa669fd27eaa44277d44c1fb5e3c230b0f826cea08d825a4cd561dde",
    "REPRODUCE.md": "1bdd512c70315c9fb4f40d8eddf3703ae505c75be4ec3ae440b123afeba4f25a",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
    "paper/main.tex": "c33fc6bd68ff43853ef28b0f76f65f9031de904c77b40c61c87a98b77fc7fd2f",
@@ -8507,5 +8508,5 @@
   }
  },
  "note": "",
- "file_count": 8497
+ "file_count": 8498
 }

@@ -64,8 +64,22 @@ def test_data_card_describes_every_corpus() -> None:
     assert not undescribed, f"corpora with no purpose line: {undescribed}"
 
 
+def _anchor(heading: str) -> str:
+    """GitHub's slug for a markdown heading."""
+    import re
+
+    slug = heading.strip().lower()
+    slug = re.sub(r"[^\w\s-]", "", slug)
+    return re.sub(r"\s+", "-", slug)
+
+
 def test_readme_links_resolve() -> None:
-    """Every relative markdown link in the README points at something."""
+    """Every relative markdown link in the README points at something.
+
+    A `file.md#section` link is checked in both halves: the file must exist and
+    the heading must too. Previously the fragment was treated as part of the
+    path, so any anchored link failed even when it was correct.
+    """
     import re
 
     text = (REPO_ROOT / "README.md").read_text("utf-8")
@@ -74,8 +88,16 @@ def test_readme_links_resolve() -> None:
         target = match.group(1)
         if target.startswith(("http", "#", "mailto")):
             continue
-        if not (REPO_ROOT / target).exists():
+        path, _, fragment = target.partition("#")
+        resolved = REPO_ROOT / path
+        if not resolved.exists():
             broken.append(target)
+            continue
+        if fragment and resolved.suffix == ".md":
+            headings = {_anchor(h) for h in re.findall(
+                r"(?m)^#{1,6}\s+(.+?)\s*$", resolved.read_text("utf-8"))}
+            if fragment.lower() not in headings:
+                broken.append(f"{target} (no such heading)")
     assert not broken, f"broken README links: {broken}"
 
 
@@ -146,8 +168,33 @@ def test_limitations_survive_in_the_readme() -> None:
                    "only half sensitive",
                    "did not work",
                    "do not transfer across deployments",
-                   "halved by measurement"):
+                   "halved by measurement",
+                   # The breadth corpora are the most heavily filtered, which
+                   # weakens exactly the cross-framework and cross-model
+                   # claims. It was in the data card and not the README, where
+                   # a reader forms their impression.
+                   "most heavily filtered"):
         assert phrase in text, f"README no longer states: {phrase!r}"
+
+
+def test_the_readme_gives_the_real_discard_rates() -> None:
+    """The range is the disclosure; a vague 'some episodes were dropped' is not.
+
+    Each rate is read back from DATA_CARD.md, which is generated from the
+    rejected.json files, so this fails if the README and the corpora disagree.
+    """
+    import re
+
+    readme = (REPO_ROOT / "README.md").read_text("utf-8")
+    card = (REPO_ROOT / "DATA_CARD.md").read_text("utf-8")
+
+    for corpus in ("langgraph", "real_research7b"):
+        row = re.search(rf"\|\s*`{corpus}`\s*\|[^|]*\|[^|]*\|\s*([\d.]+)%",
+                        card)
+        assert row, f"{corpus} has no discard row in DATA_CARD.md"
+        rate = row.group(1)
+        assert rate in readme, (
+            f"README does not carry {corpus}'s discard rate of {rate}%")
 
 
 DIAGRAMS = {
