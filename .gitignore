@@ -102,3 +102,16 @@ build/
 paper/workshop.tex
 paper/workshop.pdf
 paper/neurips_2026.sty
+
+# The TMLR submission, same reasoning. TMLR states that non-anonymous
+# submissions are rejected without review, so the source and the built PDF stay
+# out of the published tree until notification. It builds locally:
+#   cd paper && latexmk -pdf tmlr.tex
+# The style files below are the official TMLR package (Apache-2.0), vendored so
+# the build works offline; they are not ours to redistribute here.
+paper/tmlr.tex
+paper/tmlr.pdf
+paper/tmlr.sty
+paper/tmlr.bst
+paper/fancyhdr.sty
+paper/math_commands.tex

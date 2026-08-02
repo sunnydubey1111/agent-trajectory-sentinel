@@ -51,7 +51,13 @@ EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
                  # it is written for. It exists on the author's machine and in
                  # no checkout, so hashing it would fail the integrity check
                  # for everyone else.
-                 "workshop.tex", "workshop.pdf", "neurips_2026.sty"}
+                 "workshop.tex", "workshop.pdf", "neurips_2026.sty",
+                 # The TMLR submission and its vendored style package, for the
+                 # same two reasons: TMLR rejects non-anonymous submissions
+                 # without review, so the source stays untracked, and the style
+                 # files are the venue's (Apache-2.0) rather than ours.
+                 "tmlr.tex", "tmlr.pdf", "tmlr.sty", "tmlr.bst",
+                 "fancyhdr.sty", "math_commands.tex"}
 # Text artifacts are hashed after CRLF -> LF normalisation, matching the
 # .gitattributes policy, so a manifest is identical on Windows and
 # Linux checkouts and a line-ending flip is never mistaken for a data change.
