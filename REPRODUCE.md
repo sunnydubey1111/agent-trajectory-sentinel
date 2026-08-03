@@ -178,7 +178,21 @@ py -m devtools.data_card --check                  # data card vs the committed c
 ```
 cd paper && latexmk -pdf main.tex                 # conference format  -> paper/main.pdf
 py -m devtools.md_to_latex --build                # full length        -> paper/paper.pdf
+py -m devtools.arxiv_package --build --check      # arXiv upload       -> build/arxiv/
 ```
+
+`paper/main.tex` is the arXiv submission; `py -m devtools.arxiv_package` flattens
+it into a self-contained upload. Two notes for that submission:
+
+- `--check` compiles with `latexmk`, which on MiKTeX needs Perl installed. Where
+  it is not, `--check` reports FAILED without ever compiling; run
+  `pdflatex agent_trajectory_sentinel.tex` three times in `build/arxiv/` instead
+  and read the log. A clean build is 15 pages, no errors, no overfull boxes.
+- arXiv's submission form caps the **abstract metadata field at 1920
+  characters**, which the paper's own abstract exceeds. Paste
+  [`paper/arxiv_abstract.txt`](paper/arxiv_abstract.txt) into that field; it is
+  1918 characters, plain ASCII, and every number in it is the same number the
+  paper reports.
 
 ## 6. Settings that change results
 

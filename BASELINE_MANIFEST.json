@@ -64,7 +64,7 @@
    "derail/monitor/baseline.py": "e43ad0f85249cafb007dfb57aca06cdab813a8a37537066f7fa3f4483724ca75",
    "derail/monitor/baselines.py": "472c8e7bb078d617804875460757d0eeabd1593d337a94f5e7af289642c41067",
    "derail/monitor/calibration.py": "4d5570f0bc386832d94faaf264d4e8361dccb9ae6c79459bae86232a71333f14",
-   "derail/monitor/escalation.py": "20385c673d3d4e8b963eb4c8203b9883d6ce8dd3273be494b8e7d1209a659561",
+   "derail/monitor/escalation.py": "1f8f18d0db49f83dcdaf322cf65748caaa044253c88748acb1ec05fe53c1cb7d",
    "derail/monitor/esn.py": "e15d14f631a660cd0959d435a7fc6a73a971a924ee72e937b6479080cf5a8601",
    "derail/monitor/grounding.py": "b9f5c9700a1b85466d29d9f0f476fa14db023596f7faae263728908b1b9fa1f6",
    "derail/monitor/grounding_verify.py": "c8c01756217c84c8de579d8cb1f9ec7f464912a350cc0922cc3446ece02059e4",
@@ -92,7 +92,7 @@
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
    "devtools/trace_audit.py": "94fa461367711a59c6eed3778871783c6bb8e2b04f029c9b58cd84e9dae74b2e",
    "experimental/adversarial_evasion.py": "2f80a029d5f1efa59283d85396903dcb42c33b868345de2454c159f91d376dff",
-   "experimental/judge_sensitivity.py": "fb6710287b065daf95fbec5b70b7e2e63da1ee47ca93758a1c6e42082683afb6",
+   "experimental/judge_sensitivity.py": "094a39d045c3180d355e03e9a0d0fcdc7f1526fc7ce469d207f0328713477266",
    "experimental/pmi.py": "3f5333e539286cfcf12f26f7ee187d7aae414440ec173ae673c37c971b1ae858",
    "experimental/power_analysis.py": "c920837a69444fab97d44f7d74c94e81abaa0ed64309a6046197360fa77cff55",
    "experimental/recalibration_cost.py": "82f0e741b3797bdafef546d60c0e755e899c607397056cfa8bf3b68272a78657",
@@ -8494,13 +8494,13 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "3f717262ed0b041c1d93f5519af8d7886566d09b8d1fc0543e2abcf9db35d2c8",
+   "CHECKSUMS.md": "695f2e6fd058818123c3bee377581bb356a9a0576e05de36ac922838f47f0835",
    "CLAIMS.md": "e9004f41ffdb16f16ba342775cb868bc38c97de91fa593ed03ea4b12e9a17c76",
    "CONTRIBUTIONS.md": "2ff9a57d4ffdb3fb2874541da40f8bc1a29deb923a47093cc177faea5f8f6f83",
    "DATA_CARD.md": "d15c46143d5ce014f4b9b1b19435fa645325b39f23675ebf810ed14c6a898f8e",
    "DESIGN.md": "1cacfd626ae0b9997797a3ed6c3d08413a31c2fa3b446b22f142f8fbc07da959",
    "README.md": "da8e8ec44a2b30a35cee0b4bbdc8d8b94b4e53ed207336706f118d2bd747fd3c",
-   "REPRODUCE.md": "1bdd512c70315c9fb4f40d8eddf3703ae505c75be4ec3ae440b123afeba4f25a",
+   "REPRODUCE.md": "1ed93f984aa93a7bb748567ebc1b3ec0848a86f776b6e80807828575a7619808",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
    "paper/main.tex": "484f2e0fe0045e840f7da05a092f55c8d912caa477e9642b95da207202213776",
    "paper/paper.md": "fbd8be3b2c3de558f393dfcb42705bbf9f6dde8f76b725f33ce18e5343581d08",
@@ -8511,6 +8511,6 @@
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
- "note": "paper + escalation docstring: fix stale AFTraj/judge contradictions, judge prompt count 172->161, duplicate table numbering",
+ "note": "arXiv preflight: abstract metadata file, judge p_false provenance, REPRODUCE arXiv section",
  "file_count": 8502
 }
