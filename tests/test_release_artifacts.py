@@ -109,7 +109,7 @@ def test_manuscript_pdfs_rebuild_from_committed_sources() -> None:
     style file are present, and REPRODUCE.md says how. A PDF that happens to
     exist locally is still checked for being a real PDF rather than a stub.
     """
-    for name in ("main.tex", "paper.tex", "references.bib", "neurips.sty"):
+    for name in ("main.tex", "paper.tex", "references.bib", "preprint.sty"):
         assert (REPO_ROOT / "paper" / name).exists(), f"paper/{name} missing"
 
     reproduce = (REPO_ROOT / "REPRODUCE.md").read_text("utf-8")

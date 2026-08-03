@@ -80,7 +80,7 @@
    "derail/verify/run_verification_study.py": "eff9e2ff831d4abc898ced832778465268d31aa9bacb9fe9768b333754c8d06d",
    "devtools/__init__.py": "7546f153e7482286da7350c05dc402c39956405db90472ece6f3c050a0ce68d5",
    "devtools/artifact_manifest.py": "2a85f25d06bd5ce2037cdb0876e357e1559d27e306303ed1aec82365e89f58c2",
-   "devtools/arxiv_package.py": "d2773523020fef248435480c136c5b468b8f3ac4f323578c7e94e39330cc3c01",
+   "devtools/arxiv_package.py": "18e734c70f7f1cab4ca59a65cfb4683bbbb61bc69b3b4e42b8b6f2dd8572ba18",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
    "devtools/claims_ledger.py": "abbf8f08bcbd82d5636cec16f1c74e29e25728193bca4b71a2e300ef3391c810",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
@@ -113,7 +113,7 @@
    "tests/test_module_selftests.py": "a09662384d90abdae57caf8ee982e2bbb214ded28ae699cf411416f13c62b70b",
    "tests/test_monitor_internals.py": "ab101431493c094fdedd024610e67455d94832a415ecfd98a65c6c08183984d8",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
-   "tests/test_release_artifacts.py": "e548b3a94e84d1a2d9e3cfdf9349396897113a809bd94f51609a3991afdfcc6a",
+   "tests/test_release_artifacts.py": "7d453bb99d1ec1d07494c3bf04f5d9824e888ce30587ac398905a7e94efc70e8",
    "tests/test_security_containment.py": "f0bd3b458fa271501b7ea2a2bb686e245b5a122456ad131f7594d6c200f05a80",
    "tests/test_telemetry_events.py": "74598558b69b30a69b10ed39663bd025eb37c83c8df8980a2668c15f2cd44c5b",
    "tests/test_trace_audit.py": "f0de3b83314cc3afa7e1bf25287721d6986a1c7d17f41423ffa589db1249fc25",
@@ -8494,7 +8494,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "8bf373cfccce7c8ad30cd4ca5d4686d224eede977aa4fc7ad3c8ba07b784ff1f",
+   "CHECKSUMS.md": "20faab57c38691f255b425cc084c85dce8a97b4cf8d63e930b316a2dee0dacfb",
    "CLAIMS.md": "e9004f41ffdb16f16ba342775cb868bc38c97de91fa593ed03ea4b12e9a17c76",
    "CONTRIBUTIONS.md": "a1ccdff43c34f1a32fc6dc7c121e2a0c048d53bd3d1637062ab00f4b7917208e",
    "DATA_CARD.md": "d15c46143d5ce014f4b9b1b19435fa645325b39f23675ebf810ed14c6a898f8e",
@@ -8502,7 +8502,7 @@
    "README.md": "da8e8ec44a2b30a35cee0b4bbdc8d8b94b4e53ed207336706f118d2bd747fd3c",
    "REPRODUCE.md": "1ed93f984aa93a7bb748567ebc1b3ec0848a86f776b6e80807828575a7619808",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
-   "paper/main.tex": "cb6618217c44ef592ab23301826979fd8c30100380d19cbf66f552ce1a050951",
+   "paper/main.tex": "6d722012dd2d236f2a532fc4145608c577e615b40513f37e0e2387e39908a236",
    "paper/paper.md": "937c4724c3fe59f7d5ee7fde11e543fb6ba828f6f427188c8f9981c4c0e8255c",
    "paper/paper.tex": "306f2abbc8cc9859e24b01d877778c8cfa94df41c2ea3f7c1a3c1a2bf29341ce",
    "paper/references.bib": "6ead86b72587c565c83b3be6ccec45464761a4a11c57676ea9ed24a353793f87",
@@ -8511,6 +8511,6 @@
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
- "note": "audit: tool_cascade range, PrefixGuard citation, narrowed novelty claim",
+ "note": "rename neurips.sty -> preprint.sty",
  "file_count": 8502
 }

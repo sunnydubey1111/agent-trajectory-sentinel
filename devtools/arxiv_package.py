@@ -38,7 +38,7 @@ STEM = "agent_trajectory_sentinel"
 #: Files the upload needs beside the source. The .bbl is included deliberately:
 #: arXiv runs BibTeX only when it must, and shipping the compiled bibliography
 #: removes a class of build failure that is invisible until after submission.
-SUPPORT = ("neurips.sty", "references.bib")
+SUPPORT = ("preprint.sty", "references.bib")
 
 
 def _figures(tex: str) -> list[str]:
