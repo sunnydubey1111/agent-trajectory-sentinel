@@ -395,9 +395,13 @@ is undetectable from telemetry by construction and needs an external reference.
 labeller flags 9 of 175 organic episodes as hallucinated and only \textbf{2 as
 fabricated inputs}, the class the grounding verifier targets --- both below the
 pre-registered minimum of 10, so no detection claim is made in either
-direction. Under provocation the class becomes testable and the verifier
+direction. Under provocation the class becomes testable and the grounding verifier
 catches \textbf{0.55} of 11 ungrounded-input fabrications at 0 false positives
 on healthy runs: specific, about half sensitive, and only under provocation.
+That 0.55 and the \textbf{26 of 26} in \S\ref{sec:verify} are different layers
+on different denominators and not in tension: the deterministic checks catch
+all 26 provoked hallucinations by recomputing the total, while 0.55 is the
+grounding verifier alone on the narrower ungrounded-\emph{input} subset.
 
 \textbf{(6) Scope.} Mock-tool and research-loop tasks, two local model families
 and one commercial API; wall-clock latency features are machine-specific and
