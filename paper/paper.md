@@ -42,7 +42,7 @@ failures of commission (1 of 3 fabrications) and rank the organic
 failure set at/below chance without recalibration, and plausible-value
 corruption requires external reference — the escalation layer's job, for
 which our cost-optimal policy recovers 83% of judge-every-step detection
-at 8% of its calls against a *stipulated* judge, but only **44%** (0 of 5
+at 8% of its calls against a *stipulated* judge, but only **43%** (0 of 5
 seeds supported) once a real gemini-2.5-flash judge is measured and
 substituted; the call saving survives, the detection claim does not. The
 healthy null is specific to the (model,
@@ -243,10 +243,11 @@ stipulated values fall outside their measured intervals. Substituting the
 measured rates and re-running all five master seeds with everything else
 held fixed (`judge_sensitivity.csv`): the **call saving survives** (6% vs 8%
 of judge-every-step calls, cost ratio 0.63 vs 0.61) but detection recovery
-falls to **44% (range 39–48%)** and H3b is **SUPPORTED at 0 of 5 seeds**,
+falls to **43% (range 39–47%)** and H3b is **SUPPORTED at 0 of 5 seeds**,
 against 4 of 5 for the stipulated judge. The escalation architecture still
 buys its cost saving; the *detection* claim at the published operating point
-should be read as 44%, not 83%.
+should be read as 43%, not the 82% the stipulated judge produced over the
+same five seeds.
 
 ## 5. Real-ecosystem validation
 

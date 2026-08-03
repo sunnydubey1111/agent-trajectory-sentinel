@@ -92,7 +92,7 @@
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
    "devtools/trace_audit.py": "94fa461367711a59c6eed3778871783c6bb8e2b04f029c9b58cd84e9dae74b2e",
    "experimental/adversarial_evasion.py": "2f80a029d5f1efa59283d85396903dcb42c33b868345de2454c159f91d376dff",
-   "experimental/judge_sensitivity.py": "094a39d045c3180d355e03e9a0d0fcdc7f1526fc7ce469d207f0328713477266",
+   "experimental/judge_sensitivity.py": "16e46031e49a8b3a473c0f36800fd1258efce6e1a50034f6a92f9aa8dc1b9c81",
    "experimental/pmi.py": "3f5333e539286cfcf12f26f7ee187d7aae414440ec173ae673c37c971b1ae858",
    "experimental/power_analysis.py": "c920837a69444fab97d44f7d74c94e81abaa0ed64309a6046197360fa77cff55",
    "experimental/recalibration_cost.py": "82f0e741b3797bdafef546d60c0e755e899c607397056cfa8bf3b68272a78657",
@@ -260,7 +260,7 @@
    "results/tables/hybrid_stats.csv": "990dcd65f71d96460f9fea6b89080283cdc11e780836dca6f0d4ed8420d6a009",
    "results/tables/judge_calibration.csv": "f0e12492a0914478f7377766c0c51599ba2ec2e46f5b7c0aa92ab9c182fffb7d",
    "results/tables/judge_calibration_summary.json": "9be3ce3c3e21f9393ef554e5e5a8e39d4ac0c1891c8e9d525ac781451ef7eae9",
-   "results/tables/judge_sensitivity.csv": "5f741b5c250d1cdae3655a9500249f40b542a4f8016cf79ba35777ed84384d6c",
+   "results/tables/judge_sensitivity.csv": "448ce0c91ae388a2bff3935f85611ada560d32a8d0a60f92f00b81f1c3167a9f",
    "results/tables/l7b_benchmark.csv": "4d8bc70d5f812b6d786598a7081f552ae0ff280f62308c80591908ddfd5b8cb4",
    "results/tables/l7b_diagnosis.csv": "5cf78bb95214059ba9fd777626777792595a259d06a405eea1aa4a3054037fa4",
    "results/tables/l7b_explain.csv": "6531d8c05677b2405c7dd1e057f2124f956aa3519ca986a5c8b161d49d92c32e",
@@ -8494,23 +8494,23 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "695f2e6fd058818123c3bee377581bb356a9a0576e05de36ac922838f47f0835",
+   "CHECKSUMS.md": "649d63a9d5b44d01f352840a467adad60fcdb294d6f6cddd159e356f48f1ef92",
    "CLAIMS.md": "e9004f41ffdb16f16ba342775cb868bc38c97de91fa593ed03ea4b12e9a17c76",
-   "CONTRIBUTIONS.md": "2ff9a57d4ffdb3fb2874541da40f8bc1a29deb923a47093cc177faea5f8f6f83",
+   "CONTRIBUTIONS.md": "a1ccdff43c34f1a32fc6dc7c121e2a0c048d53bd3d1637062ab00f4b7917208e",
    "DATA_CARD.md": "d15c46143d5ce014f4b9b1b19435fa645325b39f23675ebf810ed14c6a898f8e",
    "DESIGN.md": "1cacfd626ae0b9997797a3ed6c3d08413a31c2fa3b446b22f142f8fbc07da959",
    "README.md": "da8e8ec44a2b30a35cee0b4bbdc8d8b94b4e53ed207336706f118d2bd747fd3c",
    "REPRODUCE.md": "1ed93f984aa93a7bb748567ebc1b3ec0848a86f776b6e80807828575a7619808",
    "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
-   "paper/main.tex": "484f2e0fe0045e840f7da05a092f55c8d912caa477e9642b95da207202213776",
-   "paper/paper.md": "fbd8be3b2c3de558f393dfcb42705bbf9f6dde8f76b725f33ce18e5343581d08",
-   "paper/paper.tex": "c638a5102703d71a65526d17f5caa478baac30913cdd4bfd397e88b5de898a4c",
+   "paper/main.tex": "c87e9b86565fa3c4bbe208bddce33d1e2740211897b8b62233bb51589d3441d7",
+   "paper/paper.md": "937c4724c3fe59f7d5ee7fde11e543fb6ba828f6f427188c8f9981c4c0e8255c",
+   "paper/paper.tex": "306f2abbc8cc9859e24b01d877778c8cfa94df41c2ea3f7c1a3c1a2bf29341ce",
    "paper/references.bib": "048a8c55b736fcb34f0c9ddcdb1049fd3453d765be5af26972f0c138649b55d3",
    "requirements-core.lock.txt": "c5517106b656c1891edc29752e11c31317721982012ed177dd7c503cebbfeea1",
    "requirements.lock.txt": "bfbeed34c5d8db60874dab84012d48c83db3440d07b382ec4ae68ed5a138f00f",
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
- "note": "arXiv preflight: abstract metadata file, judge p_false provenance, REPRODUCE arXiv section",
+ "note": "judge sensitivity sweep re-run at measured p_false 0.052",
  "file_count": 8502
 }

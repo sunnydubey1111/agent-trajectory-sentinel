@@ -44,19 +44,14 @@ SENSITIVITY_ROOT = "results/_sensitivity"
 #: Measured on traces/ollama7b by run_judge_calibration (prompt v1); see
 #: results/tables/judge_calibration_summary.json.
 #:
-#: p_false is the ONE value here that no longer matches that artifact, and the
-#: mismatch is deliberate rather than stale. The committed sweep below was run
-#: at 0.057, the rate the calibration reported when it judged 240 steps with 88
-#: negatives. Re-running the calibration on the current corpus judges 205 steps
-#: with 77 negatives and lands at 0.052 (n_distinct_prompts 172 -> 161): the
-#: negative stratum shrank, so the rate moved slightly. That is sample
-#: composition, not drift, and 0.052 is the published rate everywhere a rate is
-#: published. It is left at 0.057 here so judge_sensitivity.csv keeps matching
-#: the run that produced it; regenerating the sweep at 0.052 gives a marginally
-#: BETTER judge and so cannot rescue H3b, which fails at 0 of 5 seeds already.
-#: If the sweep is ever re-run, move this to 0.052 in the same commit.
+#: An earlier calibration judged 240 steps with 88 negatives and reported
+#: p_false 0.057 over 172 distinct prompts; re-running it on the current corpus
+#: judges 205 steps with 77 negatives and lands at 0.052 over 161. That is
+#: sample composition rather than drift, and 0.052 is the published rate. The
+#: sweep below is re-run at 0.052 so this constant and the artifact it cites
+#: cannot disagree.
 MEASURED_P_DETECT = 0.548
-MEASURED_P_FALSE = 0.057   # sweep-of-record input; current measurement is 0.052
+MEASURED_P_FALSE = 0.052
 
 
 def _run_arm(seed: int, overrides: dict[str, str] | None) -> dict:

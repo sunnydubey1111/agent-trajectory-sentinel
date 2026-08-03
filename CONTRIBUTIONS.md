@@ -135,7 +135,7 @@ stipulated values fall outside their measured intervals.
 
 **The correction was propagated until it reversed our own result.** Substituting
 the measured rates across all five master seeds leaves the call saving intact
-and drops detection recovery from 83% to **44%**, supported at **0 of 5 seeds**.
+and drops detection recovery from 82% to **43%**, supported at **0 of 5 seeds**.
 The published claim is the lower number.
 
 **Judge and monitor fail on disjoint classes.** The judge is perfect on goal
