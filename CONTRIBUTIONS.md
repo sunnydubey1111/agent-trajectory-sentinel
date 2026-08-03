@@ -225,9 +225,13 @@ fit takes 68 s. Three orders of magnitude below one agent step, and no second
 model, no GPU, no fine-tuning.
 → `results/tables/runtime.csv`
 
-**A 43–60 dimensional causal feature vector** replaces access to 4,096–12,288
-dimensional model internals. The embedding is a deterministic character-trigram
-hash — no encoder, no network, no download — and MiniLM at 2,200× the cost adds
+**A 43–60 dimensional causal feature vector, built from observable telemetry
+alone.** No model internals are read, because the premise is the deployment
+where the weights are not yours to read — not a claim that telemetry beats
+activations. Where the weights *are* available the paper says the opposite
+(§2: with the weights in hand, activations beat telemetry), and no experiment
+here compares the two. The embedding is a deterministic character-trigram hash
+— no encoder, no network, no download — and MiniLM at 2,200× the cost adds
 nothing measurable.
 
 **Robust to its own hyperparameters.** Reservoir size 32→256 moves AUROC only
