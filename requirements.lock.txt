@@ -22,6 +22,11 @@ matplotlib==3.11.0
 httpx==0.28.1
 
 # --- sequence baselines (GRU/LSTM/TCN); install from the CPU wheel index ---
+# Pinned deliberately, and NOT upgraded on the torch.jit.script advisory that
+# Dependabot raises for <= 2.12.1: this project never calls torch.jit, torch is
+# an optional import used only by these baselines, and their published numbers
+# were produced at this version. REPRODUCE.md section 1 gives the two greps
+# that establish it, and the condition under which the pin must be dropped.
 torch==2.12.0+cpu
 
 # --- real-tool harness (WS1) ---

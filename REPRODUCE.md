@@ -39,6 +39,29 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 study alone; it deliberately excludes the real-trace, framework and Gemini
 stack, because those collect new data rather than reproduce a committed number.
 
+**The `torch==2.12.0+cpu` pin is deliberate and is not upgraded on a security
+advisory.** Dependabot flags it for CVE-affected versions `<= 2.12.1` of
+`torch.jit.script` (memory corruption, local host, patched in 2.13.0). It does
+not reach this project, and the check is mechanical rather than a judgement
+call:
+
+```
+grep -rn "torch.jit" --include=*.py .     # no hits: the function is never called
+grep -rln "import torch" --include=*.py . # one file: derail/monitor/seq_baselines.py
+```
+
+`torch` is an optional dependency behind a `try/except ImportError`, used only
+for the GRU/LSTM/TCN comparison baselines; the study runs without it. Against
+that, the pin is load-bearing: the committed behaviour snapshot and the
+published GRU/LSTM/TCN numbers were produced at 2.12.0, so moving it can move a
+number the paper reports. Upgrading would trade a vulnerability this code does
+not exercise for a reproducibility break that would have to be re-verified
+across the whole study.
+
+Re-check the two greps above before accepting this reasoning — if a future
+change starts calling `torch.jit`, the pin has to go and the affected baselines
+have to be re-run and re-published together.
+
 ## 2. Models
 
 | role | model | served by | temperature |
