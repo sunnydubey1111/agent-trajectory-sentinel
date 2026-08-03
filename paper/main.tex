@@ -365,7 +365,43 @@ check's class by design. A contract violation is escalated, never repaired.
 \section{Limitations}
 \label{sec:limits}
 
-We state the boundaries as measured, not as caveats. (1)~\textbf{No cross-deployment transfer}: monitors do not transfer across frameworks, models, or even sampling temperature without recalibration; the healthy null must be collected under the exact serving distribution (temperature, toolset, probe pattern, latency regime) --- three separate incidents in this study (latency drift, catalog contamination, temperature mismatch) were all this one failure. Measured across a model \emph{family} on a matched task/tool plan (qwen2.5:7b $\rightarrow$ llama3.1:8b), transferred monitors sit at chance (AUROC 0.527, healthy FA 0.75) while the same target recalibrated on itself reaches 0.885 --- so this is a property of the calibration, not of a hard target. The same experiment run \emph{within} a family (qwen2.5:7b to qwen2.5:3b, \texttt{model\_transfer.csv}) lands at AUROC 0.45--0.49 --- chance --- but is harder to read, because recalibrating on the 3b corpus itself only reaches 0.556, so "the target is simply hard to monitor" remains a live explanation there. The cross-family experiment is the cleaner one precisely because its target recalibrates to 0.885. (2)~\textbf{Slow goal drift} evades every per-step-surprise monitor tested; only trajectory self-consistency sees it, weakly. This is a statement about \emph{gradual} rotation, which is how the simulator constructs the class: each step differs little from the last, so no per-step surprise accumulates. Goal changes that are abrupt are caught --- on real traces the same monitor detects goal drift at 0.66--0.86 on four of five corpora (Figure~\ref{fig:coverage}), and the measured judge catches it 21/21. The limit is the rate of change, not the class. (3)~\textbf{Content corruption detection is bounded by telemetry completeness}: results not passed through the telemetry channel are invisible, and terse results carry too little mass to detect garbling reliably. The bound is on \emph{structured tool results}, not on token logprobs: ablating the token-surprisal channel within four corpora that carry it (same episodes, splits, seeds, thresholds) moves the ESN by \textbf{AUROC $+0.000$ and detection $+0.002$} on average, so a provider that rejects \texttt{response\_logprobs} --- as the gemini-2.5-flash tier used here does --- loses almost nothing. The lower raw detection on that provider's corpus (0.38 vs 0.57) is a \emph{horizon} effect, not a telemetry one: its positives are far shorter after onset (median 4 vs 8 steps, 28\% at horizon $\le 3$ vs 2\%), and at matched horizon $\ge 4$ the two agree (0.53 at AUROC 0.902 vs 0.56). (4)~\textbf{Plausible-value corruption} (a wrong-but-well-formed number) is undetectable from telemetry by construction and requires an external reference or judge. (5)~\textbf{Fabrication claims are limited by base rate}: across both organic corpora the objective labeller flags 9 of 175 episodes as hallucinated (2 of 55 in the pre-registered corpus, 7 of 120 in the extension), and only \textbf{2 of those are fabricated \emph{inputs}} --- an ungrounded item figure, the class the grounding verifier targets --- the other 7 being totals that match neither the truth nor any arithmetic derivation of grounded inputs. Both counts sit below the pre-registered minimum of 10, so no statistical detection claim for hallucination is made in either direction; the grounding verifier is validated on unit tests, healthy false-positive checks (0/25), and inserted-figure catches, not on organic fabrications. Under provocation the class becomes testable: making 20\% of price-bearing tool calls fail \emph{transiently} -- the retry succeeds, so reporting a grounded total stays available and inventing the missing figure is the model's own choice -- yields 11 ungrounded-input fabrications in 120 episodes, on which the verifier catches \textbf{0.55} with no false positives on healthy episodes (0/9 here, 0/25 and 0/55 on the two unprovoked corpora). It is therefore specific but only about half sensitive, and that number exists only under provocation: unprovoked fabrication stays at 2 in 175 and supports no claim. (6)~\textbf{Scope}: mock-tool and research-loop tasks, two local model families (qwen2.5, llama3.1) and one commercial API; wall-clock latency features are machine-specific and are excluded from the shipped local configuration.
+We state the boundaries as measured, not as caveats.
+
+\textbf{(1) No cross-deployment transfer.} The healthy null must be collected
+under the exact serving distribution --- temperature, toolset, probe pattern,
+latency regime. Across families on a matched plan (qwen2.5:7b
+$\rightarrow$ llama3.1:8b) transferred monitors sit at chance (AUROC 0.527)
+where the same target recalibrated on itself reaches 0.885, so the failure is
+the calibration, not a hard target. Within a family (7b $\rightarrow$ 3b) it
+also lands at chance, but reads less cleanly: the 3b corpus only reaches 0.556
+recalibrated, so ``hard target'' survives as an explanation there.
+
+\textbf{(2) Slow goal drift} evades every per-step-surprise monitor tested;
+only trajectory self-consistency sees it, weakly. The limit is the \emph{rate}
+of change, not the class --- abrupt goal changes are caught at 0.66--0.86 on
+four of five real corpora (Figure~\ref{fig:coverage}).
+
+\textbf{(3) Content coverage is bounded by telemetry completeness.} Results not
+passed through the telemetry channel are invisible, and terse results carry too
+little mass to detect garbling. The bound is on \emph{structured tool results},
+not logprobs: ablating the token-surprisal channel moves the ESN by AUROC
+$+0.000$ and detection $+0.002$, so a provider that withholds them loses almost
+nothing.
+
+\textbf{(4) Plausible-value corruption} --- a wrong-but-well-formed number ---
+is undetectable from telemetry by construction and needs an external reference.
+
+\textbf{(5) Fabrication claims are limited by base rate.} The objective
+labeller flags 9 of 175 organic episodes as hallucinated and only \textbf{2 as
+fabricated inputs}, the class the grounding verifier targets --- both below the
+pre-registered minimum of 10, so no detection claim is made in either
+direction. Under provocation the class becomes testable and the verifier
+catches \textbf{0.55} of 11 ungrounded-input fabrications at 0 false positives
+on healthy runs: specific, about half sensitive, and only under provocation.
+
+\textbf{(6) Scope.} Mock-tool and research-loop tasks, two local model families
+and one commercial API; wall-clock latency features are machine-specific and
+are excluded from the shipped configuration.
 
 \section*{Appendix}
 \sloppy
