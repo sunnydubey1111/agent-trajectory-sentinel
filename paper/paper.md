@@ -237,7 +237,7 @@ recovers **83% of judge-every-step detection at 8% of its judge calls**
 **This number is conditional on a judge we have now measured, and it does
 not survive.** The judge in H3b is a stipulated noisy oracle (p_detect 0.90,
 p_false 0.02). Running a real gemini-2.5-flash judge on a labelled subset
-(172 distinct prompts, `judge_calibration_summary.json`) measures p_detect
+(161 distinct prompts, `judge_calibration_summary.json`) measures p_detect
 **0.548** (95% CI 0.44–0.65) and p_false **0.052** (0.020–0.13) — both
 stipulated values fall outside their measured intervals. Substituting the
 measured rates and re-running all five master seeds with everything else

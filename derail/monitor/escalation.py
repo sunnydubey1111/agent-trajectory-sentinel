@@ -9,7 +9,7 @@ and is a sensitivity analysis, not a measured cost saving.
 L8 has now MEASURED that judge (`derail.experiments.run_judge_calibration`):
 a real gemini-2.5-flash judge on a labelled subset of traces/ollama7b scores
 p_detect = 0.548 (95% CI 0.44-0.65) and p_false = 0.057 (95% CI 0.025-0.13)
-over 172 distinct prompts. BOTH stipulated values sit outside their measured
+over 161 distinct prompts. BOTH stipulated values sit outside their measured
 intervals - the real judge detects far less and false-alarms more. The defaults
 below are deliberately left at the stipulated values so that no published
 number moves silently; the consequence is quantified instead, at one seed with
