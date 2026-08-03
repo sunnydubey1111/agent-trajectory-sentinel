@@ -1,6 +1,6 @@
 # AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
 
-**[Watch the walkthrough (25 min)](https://youtu.be/a05n_000klE)**
+**[Watch the real time execution (demo)](https://youtu.be/a05n_000klE)**
  · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
  · [Paper](paper/main.tex) · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
 
