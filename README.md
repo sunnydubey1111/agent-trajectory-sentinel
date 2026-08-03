@@ -341,8 +341,8 @@ detection sits near chance; re-collecting with the requirements met
 step against the alarm line, a failure is injected mid-run, the score crosses
 the line, and the run is halted and explained.](assets/AgentTrajectorySentinel_GIF.gif)
 
-**Watch it instead:** a
-[25-minute walkthrough](https://youtu.be/a05n_000klE?t=0) covers the problem, the
+**Watch it instead:** the
+[real time demo](https://youtu.be/a05n_000klE?t=0) covers the problem, the
 architecture, the cost and the measured limits, and ends with the live demo
 detecting and repairing a real failure (the demo starts at 18:12).
 
