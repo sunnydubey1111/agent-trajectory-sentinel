@@ -85,7 +85,7 @@
    "devtools/claims_ledger.py": "abbf8f08bcbd82d5636cec16f1c74e29e25728193bca4b71a2e300ef3391c810",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "809f8435f3f8c62b473802e1fcc14fc5a4a3ee1d891fd5272f88470657d50336",
-   "devtools/hf_dataset.py": "d14d8291e515b43af0ad94923fcd51a59d68ab7f0ab98a065be8aed8354ceb04",
+   "devtools/hf_dataset.py": "719cbb98f9daef474015205691c2b2c7af2e028b78e2831d94e24c17bd21d123",
    "devtools/hf_space.py": "f58e2bd4ee7235fd8f7eb2e421c35c629e9d50a7618c3b7587c93ad2145c9eff",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
@@ -8499,10 +8499,10 @@
    "CONTRIBUTIONS.md": "a1ccdff43c34f1a32fc6dc7c121e2a0c048d53bd3d1637062ab00f4b7917208e",
    "DATA_CARD.md": "d15c46143d5ce014f4b9b1b19435fa645325b39f23675ebf810ed14c6a898f8e",
    "DESIGN.md": "1cacfd626ae0b9997797a3ed6c3d08413a31c2fa3b446b22f142f8fbc07da959",
-   "README.md": "da8e8ec44a2b30a35cee0b4bbdc8d8b94b4e53ed207336706f118d2bd747fd3c",
+   "README.md": "c7d735eceb8822d9334b6b3869458ec4601a44a6e5f090b9b76e3522e394c603",
    "REPRODUCE.md": "bea02ba13c92642c908853675d3c3f42ba0eef0166133410f6654c4acc07675f",
-   "USER_GUIDE.md": "c12a3c9b5ed387369b4222373effcbb631a7122f59512fc34db3ff6e9e7ee65d",
-   "paper/main.tex": "8d35868377bc95777a5e8016cdff2a9d531ddcf97680f7858404f5a790260ee3",
+   "USER_GUIDE.md": "6238e7449628e2f485f20134ecf22661acb47e81305d7263a1e849bc571e48c6",
+   "paper/main.tex": "7899639e370f28f6e6fc72be9182b85bae9d2609e900f3e21bf47ff51047a5f3",
    "paper/paper.md": "937c4724c3fe59f7d5ee7fde11e543fb6ba828f6f427188c8f9981c4c0e8255c",
    "paper/paper.tex": "306f2abbc8cc9859e24b01d877778c8cfa94df41c2ea3f7c1a3c1a2bf29341ce",
    "paper/references.bib": "d6ec7b107328fafa2f748212db14dd3d5f087fa2869af4a9170c317f4b737e80",
@@ -8511,6 +8511,6 @@
    "requirements.txt": "e07b84271a22c0d3323b1a0a184bd71cec1a1efd0315adda5e699750af17402c"
   }
  },
- "note": "cite Trajectory Guard; narrow the novelty claim to the combination",
+ "note": "",
  "file_count": 8502
 }
