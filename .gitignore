@@ -115,3 +115,8 @@ paper/tmlr.sty
 paper/tmlr.bst
 paper/fancyhdr.sty
 paper/math_commands.tex
+
+# Deck build products: deck/build.py regenerates both from the template in
+# seconds, and the inlined HTML is ~4 MB of base64 that churns on every edit.
+deck/theory_2min.html
+deck/theory_2min.pdf

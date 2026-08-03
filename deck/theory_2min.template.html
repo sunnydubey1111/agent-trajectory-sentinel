@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentTrajectorySentinel — 2-minute theory talk</title>
+<style>
+  :root{
+    --ink:#12161c; --muted:#5c6672; --line:#d8dde4; --bg:#ffffff; --panel:#f5f7fa;
+    --accent:#1f6feb; --good:#177245; --warn:#b45309; --bad:#c0392b;
+    --mono:"SF Mono",ui-monospace,"Cascadia Mono","Consolas",monospace;
+    --sans:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;background:#0b0d10;font-family:var(--sans);overflow:hidden}
+
+  /* fixed 1280x720 stage, scaled to fit any projector */
+  #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;transform-origin:center center}
+  .slide{position:absolute;inset:0;background:var(--bg);color:var(--ink);
+         padding:52px 64px 62px;display:none;flex-direction:column;justify-content:center}
+  .slide.on{display:flex}
+
+  h1{font-size:52px;line-height:1.06;margin:0 0 14px;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:34px;line-height:1.12;margin:0 0 6px;letter-spacing:-.015em;font-weight:750}
+  .kicker{font:600 14px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+          color:var(--accent);margin:0 0 18px}
+  .sub{font-size:20px;color:var(--muted);margin:0 0 22px;line-height:1.35;max-width:1000px}
+  .lede{font-size:26px;line-height:1.35;margin:0 0 20px;max-width:1040px;font-weight:450}
+  b,strong{font-weight:700}
+  .hl{color:var(--accent);font-weight:750}
+  .mono{font-family:var(--mono)}
+
+  .fill{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+  .fill img{max-width:100%;max-height:100%;object-fit:contain}
+
+  .stats{display:flex;gap:14px;margin-top:36px}
+  .stat{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .stat .n{font:800 34px/1 var(--sans);letter-spacing:-.02em;display:block;margin-bottom:6px}
+  .stat .l{font-size:14px;color:var(--muted);line-height:1.3}
+  .stat.accent .n{color:var(--accent)} .stat.good .n{color:var(--good)}
+
+  .cols{display:flex;gap:20px;flex:1;min-height:0}
+  .col{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+       padding:20px 22px;display:flex;flex-direction:column}
+  .col h3{margin:0 0 4px;font-size:19px;font-weight:750}
+  .col .vs{font:600 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+           color:var(--muted);margin:0 0 12px}
+  .col ul{margin:0;padding-left:18px}
+  .col li{font-size:16px;line-height:1.5;margin-bottom:7px}
+  .col .win{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);
+            font:750 17px/1.3 var(--sans);color:var(--accent)}
+
+  ul.big{margin:0;padding-left:24px}
+  ul.big li{font-size:21px;line-height:1.5;margin-bottom:12px}
+  ul.tight li{font-size:18px;line-height:1.45;margin-bottom:8px}
+
+  .band{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+        padding:16px 20px;font-size:17px;line-height:1.45;color:var(--muted)}
+  .band b{color:var(--ink)}
+
+  .footer{position:absolute;left:64px;right:64px;bottom:20px;display:flex;
+          justify-content:space-between;align-items:baseline;
+          font:500 13px/1 var(--mono);color:#9aa4b0}
+
+  /* ---- inline architecture diagram ---- */
+  .arch{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+  .arch svg{width:100%;height:100%}
+  .bx{fill:#f5f7fa;stroke:#c9d1d9;stroke-width:1.5;rx:9}
+  .bx-a{fill:#eaf2ff;stroke:#1f6feb;stroke-width:2;rx:9}
+  .bx-g{fill:#eaf7ee;stroke:#177245;stroke-width:2;rx:9}
+  .bx-r{fill:#fdecea;stroke:#c0392b;stroke-width:2;rx:9}
+  .bx-d{fill:#fff;stroke:#9aa4b0;stroke-width:1.5;stroke-dasharray:5 4;rx:9}
+  .t{font:600 15px var(--sans);fill:#12161c}
+  .t-s{font:500 12.5px var(--sans);fill:#5c6672}
+  .t-m{font:600 12px var(--mono);fill:#5c6672}
+  .t-h{font:700 13px var(--mono);letter-spacing:.08em;fill:#1f6feb}
+  .ar{stroke:#5c6672;stroke-width:1.8;fill:none;marker-end:url(#a)}
+
+  /* ---- chrome: progress, notes, timer ---- */
+  #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;
+       transition:width .18s ease;z-index:40}
+  #notes{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;
+         background:#11151a;color:#dfe5ec;border-top:2px solid var(--accent);
+         padding:18px 26px 22px;font-size:15px;line-height:1.55;display:none;z-index:50}
+  #notes.on{display:block}
+  #notes h4{margin:0 0 8px;font:700 12px/1 var(--mono);letter-spacing:.14em;
+            text-transform:uppercase;color:#5aa2ff}
+  #notes p{margin:0 0 8px;max-width:1100px}
+  #notes .say{color:#fff;font-size:16px}
+  #notes .cue{color:#98a4b3;font-size:14px}
+  #clock{position:fixed;top:14px;right:18px;z-index:45;font:700 15px/1 var(--mono);
+         color:#8d99a8;background:rgba(17,21,26,.82);padding:8px 12px;border-radius:7px;
+         letter-spacing:.04em;display:none}
+  #clock.on{display:block} #clock.over{color:#ff7b6b}
+  #help{position:fixed;bottom:12px;left:14px;z-index:45;font:500 12px/1 var(--mono);
+        color:#4a545f}
+  @media print{
+    html,body{overflow:visible;background:#fff}
+    #stage{position:static;transform:none!important;width:auto;height:auto}
+    .slide{display:flex!important;position:relative;width:1280px;height:720px;
+           page-break-after:always;break-after:page}
+    #notes,#clock,#help,#bar{display:none!important}
+    @page{size:1280px 720px;margin:0}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- ============ 1. TITLE ============ -->
+<section class="slide on"
+  data-say="Agent Trajectory Sentinel. An agent goes wrong mid-run — and today you find out when the task has already failed. This catches it at onset, from telemetry alone, for a fifth of a millisecond a step. End to end it takes task success from fifty-two to seventy-three percent."
+  data-cue="10s · Say the 52→73 number in the first ten seconds. Do not read the subtitle.">
+  <p class="kicker">Real-time detection &amp; repair of LLM agent failures</p>
+  <h1>AgentTrajectorySentinel</h1>
+  <p class="sub">A near-zero-cost temporal monitor, trained only on healthy runs, that raises a
+    calibrated alarm at derailment onset — steps before the task fails or the budget burns.</p>
+  <div class="stats">
+    <div class="stat good"><span class="n">52% → 73%</span><span class="l">task success, zero correct runs broken</span></div>
+    <div class="stat accent"><span class="n">219 µs</span><span class="l">per step · no GPU, no model call</span></div>
+    <div class="stat"><span class="n">2,823</span><span class="l">episodes · 25 corpora · 4 models · 3 frameworks</span></div>
+  </div>
+  <div class="footer"><span>Sunny Dubey</span><span>MIT · open data · self-checking claim ledger</span></div>
+</section>
+
+<!-- ============ 2. PROBLEM ============ -->
+<section class="slide"
+  data-say="An agent derails at step four. Nothing crashes. It keeps making confident tool calls, and you find out at step thirty when the answer is wrong and the budget is gone. The question is whether the step telemetry alone — no model internals — carries enough signal to alarm at onset, for less than one model call."
+  data-cue="15s · Point at the healthy panel first, then the alarm dots. Blue line = score, dashed = threshold.">
+  <p class="kicker">The problem</p>
+  <h2>Failure is silent until it is expensive</h2>
+  <p class="sub">Derailment starts at step τ. Nothing throws. The run ends wrong, or ends broke.
+    <b>Can step telemetry alone alarm at onset — with no model internals and no LLM in the loop?</b></p>
+  <div class="fill"><img src="{{IMG_TRACES}}" alt="One-class CUSUM score streams on real agent traces: healthy stays flat, each failure class crosses the alarm threshold within a step or two of onset."></div>
+  <div class="footer"><span>real qwen/ollama traces · dashed = threshold at 5% FA budget</span><span>2 / 6</span></div>
+</section>
+
+<!-- ============ 3. ARCHITECTURE ============ -->
+<section class="slide"
+  data-say="Two layers, one gate. Every step emits three channels — what it said, how confident it sounded, what it did. A reservoir monitor scores each channel separately and alarms on the loudest. In parallel a deterministic layer recomputes the answer from the tool results this run actually received. Both feed one gate: pass, or alarm, roll back and retry. Training is offline, on healthy runs only."
+  data-cue="30s · ANCHOR SLIDE — spend the most time here. Trace left to right with the pointer. Full diagram is in the appendix if asked.">
+  <p class="kicker">Architecture</p>
+  <h2>Two layers, one decision gate</h2>
+  <div class="arch">
+    <svg viewBox="0 0 1150 430" preserveAspectRatio="xMidYMid meet">
+      <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6"
+        markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c6672"/></marker></defs>
+
+      <!-- offline training -->
+      <rect class="bx-d" x="0" y="150" width="150" height="120"/>
+      <text class="t-h" x="75" y="176" text-anchor="middle">OFFLINE</text>
+      <text class="t" x="75" y="200" text-anchor="middle">Healthy runs</text>
+      <text class="t" x="75" y="220" text-anchor="middle">only</text>
+      <text class="t-s" x="75" y="243" text-anchor="middle">no labels · 1.7 s fit</text>
+      <text class="t-s" x="75" y="259" text-anchor="middle">re-fit per deployment</text>
+      <path class="ar" d="M150,210 L196,210" stroke-dasharray="5 4"/>
+
+      <!-- telemetry -->
+      <rect class="bx" x="200" y="120" width="185" height="180"/>
+      <text class="t-h" x="292" y="146" text-anchor="middle">TELEMETRY  x_t</text>
+      <rect x="216" y="160" width="154" height="34" rx="6" fill="#fff" stroke="#c9d1d9"/>
+      <text class="t" x="230" y="182">e</text><text class="t-s" x="250" y="182">what it said (32)</text>
+      <rect x="216" y="200" width="154" height="34" rx="6" fill="#fff" stroke="#c9d1d9"/>
+      <text class="t" x="230" y="222">u</text><text class="t-s" x="250" y="222">how sure it sounded (4)</text>
+      <rect x="216" y="240" width="154" height="34" rx="6" fill="#fff" stroke="#c9d1d9"/>
+      <text class="t" x="230" y="262">m</text><text class="t-s" x="250" y="262">what it did (7)</text>
+      <text class="t-m" x="292" y="291" text-anchor="middle">43–60 dims · causal</text>
+      <path class="ar" d="M385,180 L432,150"/>
+      <path class="ar" d="M385,240 L432,272"/>
+
+      <!-- engines -->
+      <rect class="bx-a" x="436" y="86" width="270" height="118"/>
+      <text class="t-h" x="571" y="112" text-anchor="middle">BEHAVIOURAL ENGINE</text>
+      <text class="t" x="571" y="137" text-anchor="middle">ESN-CUSUM, one per channel</text>
+      <text class="t" x="571" y="158" text-anchor="middle">alarm on the max</text>
+      <text class="t-s" x="571" y="181" text-anchor="middle">is this run behaving abnormally?</text>
+
+      <rect class="bx-g" x="436" y="218" width="270" height="118"/>
+      <text class="t-h" x="571" y="244" text-anchor="middle" fill="#177245">VERIFICATION ENGINE</text>
+      <text class="t" x="571" y="269" text-anchor="middle">recompute the answer from the</text>
+      <text class="t" x="571" y="290" text-anchor="middle">tool results this run received</text>
+      <text class="t-s" x="571" y="313" text-anchor="middle">no threshold · no calibration</text>
+
+      <path class="ar" d="M706,145 L764,185"/>
+      <path class="ar" d="M706,277 L764,237"/>
+
+      <!-- gate -->
+      <rect class="bx" x="768" y="160" width="150" height="100"/>
+      <text class="t-h" x="843" y="188" text-anchor="middle">DECISION GATE</text>
+      <text class="t" x="843" y="213" text-anchor="middle">dual budget</text>
+      <text class="t-s" x="843" y="236" text-anchor="middle">threshold from</text>
+      <text class="t-s" x="843" y="252" text-anchor="middle">healthy val only</text>
+
+      <path class="ar" d="M918,190 L974,150"/>
+      <path class="ar" d="M918,232 L974,272"/>
+
+      <!-- outcomes -->
+      <rect class="bx-g" x="978" y="106" width="172" height="76"/>
+      <text class="t-h" x="1064" y="134" text-anchor="middle" fill="#177245">PASS</text>
+      <text class="t-s" x="1064" y="157" text-anchor="middle">deliver the answer,</text>
+      <text class="t-s" x="1064" y="173" text-anchor="middle">keep watching</text>
+
+      <rect class="bx-r" x="978" y="240" width="172" height="104"/>
+      <text class="t-h" x="1064" y="268" text-anchor="middle" fill="#c0392b">ALARM</text>
+      <text class="t-s" x="1064" y="291" text-anchor="middle">halt · explain ·</text>
+      <text class="t-s" x="1064" y="307" text-anchor="middle">roll back to checkpoint</text>
+      <text class="t-s" x="1064" y="326" text-anchor="middle">· name the failing check · retry</text>
+
+      <path class="ar" d="M1064,344 L1064,378 L292,378 L292,308" stroke-dasharray="4 4"/>
+      <text class="t-m" x="678" y="396" text-anchor="middle">repair fires on 46% of runs · ~1.3 amortised extra calls</text>
+    </svg>
+  </div>
+  <div class="footer"><span>derail/monitor · derail/verify · derail/intervene</span><span>3 / 6</span></div>
+</section>
+
+<!-- ============ 4. IMPLEMENTATION ============ -->
+<section class="slide"
+  data-say="How it actually works, per step. Text becomes numbers by a character hash — no encoder. A reservoir of fixed random weights predicts the next step, and the prediction error is the surprise. CUSUM accumulates that surprise, so a slow drift builds up instead of needing one big spike. One detector per channel, alarm on the loudest. And the threshold is just a quantile of the healthy validation scores. Nothing in that path is a model call."
+  data-cue="20s · Walk the left column 1 to 5. The one line to land: only the readout is trained — the reservoir is random and frozen. The grey band is the answer to 'why not just use an LSTM' — do not read it unless asked.">
+  <p class="kicker">How it is implemented</p>
+  <h2>Five steps on the hot path, none of them a model call</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>The behavioural path — every step</h3><p class="vs" style="text-transform:none">219 µs, end to end</p>
+      <ul class="tight">
+        <li><b>1 · Encode.</b> Text → numbers by character-trigram hash, ~2 µs. No encoder, no download, deterministic.</li>
+        <li><b>2 · Predict.</b> A reservoir of <i>fixed random</i> recurrent weights carries the history; only a ridge readout is fitted. It predicts the next step — the error is the <b>surprise</b>.</li>
+        <li><b>3 · Accumulate.</b> CUSUM sums surprise over time, so a slow drift builds up instead of needing one big spike.</li>
+        <li><b>4 · Fuse.</b> One detector per channel, alarm on the max — a 4-dim shift is never averaged away into 43.</li>
+        <li><b>5 · Threshold.</b> A quantile of healthy validation scores at the false-alarm budget. No labels involved.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>The deterministic path — at commit</h3><p class="vs">arithmetic, not statistics</p>
+      <ul class="tight">
+        <li><b>Recompute.</b> Rebuild the stated total from the tool results <i>this run</i> received. Nothing to be uncertain about.</li>
+        <li><b>Cover.</b> Confirm every required lookup was actually made.</li>
+        <li><b>Contract.</b> Was this tool result ever valid? — reported at the step the bad result <i>arrives</i>.</li>
+        <li><b>On alarm:</b> roll back to the last checkpoint, tell the agent <i>which check failed</i> — no values — and re-run. Every step after is a fresh model call.</li>
+      </ul>
+      <div class="win">Fitted quantities: a ridge readout, a standardiser, a threshold — 1.7 s total</div>
+    </div>
+  </div>
+  <div class="band" style="margin-top:16px">
+    <b>What the alternatives change:</b>
+    <b>memoryless detectors</b> drop step 3, so slow drift never accumulates — detection <b>0.37</b> against our <b>0.71</b>. &nbsp;·&nbsp;
+    <b>GRU / LSTM</b> replace steps 2–3 with gradient training — same ranking (AUROC 0.82 vs <b>0.872</b>), <b>40× slower to fit</b>, and more false alarms on healthy runs (0.113 vs <b>0.069</b>). &nbsp;·&nbsp;
+    <b>LLM auditors</b> replace the whole path with a <b>7B forward pass at every step</b>.
+  </div>
+  <div class="footer"><span>derail/monitor/esn.py · derail/verify/checks.py · derail/intervene/ · h1_main.csv · runtime.csv</span><span>4 / 6</span></div>
+</section>
+
+<!-- ============ 6. LIMITS ============ -->
+<section class="slide"
+  data-say="It has a law, and the law says where it fails. The advantage grows with how much runway a failure has after onset — plus nine at nine steps or more, near zero under three. We predicted that before the test corpus existed, and it held on a benchmark another lab built. The open work follows from it: repair recovers forty-five percent, monitors must be recalibrated per deployment, and corruption that keeps a legal shape needs an external reference."
+  data-cue="12s · Do not apologise. Framing: we know exactly when it works, and we said so first.">
+  <p class="kicker">Limits &amp; future work</p>
+  <h2>The horizon law predicts its own failure region</h2>
+  <div class="fill"><img src="{{IMG_HORIZON}}" alt="Detection advantage over the memoryless baseline grows with post-onset horizon: +0.086 at three steps or fewer, +0.135 at four to eight, +0.404 at nine or more — reproduced on the external AFTraj-2K corpus."></div>
+  <div class="band" style="margin-top:14px">
+    <b>Next:</b> repair recovers <b>45%</b> — the other 55% is open · monitors <b>do not transfer across deployments</b> (0.527 cold, 0.885 recalibrated) · <b>context corruption</b> is the weak class at 0.29 and needs an external reference · grounding catches <b>0.55</b> of provoked fabrications.
+  </div>
+  <div class="footer"><span>hybrid_diagnosis.csv · aftraj_diagnosis.csv — stated before the corpus that tested it existed</span><span>5 / 6</span></div>
+</section>
+
+<!-- ============ 7. HANDOFF ============ -->
+<section class="slide"
+  data-say="That is the argument. Here it is running — a real seven-b agent on a real booking task, the shipped monitor scoring every step, and a real failure injected mid-run."
+  data-cue="8s · Ctrl+Tab to localhost:8765. If the demo is dead, press → for the recorded GIF.">
+  <p class="kicker">Now — live</p>
+  <h2>A real agent, a real failure, the shipped monitor</h2>
+  <p class="lede">A live <span class="mono">qwen2.5:7b</span> booking agent. Five buttons inject a real failure mid-run —
+    loop trap, goal hijack, tool cascade, data corruption, hallucination. θ is recomputed from data at startup;
+    nothing after injection is mocked.</p>
+  <div class="stats">
+    <div class="stat good"><span class="n">0 missed</span><span class="l">rehearsal of record: 5 injections + 2 healthy controls</span></div>
+    <div class="stat good"><span class="n">0 false alarms</span><span class="l">realized FA 8.6% against a 10% budget</span></div>
+    <div class="stat accent"><span class="n">+1 to +3</span><span class="l">steps from onset to alarm</span></div>
+  </div>
+  <div class="band" style="margin-top:16px">
+    <span class="mono">py -m derail.experiments.demo</span> → <span class="mono">localhost:8765</span> &nbsp;·&nbsp;
+    Hosted replay: <b>huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo</b>
+  </div>
+  <div class="footer"><span>github.com/…/agent-derailment-monitor · MIT</span><span>6 / 6</span></div>
+</section>
+
+<!-- ============ CONTRIBUTIONS A–F ============ -->
+<section class="slide"
+  data-say="Cost is the contribution. Two hundred and nineteen microseconds a step, on CPU, with nothing to download and no second model. One point seven seconds to fit, against sixty-eight for a GRU. And the cheap character-hash embedding matches a real neural embedder costing two thousand times more."
+  data-cue="A · COST. Lead with 219 µs and CPU-only. The MiniLM line is the one that surprises people.">
+  <p class="kicker">Contributions · A</p>
+  <h2>Cost — three orders of magnitude below one agent step</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Per step, at serving time</h3><p class="vs">what it costs to watch</p>
+      <ul class="tight">
+        <li><b>219 µs</b> median, p95 266 µs, over 4,316 timed steps — the agent step it watches takes about a second.</li>
+        <li><b>3.95 MB</b> of state. Fits in a sidecar, a laptop, an edge box.</li>
+        <li><b>CPU only.</b> No GPU, no second LLM, no fine-tuning, no internet, no model download.</li>
+        <li>Against an <b>LLM auditor at every step</b>, this adds effectively nothing.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>To fit, and to build</h3><p class="vs">what it costs to stand up</p>
+      <ul class="tight">
+        <li><b>1.7 s</b> on 240 healthy episodes — against GRU <b>68 s</b>, LSTM <b>67 s</b>, TCN <b>19 s</b>.</li>
+        <li>That ~40× is what makes <b>re-fitting per deployment</b> affordable — and re-fitting is mandatory here.</li>
+        <li>Text → numbers by <b>character-trigram hash</b>. MiniLM, a real neural embedder at <b>2,200× the cost</b>, adds nothing measurable.</li>
+      </ul>
+      <div class="win">Monitoring costs ~0.02% of what it monitors</div>
+    </div>
+  </div>
+  <div class="footer"><span>results/tables/runtime.csv</span><span>contributions · A</span></div>
+</section>
+
+<section class="slide"
+  data-say="It learns only from correct, healthy runs. You need no labelled failures to deploy it. Labels buy fourteen thousandths of AUROC and cost twenty labelled failures per deployment, so the default is label-free. And it is causal — the score at step t uses steps one to t, never the future."
+  data-cue="B · TRAINING. The point is deployability: you can fit this on logs you already have.">
+  <p class="kicker">Contributions · B</p>
+  <h2>Training — healthy runs only, and no lookahead</h2>
+  <ul class="big">
+    <li><b>Learns only from correct, healthy runs.</b> One-class: it never sees a failure, and never needs to. It flags departures from normal — including modes that did not exist when it was fitted.</li>
+    <li><b>No labelled failures required to deploy.</b> Labels buy <b>+0.014</b> AUROC (0.812 → 0.826) and cost ≥20 labelled failures <i>per deployment</i>, re-collected whenever the null is.</li>
+    <li><b>Causal.</b> The score at step <span class="mono">t</span> uses <span class="mono">x₁..x_t</span> and fit-time quantities only — no future information, by construction.</li>
+    <li><b>Thresholds from healthy validation only.</b> The labelled split feeds nothing but the isotonic oracle and the escalation operating point; every reported number is test.</li>
+  </ul>
+  <div class="band" style="margin-top:20px"><b>Why it matters:</b> a real deployment has logs of runs that mostly worked, and nobody with a spare day to label transcripts. A method needing labelled failures does not get deployed.</div>
+  <div class="footer"><span>hybrid_benchmark.csv · one-class protocol, DESIGN.md</span><span>contributions · B</span></div>
+</section>
+
+<section class="slide"
+  data-say="It reads forty-three to sixty observable numbers instead of thousands of internal activations — which is what lets it monitor a hosted API or somebody else's agent. Three channels: what it said, how sure it sounded, what it did. They catch almost completely different failures, so all three are required, not redundant."
+  data-cue="C · INPUTS. The disjointness numbers are the proof that multi-channel is mechanistic, not a hedge.">
+  <p class="kicker">Contributions · C</p>
+  <h2>Inputs — observable from outside, and near-disjoint</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Three channels</h3><p class="vs">43–60 features total</p>
+      <ul class="tight">
+        <li><b>e</b> — meaning / content of the step's output (32 dims)</li>
+        <li><b>u</b> — uncertainty from the logprob stream (4 dims)</li>
+        <li><b>m</b> — tool action, latency, length, error flag (7 dims)</li>
+        <li><b>Near-disjoint, measured:</b> <span class="mono">e</span> alone scores <b>0.988</b> on looping and <b>0.000</b> on goal drift; <span class="mono">u</span> alone scores <b>0.938</b> on grounding loss and <b>0.000</b> on looping.</li>
+      </ul>
+      <div class="win">Multi-channel is a requirement, not a hedge</div>
+    </div>
+    <div class="col">
+      <h3>What that buys</h3><p class="vs">deployability</p>
+      <ul class="tight">
+        <li><b>43–60 numbers</b> replace <b>4,096–12,288</b> model internals — so no weights required.</li>
+        <li>Monitors <b>hosted APIs and third-party agents</b>, where internals are never on offer.</li>
+        <li><b>Logprobs are optional.</b> Ablating the <span class="mono">u</span> channel moves AUROC <b>+0.000</b> — no corpus loses. Works against providers that withhold them.</li>
+        <li>Any agent connects by emitting the <span class="mono">Episode</span> format. One adapter, no rewrite.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>h2_channels.csv · telemetry_dependence.csv</span><span>contributions · C</span></div>
+</section>
+
+<section class="slide"
+  data-say="Two layers asking two different questions. The statistical monitor asks whether this run looks unusual. The deterministic checks ask whether the result is actually correct. The checks carry no calibration, so they transfer cold to a new model — a hundred and ten out of a hundred and ten on llama, nothing retuned. And the fusion trick is not reservoir-specific: it lifts a GRU too."
+  data-cue="D · ARCHITECTURE. If asked 'do you use an LLM to watch the LLM' — the judge bullet is the answer. Optional, and measured worse.">
+  <p class="kicker">Contributions · D</p>
+  <h2>Architecture — two questions, one gate</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>The two layers</h3><p class="vs">they ask different things</p>
+      <ul class="tight">
+        <li><b>Statistical monitor:</b> "does this run look unusual?" — answerable while the episode unfolds.</li>
+        <li><b>Deterministic checks:</b> "is the result actually correct?" — does not exist until the agent commits.</li>
+        <li><b>Checks transfer cold.</b> No retraining, no calibration, nothing to transfer: <b>110/110</b> failures caught on llama3.1:8b, 0/10 false positives.</li>
+        <li><span class="mono">tool_contract</span>: <b>0 false positives in 1,825</b> healthy episodes; <b>215 of 218</b> fire within one step of onset.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Two design results</h3><p class="vs">credit assigned honestly</p>
+      <ul class="tight">
+        <li><b>The wrapper generalises.</b> Per-channel max fusion lifts a GRU to <b>0.76 / 0.873</b> — past our ESN. The idea is not reservoir-specific, and that makes it the transferable contribution.</li>
+        <li><b>The judge is optional, and measured.</b> It catches classes the monitor misses (goal drift 21/21) but its real detection is <b>0.548</b> against the <b>0.90</b> the analysis had assumed.</li>
+        <li><span class="mono">recommended_monitor()</span> picks the right fusion for the telemetry it is handed, so the grounding detector is never dropped.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>verification_organic_llama8b_cold.csv · tool_contract_coverage.csv · judge_calibration_summary.json</span><span>contributions · D</span></div>
+</section>
+
+<section class="slide"
+  data-say="Results barely move across reservoir size and spectral radius, so this is not one lucky configuration. Every headline claim is recomputed from its own artifact in CI — seventy-one of seventy-one. Files are checksummed, one seed reproduces bit for bit, and it worked on two external benchmarks with no retraining."
+  data-cue="E · ROBUSTNESS. The tuning sweep is the anti-cherry-pick argument. Say the 71/71 out loud.">
+  <p class="kicker">Contributions · E</p>
+  <h2>Robustness &amp; engineering — not one lucky setting</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Not a tuning artifact</h3><p class="vs">the anti-cherry-pick test</p>
+      <ul class="tight">
+        <li>Reservoir size <b>32 → 256</b> (8× range): AUROC moves only <b>0.839–0.853</b>.</li>
+        <li>Spectral radius <b>0.6 → 1.05</b>, across the cliff the literature warns about: <b>0.843–0.851</b>.</li>
+        <li>Total movement ~0.01, against a <b>0.35 detection advantage</b>. No setting is lucky, so none can be cherry-picked.</li>
+      </ul>
+      <div class="win">Deploys without a hyperparameter search</div>
+    </div>
+    <div class="col">
+      <h3>Evidence discipline</h3><p class="vs">verifiable in ten minutes</p>
+      <ul class="tight">
+        <li>Every headline claim recomputed from its artifact in CI — <b>71 of 71</b>, value <i>and</i> denominator, failing on drift.</li>
+        <li>SHA-256 manifest over every file, a behavioural tripwire that re-runs the study and diffs each value, one master seed reproducing bit-for-bit.</li>
+        <li><b>2,823 episodes · 25 corpora · 4 models · 3 frameworks</b>, public and checksummed.</li>
+        <li>Two external benchmarks, no retraining: <b>ATBench 0.779</b>, <b>AFTraj 0.745</b>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>py -m devtools.claims_ledger --check · py -m devtools.artifact_manifest --check</span><span>contributions · E</span></div>
+</section>
+
+<section class="slide"
+  data-say="And it closes into an outcome. Task success goes from fifty-two to seventy-three percent, breaking zero correct runs, for about one point three extra calls. Plain retry alone recovers sixteen percent, so only the margin above that is credited. This is measured task success, not an AUC."
+  data-cue="F · OUTCOME. The 16% control is the bullet that stops the 'it's just retry luck' objection.">
+  <p class="kicker">Contributions · F</p>
+  <h2>Outcome — detection closed into task success</h2>
+  <ul class="big">
+    <li><b>Task success 52% → 73%</b> over 120 episodes, with detection, rollback and repair in the loop.</li>
+    <li><b>Zero correct runs broken.</b> The usual hidden cost of any automatic retry, charged and found to be nil.</li>
+    <li><b>~1.3 amortised extra model calls per run</b> — the repair fires on 46% of runs, adding ~7.8 s to a flagged one.</li>
+    <li><b>Retry luck is controlled for.</b> Plain resampling with no guidance recovers <b>16%</b>; only the margin above that is credited to the repair.</li>
+  </ul>
+  <div class="band" style="margin-top:20px"><b>The point:</b> most detection work stops at an AUROC and leaves the benefit to the imagination. This measures whether the agent actually did its job better. It did.</div>
+  <div class="footer"><span>results/tables/repair_policies.csv · n=55 genuinely-wrong episodes, three repeats</span><span>contributions · F</span></div>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section class="slide"
+  data-say="Backup: the full system diagram."
+  data-cue="APPENDIX — full architecture. Only open this if asked for detail.">
+  <p class="kicker">Appendix</p>
+  <h2 style="font-size:26px;margin-bottom:10px">Full system architecture</h2>
+  <div class="fill"><img src="{{IMG_ARCH}}" alt="Full system architecture: offline training builds one-class monitors from healthy episodes only; five telemetry channels feed a behavioural engine and a grounding/verification engine, fused at a dual-budget decision gate that passes the run or triggers alarm, rollback and repair."></div>
+  <div class="footer"><span>assets/Architecture_D2.png</span><span>appendix</span></div>
+</section>
+
+<section class="slide"
+  data-say="Backup: the request flow, end to end. A request comes in, the agent streams steps, each step emits telemetry, features are extracted, the behavioural monitors and the grounding checks run in parallel, the gate decides, and on alarm the repair policy acts before anything reaches the user."
+  data-cue="APPENDIX — request flow. Use when asked where the monitor sits in the request path, or what the user sees.">
+  <p class="kicker">Appendix</p>
+  <h2 style="font-size:26px;margin-bottom:10px">Request flow — nine stages, request to feedback</h2>
+  <div class="fill"><img src="{{IMG_SEQUENCE}}" alt="Sequence diagram for online derailment detection and repair: user submits a request; the LLM agent streams steps; the telemetry collector buffers per-step signals; the feature extractor builds the channel vector; behavioural monitoring and grounding verification run in parallel; the alarm decision escalates or continues; the repair policy executes; and post-episode feedback is logged."></div>
+  <div class="footer"><span>assets/Sequence_Diagram_1.png</span><span>appendix</span></div>
+</section>
+
+<section class="slide"
+  data-say="Backup: the repair table."
+  data-cue="APPENDIX — repair rungs. Use if asked how 52 to 73 was earned, or about retry luck.">
+  <p class="kicker">Appendix</p>
+  <h2 style="font-size:26px;margin-bottom:6px">Detection closed into an outcome</h2>
+  <p class="sub" style="font-size:17px;margin-bottom:16px">Every flagged episode rolled back to the same checkpoint and re-run under each rung,
+    paired on the identical prefix and task. n=55 genuinely-wrong episodes, mean of three independent repeats.</p>
+  <div class="cols">
+    <div class="col">
+      <h3>The rungs</h3><p class="vs">recovery rate · vs resample</p>
+      <ul class="tight">
+        <li><span class="mono">none</span> — untouched · <b>0%</b></li>
+        <li><span class="mono">resample</span> — rollback + fresh sample · <b>16%</b> · <i>the control</i></li>
+        <li><span class="mono">located</span> — + which check failed, no values · <b>45%</b> · p=0.0005</li>
+        <li><span class="mono">generic</span> — + "re-check your work" · <b>36%</b> · p=0.035</li>
+        <li><span class="mono">specific</span> — + the finding, with values · <b>36%</b> · p=0.019</li>
+        <li><span class="mono">recompute</span> · 28% · p=0.17 <i>(n.s.)</i></li>
+        <li><span class="mono">adaptive</span> · 21% · p=0.61 <i>(n.s.)</i></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>What it means</h3><p class="vs">the two findings that matter</p>
+      <ul class="tight">
+        <li><b>Retry luck is controlled for.</b> Plain resampling alone recovers 16%; only the margin above that is credited to the repair.</li>
+        <li><b>Naming the failing check beats handing over the answer.</b> <span class="mono">located</span> states no computed value at all and still recovers at least as much as <span class="mono">specific</span> — 26 of whose 55 hints contained the correct total outright.</li>
+        <li><b>Two rungs are reported as failures</b> and kept as comparison arms.</li>
+      </ul>
+      <div class="win">Net over 120 episodes: 52% → 73%, zero correct runs broken</div>
+    </div>
+  </div>
+  <div class="footer"><span>results/tables/repair_policies.csv</span><span>appendix</span></div>
+</section>
+
+</div>
+
+<div id="bar"></div>
+<div id="clock">2:00</div>
+<div id="help">← → slides · N notes · T timer · F fullscreen · P print</div>
+<div id="notes"><h4>Speaker notes</h4><p class="say"></p><p class="cue"></p></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage  = document.getElementById('stage');
+  var bar    = document.getElementById('bar');
+  var notes  = document.getElementById('notes');
+  var clock  = document.getElementById('clock');
+  var i = 0, TALK = 120, t0 = null, tick = null;
+
+  function fit(){
+    var s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform = 'translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach(function(s,k){ s.classList.toggle('on', k===i); });
+    bar.style.width = ((i)/(slides.length-1)*100)+'%';
+    notes.querySelector('.say').textContent = slides[i].dataset.say || '';
+    notes.querySelector('.cue').textContent = slides[i].dataset.cue || '';
+  }
+  function fmt(s){
+    var neg = s < 0; s = Math.abs(s);
+    return (neg?'+':'') + Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+  }
+  function timer(){
+    if (tick){ clearInterval(tick); tick=null; clock.classList.remove('on','over'); return; }
+    t0 = Date.now(); clock.classList.add('on');
+    tick = setInterval(function(){
+      var left = TALK - Math.floor((Date.now()-t0)/1000);
+      clock.textContent = fmt(left);
+      clock.classList.toggle('over', left < 0);
+    }, 250);
+  }
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter'){ show(i+1); e.preventDefault(); }
+    else if (k==='ArrowLeft'||k==='PageUp'){ show(i-1); e.preventDefault(); }
+    else if (k==='Home'){ show(0); }
+    else if (k==='End'){ show(slides.length-1); }
+    else if (k==='n'||k==='N'){ notes.classList.toggle('on'); }
+    else if (k==='t'||k==='T'){ timer(); }
+    else if (k==='p'||k==='P'){ window.print(); }
+    else if (k==='f'||k==='F'){
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    }
+    else if (k>='1' && k<='9'){ show(parseInt(k,10)-1); }
+  });
+  document.addEventListener('click', function(e){
+    if (e.target.closest('#notes')) return;
+    show(i + (e.clientX < window.innerWidth*0.25 ? -1 : 1));
+  });
+  window.addEventListener('resize', fit);
+  fit(); show(0);
+})();
+</script>
+</body>
+</html>
