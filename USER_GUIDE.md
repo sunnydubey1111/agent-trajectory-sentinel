@@ -5,7 +5,7 @@ step. Every number on screen is computed from the run in front of you — nothin
 is replayed or scripted.
 
 To watch someone else drive it first, the
-[recorded walkthrough](https://youtu.be/a05n_000klE) reaches the live demo at
+[recorded walkthrough](https://youtu.be/a05n_000klE?t=0) reaches the live demo at
 18:12 and runs it to the end.
 
 ## Before you start

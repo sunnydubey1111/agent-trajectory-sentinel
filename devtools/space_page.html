@@ -294,7 +294,7 @@ fetch("data.json").then((r) => r.json()).then((data) => {
      <code>py -m devtools.hf_space --build</code>.
      <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel">Code,
      data and paper</a>, or a
-     <a href="https://youtu.be/a05n_000klE">25-minute walkthrough</a>.`;
+     <a href="https://youtu.be/a05n_000klE?t=0">25-minute walkthrough</a>.`;
   $("picker").addEventListener("change", (e) => select(+e.target.value));
   $("play").addEventListener("click", play);
   $("next").addEventListener("click", () => { stop(); S.upto++; render(); });

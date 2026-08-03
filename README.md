@@ -1,6 +1,6 @@
 # AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
 
-**[Watch the real time execution (demo)](https://youtu.be/a05n_000klE)**
+**[Watch the real time execution (demo)](https://youtu.be/a05n_000klE?t=0)**
  · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
  · [Paper](paper/main.tex) · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
 
@@ -342,7 +342,7 @@ step against the alarm line, a failure is injected mid-run, the score crosses
 the line, and the run is halted and explained.](assets/AgentTrajectorySentinel_GIF.gif)
 
 **Watch it instead:** a
-[25-minute walkthrough](https://youtu.be/a05n_000klE) covers the problem, the
+[25-minute walkthrough](https://youtu.be/a05n_000klE?t=0) covers the problem, the
 architecture, the cost and the measured limits, and ends with the live demo
 detecting and repairing a real failure (the demo starts at 18:12).
 
