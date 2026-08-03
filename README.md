@@ -2,7 +2,7 @@
 
 **[Watch the real time execution (demo)](https://youtu.be/a05n_000klE?t=0)**
  · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
- · [Paper](paper/main.tex) · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
+ · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
 
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —
