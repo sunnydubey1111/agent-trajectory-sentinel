@@ -3,6 +3,7 @@
 \usepackage{neurips}
 \usepackage[utf8]{inputenc}
 \usepackage{url}
+\usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{nicefrac}
 \usepackage{microtype}
@@ -27,8 +28,6 @@
 
 \author{
   Sunny Dubey \\
-  Independent Researcher, India \\
-  \texttt{sjkumardube@gmail.com} \\
   ORCID: \texttt{0009-0002-8296-8631} \\
 }
 
@@ -58,23 +57,85 @@ This work answers that question constructively, and documents with equal care wh
 
 \section{Related Work}
 
-\textbf{Change detection and one-class anomaly detection.} Our alarms are classical sequential change detection: CUSUM \cite{page1954cusum} over per-channel surprise, in the framework of abrupt-change detection \cite{basseville1993detection}. The monitors are one-class \cite{chandola2009anomaly}: fit on healthy episodes only, no failure labels. Baselines follow this tradition---Mahalanobis-distance detectors, standard in out-of-distribution detection \cite{lee2018simple,hendrycks2017baseline}, and isolation forests \cite{liu2008isolation}. The temporal backbone is an echo-state network \cite{jaeger2001echo}: reservoir computing \cite{lukosevicius2009reservoir} gives an untrained recurrent feature map whose readout fits in closed form, which is what makes per-deployment recalibration --- which \S\ref{sec:real} shows is mandatory, not optional --- cheap. Confidence calibration is evaluated with expected calibration error \cite{guo2017calibration}.
+\textbf{Foundations.} Our alarms are classical sequential change detection: CUSUM \cite{page1954cusum} over per-channel surprise, in the framework of abrupt-change detection \cite{basseville1993detection}. The monitors are one-class \cite{chandola2009anomaly} --- fit on healthy episodes only, no failure labels --- and the baselines follow that tradition: Mahalanobis detectors from out-of-distribution detection \cite{lee2018simple,hendrycks2017baseline} and isolation forests \cite{liu2008isolation}. The temporal backbone is an echo-state network \cite{jaeger2001echo}; reservoir computing \cite{lukosevicius2009reservoir} gives an untrained recurrent feature map whose readout fits in closed form, which is what makes the per-deployment recalibration that \S\ref{sec:real} shows to be mandatory affordable at all. Calibration is evaluated with expected calibration error \cite{guo2017calibration}.
 
-\textbf{Agent failure: taxonomy and attribution.} Agent loops interleave reasoning and tool calls \cite{yao2023react}, and are deployed through frameworks such as AutoGen \cite{wu2023autogen}; benchmarks show failure is common and heterogeneous \cite{liu2024agentbench}. Recent work has made that heterogeneity concrete: MAST derives an empirical taxonomy of 14 failure modes from 1600+ annotated traces across seven frameworks, grouped into specification, inter-agent misalignment, and task-verification failures \cite{cemri2025why}. Our four injected classes are a deliberately narrow, mechanically-verifiable slice of that space --- we make no claim to cover it. A second line asks \emph{which} agent and step caused a failure after the fact, and finds it hard: automated attribution reaches 53.5\% accuracy on the responsible agent but 14.2\% on the responsible step \cite{zhang2025which}. That problem is post-hoc and outcome-conditioned; ours is the online, pre-outcome question --- raise an alarm mid-episode, before the failure is known to have occurred --- so step-level attribution results bound what our lead-time claims should be read to mean.
+\textbf{Agent failure, and detecting it online.} Agent loops interleave reasoning and tool calls \cite{yao2023react} and ship through frameworks such as AutoGen \cite{wu2023autogen}; failure is common and heterogeneous \cite{liu2024agentbench}, and MAST makes that concrete with 14 empirical failure modes over 1600+ annotated traces \cite{cemri2025why} --- our four injected classes are a deliberately narrow, mechanically-verifiable slice of it. Post-hoc attribution asks which agent and step caused a failure and finds it hard (53.5\% on the agent, 14.2\% on the step) \cite{zhang2025which}; ours is the online, pre-outcome question. That position is occupied: AgentForesight audits each prefix with a 7B LLM and releases AFTraj-2K \cite{zhang2026agentforesight}, weakly supervised early alerting learns turn-level risk from trajectory labels alone \cite{baidya2026sparse}, and rule- or model-based runtime guards \cite{wang2025agentspec,wang2025probguard} intervene at the action boundary but need a specification of ``unsafe'' that we do not. \textbf{We therefore claim neither mid-episode detection nor observable telemetry as novel. What is ours is the cost class}: a label-free, specification-free reservoir monitor at $\sim$200\,$\mu$s per step with no model call, evaluated against corpora we did not build (\S\ref{sec:external}).
 
-\textbf{External validation.} On AFTraj-2K \cite{zhang2026agentforesight} --- 1,882 of its trajectories after the same $T\geq4$ filter, 1,111 healthy and 771 failed, imported by \texttt{derail.experiments.import\_aftraj} with no change to the monitors --- the channel-max ESN reaches episode AUROC \textbf{0.745} (best hybrid 0.760) but detects only \textbf{0.048} at the 5\% false-alarm budget. Ranking transfers to another project's agents and frameworks; the operating point does not. The horizon diagnosis replicates and explains it: at post-onset horizon $\geq9$ the ESN detects \textbf{0.509} against Mahalanobis' 0.170 ($+0.34$), and at $\leq3$ neither detects anything --- but only 53 of 771 AFTraj failures (6.9\%) have that much room, and 61\% end within three steps of onset. AgentForesight-7B reports 66.44 Exact-F1 on this corpus using an LLM auditor at every step; we do not match it and do not claim to. What this run supports is that ranking transfers zero-shot at 163\,$\mu$s per step and no model call, not that the accuracy is competitive.
+\textbf{Judges, hallucination, and internals --- the three things we are not.} LLM-as-judge \cite{zheng2023judging,gu2024survey} is the dominant pattern and costs a model call per check, and judges are not neutral instruments \cite{shi2024judging}; we use one as an escalation layer rather than a default, and \S\ref{sec:real} replaces the operating point that analysis had \emph{stipulated} with a measured one. Hallucination detection \cite{ji2023survey,lin2025hallucination} typically needs sampling or model access --- self-consistency \cite{manakul2023selfcheckgpt}, semantic entropy \cite{farquhar2024detecting}, hidden-state probes \cite{kossen2024semantic} --- where a tool-using agent admits a deterministic route: every figure asserted must trace to a tool result received (\S\ref{sec:organic}). Internal-state monitoring is the sharpest challenge to our premise: residual-stream probes detect concealed deception \cite{goldowskydill2025detecting}, and probes predicting eventual failure from the first round report substantially earlier detection than observable behaviour allows \cite{ruan2026doomed}. We do not dispute it --- with the weights in hand, activations beat telemetry. The premise here is the deployment where you do not hold them, and there the choice is not activations versus telemetry but telemetry versus nothing.
 
-A second external corpus, ATBench \cite{atbench2026} (604 of its 1,000 trajectories after the same filter; trajectory-level safe/unsafe labels only, so no tau and no earliness metric), separates the two findings further: the ESN reaches AUROC \textbf{0.779} and detects \textbf{0.311} of unsafe runs at the 5\% budget --- it alarms here, where on AFTraj it could not --- while $\Delta$-Mahalanobis sits at chance (0.457) and drags every 50/50 fusion down with it (0.438--0.463). Per failure mode the split is sharp: unconfirmed or over-privileged actions 0.508 and unvalidated tool outputs 0.473, against 0.038 for inaccurate information. Failures that change what the agent \emph{does} are caught; failures that change only what it \emph{says} are not --- the same content blind spot \S\ref{sec:grounding} addresses, on labels we did not write.
+\section{Problem and Monitor}
+\label{sec:method}
 
-\textbf{Concurrent work on online failure prediction.} Detecting failure \emph{during} an episode is no longer an unoccupied position. AgentForesight reframes attribution as online auditing --- at each step an auditor sees only the current prefix and must continue or alarm --- and releases AFTraj-2K, 2,276 labelled multi-agent trajectories \cite{zhang2026agentforesight}; its auditor is itself a 7B LLM. Weakly supervised early alerting learns turn-level risk from trajectory-level labels alone and exposes an explicit accuracy/earliness trade-off \cite{baidya2026sparse}. We therefore do not claim mid-episode detection from observable telemetry as novel. What remains ours is the cost class and the substrate: a one-class reservoir monitor at $\sim$200\,$\mu$s per step with no LLM in the loop and no failure labels, against auditors that spend a model call per step. We evaluate on AFTraj-2K directly (above): fitting the healthy-only null those corpora were not built to supply is possible but leaves the operating point far off, so ranking transfers (AUROC 0.745) while detection at a fixed budget does not (0.048), and the horizon diagnosis predicts that gap rather than excusing it. We claim the cost comparison, not the accuracy one.
+An episode is a step sequence $t=1,\dots,T$. Each step emits an observable
+vector built from three causal channels --- a semantic embedding of the step's
+output, token-uncertainty aggregates, and action metadata:
+%
+\begin{equation}
+x_t \;=\; \big[\,e_t \,;\, u_t \,;\, m_t\,\big] \in \mathbb{R}^{d},
+\qquad d \in \{43, 51, 60\}.
+\label{eq:telemetry}
+\end{equation}
+%
+An episode is healthy, or contains an onset at unknown step $\tau$ after which
+the trajectory distribution shifts and the run ends in failure. From
+\emph{healthy episodes only} we want a causal score $s_t = f(x_1,\dots,x_t)$ and
+an alarm time $\hat{\tau} = \min\{t : s_t > \theta\}$ maximising detection at a
+fixed false-alarm budget, with per-step compute far below one model call.
 
-\textbf{Runtime monitoring and guardrails.} The closest systems intervene during execution rather than scoring afterwards. AgentSpec enforces hand-written rules (trigger, predicate, enforcement) at the agent's action boundary \cite{wang2025agentspec}; ProbGuard abstracts executions into symbolic states, learns a discrete-time Markov chain over them, and escalates when the predicted probability of reaching an unsafe state crosses a threshold \cite{wang2025probguard}. Both require a specification of what ``unsafe'' means --- a rule set or a labelled unsafe-state set. Our monitor is label-free and specification-free: it fits only on healthy episodes and alarms on deviation from that null, which is why it transfers badly across deployments (\S\ref{sec:real}) but needs no rule authoring for a new one. We view these as complementary layers, not competitors: a rule engine catches the violations you can name, a one-class monitor is what remains for the ones you cannot.
+\textbf{Reservoir.} Per channel $c$, a sparse random recurrent map is fixed at
+initialisation and never trained; only a ridge readout $A^{(c)}$ is fitted, on
+healthy runs, to predict the next step:
+%
+\begin{align}
+h^{(c)}_t &= (1-\alpha)\,h^{(c)}_{t-1} + \alpha \tanh\!\big(W^{(c)} h^{(c)}_{t-1} + W^{(c)}_{\mathrm{in}} x^{(c)}_t\big), \label{eq:reservoir}\\
+\hat{x}^{(c)}_{t+1} &= A^{(c)}\big[\,h^{(c)}_t \,;\, x^{(c)}_t \,;\, 1\,\big]. \label{eq:readout}
+\end{align}
+%
+Because $W^{(c)}$ is frozen, \eqref{eq:readout} is a closed-form least-squares
+solve --- the reason a fit costs 1.7\,s where a GRU costs 68\,s.
 
-\textbf{LLM-as-judge.} The dominant quality-control pattern is LLM-as-judge \cite{zheng2023judging}, now extensively surveyed \cite{gu2024survey}: accurate but costing a model call per check. Judges are also not neutral instruments --- position bias alone varies systematically with judge, task, and quality gap across 15 judges and 22 tasks \cite{shi2024judging}. Both facts push the same way for us: we ask what a label-free monitor three orders of magnitude cheaper can and cannot catch, and use the judge as the escalation layer rather than the default. The escalation analysis in \S\ref{sec:sim} initially \emph{stipulated} a judge operating point (TPR 0.90, FPR 0.02); \S\ref{sec:real} replaces it with a measured one (0.548 / 0.052) and propagates the correction, which halves the detection recovery that analysis had claimed. The bias literature is right that this was the assumption most in need of empirical replacement.
+\textbf{Surprise and accumulation.} The per-step surprise is the normalised
+one-step prediction error, averaged over an ensemble of $K$ reservoirs, with
+$\sigma_{\mathrm{err}}$ the per-dimension residual scale measured on held-out
+healthy runs. Slow drift keeps each step locally predictable, so a
+short-memory statistic never crosses threshold; a one-sided CUSUM
+\cite{page1954cusum} integrates small persistent shifts instead:
+%
+\begin{align}
+q^{(c)}_t &= \frac{1}{K}\sum_{k=1}^{K}\ \operatorname*{mean}_{d}
+  \left(\frac{\hat{x}^{(c)}_{t\,|\,k} - x^{(c)}_t}{\sigma^{(c)}_{\mathrm{err}}}\right)^{2}, \label{eq:surprise}\\
+S^{(c)}_t &= \max\!\big(0,\; S^{(c)}_{t-1} + z\big(q^{(c)}_t\big) - \kappa\big),
+  \qquad S^{(c)}_0 = 0. \label{eq:cusum}
+\end{align}
 
-\textbf{Hallucination detection.} Hallucination in generation is well surveyed \cite{ji2023survey}, and agent-specific taxonomies now separate fabrication in the reasoning, tool-call, and observation stages of the loop \cite{lin2025hallucination}. Detection methods typically need model access or repeated sampling---self-consistency across stochastic samples \cite{manakul2023selfcheckgpt}, semantic entropy \cite{farquhar2024detecting}, or probes that approximate semantic entropy from the hidden states of a single generation \cite{kossen2024semantic}. Tool-using agents admit a cheaper, deterministic route: every figure the agent asserts should trace to a tool result it received. Our numeric-grounding verifier (\S\ref{sec:organic}) is this provenance check; it needs no sampling, no model access, and no ground-truth answer.
+\textbf{Fusion and threshold.} A shift confined to the 4-dimensional
+uncertainty channel is diluted if it is averaged across all $d$ dimensions, so
+each channel is accumulated separately and the alarm reads the loudest:
+%
+\begin{equation}
+s_t \;=\; \max_{c \,\in\, \{e,\,u,\,m\}} S^{(c)}_t,
+\qquad
+\theta \;=\; Q_{1-\beta}\Big(\big\{\textstyle\max_t s_t \;:\; \text{healthy val episodes}\big\}\Big),
+\label{eq:fusion}
+\end{equation}
+%
+with $\beta$ the false-alarm budget. Every quantity in
+\eqref{eq:telemetry}--\eqref{eq:fusion} at step $t$ depends on $x_1,\dots,x_t$
+and fit-time constants only, so the monitor is causal by construction; $\theta$
+is read from healthy validation episodes and never from test data. \S\ref{sec:sim}
+shows the per-channel max in \eqref{eq:fusion}, not the reservoir, carries most
+of the margin --- giving a GRU the same wrapper lifts it past our ESN --- which
+makes the wrapper the transferable contribution and the reservoir the cheap way
+to pay for it.
 
-\textbf{Internal-state monitoring.} A parallel line monitors activations rather than behaviour: linear probes on the residual stream detect strategic deception that the model's outputs conceal \cite{goldowskydill2025detecting}. That work is white-box --- it needs the weights --- where our telemetry is collected at the adapter boundary and works against an API. The two also fail in similar ways, which is the honest reading: probe accuracy degrades under distribution shift much as our monitors fail to transfer across agent models without recalibration (\S\ref{sec:real}). A direct challenge to the observable-telemetry premise comes from probes that predict eventual task failure from the first interaction round, reported as substantially earlier than monitors using observable behaviour alone \cite{ruan2026doomed}. We do not dispute it: if you hold the weights, internals are a richer signal than anything visible at the adapter boundary. The premise of this work is the deployment where you do not --- a hosted API, a third-party agent, a framework you did not build --- and there the choice is not between activations and telemetry but between telemetry and nothing.
+\textbf{Baselines and variants}, all fitted and scored under this same one-class
+causal protocol: memoryless Mahalanobis and $\Delta$-Mahalanobis
+\cite{lee2018simple}, cosine and self-drift, rolling entropy, linear AR, and
+trained GRU/LSTM/TCN sequence models; hybrids that robust-$z$ calibrate the ESN
+and Mahalanobis streams and fuse them by weight, max or logistic regression; a
+grounded stream that joins \eqref{eq:fusion} as a memoryless robust-$z$ max over
+the content channel $g$ (\S\ref{sec:grounding}); and a five-line completion check
+that asks only whether the final step is empty or a bare tool call.
 
 \section{Telemetry}
 
@@ -101,18 +162,6 @@ v4 (+g) & 60 & 9 content-grounding dims: query-result dissim, result self-cons, 
 
 The embedding is a deterministic char-3-gram feature hash (no model, no network). v4 telemetry costs a median 674 $\mu$s/step at the adapter (mean 702, p95 1045, over 491 timed steps); the lexical flag alone costs 2 $\mu$s/result.
 
-\section{Monitors}
-
-All monitors are one-class (fit on healthy episodes only) and causal. Alarm thresholds come from healthy-validation episode maxima at a fixed FA budget.
-
-\begin{itemize}
-    \item \textbf{ESN ensemble + CUSUM}: per-channel reservoirs \cite{jaeger2001echo} predict the next step; normalized surprise and ensemble disagreement feed a one-sided CUSUM \cite{page1954cusum}.
-    \item \textbf{Baselines}: Mahalanobis and delta-Mahalanobis \cite{lee2018simple}, cosine/self-drift, rolling entropy, linear AR, and trained GRU/LSTM/TCN sequence models.
-    \item \textbf{Hybrids}: robust-z calibration of ESN and Mahalanobis streams, then weighted, max, or logistic fusion.
-    \item \textbf{Grounded monitors}: memoryless robust-z max over the $g$ channel joins as a third stream.
-    \item \textbf{Completion check}: five lines checking if the final step is empty or a bare tool call.
-\end{itemize}
-
 \section{Real-Ecosystem Validation: the Empirical Spine}
 \label{sec:real}
 
@@ -125,6 +174,13 @@ Two structural findings shape everything that follows. First, monitors do not tr
 \textbf{Breadth: a second model family and a commercial API.} Recalibrated on itself, a llama3.1:8b corpus collected on an identical task, tool and injector plan reaches AUROC \textbf{0.885}, so the monitors are not specific to one model family. A lengthened Gemini corpus (125 episodes, 65 positives) reaches \textbf{0.794}: the approach works on a commercial API too. That corpus is gemini-2.5-flash on the same long research task, tool roster and injector plan as the qwen long corpus, so the provider is the only thing that differs. Its lower detection at a matched false-alarm budget (0.38 against 0.57) is a \emph{horizon} effect, not a telemetry one --- its positives are far shorter after onset (median 4 steps against 8), and at matched horizon the two agree (0.53 against 0.56). Ablating the token-surprisal channel inside four corpora that carry it moves the ESN by AUROC $+0.000$, so the deployment requirement is structured tool results, not logprob access. Figure~\ref{fig:benchmark} compares all monitors across these real deployments and is deliberately unflattering: the per-dataset spread is wide enough that several orderings which look decisive are ties once power is accounted for, so only the pooled comparison is defensible.
 
 \textbf{The judge is measured, not assumed.} A real gemini-2.5-flash judge on a labelled subset of 161 distinct prompts scores p\_detect \textbf{0.548} (95\% CI 0.44--0.65) and p\_false \textbf{0.052}, against the 0.90/0.02 the escalation analysis assumes. Substituting the measured rates across all five master seeds leaves the call saving intact but drops detection recovery from 82\% to \textbf{43\%}, supported at zero of five seeds. Figure~\ref{fig:complementarity} shows why the layer is still worth having: judge and monitor fail on \emph{different} classes --- the judge is perfect on goal drift and nearly blind on context corruption (0.18), where the monitor is the reverse (1.00).
+
+\subsection{External corpora: two benchmarks we did not build}
+\label{sec:external}
+
+On \textbf{AFTraj-2K} \cite{zhang2026agentforesight} --- 1,882 trajectories after the same $T\geq4$ filter, 1,111 healthy and 771 failed, imported with no change to the monitors --- the channel-max ESN reaches episode AUROC \textbf{0.745} (best hybrid 0.760) but detects only \textbf{0.048} at the 5\% budget. Ranking transfers to another project's agents and frameworks; the operating point does not. The horizon diagnosis predicts exactly that: at post-onset horizon $\geq9$ the ESN detects \textbf{0.509} against Mahalanobis' 0.170, and at $\leq3$ neither detects anything --- but only 53 of 771 failures (6.9\%) have that much room and 61\% end within three steps of onset. AgentForesight-7B reports 66.44 Exact-F1 here using an LLM auditor at every step; we do not match it and do not claim to. What this supports is that ranking transfers zero-shot at 163\,$\mu$s per step and no model call.
+
+\textbf{ATBench} \cite{atbench2026} (604 of 1,000 trajectories after the same filter; trajectory-level safe/unsafe labels only, so no $\tau$ and no earliness metric) separates the two findings: the ESN reaches AUROC \textbf{0.779} and detects \textbf{0.311} of unsafe runs --- it alarms here, where on AFTraj it could not --- while $\Delta$-Mahalanobis sits at chance (0.457) and drags every 50/50 fusion down with it (0.438--0.463). Per failure mode the split is sharp: over-privileged actions 0.508 and unvalidated tool outputs 0.473, against 0.038 for inaccurate information. What the agent \emph{does} is caught; what it \emph{says} is not --- the content blind spot \S\ref{sec:grounding} addresses, on labels we did not write.
 
 \begin{figure}[tbp]
 \centering
