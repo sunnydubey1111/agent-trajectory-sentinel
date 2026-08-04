@@ -218,7 +218,7 @@ def test_the_readme_gives_the_real_discard_rates() -> None:
 
 
 DIAGRAMS = {
-    "assets/Architecture_D2.png": "README.md",
+    "assets/Architecture_D2.png": "DESIGN.md",
     "assets/AgentTrajectorySentinel_GIF.gif": "README.md",
     "assets/Runtime_Flow.png": "DESIGN.md",
     "assets/Sequence_Diagram_1.png": "DESIGN.md",

@@ -45,11 +45,8 @@ AgentTrajectorySentinel answers that with two layers that compose into a single 
 On a real qwen2.5:7b booking agent, the two layers plus rollback-and-retry
 take **task success from 52% to 73%** for about one extra model call per run.
 
-![System architecture: offline training builds one-class monitors from healthy
-episodes only; at serving time five telemetry channels feed a behavioural
-engine and a grounding/verification engine, whose scores are fused at a
-dual-budget decision gate that either passes the run or triggers alarm, rollback
-and repair.](assets/Architecture_D2.png)
+The full system diagram — training, telemetry, both engines, the decision gate
+and the repair path — is in [DESIGN.md](DESIGN.md#architecture).
 
 ## Install
 

@@ -27,6 +27,17 @@ Hypotheses:
   confidence enabling an escalation policy that recovers most judge-LLM
   detection quality at a small fraction of its cost.
 
+## Architecture
+
+The whole system on one page: what is built offline, what runs per step, and
+what happens on either verdict.
+
+![System architecture: offline training builds one-class monitors from healthy
+episodes only; at serving time five telemetry channels feed a behavioural
+engine and a grounding/verification engine, whose scores are fused at a
+dual-budget decision gate that either passes the run or triggers alarm, rollback
+and repair.](assets/Architecture_D2.png)
+
 ## Runtime flow
 
 What actually happens per step at serving time.
