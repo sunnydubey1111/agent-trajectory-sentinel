@@ -15,8 +15,8 @@ abstract: >-
   model that produced it, itemised in DATA_CARD.md and traces/NOTICE_gemini.md.
 type: software
 license: MIT
-version: "1.2.1"
-date-released: "2026-08-02"
+version: "1.3.0"
+date-released: "2026-08-04"
 repository-code: "https://github.com/sunnydubey1111/agent-trajectory-sentinel"
 url: "https://youtu.be/a05n_000klE?t=0"
 authors:
