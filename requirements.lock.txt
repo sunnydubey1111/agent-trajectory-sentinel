@@ -17,6 +17,20 @@ scipy==1.17.1
 scikit-learn==1.9.0
 pandas==3.0.3
 matplotlib==3.11.0
+# Dependabot raises 13 advisories against this pin. Every one of them is a
+# *decode* or *display* path reached by opening a file someone else supplied:
+# JPEG2000, McIdas AREA, GD, PDF, EPS, TGA, ImageCms, the .bdf/.pcf bitmap font
+# loaders, ImageFilter.RankFilter, Image.paste/crop, and WindowsViewer via
+# Image.show(). This project opens no images at all. The only caller is
+# devtools/social_card.py, which draws one:
+#
+#     Image.new, ImageDraw.Draw, ImageFont.truetype (freetype, not the bitmap
+#     font loaders), Image.resize, Image.save
+#
+# and matplotlib, which encodes figures to PNG. Establish it with
+# `grep -rn "PIL\|Image\.open" --include=*.py derail devtools verification`.
+# Drop this note and upgrade the moment anything here calls `Image.open()`,
+# loads a .bdf/.pcf font, or accepts an image path from outside the repository.
 pillow==12.2.0
 
 # --- local-model backend: live demo + Ollama trace collection ---

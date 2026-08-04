@@ -20,6 +20,9 @@ scipy==1.17.1
 scikit-learn==1.9.0
 pandas==3.0.3
 matplotlib==3.11.0
+# 13 Dependabot advisories, all on image *decode* paths this project never
+# reaches; see the note in requirements.lock.txt for the reasoning and the
+# condition that retires it.
 pillow==12.2.0
 httpx==0.28.1
 pytest==9.1.0
