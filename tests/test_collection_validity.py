@@ -485,7 +485,9 @@ def test_core_lock_covers_the_deterministic_gate():
     pinned = {re.split(r"[=<>!\[]", line.strip())[0].strip().lower()
               for line in lock.splitlines()
               if line.strip() and not line.startswith("#")}
-    alias = {"sklearn": "scikit-learn", "yaml": "pyyaml", "google": "google-genai"}
+    # Import name on the left, distribution name as the lockfile pins it.
+    alias = {"sklearn": "scikit-learn", "yaml": "pyyaml", "google": "google-genai",
+             "PIL": "pillow"}
     local = {"derail", "devtools", "tests", "experimental", "verification",
              "conftest"}
 

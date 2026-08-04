@@ -1,9 +1,32 @@
-# AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
+<h1 align="center">AgentTrajectorySentinel</h1>
 
-**[Paper — arXiv:2608.02464](https://arxiv.org/abs/2608.02464)**
- · **[Watch the real time execution (demo)](https://youtu.be/a05n_000klE?t=0)**
- · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
- · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
+<p align="center">
+  <b>Real-Time Detection and Repair of LLM Agent Failures</b>
+</p>
+
+<p align="center">
+  <img width="820" src="assets/AgentTrajectorySentinel_GIF.gif"
+       alt="A run in progress: the agent works its task while the monitor scores
+       every step against the alarm line, a failure is injected mid-run, the
+       score crosses the line, and the run is halted and explained.">
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2608.02464"><img alt="arXiv 2608.02464" src="https://img.shields.io/badge/arXiv-2608.02464-b31b1b"></a>
+  <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel"><img alt="dataset: 2,823 episodes" src="https://img.shields.io/badge/dataset-2%2C823%20episodes-ffd21e"></a>
+  <a href="LICENSE"><img alt="licence: MIT" src="https://img.shields.io/badge/licence-MIT-blue"></a>
+  <img alt="python 3.13+" src="https://img.shields.io/badge/python-3.13%2B-3776ab">
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2608.02464"><b>Paper</b></a> ·
+  <a href="https://youtu.be/a05n_000klE?t=0"><b>Real time demo</b></a> ·
+  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel"><b>Dataset</b></a> ·
+  <a href="CONTRIBUTIONS.md">Contributions</a> ·
+  <a href="DESIGN.md">Design</a> ·
+  <a href="CLAIMS.md">Claims → evidence</a>
+</p>
 
 Can a near-zero-cost temporal model, trained only on healthy runs, watch an
 agent's step telemetry and raise a calibrated alarm at derailment onset —
@@ -338,9 +361,9 @@ detection sits near chance; re-collecting with the requirements met
 
 ## Live demo
 
-![A run in progress: the agent works its task while the monitor scores every
-step against the alarm line, a failure is injected mid-run, the score crosses
-the line, and the run is halted and explained.](assets/AgentTrajectorySentinel_GIF.gif)
+The clip at the top of this page is one such run: the agent works its task, a
+failure is injected mid-run, the monitor's score crosses the alarm line, and
+the run is halted and explained.
 
 **Watch it instead:** the
 [real time demo](https://youtu.be/a05n_000klE?t=0) covers the problem, the

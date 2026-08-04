@@ -74,18 +74,25 @@ def _anchor(heading: str) -> str:
 
 
 def test_readme_links_resolve() -> None:
-    """Every relative markdown link in the README points at something.
+    """Every relative link in the README points at something.
 
     A `file.md#section` link is checked in both halves: the file must exist and
     the heading must too. Previously the fragment was treated as part of the
     path, so any anchored link failed even when it was correct.
+
+    The centred header is raw HTML, so `href=` and `src=` are scanned too --
+    otherwise the badge row and the hero image would be the one part of the
+    page no test covers.
     """
     import re
 
     text = (REPO_ROOT / "README.md").read_text("utf-8")
+    targets = [m.group(1) for m in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text)]
+    targets += [m.group(1) for m in
+                re.finditer(r'(?:href|src)="([^"]+)"', text)]
+
     broken = []
-    for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
-        target = match.group(1)
+    for target in targets:
         if target.startswith(("http", "#", "mailto")):
             continue
         path, _, fragment = target.partition("#")
@@ -219,6 +226,41 @@ DIAGRAMS = {
 }
 
 
+def test_social_card_still_states_the_published_numbers() -> None:
+    """The link preview is a claim surface, and it is the least-read file here.
+
+    It is uploaded to a GitHub setting rather than rendered from the repository,
+    so nothing else would ever catch it disagreeing with the README.
+    """
+    from devtools import social_card
+
+    readme = (REPO_ROOT / "README.md").read_text("utf-8")
+    for figure in social_card.STAT_ASSERTIONS:
+        assert figure in readme, (
+            f"the social card shows {figure!r} and the README no longer does")
+
+
+def test_social_card_is_committed_at_the_size_the_platforms_want() -> None:
+    """1280x640. Off-size cards are cropped or refused by the link unfurlers.
+
+    Read from the PNG header rather than by redrawing: text rasterisation
+    depends on the installed font files and the freetype version, so a Linux
+    CI run draws the same picture with different bytes. `--check` covers the
+    byte-level question on the machine that produced the card.
+    """
+    from devtools import social_card
+
+    card = REPO_ROOT / "assets" / "social_preview.png"
+    assert card.exists(), "run `py -m devtools.social_card`"
+
+    header = card.read_bytes()[:24]
+    assert header[:8] == b"\x89PNG\r\n\x1a\n", "not a PNG"
+    width = int.from_bytes(header[16:20], "big")
+    height = int.from_bytes(header[20:24], "big")
+    assert (width, height) == (social_card.WIDTH, social_card.HEIGHT)
+    assert (width, height) == (1280, 640)
+
+
 @pytest.mark.parametrize("path,doc", sorted(DIAGRAMS.items()))
 def test_published_diagram_is_present_and_referenced(path: str, doc: str) -> None:
     """A diagram that moves or is dropped leaves a broken image in the README."""
@@ -230,7 +272,12 @@ def test_published_diagram_is_present_and_referenced(path: str, doc: str) -> Non
 
 
 def test_every_diagram_carries_alt_text() -> None:
-    """Alt text is what a screen reader and a failed image load fall back to."""
+    """Alt text is what a screen reader and a failed image load fall back to.
+
+    Both spellings count. The README's hero image is an HTML `<img>` so that it
+    can be centred, and an image that escapes the markdown regex would escape
+    this guard with it.
+    """
     import re
 
     for doc in ("README.md", "DESIGN.md"):
@@ -238,6 +285,21 @@ def test_every_diagram_carries_alt_text() -> None:
         for match in re.finditer(r"!\[([^\]]*)\]\(([^)]+)\)", text):
             alt, target = match.group(1).strip(), match.group(2)
             assert len(alt) > 20, f"{doc}: {target} has thin alt text {alt!r}"
+
+        for tag in re.findall(r"<img\b[^>]*>", text, re.S):
+            src = re.search(r'src="([^"]+)"', tag)
+            assert src, f"{doc}: <img> with no src: {tag!r}"
+            alt = re.search(r'alt="([^"]*)"', tag, re.S)
+            assert alt, f"{doc}: {src.group(1)} has no alt text"
+            words = " ".join(alt.group(1).split())
+
+            # A badge is a label, not a diagram: "CI status" is the whole of
+            # what it conveys, so it is held to being present, not to length.
+            is_badge = (src.group(1).startswith("https://img.shields.io")
+                        or src.group(1).endswith("badge.svg"))
+            floor = 0 if is_badge else 20
+            assert len(words) > floor, (
+                f"{doc}: {src.group(1)} has thin alt text {words!r}")
 
 
 def test_the_uncounted_root_corpus_stays_disclosed() -> None:

@@ -17,6 +17,7 @@ scipy==1.17.1
 scikit-learn==1.9.0
 pandas==3.0.3
 matplotlib==3.11.0
+pillow==12.2.0
 
 # --- local-model backend: live demo + Ollama trace collection ---
 httpx==0.28.1

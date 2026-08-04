@@ -1,0 +1,55 @@
+name: Bug report
+description: Something crashes, or behaves differently from what the docs say.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If a *published number* does not match its artifact, use the
+        "Result does not reproduce" template instead — that one is tracked
+        differently.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Command to reproduce
+      description: The exact command, and the traceback or output if there is one.
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: commit
+    attributes:
+      label: Commit or release
+      description: "`git rev-parse --short HEAD`, or the tag you installed."
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: OS and Python version
+      placeholder: "Windows 11 / Python 3.13.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install
+    attributes:
+      label: Which requirements file did you install?
+      options:
+        - requirements.txt
+        - requirements.lock.txt
+        - requirements-core.lock.txt
+        - something else (say so above)
+    validations:
+      required: true

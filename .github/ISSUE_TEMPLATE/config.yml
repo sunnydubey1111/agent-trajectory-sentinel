@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How to reproduce a published result
+    url: https://github.com/sunnydubey1111/agent-trajectory-sentinel/blob/main/REPRODUCE.md
+    about: Every command, seed and gate needed to recompute the results.
+  - name: Claims and the evidence behind each one
+    url: https://github.com/sunnydubey1111/agent-trajectory-sentinel/blob/main/CLAIMS.md
+    about: Each headline number, recomputed from its committed file.
+  - name: Report a security vulnerability
+    url: https://github.com/sunnydubey1111/agent-trajectory-sentinel/security/advisories/new
+    about: Please report privately rather than in a public issue.

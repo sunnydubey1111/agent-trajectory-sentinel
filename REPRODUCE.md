@@ -189,12 +189,17 @@ then a gitignored `.env`.
 ### Verification gates
 
 ```
-py -m pytest -m "not network and not ollama"     # 312 tests, the default gate
+py -m pytest -m "not network and not ollama"     # 388 tests, the default gate
 py -m devtools.behavior_snapshot --check          # end-to-end behavioural tripwire
 py -m devtools.artifact_manifest --check          # SHA-256 over every committed file
 py -m devtools.claims_ledger --check              # every headline number vs its artifact
 py -m devtools.data_card --check                  # data card vs the committed corpora
+py -m devtools.social_card --check                # link-preview card vs its generator
 ```
+
+`social_card --check` compares bytes and so only holds on the machine that drew
+the card; text rasterisation varies by font file and freetype version. The
+suite checks the card's dimensions and its numbers, which do travel.
 
 ### Papers
 

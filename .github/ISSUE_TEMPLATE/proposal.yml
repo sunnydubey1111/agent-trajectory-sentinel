@@ -1,0 +1,41 @@
+name: Proposal
+description: A new corpus, detector, baseline or feature.
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Anything that changes measured results is worth agreeing on before the
+        work happens. That is what this template is for.
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you want to add
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: What question it answers
+      description: >-
+        Which existing result it strengthens, contradicts or extends. "It would
+        be interesting" is a fine answer if that is the honest one.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evaluation
+    attributes:
+      label: How it would be evaluated
+      description: >-
+        Corpus, baseline it is compared against, and the metric. For a new
+        corpus: how the episodes were produced and which model produced them.
+
+  - type: checkboxes
+    id: offer
+    attributes:
+      label: Are you offering to implement it?
+      options:
+        - label: Yes, I would like to work on this

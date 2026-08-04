@@ -1,0 +1,51 @@
+name: Result does not reproduce
+description: A number in the README, CLAIMS.md or the paper does not match what you got.
+labels: ["reproduction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most useful kind of issue this project can receive. A
+        mismatch is worth reporting even if you suspect it is your environment.
+
+  - type: input
+    id: claim
+    attributes:
+      label: Which claim
+      description: Quote it, and say where it appears.
+      placeholder: "README: task success from 52% to 73%"
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command you ran
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: numbers
+    attributes:
+      label: Published value vs what you got
+      placeholder: |
+        Published: 0.87 AUC
+        Observed:  0.79 AUC
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: pinned
+    attributes:
+      label: Environment
+      options:
+        - label: I installed `requirements.lock.txt` (the pinned set — required for published numbers)
+        - label: I used the seed the documentation specifies for this result
+
+  - type: textarea
+    id: gates
+    attributes:
+      label: Output of the verification gates, if you ran them
+      description: "`python -m devtools.claims_ledger --check` and friends."
+      render: shell

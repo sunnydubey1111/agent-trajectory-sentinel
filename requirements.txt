@@ -5,6 +5,9 @@ scipy>=1.14
 scikit-learn>=1.5
 pandas>=2.2
 matplotlib>=3.9
+pillow>=11.0          # arrives with matplotlib anyway, pinned here because
+                      # devtools/social_card.py imports it directly and a
+                      # transitive dependency is not a promise.
 pytest>=8.0           # test suite: py -m pytest -m "not slow"
 httpx>=0.27          # HTTP transport for the Ollama backend (live demo +
                      # local-model trace collection); required to run
