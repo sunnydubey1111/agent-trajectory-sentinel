@@ -39,6 +39,13 @@ references:
       - family-names: Dubey
         given-names: Sunny
     year: 2026
+    url: "https://arxiv.org/abs/2608.02464"
+    identifiers:
+      - type: other
+        value: "arXiv:2608.02464"
+        description: "arXiv identifier (cs.AI, submitted 2026-08-03, CC BY 4.0)"
     notes: >-
-      Manuscript included in this repository as paper/main.pdf (conference
-      format) and paper/paper.pdf (full length).
+      Preprint. The manuscript source is in this repository as paper/main.tex
+      (conference format, the arXiv submission) and paper/paper.md (full
+      length); the PDFs are build products, not committed files — REPRODUCE.md
+      gives the command for each.

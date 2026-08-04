@@ -292,9 +292,10 @@ fetch("data.json").then((r) => r.json()).then((data) => {
      your browser — Hugging Face charges for Spaces that run Python, so this one
      is static. Everything here is reproducible with
      <code>py -m devtools.hf_space --build</code>.
-     <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel">Code,
-     data and paper</a>, or a
-     <a href="https://youtu.be/a05n_000klE?t=0">25-minute walkthrough</a>.`;
+     <a href="https://arxiv.org/abs/2608.02464">Paper</a>,
+     <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel">code
+     and data</a>, or a
+     <a href="https://youtu.be/a05n_000klE?t=0">recorded walkthrough</a>.`;
   $("picker").addEventListener("change", (e) => select(+e.target.value));
   $("play").addEventListener("click", play);
   $("next").addEventListener("click", () => { stop(); S.upto++; render(); });

@@ -224,7 +224,9 @@ def _card(repo_id: str, data: dict) -> str:
         "  to accumulate evidence, which is measured in the paper and visible",
         "  here.",
         "",
-        f"Code, data and paper: <https://github.com/{owner}/"
+        "Paper: <https://arxiv.org/abs/2608.02464>",
+        "",
+        f"Code and data: <https://github.com/{owner}/"
         "agent-trajectory-sentinel>",
         "",
     ])

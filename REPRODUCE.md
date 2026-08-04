@@ -204,8 +204,10 @@ py -m devtools.md_to_latex --build                # full length        -> paper/
 py -m devtools.arxiv_package --build --check      # arXiv upload       -> build/arxiv/
 ```
 
-`paper/main.tex` is the arXiv submission; `py -m devtools.arxiv_package` flattens
-it into a self-contained upload. Two notes for that submission:
+`paper/main.tex` is the arXiv submission — announced as
+[arXiv:2608.02464](https://arxiv.org/abs/2608.02464) (cs.AI, CC BY 4.0) — and
+`py -m devtools.arxiv_package` flattens it into a self-contained upload. Two
+notes for that submission:
 
 - `--check` compiles with `latexmk`, which on MiKTeX needs Perl installed. Where
   it is not, `--check` reports FAILED without ever compiling; run

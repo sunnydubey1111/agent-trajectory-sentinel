@@ -1,6 +1,7 @@
 # AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures
 
-**[Watch the real time execution (demo)](https://youtu.be/a05n_000klE?t=0)**
+**[Paper — arXiv:2608.02464](https://arxiv.org/abs/2608.02464)**
+ · **[Watch the real time execution (demo)](https://youtu.be/a05n_000klE?t=0)**
  · **[Browse the 2,823-episode dataset](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel)**
  · [Contributions](CONTRIBUTIONS.md) · [Design](DESIGN.md) · [Claims → evidence](CLAIMS.md)
 
@@ -537,7 +538,10 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
-- Papers — [`paper/main.tex`](paper/main.tex) (conference format) and
+- Papers — [`paper/main.tex`](paper/main.tex) (conference format; this is the
+  source of the preprint at
+  [arXiv:2608.02464](https://arxiv.org/abs/2608.02464), flattened for upload by
+  `py -m devtools.arxiv_package`) and
   [`paper/paper.md`](paper/paper.md) (full length, converted to
   [`paper/paper.tex`](paper/paper.tex) by `py -m devtools.md_to_latex`). The
   PDFs are build products rather than committed files: `cd paper && latexmk
