@@ -4,8 +4,8 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3200&pause=700&color=1971C2&center=true&vCenter=true&width=680&height=42&lines=Trained+on+healthy+runs+only;Calibrated+alarm+at+derailment+onset;219+%C2%B5s+per+step%2C+3.95+MB+of+state;No+model+internals+read+%E2%80%94+telemetry+only"
-       alt="Trained on healthy runs only · Calibrated alarm at derailment onset · 219 microseconds per step, 3.95 MB of state · No model internals read, telemetry only">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3200&pause=700&color=1971C2&center=true&vCenter=true&width=680&height=42&lines=Trained+on+healthy+runs+only;Calibrated+alarm+at+derailment+onset;219+%C2%B5s+per+step%2C+3.95+MB+of+state;No+model+internals+read+%E2%80%94+telemetry+only;Refits+in+1.7+s+%E2%80%94+a+GRU+takes+68+s;Robust+to+its+own+hyperparameters"
+       alt="Trained on healthy runs only · Calibrated alarm at derailment onset · 219 microseconds per step, 3.95 MB of state · No model internals read, telemetry only · Refits in 1.7 seconds, a GRU takes 68 · Robust to its own hyperparameters">
 </p>
 
 <p align="center">
