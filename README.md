@@ -1,7 +1,11 @@
-<h1 align="center">AgentTrajectorySentinel</h1>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B3D5C,100:1971C2&height=200&section=header&text=AgentTrajectorySentinel&fontSize=42&fontColor=ffffff&fontAlignY=36&desc=Real-Time%20Detection%20and%20Repair%20of%20LLM%20Agent%20Failures&descSize=15&descAlignY=55"
+       alt="AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures">
+</p>
 
 <p align="center">
-  <b>Real-Time Detection and Repair of LLM Agent Failures</b>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3200&pause=700&color=1971C2&center=true&vCenter=true&width=680&height=42&lines=Trained+on+healthy+runs+only;Calibrated+alarm+at+derailment+onset;Task+success+52%25+%E2%86%92+73%25"
+       alt="Trained on healthy runs only · Calibrated alarm at derailment onset · Task success 52% to 73%">
 </p>
 
 <p align="center">
