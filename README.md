@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B3D5C,100:1971C2&height=200&section=header&text=AgentTrajectorySentinel&fontSize=42&fontColor=ffffff&fontAlignY=36&desc=Real-Time%20Detection%20and%20Repair%20of%20LLM%20Agent%20Failures&descSize=15&descAlignY=55"
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4B0082,100:7048E8&height=200&section=header&text=AgentTrajectorySentinel&fontSize=42&fontColor=ffffff&fontAlignY=36&desc=Real-Time%20Detection%20and%20Repair%20of%20LLM%20Agent%20Failures&descSize=15&descAlignY=55"
        alt="AgentTrajectorySentinel — Real-Time Detection and Repair of LLM Agent Failures">
 </p>
 
