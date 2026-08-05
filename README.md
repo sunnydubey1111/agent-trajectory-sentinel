@@ -41,9 +41,9 @@ The full system diagram — training, telemetry, both engines, the decision gate
 and the repair path — is in [DESIGN.md](DESIGN.md#architecture).
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2608.02464">📄 <b>Paper</b></a> ·
-  <a href="https://youtu.be/a05n_000klE?t=0">▶️ <b>Real time demo</b></a> ·
-  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel">🤗 <b>Dataset</b></a> ·
+  <a href="https://arxiv.org/abs/2608.02464">📄 Paper</a> ·
+  <a href="https://youtu.be/a05n_000klE?t=0">▶️ Real time demo</a> ·
+  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel">🤗 Dataset</a> ·
   <a href="CONTRIBUTIONS.md">🧭 Contributions</a> ·
   <a href="DESIGN.md">🏗️ Design</a> ·
   <a href="CLAIMS.md">✅ Claims → evidence</a>
