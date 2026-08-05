@@ -39,6 +39,7 @@ references:
       - family-names: Dubey
         given-names: Sunny
     year: 2026
+    doi: "10.48550/arXiv.2608.02464"
     url: "https://arxiv.org/abs/2608.02464"
     identifiers:
       - type: other
