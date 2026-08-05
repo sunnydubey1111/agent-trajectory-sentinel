@@ -41,12 +41,13 @@ The full system diagram — training, telemetry, both engines, the decision gate
 and the repair path — is in [DESIGN.md](DESIGN.md#architecture).
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2608.02464">📄 Paper</a> ·
-  <a href="https://youtu.be/a05n_000klE?t=0">▶️ Real time demo</a> ·
-  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel">🤗 Dataset</a> ·
-  <a href="CONTRIBUTIONS.md">🧭 Contributions</a> ·
-  <a href="DESIGN.md">🏗️ Design</a> ·
-  <a href="CLAIMS.md">✅ Claims → evidence</a>
+  <a href="https://arxiv.org/abs/2608.02464"><img alt="Paper" src="https://img.shields.io/badge/Paper-b31b1b?style=for-the-badge&logo=arxiv&logoColor=white"></a>
+  <a href="https://youtu.be/a05n_000klE?t=0"><img alt="Real time demo" src="https://img.shields.io/badge/Live%20demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>
+  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel"><img alt="Dataset" src="https://img.shields.io/badge/Dataset-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black"></a>
+  <br>
+  <a href="CONTRIBUTIONS.md"><img alt="Contributions" src="https://img.shields.io/badge/Contributions-0969DA?style=for-the-badge&logo=markdown&logoColor=white"></a>
+  <a href="DESIGN.md"><img alt="Design" src="https://img.shields.io/badge/Design-0969DA?style=for-the-badge&logo=mermaid&logoColor=white"></a>
+  <a href="CLAIMS.md"><img alt="Claims to evidence" src="https://img.shields.io/badge/Claims%20%E2%86%92%20evidence-0969DA?style=for-the-badge&logo=pytest&logoColor=white"></a>
 </p>
 
 ## Install
