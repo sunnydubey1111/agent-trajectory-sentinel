@@ -4,8 +4,8 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3200&pause=700&color=1971C2&center=true&vCenter=true&width=680&height=42&lines=Trained+on+healthy+runs+only;Calibrated+alarm+at+derailment+onset;Task+success+52%25+%E2%86%92+73%25"
-       alt="Trained on healthy runs only · Calibrated alarm at derailment onset · Task success 52% to 73%">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3200&pause=700&color=1971C2&center=true&vCenter=true&width=680&height=42&lines=Trained+on+healthy+runs+only;Calibrated+alarm+at+derailment+onset;219+%C2%B5s+per+step%2C+3.95+MB+of+state"
+       alt="Trained on healthy runs only · Calibrated alarm at derailment onset · 219 microseconds per step, 3.95 MB of state">
 </p>
 
 <p align="center">
