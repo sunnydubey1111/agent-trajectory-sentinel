@@ -1,4 +1,4 @@
-# Scientific contributions
+# Contributions
 
 What this project establishes, with the artifact each result is computed from.
 Every number here is either in [`CLAIMS.md`](CLAIMS.md) — where it is recomputed
