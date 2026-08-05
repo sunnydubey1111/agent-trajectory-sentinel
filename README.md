@@ -16,9 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2608.02464"><img alt="arXiv 2608.02464" src="https://img.shields.io/badge/arXiv-2608.02464-b31b1b"></a>
   <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel"><img alt="dataset: 2,823 episodes" src="https://img.shields.io/badge/dataset-2%2C823%20episodes-ffd21e"></a>
   <a href="https://huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo"><img alt="Hugging Face Space: live demo" src="https://img.shields.io/badge/%F0%9F%A4%97%20Space-live%20demo-ffd21e"></a>
   <a href="LICENSE"><img alt="licence: MIT" src="https://img.shields.io/badge/licence-MIT-blue"></a>
   <img alt="python 3.13+" src="https://img.shields.io/badge/python-3.13%2B-3776ab">
@@ -559,8 +557,8 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   and what does not work yet.
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
   settings, and the exact command behind each result.
-- [`DATA_CARD.md`](DATA_CARD.md) — all 25 corpora: sizes, models, injected vs
-  organic, episode lengths, channel availability. The same corpus is published
+- [`DATA_CARD.md`](DATA_CARD.md) — all 2,823 episodes across 25 corpora: sizes,
+  models, injected vs organic, episode lengths, channel availability. The same corpus is published
   on Hugging Face as
   [`sunnydubey1111/agent-trajectory-sentinel`](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel),
   one row per episode plus the raw traces (`py -m devtools.hf_dataset --build`).
