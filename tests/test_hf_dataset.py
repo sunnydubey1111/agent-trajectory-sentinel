@@ -319,6 +319,10 @@ class _FakeApi:
 
 def test_prune_removes_the_already_published_scratch_directory() -> None:
     """Excluding a path from the payload cannot unpublish it; only this can."""
+    # `_prune` names `EntryNotFoundError` in an except clause, so it needs the
+    # real package even with a fake api. huggingface_hub is a devtools-only
+    # dependency and is not in requirements.txt, so CI does not have it.
+    pytest.importorskip("huggingface_hub")
     api = _FakeApi()
     hf_dataset._prune(api, "someone/some-dataset")
     assert api.files == list(hf_dataset.STALE_PATHS)
