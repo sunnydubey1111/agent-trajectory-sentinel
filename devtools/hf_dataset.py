@@ -286,11 +286,20 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
 STALE_PATHS: tuple[str, ...] = ("data/episodes.jsonl",)
 
 #: Directories an earlier release published that must not survive a re-upload.
-#: `traces/ollama/_cassettes/` is corpus scratch that reached the hub through
-#: the `ignore_patterns` gap `publish_payload` now closes - 67 files, clean but
-#: never scanned and never meant to ship. Dropping it from the payload cannot
-#: remove it, because uploading only ever adds.
-STALE_DIRS: tuple[str, ...] = ("traces/ollama/_cassettes",)
+#: Corpus scratch that reached the hub through the `ignore_patterns` gap
+#: `publish_payload` now closes - 1346 files, clean but never scanned and never
+#: meant to ship. Dropping them from the payload cannot remove them, because
+#: uploading only ever adds.
+#:
+#: Enumerated per corpus rather than matched by pattern: `delete_folder` takes a
+#: literal path, and the count came from `list_repo_files`, which paginates. An
+#: unpaginated listing showed only `ollama` and is why this started as one entry.
+STALE_DIRS: tuple[str, ...] = (
+    "traces/ollama/_cassettes",
+    "traces/ollama7b/_cassettes",
+    "traces/ollama_llama8b/_cassettes",
+    "traces/real/_cassettes",
+)
 
 
 def _prune(api, repo_id: str) -> None:

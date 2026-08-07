@@ -323,7 +323,8 @@ def test_prune_removes_the_already_published_scratch_directory() -> None:
     hf_dataset._prune(api, "someone/some-dataset")
     assert api.files == list(hf_dataset.STALE_PATHS)
     assert api.folders == list(hf_dataset.STALE_DIRS)
-    assert "traces/ollama/_cassettes" in api.folders
+    for corpus in ("ollama", "ollama7b", "ollama_llama8b", "real"):
+        assert f"traces/{corpus}/_cassettes" in api.folders
 
 
 def test_pruned_directories_are_ones_the_payload_excludes() -> None:
