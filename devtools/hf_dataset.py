@@ -285,6 +285,13 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
 #: the parquet that replaced it.
 STALE_PATHS: tuple[str, ...] = ("data/episodes.jsonl",)
 
+#: Directories an earlier release published that must not survive a re-upload.
+#: `traces/ollama/_cassettes/` is corpus scratch that reached the hub through
+#: the `ignore_patterns` gap `publish_payload` now closes - 67 files, clean but
+#: never scanned and never meant to ship. Dropping it from the payload cannot
+#: remove it, because uploading only ever adds.
+STALE_DIRS: tuple[str, ...] = ("traces/ollama/_cassettes",)
+
 
 def _prune(api, repo_id: str) -> None:
     from huggingface_hub.errors import EntryNotFoundError
@@ -299,15 +306,75 @@ def _prune(api, repo_id: str) -> None:
             pass
         except Exception as exc:                     # already gone, or no rights
             print(f"[hf] could not remove {path}: {exc}")
+    for path in STALE_DIRS:
+        try:
+            api.delete_folder(path_in_repo=path, repo_id=repo_id,
+                              repo_type="dataset",
+                              commit_message=f"Remove unpublishable {path}")
+            print(f"[hf] removed stale directory {path}")
+        except EntryNotFoundError:
+            pass
+        except Exception as exc:                     # already gone, or no rights
+            print(f"[hf] could not remove {path}: {exc}")
+
+
+def _publishable(path: pathlib.Path) -> bool:
+    """Is this trace file ours to publish?
+
+    A leading underscore marks a directory as scratch or not ours, at ANY
+    depth — `traces/_cassettes/` and `traces/ollama7b/_cassettes/` alike.
+    """
+    return not any(part.startswith("_")
+                   for part in path.relative_to(TRACES).parts[:-1])
+
+
+def publish_payload(out_dir: pathlib.Path) -> tuple[list[pathlib.Path],
+                                                    list[pathlib.Path]]:
+    """(build files, trace files) — exactly the set a push uploads.
+
+    The single source of truth for both the secret scan and the upload. It has
+    to be one list, because when it was two rules they disagreed: the scan
+    skipped a `_` directory at any depth, while the upload passed
+    `ignore_patterns=["_*/**", "_*"]`, which fnmatch anchors at the folder
+    root. Nested scratch (`traces/ollama7b/_cassettes/` and three sibling
+    corpora, 1559 files) was therefore published without ever being scanned —
+    the recorded-API-interaction files, which is where a key would land first.
+    Deriving both steps from one list makes that gap unrepresentable rather
+    than merely fixed.
+
+    Stale build artefacts are dropped here too, so a leftover local file
+    cannot be re-uploaded just to be deleted again by `_prune`.
+    """
+    build_files = [p for p in out_dir.rglob("*") if p.is_file()
+                   and p.relative_to(out_dir).as_posix() not in STALE_PATHS]
+    trace_files = [p for p in TRACES.rglob("*")
+                   if p.is_file() and _publishable(p)]
+    return build_files, trace_files
+
+
+def _allow_patterns(paths: list[pathlib.Path],
+                    root: pathlib.Path) -> list[str]:
+    """The scanned paths, as literal `allow_patterns` for `upload_folder`.
+
+    Passing the list itself is what ties the upload to the scan. Glob
+    metacharacters in a filename would silently widen it back into a pattern,
+    so they are refused rather than trusted.
+    """
+    out = []
+    for path in paths:
+        rel = path.relative_to(root).as_posix()
+        if any(ch in rel for ch in "*?[]"):
+            raise SystemExit(f"refusing to publish: glob metacharacter in "
+                             f"path {rel!r}; allow_patterns cannot express it")
+        out.append(rel)
+    return out
 
 
 def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
     from huggingface_hub import HfApi
 
-    payload = ([p for p in out_dir.rglob("*") if p.is_file()]
-               + [p for p in TRACES.rglob("*")
-                  if p.is_file() and not any(part.startswith("_")
-                                             for part in p.relative_to(TRACES).parts[:-1])])
+    build_files, trace_files = publish_payload(out_dir)
+    payload = build_files + trace_files
     findings = scan_for_secrets(payload)
     if findings:
         for finding in findings[:20]:
@@ -321,14 +388,18 @@ def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
     api = HfApi(token=token)          # falls back to a prior `hf auth login`
     api.create_repo(repo_id, repo_type="dataset", private=private,
                     exist_ok=True)
+    # Both uploads carry the scanned list itself. An ignore-pattern would have
+    # to re-derive the exclusion rule, and re-deriving it is what let 1559
+    # unscanned files through.
     api.upload_folder(folder_path=str(out_dir), repo_id=repo_id,
                       repo_type="dataset",
+                      allow_patterns=_allow_patterns(build_files, out_dir),
                       commit_message="Publish the agent-failure trace corpus")
     _prune(api, repo_id)
     # The authoritative layout, uploaded unchanged beside the derived view.
     api.upload_folder(folder_path=str(TRACES), repo_id=repo_id,
                       repo_type="dataset", path_in_repo="traces",
-                      ignore_patterns=["_*/**", "_*"],
+                      allow_patterns=_allow_patterns(trace_files, TRACES),
                       commit_message="Add the per-episode trace files")
     print(f"[hf] pushed to https://huggingface.co/datasets/{repo_id}")
 
@@ -351,8 +422,11 @@ def main(argv: list[str] | None = None) -> int:
           f"corpora -> {summary['bytes'] / 1e6:.1f} MB")
     print(f"[hf] built {out_dir}")
     if args.scan_only:
-        payload = ([p for p in out_dir.rglob("*") if p.is_file()]
-                   + [p for p in TRACES.rglob("*") if p.is_file()])
+        # The same payload `push` uploads, not a third variant: this scanned
+        # all of `traces/` including scratch, so it reported on files that are
+        # never published — findings a reader learns to dismiss.
+        build_files, trace_files = publish_payload(out_dir)
+        payload = build_files + trace_files
         findings = scan_for_secrets(payload)
         for finding in findings[:20]:
             print(f"  {finding}")

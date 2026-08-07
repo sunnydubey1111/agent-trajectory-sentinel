@@ -203,3 +203,140 @@ def test_the_secret_scan_does_not_fire_on_the_real_corpus() -> None:
     sample = sorted((REPO_ROOT / "traces").rglob("*.jsonl"))[:300]
     assert sample, "no traces found to scan"
     assert hf_dataset.scan_for_secrets(sample) == []
+
+
+# --------------------------------------------------------------------------
+# The scan must cover everything the upload sends. These pin the bug where it
+# didn't: the scan skipped `_` directories at any depth, the upload passed
+# `ignore_patterns=["_*/**", "_*"]` which fnmatch anchors at the folder root,
+# and 1559 nested cassette files were published unscanned as a result.
+# --------------------------------------------------------------------------
+def _fake_traces(root: pathlib.Path) -> None:
+    for rel in ("ollama7b/real-healthy-000.jsonl",
+                "ollama7b/manifest.json",
+                "ollama7b/_cassettes/deadbeef.json",          # nested scratch
+                "ollama7b/_cassettes/_backend/cafe.json",     # deeper still
+                "_cassettes/toplevel.json",                   # top-level scratch
+                "_aftraj/imported.jsonl",
+                "manifest.json"):
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}\n", encoding="utf-8")
+
+
+def test_nested_scratch_is_never_published(tmp_path, monkeypatch) -> None:
+    """The regression: `_cassettes` under a corpus, not just at the root."""
+    traces = tmp_path / "traces"
+    _fake_traces(traces)
+    monkeypatch.setattr(hf_dataset, "TRACES", traces)
+    build_dir = tmp_path / "build"
+    (build_dir / "data").mkdir(parents=True)
+    (build_dir / "data" / "episodes.parquet").write_bytes(b"x")
+
+    _, trace_files = hf_dataset.publish_payload(build_dir)
+    published = {p.relative_to(traces).as_posix() for p in trace_files}
+    assert published == {"ollama7b/real-healthy-000.jsonl",
+                         "ollama7b/manifest.json", "manifest.json"}
+
+
+def test_the_uploaded_set_is_exactly_the_scanned_set(tmp_path,
+                                                     monkeypatch) -> None:
+    """Applies the hub's own fnmatch semantics to the patterns we pass.
+
+    This is the assertion that would have caught the original bug: it fails if
+    the patterns ever select a file the scan did not see.
+    """
+    from fnmatch import fnmatch
+
+    traces = tmp_path / "traces"
+    _fake_traces(traces)
+    monkeypatch.setattr(hf_dataset, "TRACES", traces)
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+    (build_dir / "README.md").write_text("x", encoding="utf-8")
+
+    _, trace_files = hf_dataset.publish_payload(build_dir)
+    patterns = hf_dataset._allow_patterns(trace_files, traces)
+    on_disk = [p for p in traces.rglob("*") if p.is_file()]
+    selected = {p for p in on_disk
+                if any(fnmatch(p.relative_to(traces).as_posix(), pat)
+                       for pat in patterns)}
+    assert selected == set(trace_files)
+
+
+def test_no_underscore_directory_survives_into_the_real_payload() -> None:
+    """The same invariant, against the corpus actually being shipped."""
+    build_dir = REPO_ROOT / "build" / "hf"
+    if not build_dir.is_dir():
+        pytest.skip("no build/hf; run `py -m devtools.hf_dataset --build`")
+    _, trace_files = hf_dataset.publish_payload(build_dir)
+    assert trace_files, "payload is empty"
+    leaked = [p.relative_to(REPO_ROOT / "traces").as_posix()
+              for p in trace_files
+              if any(part.startswith("_")
+                     for part in p.relative_to(REPO_ROOT / "traces").parts[:-1])]
+    assert not leaked, f"scratch reached the payload: {leaked[:5]}"
+
+
+def test_stale_build_artefacts_are_not_re_uploaded(tmp_path,
+                                                   monkeypatch) -> None:
+    """`_prune` deletes these after the fact; not sending them is better."""
+    traces = tmp_path / "traces"
+    _fake_traces(traces)
+    monkeypatch.setattr(hf_dataset, "TRACES", traces)
+    build_dir = tmp_path / "build"
+    (build_dir / "data").mkdir(parents=True)
+    (build_dir / "data" / "episodes.parquet").write_bytes(b"x")
+    for stale in hf_dataset.STALE_PATHS:
+        (build_dir / stale).write_text("old", encoding="utf-8")
+
+    build_files, _ = hf_dataset.publish_payload(build_dir)
+    names = {p.relative_to(build_dir).as_posix() for p in build_files}
+    assert names == {"data/episodes.parquet"}
+
+
+def test_allow_patterns_refuses_a_glob_metacharacter(tmp_path) -> None:
+    """A literal list only stays literal if nothing in it is a pattern."""
+    victim = tmp_path / "weird[1].jsonl"
+    victim.write_text("{}", encoding="utf-8")
+    with pytest.raises(SystemExit, match="glob metacharacter"):
+        hf_dataset._allow_patterns([victim], tmp_path)
+
+
+class _FakeApi:
+    """Records what `_prune` would delete, without touching the hub."""
+
+    def __init__(self) -> None:
+        self.files: list[str] = []
+        self.folders: list[str] = []
+
+    def delete_file(self, path_in_repo, repo_id, repo_type, commit_message):
+        self.files.append(path_in_repo)
+
+    def delete_folder(self, path_in_repo, repo_id, repo_type, commit_message):
+        self.folders.append(path_in_repo)
+
+
+def test_prune_removes_the_already_published_scratch_directory() -> None:
+    """Excluding a path from the payload cannot unpublish it; only this can."""
+    api = _FakeApi()
+    hf_dataset._prune(api, "someone/some-dataset")
+    assert api.files == list(hf_dataset.STALE_PATHS)
+    assert api.folders == list(hf_dataset.STALE_DIRS)
+    assert "traces/ollama/_cassettes" in api.folders
+
+
+def test_pruned_directories_are_ones_the_payload_excludes() -> None:
+    """A directory may only be pruned if we would never upload it again.
+
+    Pruning something still in the payload would delete and re-add it forever.
+    """
+    build_dir = REPO_ROOT / "build" / "hf"
+    if not build_dir.is_dir():
+        pytest.skip("no build/hf; run `py -m devtools.hf_dataset --build`")
+    _, trace_files = hf_dataset.publish_payload(build_dir)
+    published = {f"traces/{p.relative_to(REPO_ROOT / 'traces').as_posix()}"
+                 for p in trace_files}
+    for stale in hf_dataset.STALE_DIRS:
+        assert not [p for p in published if p.startswith(stale + "/")], (
+            f"{stale} is pruned but still in the payload")
