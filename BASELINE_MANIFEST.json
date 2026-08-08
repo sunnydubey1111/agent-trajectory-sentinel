@@ -8495,7 +8495,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "da9c8b87760b5ea8ca8db7d82ccbfad41202bf28b23f2e568a3ecb19d8457d8f",
+   "CHECKSUMS.md": "290b6ee678105f2b14b9abfe934fc04747ab6e1ad5f0597b27dcd6eebb40c4b6",
    "CLAIMS.md": "e9004f41ffdb16f16ba342775cb868bc38c97de91fa593ed03ea4b12e9a17c76",
    "CONTRIBUTIONS.md": "b844b5a00d8f05e0d351ba2812009acfef7317e8dbf3956c65c9f33d8cdbb757",
    "DATA_CARD.md": "5a93ed82f7ad6ce3b2c6752dd047b5fef63fb52728a79785f819050f563e7896",
@@ -8505,7 +8505,7 @@
    "README.md": "5d6613caf900da82a87e82c96c82eb033c0cd893b384039c6c200babd461d5d4",
    "REPRODUCE.md": "12f2e4c225f51914157d5a3088096525bca596dca01ec0fd10430776b926f52e",
    "USER_GUIDE.md": "e3973fad4f5aeb6b678809e588b1455db8bdafb9bb8179857303d2e3196a315f",
-   "paper/main.tex": "5ad4b5a751ae44d924691900e91609629eb694ff90ed1ade5dda3ff08247ff0a",
+   "paper/main.tex": "9691e3fba882c9a95e8f51beed2b36316cb44af9701e9a6e73d6af66dc3d4ce4",
    "paper/paper.md": "937c4724c3fe59f7d5ee7fde11e543fb6ba828f6f427188c8f9981c4c0e8255c",
    "paper/paper.tex": "306f2abbc8cc9859e24b01d877778c8cfa94df41c2ea3f7c1a3c1a2bf29341ce",
    "paper/references.bib": "d6ec7b107328fafa2f748212db14dd3d5f087fa2869af4a9170c317f4b737e80",
@@ -8514,6 +8514,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Apache-2.0 relicensing; LICENSE and NOTICE now hash-tracked",
+ "note": "arXiv v2 paper fixes",
  "file_count": 8505
 }

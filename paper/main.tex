@@ -36,7 +36,7 @@
 \maketitle
 
 \begin{abstract}
-LLM agents fail mid-episode---they loop, cascade tool errors, drift off their goal, fabricate results, or silently absorb corrupted content---and the standard remedy, judging every step with a second LLM, costs more than the agent itself. We ask how much failure detection is achievable from \textit{observable step telemetry alone} (semantic embeddings of step output, token-level uncertainty, action metadata), using monitors that cost microseconds per step and train only on healthy runs. Starting from a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build and validate, on 2,823 committed agent episodes across three frameworks, three local agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and a commercial API (gemini-2.5-flash), a sequence of increasingly capable monitors: (1) the ESN, which wins decisively when failures have temporal room to develop; (2) a calibrated ESN+Mahalanobis hybrid whose learned fusion weights track the deployment regime; and (3) a content-grounding telemetry channel that lifts the monitors' shared blind spot (content corruption) from 0.28 to 0.59 pooled content detection (reaching 1.00 on the research collectors where the corruption is content-visible; honestly inert on frameworks whose corruption leaves result text unchanged), a $+0.31$ gain that holds at every seed, while behavioral detection improves rather than degrades ($+0.045$). Validation on organic (non-injected) failures reveals a taxonomy with an honest boundary: a completion check catches failures of omission (7/7 silent aborts), the monitors transfer only \emph{weakly} to organic commission (1 of 3 fabrications) and rank the organic set at/below chance without recalibration, and plausible-value corruption requires external reference (the escalation layer's job). A pre-registered fabrication study is explicitly underpowered (2 hallucinations in the pre-registered 55 episodes, 9 across all 175 organic episodes and only 2 of those fabricated \emph{inputs}, against a pre-registered minimum of 10) and makes no detection claim --- the models rarely invent --- so the fabrication class is covered by a deterministic numeric-grounding verifier rather than a statistical monitor. Both burdens --- the per-deployment null and the residual false-alarm rate --- motivate a complementary layer that carries neither: \textbf{deterministic verification}, which recomputes a run's stated total from the tool results that run actually received and confirms every required call was made, needing no null, no threshold and no calibration. Head-to-head on the same episodes and labels it catches 60\% of failures (96\% with the coverage check) at \textbf{0 of 63 false positives} against the monitor's 54\% at 17\%; it replicates on 120 later episodes at disjoint seeds scored frozen (54\%, 93\% with coverage, 0 of 64), transfers unchanged across model families to llama3.1:8b (\textbf{110 of 110 at 0 of 10}), and catches \textbf{26 of 26} provoked fabrications --- the class on which a one-class monitor structurally cannot be scored. A third check validates tool results against the shapes their tool can return, flagging \textbf{0 of 1825} healthy episodes while catching 46\% of injected context corruption, 215 of 218 within one step of onset. Detection is then closed into \textbf{repair}: each flagged run is rolled back to its last fact-gathering step and re-run live, recovering \textbf{45\%} of failures against a 16\% resampling control ($p=0.0005$) and lifting net task success from \textbf{52\% to 73\%} for about one extra model call per run. The monitor scores a step in $\sim$200 $\mu$s and the telemetry adapter that feeds it adds a median 674 $\mu$s, so the whole path stays under a millisecond per step --- against one 7B forward pass for an auditor that judges every step.
+LLM agents fail mid-episode---they loop, cascade tool errors, drift off their goal, fabricate results, or silently absorb corrupted content---and the standard remedy, judging every step with a second LLM, costs more than the agent itself. We ask how much failure detection is achievable from \textit{observable step telemetry alone} (semantic embeddings of step output, token-level uncertainty, action metadata), using monitors that cost microseconds per step and train only on healthy runs. Starting from a one-class echo-state-network (ESN) ensemble with CUSUM alarms, we build and validate, on 2,823 committed agent episodes across three frameworks, three local agent models spanning two families (qwen2.5 7b/3b, llama3.1 8b), and a commercial API (gemini-2.5-flash), a sequence of increasingly capable monitors: (1) the ESN, which wins decisively when failures have temporal room to develop; (2) a calibrated ESN+Mahalanobis hybrid whose learned fusion weights track the deployment regime; and (3) a content-grounding telemetry channel that lifts the monitors' shared blind spot (content corruption) from 0.28 to 0.59 pooled content detection, averaged over five seeds (reaching 1.00 on the longest research corpus, where the corruption is content-visible; honestly inert on frameworks whose corruption leaves result text unchanged), a $+0.31$ gain that holds at every seed, while behavioral detection improves rather than degrades ($+0.045$). Validation on organic (non-injected) failures reveals a taxonomy with an honest boundary: a completion check catches failures of omission (7/7 silent aborts), the monitors transfer only \emph{weakly} to organic commission (1 of 3 fabrications) and rank the organic set at/below chance without recalibration, and plausible-value corruption requires external reference (the escalation layer's job). A pre-registered fabrication study is explicitly underpowered (2 hallucinations in the pre-registered 55 episodes, 9 across all 175 organic episodes and only 2 of those fabricated \emph{inputs}, against a pre-registered minimum of 10) and makes no detection claim --- the models rarely invent --- so the fabrication class is covered by a deterministic numeric-grounding verifier rather than a statistical monitor. Both burdens --- the per-deployment null and the residual false-alarm rate --- motivate a complementary layer that carries neither: \textbf{deterministic verification}, which recomputes a run's stated total from the tool results that run actually received and confirms every required call was made, needing no null, no threshold and no calibration. Head-to-head on the same episodes and labels it catches 60\% of failures (96\% with the coverage check) at \textbf{0 of 63 false positives} against the monitor's 54\% at 17\%; it replicates on 120 later episodes at disjoint seeds scored frozen (54\%, 93\% with coverage, 0 of 64), transfers unchanged across model families to llama3.1:8b (\textbf{110 of 110 at 0 of 10}), and catches \textbf{26 of 26} provoked fabrications --- the class on which a one-class monitor structurally cannot be scored. A third check validates tool results against the shapes their tool can return, flagging \textbf{0 of 1825} healthy episodes while catching 46\% of injected context corruption, 215 of 218 within one step of onset. Detection is then closed into \textbf{repair}: each flagged run is rolled back to its last fact-gathering step and re-run live, recovering \textbf{45\%} of failures against a 16\% resampling control ($p=0.0005$) and lifting net task success from \textbf{52\% to 73\%} for about one extra model call per run. The monitor scores a step in $\sim$200 $\mu$s and the telemetry adapter that feeds it adds a median 674 $\mu$s, so the whole path stays under a millisecond per step --- against one 7B forward pass for an auditor that judges every step.
 \end{abstract}
 
 \section{Introduction}
@@ -240,11 +240,18 @@ Of 1{,}002 injected episodes, about a third of failures are visible to exactly o
 
 Behavioral and statistical monitors share one blind spot: corruption that changes \textit{data} without changing \textit{behavior}. The $g$ channel adds nine causal content features, including a binary lexical relevance flag that completely separates off-topic retrievals.
 
+The pooled figure hides a split that matters more than the average, and it is a split by \emph{what the corruption does}, not by which corpus it lands in. Where the injected corruption is visible in the result text, the gate is decisive: content detection goes $0.00 \rightarrow \textbf{1.00}$ on \texttt{real\_research7b\_long\_ext} (n=39), $0.29 \rightarrow 0.94$ on \texttt{real\_gemini\_long} (n=31), $0.00 \rightarrow 0.67$ on \texttt{real\_research7b\_long} (n=18) and $0.08 \rightarrow 0.44$ on \texttt{real\_research7b} (n=66). Where it is not --- the framework collectors, whose corruption leaves result text unchanged --- the gate is exactly inert rather than harmful: \texttt{autogen7b} $0.12 \rightarrow 0.12$, \texttt{langgraph7b} $0.15 \rightarrow 0.15$, \texttt{gemini} $0.33 \rightarrow 0.33$, with no episode lost anywhere (the $-0$ column in Table~\ref{tab:grounding}). The one research corpus that barely moves, \texttt{real\_research3b} ($0.29 \rightarrow 0.35$), is the 3b model, whose behavioral null is weak enough that little is recoverable. We report the 1.00 as one corpus, not a class result.
+
 \begin{table}[tbp]
 \centering
 \caption{Detection rate (pooled injected episodes, n=874 over ten datasets,
 \texttt{grounding\_diagnosis.csv}). Ungrounded $\rightarrow$ grounded; McNemar
-discordant (gained/lost) vs the ungrounded parent.}
+discordant (gained/lost) vs the ungrounded parent. These are the single
+reference seed; the abstract quotes the five-seed means from
+\texttt{grounding\_multiseed\_criterion.csv}, which round one hundredth higher
+(content $0.28 \rightarrow 0.59$, behavioral $+0.045$). The gain is what
+replicates, not the third digit of either endpoint.}
+\label{tab:grounding}
 \begin{tabular}{lcc}
 \toprule
 Fusion & Content (n=313) & Behavioral (n=561) \\
@@ -256,14 +263,12 @@ Logistic+g (labels) & 0.21 $\rightarrow$ 0.32 (+42/-9) & 0.71 $\rightarrow$ 0.69
 \end{tabular}
 \end{table}
 
-\section{Organic Failures and Conclusion}
+\section{Organic Failures}
 \label{sec:organic}
 
 Thirty non-injected high-temperature (0.9) episodes yield 11 organic failures: 7 silent aborts, 3 fabricated counts, 1 ungrounded retrieval blend. Scored by monitors carrying the calibration they were deployed with, and not refit on this data, the behavioural monitors catch only \textbf{1 of the 3} fabrications and rank the whole organic failure set at/below chance (within-organic AUROC \textbf{0.31--0.42}); a temperature-matched null still false-alarms on \textbf{36\%} of healthy episodes, because the organic runs were sampled at temperature 0.9. Detections at that false-alarm rate are not deployable evidence, and we report them as such. \textbf{Omission is invisible to telemetry but trivially fixable} (the five-line completion check catches 7/7 silent aborts with 0 false positives across these 30 episodes), and \textbf{plausible-value corruption remains undetectable} without an external reference.
 
 A \textbf{pre-registered replication} (design and analysis committed before data; $n=55$ episodes at temperature 0.9) built the null cross-fit from the healthy subset of the same-temperature runs, but is \textbf{explicitly underpowered}: only 2 candidate hallucinations arise (pre-registered minimum 10), at a 36\% healthy false-alarm rate, so it makes \textbf{no detection claim}. These well-aligned agent models rarely invent figures. Fabrication detection is therefore delivered not by a statistical monitor but by the mechanism that matches the failure: a deterministic per-step \textbf{numeric-grounding verifier} --- every monetary figure the agent asserts must trace to a tool result it actually received, or an arithmetic combination thereof --- which needs no ground-truth answer, runs online, flagged 0 false positives on the 25 healthy episodes, and catches an inserted ungrounded figure at the step it appears. The statistical monitors were never the right tool for this class; measuring that, and shipping the right tool, is the result.
-
-Observable step telemetry covers most of the agent-failure space using microsecond-scale monitors --- with failure classes it cannot cover delegated to mechanisms that can (completion check, grounding verifier, escalation to a judge) --- providing a vital first line of defense before escalating to full LLM judges.
 
 \section{Deterministic Verification and Repair}
 \label{sec:verify}
@@ -415,6 +420,30 @@ grounding verifier alone on the narrower ungrounded-\emph{input} subset.
 \textbf{(6) Scope.} Mock-tool and research-loop tasks, two local model families
 and one commercial API; wall-clock latency features are machine-specific and
 are excluded from the shipped configuration.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Observable step telemetry covers most of the agent-failure space using
+microsecond-scale monitors --- with failure classes it cannot cover delegated to
+mechanisms that can (completion check, grounding verifier, escalation to a
+judge) --- providing a vital first line of defense before escalating to full LLM
+judges.
+
+The result we would keep if forced to keep one is not a detector. It is that
+detection becomes worth paying for only once it is closed into repair: rolling a
+flagged run back to its last fact-gathering step and re-running it lifts net task
+success from \textbf{52\% to 73\%} (\S\ref{sec:verify}) for about one extra model
+call, on the same episodes where the monitor alone would have produced an alarm
+and stopped. A monitor that costs $\sim$200\,$\mu$s per step and trains on healthy
+runs alone is what makes that loop affordable enough to leave running.
+
+What we do not claim is a monitor that transfers. The healthy null belongs to a
+(model, decoding-configuration) pair, and \S\ref{sec:limits} is explicit about
+where it fails. The deterministic layer is what carries across model families
+unchanged, and the honest reading of this paper is that the statistical and
+deterministic layers are complements with different failure modes, not
+competitors with a winner.
 
 \section*{Appendix}
 \sloppy
