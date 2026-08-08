@@ -213,6 +213,12 @@ py -m devtools.arxiv_package --build --check      # arXiv upload       -> build/
 [arXiv:2608.02464](https://arxiv.org/abs/2608.02464) (cs.AI, CC BY 4.0) — and
 `py -m devtools.arxiv_package` flattens it into a self-contained upload.
 
+**arXiv:2608.02464 corresponds to commit `00c0673`.** That is the tree the
+announced preprint describes, recorded here because it is the one fact a reader
+of the paper cannot recover from the repository itself. It was tagged `v1.3.0`
+until the tags predating the Apache-2.0 relicensing were removed; the commit is
+an ancestor of `main` and stays reachable, so `git show 00c0673` still resolves.
+
 ## 6. Settings that change results
 
 Recorded here because each one silently invalidates a calibration if it moves.

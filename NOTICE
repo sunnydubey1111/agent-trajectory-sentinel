@@ -1,0 +1,22 @@
+AgentTrajectorySentinel
+Copyright 2026 Sunny Dubey
+
+This product includes software developed by Sunny Dubey.
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+If you use this software or its data, please cite:
+
+  Sunny Dubey. "Real-Time Detection and Repair of LLM Agent Failures."
+  arXiv:2608.02464, 2026. https://arxiv.org/abs/2608.02464
+  doi:10.48550/arXiv.2608.02464
+
+  Machine-readable citation metadata is in CITATION.cff.
+
+The licence above cannot cover material this project only recorded or called,
+because a licence cannot grant rights the licensor never held. Recorded model
+output carries the terms of the model that produced it, and replayed tool
+results carry the terms of the service that produced them. Those terms are
+itemised per corpus in DATA_CARD.md and, for the gemini-2.5-flash corpora
+specifically, in traces/NOTICE_gemini.md, which anyone reusing that output
+should read first.

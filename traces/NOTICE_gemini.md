@@ -48,9 +48,9 @@ or Google AI Studio.
 Anyone reusing **any of these 330 episodes** — all three sets listed above, not
 only the 143 that sit in corpus subdirectories — must not use them to train
 language models, or to develop any model or service competing with the Gemini
-API or Google AI Studio. This condition is in addition to the repository's MIT
-licence, which covers the code and the trace format but cannot grant rights
-over the model output these episodes contain.
+API or Google AI Studio. This condition is in addition to the repository's
+Apache-2.0 licence, which covers the code and the trace format but cannot grant
+rights over the model output these episodes contain.
 
 ## Which counts appear where
 

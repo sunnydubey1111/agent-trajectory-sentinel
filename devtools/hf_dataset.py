@@ -123,9 +123,10 @@ def card(n_episodes: int, n_corpora: int,
     notice = (TRACES / "NOTICE_gemini.md").read_text("utf-8")
     frontmatter = "\n".join([
         "---",
-        # Mixed, and saying "mit" here would be false: the code and the trace
-        # format are MIT, but recorded model output carries the terms of the
-        # model that produced it. See the Licensing section of the body.
+        # Mixed, and naming a single licence here would be false: the code and
+        # the trace format are Apache-2.0, but recorded model output carries
+        # the terms of the model that produced it, which differ per corpus.
+        # See the Licensing section of the body.
         "license: other",
         "license_name: mixed-see-licensing",
         # The hub validates this as a URI and rejects a bare filename, so it
@@ -270,10 +271,11 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
                                        encoding="utf-8", newline="\n")
     (out_dir / "LICENSING.md").write_text(
         "See the Licensing section of the dataset card. In short: the code and\n"
-        "trace format are MIT; recorded model output carries the terms of the\n"
-        "model that produced it (qwen2.5 Apache-2.0, llama3.1 Community License\n"
-        "with its Acceptable Use Policy, gemini-2.5-flash under the Gemini API\n"
-        "terms - see NOTICE_gemini.md).\n", encoding="utf-8", newline="\n")
+        "trace format are Apache-2.0; recorded model output carries the terms\n"
+        "of the model that produced it (qwen2.5 Apache-2.0, llama3.1 Community\n"
+        "License with its Acceptable Use Policy, gemini-2.5-flash under the\n"
+        "Gemini API terms - see NOTICE_gemini.md).\n",
+        encoding="utf-8", newline="\n")
 
     return {"episodes": len(records), "corpora": n_corpora,
             "bytes": target.stat().st_size}

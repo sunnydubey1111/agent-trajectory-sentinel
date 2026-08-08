@@ -31,7 +31,13 @@ SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
                    "experimental/**/*.py", "devtools/**/*.py", "tests/**/*.py")),
     "results": ("results", ("**/*.json", "**/*.csv", "**/*.md", "**/*.png")),
     "traces": ("traces", ("**/*.jsonl", "**/*.json")),
-    "docs": (".", ("*.md", "docs/**/*.md", "paper/**/*.md", "paper/**/*.tex",
+    # LICENSE and NOTICE are named explicitly because they carry no extension
+    # and the globs below are extension-driven. Both are load-bearing under
+    # Apache-2.0 -- section 4(d) makes NOTICE binding on anyone redistributing
+    # this -- so a silent edit to either should fail the integrity check the
+    # same way an edited trace does.
+    "docs": (".", ("*.md", "LICENSE", "NOTICE", "docs/**/*.md",
+                   "paper/**/*.md", "paper/**/*.tex",
                    "paper/**/*.bib", "requirements*.txt")),
 }
 EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
@@ -165,7 +171,8 @@ def write_doc() -> None:
         "code": "`derail/`, `verification/`, `experimental/`, `devtools/`, `tests/`",
         "results": "every table, figure and results JSON the claims cite",
         "traces": "every committed agent episode and replay cassette",
-        "docs": "`*.md`, the paper sources, and the requirements files",
+        "docs": "`*.md`, `LICENSE`, `NOTICE`, the paper sources, and the "
+                "requirements files",
     }
     for name in sorted(sections):
         lines.append(f"| `{name}` | {len(sections[name]):,} | {covers.get(name, '')} |")

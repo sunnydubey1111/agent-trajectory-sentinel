@@ -151,11 +151,22 @@ def test_markdown_to_latex_raises_on_an_unmapped_character() -> None:
         md_to_latex._escape("\u2603")          # snowman: deliberately unmapped
 
 
-def test_license_names_a_holder() -> None:
+def test_license_is_apache_and_the_notice_names_a_holder() -> None:
+    """Apache-2.0 is applied verbatim, so the holder lives in NOTICE, not LICENSE.
+
+    Editing a name into the licence body is the usual mistake here: it makes the
+    text non-standard and licence scanners stop recognising it. Section 4(d) is
+    what makes NOTICE binding on anyone redistributing this, so the attribution
+    and the citation have to survive in there.
+    """
     text = (REPO_ROOT / "LICENSE").read_text("utf-8")
-    assert "MIT License" in text
-    assert "Copyright (c)" in text and text.count("<") == 0, (
-        "the LICENSE still carries a placeholder")
+    assert "Apache License" in text and "Version 2.0, January 2004" in text
+    assert "Copyright [yyyy] [name of copyright owner]" in text, (
+        "the appendix boilerplate was edited; Apache-2.0 must stay verbatim")
+
+    notice = (REPO_ROOT / "NOTICE").read_text("utf-8")
+    assert "Copyright 2026 Sunny Dubey" in notice
+    assert "arXiv:2608.02464" in notice, "the NOTICE must carry the citation"
 
 
 def test_citation_file_parses_as_yaml_like_records() -> None:

@@ -18,7 +18,7 @@
 <p align="center">
   <a href="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/sunnydubey1111/agent-trajectory-sentinel/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://huggingface.co/spaces/sunnydubey1111/agent-trajectory-sentinel-demo"><img alt="Hugging Face Space: live demo" src="https://img.shields.io/badge/%F0%9F%A4%97%20Space-live%20demo-ffd21e"></a>
-  <a href="LICENSE"><img alt="licence: MIT" src="https://img.shields.io/badge/licence-MIT-blue"></a>
+  <a href="LICENSE"><img alt="licence: Apache 2.0" src="https://img.shields.io/badge/licence-Apache--2.0-blue"></a>
   <img alt="python 3.13+" src="https://img.shields.io/badge/python-3.13%2B-3776ab">
 </p>
 
@@ -575,16 +575,20 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   -pdf main.tex` produces them from a clean checkout, and
   [`REPRODUCE.md`](REPRODUCE.md) lists both commands.
 - `results/` — every table and figure the claims above cite.
-- [`LICENSE`](LICENSE) (MIT) and [`CITATION.cff`](CITATION.cff).
+- [`LICENSE`](LICENSE) (Apache-2.0), [`NOTICE`](NOTICE) and
+  [`CITATION.cff`](CITATION.cff).
 
 ## Licensing
 
-**MIT covers what this project wrote**: all source under `derail/`,
+**Apache-2.0 covers what this project wrote**: all source under `derail/`,
 `verification/`, `devtools/` and `tests/`, the trace *format* and schema, the
 result tables and figures, and every document here. See [`LICENSE`](LICENSE).
+Redistributing it means keeping [`NOTICE`](NOTICE) with it and marking any
+files you changed — sections 4(b) and 4(d) of the licence.
 
-**MIT does not cover things this project only recorded or called.** A licence
-cannot grant rights the licensor never held, so these keep their own terms:
+**Apache-2.0 does not cover things this project only recorded or called.** A
+licence cannot grant rights the licensor never held, so these keep their own
+terms:
 
 | what | terms |
 |---|---|
@@ -599,7 +603,7 @@ cannot grant rights the licensor never held, so these keep their own terms:
 (`ZBox008003/AFTraj`) and ATBench (`AI45Research/ATBench`) comparisons in
 [`CLAIMS.md`](CLAIMS.md) are computed from corpora this repository downloads
 into gitignored directories and never commits. The *measurements* are ours and
-are MIT; the underlying trajectories are the original authors' and are governed
+are Apache-2.0; the underlying trajectories are the original authors' and are governed
 by whatever terms those datasets carry, which anyone importing them should
 check at the source.
 

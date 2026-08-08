@@ -49,7 +49,7 @@ ALARM = (242, 84, 91)
 REPO_URL = "github.com/sunnydubey1111/agent-trajectory-sentinel"
 TITLE = "AgentTrajectorySentinel"
 TAGLINE = "Real-time detection and repair of LLM agent failures"
-FOOTER = "arXiv:2608.02464     MIT licence     Python 3.13+"
+FOOTER = "arXiv:2608.02464     Apache-2.0 licence     Python 3.13+"
 
 #: (figure, caption). Each figure is asserted to still appear in the README.
 STATS = (

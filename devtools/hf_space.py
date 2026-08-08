@@ -187,7 +187,7 @@ def _card(repo_id: str, data: dict) -> str:
         "sdk: static",
         "app_file: index.html",
         "pinned: false",
-        "license: mit",
+        "license: apache-2.0",
         # The hub caps this at 60 characters and rejects the upload otherwise.
         "short_description: Watch a monitor catch an LLM agent derailing",
         "---",

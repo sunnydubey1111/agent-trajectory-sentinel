@@ -11,7 +11,7 @@ py -m devtools.artifact_manifest --check     # verify every file
 py -m devtools.artifact_manifest --doc       # regenerate this summary
 ```
 
-**Root digest:** `44492758a4a150d31031118e7d881a64b918864041b297cd1cbe5c7999163ef6`
+**Root digest:** `88245bcc7c809a88fb65b2fd1456074a27c957137e8c0f57fa9fadc0d7367ab8`
 
 A single SHA-256 over every path and per-file hash in the manifest, in
 sorted order. Two checkouts agreeing on this value agree on every
@@ -20,10 +20,10 @@ tracked byte.
 | section | files | covers |
 |---|---:|---|
 | `code` | 124 | `derail/`, `verification/`, `experimental/`, `devtools/`, `tests/` |
-| `docs` | 15 | `*.md`, the paper sources, and the requirements files |
+| `docs` | 17 | `*.md`, `LICENSE`, `NOTICE`, the paper sources, and the requirements files |
 | `results` | 196 | every table, figure and results JSON the claims cite |
 | `traces` | 8,168 | every committed agent episode and replay cassette |
-| **total** | **8,503** | |
+| **total** | **8,505** | |
 
 Per-episode trace hashes are additionally recorded in each corpus's own
 `manifest.json` where the collector wrote them (`trace_sha256`).

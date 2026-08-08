@@ -83,7 +83,8 @@ def test_card_states_the_gemini_terms_and_the_llama_notice() -> None:
     assert "Acceptable Use" in text, "the Llama AUP must travel with the data"
     assert "develop models that compete with the Services" in text, (
         "Google's clause must be quoted, not paraphrased")
-    assert "license: other" in text, "claiming plain MIT would be false"
+    assert "license: other" in text, (
+        "the corpora carry mixed terms; naming one licence would be false")
     for section in ("## Licensing", "## Loading", "## Fields"):
         assert section in text, section
 
