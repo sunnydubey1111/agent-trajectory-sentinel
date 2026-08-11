@@ -116,13 +116,14 @@ care what such a watchdog cannot do. Contributions:
    43-dim telemetry) and an 11-monitor comparison under matched
    false-alarm budgets. The ESN-ensemble CUSUM channel-max monitor detects
    0.71 ± 0.07 of failures at a 5% FA budget with a 4.6 ± 1.0-step mean
-   budget saving, beating trained LSTM (0.61) and GRU (0.60) baselines by
+   budget saving, beating trained LSTM (0.59) and GRU (0.60) baselines by
    ~10 detection points over five dataset seeds (§4). With the credit
    assigned honestly: **the per-channel max-fusion wrapper, not the
    reservoir, carries most of that margin** — giving a GRU the same
-   wrapper lifts it to det 0.76 / AUROC 0.873, past the ESN. The wrapper
-   is the transferable contribution; the ESN stays the default for its
-   false-alarm discipline (0.069 against 0.113) and ~100× faster fit, not
+   wrapper lifts it to det 0.735 / AUROC 0.862, past the ESN's 0.693 /
+   0.847 in the same run. The wrapper is the transferable contribution;
+   the ESN stays the default for its false-alarm discipline (0.069
+   against 0.100) and ~100× faster fit, not
    because reservoirs are the only architecture that works here.
 2. **Real-ecosystem validation at scale**: 2,823 episodes over 25
    corpora, of which 770 use real tools (arXiv/Wikipedia/web/SQL/Python)

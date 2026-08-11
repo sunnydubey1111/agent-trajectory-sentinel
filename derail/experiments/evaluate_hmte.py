@@ -1,7 +1,23 @@
 """Experiment: Evaluate HMTE-ESN-M vs ChannelMax on real Gemini agent traces.
 
-Loads traces from traces/real/, splits them under the standard validation protocol,
-fits ChannelMax and HMTE-ESN-M monitors, and compares their ROC-AUC.
+QUARANTINED — its output is not evidence. See
+``results/tables/hmte_vs_baseline.QUARANTINE.md``.
+
+This script does NOT follow the kill-switch protocol every other monitor
+comparison in this repository is held to. It runs on ``traces/real/``, the
+18-episode Gemini stub corpus, which leaves a test set of 4 healthy + 1
+injected episode — an episode AUC decided by four pairwise comparisons. It
+computes ``val`` and never uses it, so no false-alarm-budget threshold is
+picked and no detection or false-alarm rate is reported. One seed, no
+confidence interval. Separately, ``HMTE_ESN_M_Monitor.fit`` estimates its
+Mahalanobis mean/covariance over ALL healthy episodes, including the ones its
+sub-monitors' readouts were fit on, so the healthy feature distribution is
+partly in-sample.
+
+Do not cite the AUC 1.000 figure. To lift the quarantine, re-run HMTE-ESN-M
+inside ``derail/experiments/run_hmt_ab.py`` on ``traces/real_research7b``
+with a val-picked threshold, a held-out Mahalanobis fit, bootstrap dAUC CIs
+and multiple seeds.
 
 Run: py -m derail.experiments.evaluate_hmte
 """
@@ -23,7 +39,18 @@ RESULTS_DIR = Path(__file__).resolve().parents[2] / "results" / "tables"
 MIN_T = 4
 
 
+QUARANTINE_BANNER = """
+!!! QUARANTINED RESULT — NOT EVIDENCE !!!
+This script runs outside the kill-switch protocol: 18-episode stub corpus
+(test set = 4 healthy + 1 injected), no val-picked threshold, one seed, no CI,
+and a partly in-sample Mahalanobis fit. Its AUC is not comparable to any other
+monitor number in this repository and must not be cited.
+See results/tables/hmte_vs_baseline.QUARANTINE.md
+"""
+
+
 def run_hmte_evaluation():
+    print(QUARANTINE_BANNER)
     manifest_path = TRACES_DIR / "manifest.json"
     if not manifest_path.exists():
         print(f"Error: Manifest file not found at {manifest_path}. Please run collect_real_traces.py first.")
@@ -84,19 +111,26 @@ def run_hmte_evaluation():
     max_auc = get_auc(channel_max)
     hmte_auc = get_auc(hmte_esn_m)
 
+    n_h, n_inj = len(test_h), len(injected)
     print("\n=== HMTE-ESN-M vs ChannelMax ESN-CUSUM on Real Traces ===")
     print(f"ChannelMax (AUC) : {max_auc:.3f}")
     print(f"HMTE-ESN-M (AUC) : {hmte_auc:.3f}")
+    # Never print an AUC without the denominator it was computed over: this
+    # one rests on n_h * n_inj pairwise comparisons.
+    print(f"computed over {n_h} healthy x {n_inj} injected = "
+          f"{n_h * n_inj} pairwise comparisons — QUARANTINED, not evidence")
+    print(QUARANTINE_BANNER)
 
     # Save results
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    # The denominators travel with the numbers, so the AUC can never be read
+    # out of this file without the sample size it rests on.
     df = pd.DataFrame([{
-        "Monitor": "ChannelMax",
-        "Test_AUC": max_auc
-    }, {
-        "Monitor": "HMTE-ESN-M",
-        "Test_AUC": hmte_auc
-    }])
+        "Monitor": name, "Test_AUC": auc,
+        "n_test_healthy": n_h, "n_test_injected": n_inj,
+        "n_pairwise_comparisons": n_h * n_inj,
+        "status": "QUARANTINED - not evidence, see hmte_vs_baseline.QUARANTINE.md",
+    } for name, auc in (("ChannelMax", max_auc), ("HMTE-ESN-M", hmte_auc))])
     df.to_csv(RESULTS_DIR / "hmte_vs_baseline.csv", index=False)
     print(f"\nSaved results to {RESULTS_DIR / 'hmte_vs_baseline.csv'}")
 

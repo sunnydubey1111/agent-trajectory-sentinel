@@ -214,10 +214,12 @@ an established field; the application is what is new here.
 
 **The credit is assigned honestly.** The per-channel max-fusion wrapper, not
 the reservoir, carries most of the margin: giving a GRU the same wrapper lifts
-it to detection **0.76** / AUROC 0.873, past the ESN's 0.71 / 0.872. The
-wrapper is the transferable contribution; the ESN is kept for a lower healthy
-false-alarm rate (0.069 against 0.113) and a ~100× faster fit, which is what
-makes per-deployment recalibration affordable.
+it to detection **0.735** / AUROC 0.862, past the ESN's 0.693 / 0.847 measured
+in the same run. (Both figures come from `fairness.csv`; the ESN's five-seed
+0.71 / 0.872 is a different population and is not the right comparator for
+this sentence.) The wrapper is the transferable contribution; the ESN is kept
+for a lower healthy false-alarm rate (0.069 against 0.100) and a ~100× faster
+fit, which is what makes per-deployment recalibration affordable.
 
 **The cost profile.** **219 µs** median per step (p95 266 µs), **3.95 MB** of
 state, **1.7 s** to fit on 240 healthy episodes, timed over 4,316 steps. A GRU

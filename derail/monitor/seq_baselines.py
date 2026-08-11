@@ -36,10 +36,24 @@ import numpy as np
 
 from derail.common import (
     CHANNEL_SLICES,
+    DEGENERATE_EPS,
     Episode,
     OnlineMonitor,
     Standardizer,
     rng_for,
+)
+
+# Imported, not re-declared. These three quantities decide whether a
+# comparison against the ESN measures the MODEL or measures a difference in
+# how the two were calibrated. Local copies drifted apart once already: the
+# baselines were splitting fit/held on a per-model seed and flooring
+# degenerate scales where the ESN left them unscaled, which is worth enough
+# episode AUC on its own to invert a model ranking.
+from derail.monitor.esn import (
+    _MONITOR_SPLIT_SEED,
+    _SIGMA_FLOOR,
+    _WASHOUT,
+    _robust_loc_scale,
 )
 
 try:
@@ -48,17 +62,6 @@ try:
     _HAS_TORCH = True
 except ImportError:  # pragma: no cover
     _HAS_TORCH = False
-
-_WASHOUT = 3
-_IQR_TO_STD = 1.349
-_SIGMA_FLOOR = 1e-3
-_SCALE_FLOOR = 1e-6
-
-
-def _robust_loc_scale(values: np.ndarray) -> tuple[float, float]:
-    loc = float(np.median(values))
-    q25, q75 = np.percentile(values, [25.0, 75.0])
-    return loc, max(float(q75 - q25) / _IQR_TO_STD, _SCALE_FLOOR)
 
 
 class _NextStepMonitor(OnlineMonitor):
@@ -107,8 +110,13 @@ class _NextStepMonitor(OnlineMonitor):
     def fit(self, healthy_episodes: list[Episode]) -> None:
         if len(healthy_episodes) < 2:
             raise ValueError(f"{self.name}: need >= 2 healthy episodes")
-        perm = rng_for(self.seed, self.name, "split").permutation(
-            len(healthy_episodes))
+        # The SHARED fit/held split seed, not a per-model one. Every monitor
+        # in a comparison must calibrate and normalise on the SAME held-out
+        # episodes; a per-model split gave GRU, LSTM and TCN each a different
+        # 85/15 partition from each other AND from the ESN, so the reported
+        # gap measured calibration luck as much as architecture.
+        perm = rng_for(_MONITOR_SPLIT_SEED, "monitor", "fit-held-split"
+                       ).permutation(len(healthy_episodes))
         n_fit = min(max(int(round(0.85 * len(healthy_episodes))), 1),
                     len(healthy_episodes) - 1)
         fit_eps = [healthy_episodes[i] for i in perm[:n_fit]]
@@ -129,7 +137,13 @@ class _NextStepMonitor(OnlineMonitor):
         if not resid:
             raise ValueError(f"{self.name}: no usable held-out steps")
         R = np.concatenate(resid, axis=0)
-        self._sigma_err = np.maximum(R.std(axis=0), _SIGMA_FLOOR)
+        # Degenerate-scale contract (DESIGN.md Amendment 6): a dim predicted
+        # exactly on healthy data is left unscaled, not divided by the floor,
+        # which would amplify its first deviation ~1000x. The ESN applies this
+        # guard; the baselines it is compared against must apply the same one.
+        _sd = R.std(axis=0)
+        self._sigma_err = np.where(_sd < DEGENERATE_EPS, 1.0,
+                                   np.maximum(_sd, _SIGMA_FLOOR))
         raw = np.mean((R / self._sigma_err) ** 2, axis=1)
         self._sup_loc, self._sup_scale = _robust_loc_scale(raw)
 

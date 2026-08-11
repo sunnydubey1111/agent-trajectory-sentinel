@@ -244,7 +244,7 @@
   <div class="band" style="margin-top:16px">
     <b>What the alternatives change:</b>
     <b>memoryless detectors</b> drop step 3, so slow drift never accumulates — detection <b>0.37</b> against our <b>0.71</b>. &nbsp;·&nbsp;
-    <b>GRU / LSTM</b> replace steps 2–3 with gradient training — same ranking (AUROC 0.82 vs <b>0.872</b>), <b>40× slower to fit</b>, and more false alarms on healthy runs (0.113 vs <b>0.069</b>). &nbsp;·&nbsp;
+    <b>GRU / LSTM</b> replace steps 2–3 with gradient training — same ranking (AUROC 0.82 vs <b>0.872</b>), <b>40× slower to fit</b>, and more false alarms on healthy runs (0.100 vs <b>0.069</b>). &nbsp;·&nbsp;
     <b>LLM auditors</b> replace the whole path with a <b>7B forward pass at every step</b>.
   </div>
   <div class="footer"><span>derail/monitor/esn.py · derail/verify/checks.py · derail/intervene/ · h1_main.csv · runtime.csv</span><span>4 / 6</span></div>
@@ -375,7 +375,7 @@
     <div class="col">
       <h3>Two design results</h3><p class="vs">credit assigned honestly</p>
       <ul class="tight">
-        <li><b>The wrapper generalises.</b> Per-channel max fusion lifts a GRU to <b>0.76 / 0.873</b> — past our ESN. The idea is not reservoir-specific, and that makes it the transferable contribution.</li>
+        <li><b>The wrapper generalises.</b> Per-channel max fusion lifts a GRU to <b>0.735 / 0.862</b> — past our ESN's 0.693 / 0.847 in the same run. The idea is not reservoir-specific, and that makes it the transferable contribution.</li>
         <li><b>The judge is optional, and measured.</b> It catches classes the monitor misses (goal drift 21/21) but its real detection is <b>0.548</b> against the <b>0.90</b> the analysis had assumed.</li>
         <li><span class="mono">recommended_monitor()</span> picks the right fusion for the telemetry it is handed, so the grounding detector is never dropped.</li>
       </ul>

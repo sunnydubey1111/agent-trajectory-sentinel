@@ -128,10 +128,10 @@ alarm on the max.
 |---|---|---|---|
 | **`esn_cusum_max`** (primary) | **0.71 ± 0.07** | 4.6 ± 1.0 | **0.872 ± 0.015** |
 | delta-Mahalanobis (best memoryless) | 0.37 ± 0.03 | 3.6 ± 0.4 | — |
-| GRU (monolithic) | 0.60 ± 0.01 | — | 0.82 |
-| LSTM (monolithic) | 0.61 ± 0.02 | — | 0.82 |
-| TCN | 0.39 ± 0.04 | — | 0.74 |
-| linear VAR-ridge | 0.61 | **6.1 ± 0.2** | — |
+| GRU (monolithic) | 0.60 ± 0.02 | — | 0.82 |
+| LSTM (monolithic) | 0.59 ± 0.02 | — | 0.81 |
+| TCN | 0.40 ± 0.05 | — | 0.73 |
+| linear VAR-ridge | 0.61 | **6.0 ± 0.3** | — |
 
 Mean ± std over five dataset seeds at a 5% false-alarm budget. Paired
 permutation and exact McNemar tests against every memoryless baseline are
@@ -143,9 +143,11 @@ baseline** — it saves the most budget and actually leads the ESN by ~1.9 steps
 — but it is far behind on detection. Much of the temporal signal is linear;
 the ESN's edge is catching *more* failures, not catching them earlier. And
 **the per-channel max-fusion wrapper, not the reservoir, carries most of the
-margin**: giving a GRU that same wrapper lifts it to det 0.76 / AUC 0.873. The
-wrapper is the transferable contribution; the ESN stays primary for its
-false-alarm discipline (0.069 vs 0.113) and ~100× faster fit.
+margin**: giving a GRU that same wrapper lifts it to det 0.735 / AUC 0.862,
+past the ESN's 0.693 / 0.847 measured in the same run (`fairness.csv`, not the
+five-seed table above — the two are different populations). The wrapper is the
+transferable contribution; the ESN stays primary for its false-alarm
+discipline (0.069 vs 0.100) and ~100× faster fit.
 
 **The generality corpora are the most heavily filtered, and that cuts against
 us.** An episode is discarded when it is too short to score or when an injection

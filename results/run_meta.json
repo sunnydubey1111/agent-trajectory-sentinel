@@ -1,10 +1,10 @@
 {
-  "wall_time_sec": 191.6535595000023,
+  "wall_time_sec": 176.08298140019178,
   "provenance": {
     "quick": false,
     "master_seed": 20260713,
-    "git_rev": "0c0a882e3c471c4efb86207d1292d9f83209251c",
-    "git_dirty": false,
+    "git_rev": "da98c80c02b4a2fae411d1da12fa93da12eef47f",
+    "git_dirty": true,
     "python": "3.14.5",
     "platform": "Windows-11-10.0.26200-SP0",
     "packages": {

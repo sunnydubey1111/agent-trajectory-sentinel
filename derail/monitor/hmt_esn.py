@@ -38,12 +38,18 @@ import numpy as np
 
 from derail.common import (
     CHANNEL_SLICES,
+    DEGENERATE_EPS,
     Episode,
     OnlineMonitor,
     Standardizer,
     rng_for,
 )
-from derail.monitor.esn import _SIGMA_FLOOR, _WASHOUT, _robust_loc_scale
+from derail.monitor.esn import (
+    _MONITOR_SPLIT_SEED,
+    _SIGMA_FLOOR,
+    _WASHOUT,
+    _robust_loc_scale,
+)
 
 
 class _Bank:
@@ -251,7 +257,14 @@ class HMTESNMonitor(OnlineMonitor):
     def fit(self, healthy_episodes: list[Episode]) -> None:
         if len(healthy_episodes) < 2:
             raise ValueError("HMTESNMonitor.fit needs >= 2 healthy episodes")
-        perm = rng_for(0, "hmt", "split").permutation(len(healthy_episodes))
+        # The SHARED fit/held split seed, never a per-monitor one: every
+        # monitor must calibrate and normalise on the SAME held-out episodes,
+        # or an A/B is confounded by different calibration data rather than
+        # measuring architecture. A private 85/15 partition here is worth
+        # +0.121 episode AUC against the ESN baseline on the real arm — large
+        # enough on its own to manufacture a passing kill-switch verdict.
+        perm = rng_for(_MONITOR_SPLIT_SEED, "monitor", "fit-held-split"
+                       ).permutation(len(healthy_episodes))
         n_fit = min(max(int(round(0.85 * len(healthy_episodes))), 1),
                     len(healthy_episodes) - 1)
         fit_eps = [healthy_episodes[i] for i in perm[:n_fit]]
@@ -301,7 +314,14 @@ class HMTESNMonitor(OnlineMonitor):
             P = np.concatenate([p for p, _ in got], axis=0)   # (N, K, D)
             Y = np.concatenate([y for _, y in got], axis=0)   # (N, D)
             resid = P - Y[:, None, :]
-            bank.sigma_err = np.maximum(resid.std(axis=(0, 1)), _SIGMA_FLOOR)
+            # A dim the banks predict EXACTLY on healthy data has residual std
+            # 0; dividing by _SIGMA_FLOOR would amplify its first deviation
+            # ~1000x and make an uninformative dim the most sensitive one in
+            # the monitor. Left unscaled instead — the same guard esn.py
+            # applies (common.safe_scale, DESIGN.md Amendment 6).
+            _sd = resid.std(axis=(0, 1))
+            bank.sigma_err = np.where(_sd < DEGENERATE_EPS, 1.0,
+                                      np.maximum(_sd, _SIGMA_FLOOR))
             rn = resid / bank.sigma_err
             raw_sup = np.mean(rn * rn, axis=(1, 2))
             pn = P / bank.sigma_err

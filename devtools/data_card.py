@@ -32,7 +32,14 @@ PURPOSE: dict[str, str] = {
     "autogen7b": "AutoGen loop at 7b -- the envelope finding confirmed causally",
     "demo7b": "Live-demo calibration corpus, superseded by the task-scoped rebuild",
     "demo7b_scoped": "Live-demo healthy null under the task-scoped toolset",
-    "demo_real": "Demo agent against the real-tool suite",
+    "demo_real": "Demo agent, real-tool suite -- FIXED task shape (all T=7); "
+                 "superseded as a healthy null by demo_real_varied",
+    "demo_real_varied": "Demo-agent healthy null with VARIED task shape and "
+                        "length (T=7-10); the fixed-shape corpus collapsed the "
+                        "healthy spread and made the demo false-alarm",
+    "real_research7b_long_drift": "Long-runway real goal_drift: the only corpus "
+                                  "where drift has >=9 post-onset steps (24/24), "
+                                  "collected to test the conceptor mechanism",
     "langgraph": "LangGraph StateGraph agent, qwen2.5:3b",
     "langgraph7b": "LangGraph StateGraph agent at 7b",
     "ollama": "Native loop on Ollama, qwen2.5:3b",

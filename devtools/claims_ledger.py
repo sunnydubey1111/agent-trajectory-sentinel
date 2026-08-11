@@ -112,15 +112,39 @@ def _repair_rate(rung: str) -> float:
     return float(wrong[wrong.rung == rung].groupby("rep").now_correct.mean().mean())
 
 
+#: Corpora collected AFTER the paper fixed its dataset description. They are
+#: real, committed and checksummed like any other corpus, and they ARE counted
+#: by DATA_CARD.md — which describes the repository. They are excluded only
+#: from the three corpus-SIZE claims, which describe the PUBLISHED evidence
+#: base and are quoted verbatim in main.tex, build/arxiv, the HF card, the
+#: deck and the social card. Move a name out of this set when a paper revision
+#: actually adopts it.
+POST_PUBLICATION = frozenset({
+    "real_research7b_long_drift",   # long-runway real goal_drift, conceptor arm
+    "demo_real_varied",             # rebuilt varied healthy null for demo_real
+})
+
+
 def _our_manifests() -> list[pathlib.Path]:
-    """Manifests of corpora this project collected.
+    """Manifests of corpora this project collected AND published.
 
     A leading underscore marks a directory that is not ours - scratch output,
     or a corpus imported from another project (traces/_aftraj). Counting those
     would restate someone else's episodes as ours.
+
+    POST_PUBLICATION corpora are excluded for a different reason: they are
+    ours, but they were collected AFTER the paper described its dataset. The
+    corpus-size claims below are statements about the published evidence base
+    ("we validate on 2,823 episodes over 25 corpora"), and that sentence
+    appears in main.tex, the arXiv build, the HF card, the deck and the social
+    card. Silently folding later collections into it would rewrite the paper's
+    stated dataset without anyone deciding to. New corpora are additions to
+    the repository; they become part of a published count only when a paper
+    revision says so.
     """
     return [m for m in sorted(TRACES.glob("*/manifest.json"))
-            if not m.parent.name.startswith("_")]
+            if not m.parent.name.startswith("_")
+            and m.parent.name not in POST_PUBLICATION]
 
 
 def _episode_total() -> int:
@@ -133,7 +157,8 @@ def _corpus_count() -> int:
 
 def _real_tool_episodes() -> int:
     return sum(len(json.loads(m.read_text("utf-8")))
-               for m in sorted(TRACES.glob("real*/manifest.json")))
+               for m in sorted(TRACES.glob("real*/manifest.json"))
+               if m.parent.name not in POST_PUBLICATION)
 
 
 def _real_traces(monitor: str, column: str) -> float:

@@ -9,11 +9,17 @@ contribution, by measurement on held-out data — per the agreed criteria:
   C4  better detection on slow goal drift (sim) / content classes (real)
 
 Two arms:
-  real  (default)  traces/real_research7b — 100 healthy / 42 injected real-
+  real  (default)  traces/real_research7b — 120 healthy / 171 injected real-
                    tool episodes, identical 60/20/20 split and 5% FA budget
                    as run_real_traces, channels (e,u,m,x).
   --sim            the controlled simulator arm (T=25-60 episodes incl. SLOW
                    goal drift — the multi-timescale hypothesis's home turf).
+
+Alongside the HMT ablation cells the table carries NG-RC/NVAR CONTROLS
+(monitor/ngrc.py): same contract, same channels, same CUSUM and channel-max
+fusion, but no random reservoir at all. Every HMT cell contains a reservoir,
+so the ablation grid alone cannot say whether the random recurrence is
+earning its cost; the controls can.
 
 Writes results/tables/hmt_ab_{real,sim}.csv. Additive: no existing table or
 module is touched.
@@ -36,6 +42,8 @@ from derail.evaluation.metrics import (
     summarize,
 )
 from derail.monitor.hmt_esn import HMTESNMonitor
+from derail.monitor.conceptor import ConceptorMonitor
+from derail.monitor.ngrc import NGRCMonitor
 from derail.telemetry.adapter import load_trace_jsonl
 
 TRACES_DIR = Path(__file__).resolve().parents[2] / "traces"
@@ -146,6 +154,36 @@ def _hmt_cells(std, channels):
     ]
 
 
+def _control_cells(std, channels):
+    """NG-RC/NVAR controls: same contract, no random reservoir.
+
+    These answer a question the HMT ablation grid cannot, because every cell
+    in it contains a reservoir: is the RANDOM RECURRENCE earning its cost, or
+    would a linear readout over an explicit delay embedding do as well?
+    `ngrc_linear` is the strictest control (a VAR one-step predictor with no
+    nonlinearity at all); the quadratic cells add NG-RC's polynomial features.
+    """
+    return [
+        NGRCMonitor(std, channels, k=2, order=1, name="ngrc_linear"),
+        NGRCMonitor(std, channels, k=1, order=2, name="ngrc_quad_k1"),
+        NGRCMonitor(std, channels, k=2, order=2, name="ngrc_quad_k2"),
+    ]
+
+
+def _mechanism_cells(std, channels):
+    """Conceptor arm: the only cell that scores something OTHER than
+    prediction error.
+
+    Every other monitor in this table — ESN, HMT, NG-RC — asks "how wrong was
+    the one-step prediction". A conceptor asks "has the state left the
+    subspace healthy runs occupy", which is a different failure mode and the
+    proposed mechanism for slow goal drift. Reservoir hyperparameters are
+    inherited from the ESN, so a delta here is the mechanism and not the
+    calibration.
+    """
+    return [ConceptorMonitor(std, channels, seed=0, name="conceptor")]
+
+
 def run_real(traces_dir: Path) -> None:
     from derail.experiments.run_real_traces import ChannelMax
 
@@ -171,7 +209,9 @@ def run_real(traces_dir: Path) -> None:
 
     channels = ("e", "u", "m", "x")
     std = Standardizer().fit(train)
-    monitors = [ChannelMax(std, channels)] + _hmt_cells(std, channels)
+    monitors = ([ChannelMax(std, channels)] + _hmt_cells(std, channels)
+                + _control_cells(std, channels)
+                + _mechanism_cells(std, channels))
     df, all_scores = _evaluate(monitors, train, val, test)
     RESULTS.mkdir(parents=True, exist_ok=True)
     df.to_csv(RESULTS / "hmt_ab_real.csv", index=False)
@@ -195,7 +235,9 @@ def run_sim() -> None:
     channels = ("e", "u", "m")
     std = Standardizer().fit(train)
     monitors = ([ChannelMaxESNMonitor(std, K=8, cusum=True, seed=0)]
-                + _hmt_cells(std, channels))
+                + _hmt_cells(std, channels)
+                + _control_cells(std, channels)
+                + _mechanism_cells(std, channels))
     df, all_scores = _evaluate(monitors, train, val, test)
     RESULTS.mkdir(parents=True, exist_ok=True)
     df.to_csv(RESULTS / "hmt_ab_sim.csv", index=False)

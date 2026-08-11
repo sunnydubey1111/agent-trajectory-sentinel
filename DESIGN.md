@@ -99,6 +99,8 @@ derail/
   monitor/seq_baselines.py   # VAR-ridge, GRU, LSTM, TCN
   monitor/hybrid.py          # ESN + Mahalanobis fusion
   monitor/hmt_esn.py         # hierarchical multi-timescale ESN
+  monitor/ngrc.py            # NG-RC/NVAR control: no random reservoir
+  monitor/conceptor.py       # state-geometry arm (measured negative)
   monitor/grounding.py       # content-grounding telemetry channel
   monitor/grounding_verify.py# per-step numeric-grounding verifier
   monitor/baseline.py        # self-calibrating rolling healthy reference
@@ -119,8 +121,8 @@ uses only that module + `derail.common` + third-party libs (NO sibling `derail`
 imports — construct synthetic `Episode`s with random X where needed) and prints
 a short PASS summary. `tests/test_module_selftests.py` runs them all as
 subprocesses, split into a fast set and a `slow`-marked set: most finish in
-under two seconds, a few (`seq_baselines`, `hybrid`, `hmt_esn`, `demo_real`)
-need longer because they fit real models.
+under two seconds, a few (`seq_baselines`, `hybrid`, `hmt_esn`, `ngrc`,
+`demo_real`) need longer because they fit real models.
 
 Python 3.13+ (developed on 3.14). Core dependencies are numpy / scipy /
 scikit-learn / pandas, plus httpx for the Ollama backend; matplotlib is used

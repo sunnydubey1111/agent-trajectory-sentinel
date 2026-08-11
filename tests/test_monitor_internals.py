@@ -198,10 +198,107 @@ def test_esn_split_is_independent_of_the_model_seed():
 
 
 # -------------------------------------------------------------------
+def test_seq_baselines_share_the_esn_calibration_contract():
+    """The trained sequence baselines must be calibrated identically to the
+    ESN they are benchmarked against, or the published GRU/LSTM/TCN-vs-ESN
+    comparison measures calibration luck instead of architecture.
+
+    Three quantities decide this, and all three must be the SAME OBJECTS as
+    the ESN's, not local copies that can drift: the fit/held split seed, the
+    residual-std guard, and the robust location-scale estimator.
+    """
+    from derail.monitor import esn, seq_baselines
+
+    assert seq_baselines._robust_loc_scale is esn._robust_loc_scale
+    assert seq_baselines._MONITOR_SPLIT_SEED == esn._MONITOR_SPLIT_SEED
+    assert seq_baselines._WASHOUT == esn._WASHOUT
+
+    src = inspect.getsource(seq_baselines._NextStepMonitor.fit)
+    assert "_MONITOR_SPLIT_SEED" in src, "per-model calibration split"
+    assert 'rng_for(self.seed, self.name, "split")' not in src
+    assert "DEGENERATE_EPS" in src, "missing Amendment 6 guard on sigma_err"
+
+
+# -------------------------------------------------------------------
+def test_seq_baseline_constant_healthy_dim_is_unscaled_not_amplified():
+    """Behavioural half of the above: a dim with zero healthy variation is
+    left unscaled (1.0), not divided by the 1e-3 floor."""
+    from derail.monitor.seq_baselines import LinearARMonitor
+
+    def mk(idx, T=40):
+        rng = rng_for(0, "seq-degen", idx)
+        X = np.empty((T, D_TOTAL))
+        x = rng.standard_normal(D_TOTAL)
+        for t in range(T):
+            x = 0.9 * x + 0.3 * rng.standard_normal(D_TOTAL)
+            X[t] = x
+        X[:, 33] = 0.0          # zero-variation dim inside the u channel
+        return Episode(X=X, episode_id=f"s{idx}", is_healthy=True,
+                       failure_class=None, tau=None, t_fail=None, severity=None)
+
+    train = [mk(i) for i in range(24)]
+    mon = LinearARMonitor(Standardizer().fit(train), seed=0)
+    mon.fit(train)
+    assert mon._sigma_err[33] == 1.0, (
+        f"degenerate dim floored to {mon._sigma_err[33]!r} instead of left "
+        f"unscaled — Amendment 6 guard missing")
+    assert np.all(mon._sigma_err > 0.0)
+
+
+# -------------------------------------------------------------------
 def test_hmt_refit_does_not_accumulate_previous_dataset():
     from derail.monitor.hmt_esn import HMTESNMonitor
     src = inspect.getsource(HMTESNMonitor.fit)
     assert "reset_accumulators" in src
+
+
+# -------------------------------------------------------------------
+def test_hmt_uses_the_shared_fit_held_split():
+    """HMT must calibrate on the SAME held-out episodes as the ESN baseline
+    it is A/B'd against. A private 85/15 partition is worth +0.121 episode AUC
+    on the real arm on its own — enough to manufacture a passing kill-switch
+    verdict out of a monitor that is actually behind the baseline.
+    """
+    from derail.monitor.hmt_esn import HMTESNMonitor
+    src = inspect.getsource(HMTESNMonitor.fit)
+    assert "_MONITOR_SPLIT_SEED" in src
+    assert 'rng_for(0, "hmt", "split")' not in src
+
+
+# -------------------------------------------------------------------
+def test_hmt_constant_healthy_dim_is_unscaled_not_amplified():
+    """The Amendment 6 degenerate-scale contract, enforced in hmt_esn.py.
+
+    A dim the banks predict exactly on healthy data has residual std 0.
+    Dividing by the 1e-3 floor would amplify its first deviation ~1000x and
+    make a no-information dim the most sensitive one in the monitor; it must
+    be left unscaled (sigma_err == 1.0) instead.
+    """
+    from derail.monitor.hmt_esn import HMTESNMonitor
+
+    def mk(idx, T=40):
+        rng = rng_for(0, "hmt-degen", idx)
+        X = np.empty((T, D_TOTAL))
+        x = rng.standard_normal(D_TOTAL)
+        for t in range(T):
+            x = 0.9 * x + 0.3 * rng.standard_normal(D_TOTAL)
+            X[t] = x
+        X[:, 33] = 0.0          # a dim with zero healthy variation (u channel)
+        return Episode(X=X, episode_id=f"d{idx}", is_healthy=True,
+                       failure_class=None, tau=None, t_fail=None, severity=None)
+
+    train = [mk(i) for i in range(24)]
+    mon = HMTESNMonitor(Standardizer().fit(train), channels=("u",),
+                        leak_rates=(0.3,), n_layers=1, K=4, seed=0)
+    mon.fit(train)
+    banks = list(mon._all_banks())
+    assert banks, "no banks constructed"
+    for b in banks:
+        # local col 1 of the u slice [32, 36) is global dim 33
+        assert b.sigma_err[1] == 1.0, (
+            f"degenerate dim was floored to {b.sigma_err[1]!r}, not left "
+            f"unscaled -- Amendment 6 guard missing")
+        assert np.all(b.sigma_err > 0.0)
 
 
 # -------------------------------------------------------------------
@@ -652,6 +749,77 @@ def test_demo_serves_the_deterministic_check_alongside_the_monitor():
     assert "check_verdict" in html
 
 
+def test_demo_real_excludes_vacuous_episodes_from_the_healthy_null():
+    """An episode shorter than the washout scores 0.0 at every step because no
+    step was ever scored. Counting it as "healthy, no false alarm" reports the
+    washout back as evidence: 3 of 8 live healthy runs ended at T=2 and
+    returned exactly 0.0. Such runs must be excluded and the exclusion
+    reported, not silently averaged in.
+    """
+    from derail.harness import demo_real
+    from derail.monitor.esn import _WASHOUT
+
+    assert demo_real.MIN_SCOREABLE_T == _WASHOUT + 1
+    assert not demo_real._is_scoreable(_WASHOUT)
+    assert demo_real._is_scoreable(_WASHOUT + 1)
+
+    src = inspect.getsource(demo_real.fit_monitor)
+    assert "_is_scoreable" in src, "the null is not vacuity-filtered"
+    assert "vacuous-episode policy" in src, "the exclusion must be reported"
+
+
+# -------------------------------------------------------------------
+def test_demo_real_injected_episodes_are_committed_and_detectable():
+    """The demo's injected side must exist OFFLINE, not only as live runs.
+
+    Without committed injected episodes a detection regression can only be
+    caught by someone happening to run `--demo` against a live model, which is
+    not a test. This scores the committed corpus end to end: fit the served
+    monitor on the healthy null, take its threshold, and require that the
+    behavioural failure classes clear it while the healthy episodes do not.
+
+    Content classes (`wrong_document`, `malformed_json`) are deliberately NOT
+    asserted on: they are the documented blind spot of the behavioural
+    channel, caught by the content gate in `experiments/demo.py` instead.
+    """
+    import json
+
+    import numpy as np
+
+    from derail.harness import demo_real
+    from derail.telemetry.adapter import load_trace_jsonl
+
+    src = demo_real.TRACES
+    man_path = src / "manifest.json"
+    if not man_path.exists():
+        pytest.skip(f"{src.name} not collected")
+    manifest = json.loads(man_path.read_text("utf-8"))
+    injected = [e for e in manifest if e["failure_class"] is not None
+                and demo_real._is_scoreable(e["T"])]
+    if not injected:
+        pytest.skip(f"{src.name} has no committed injected episodes")
+
+    mon, theta, _ = demo_real.fit_monitor()
+    behavioural = {"looping", "rate_limit"}
+    scored = {}
+    for e in injected:
+        ep = load_trace_jsonl(src / e["file"], episode_id=e["episode_id"],
+                              tau=e["tau"], failure_class=e["failure_class"],
+                              severity=0.5, use_sentence_transformers=False,
+                              extended=True)
+        demo_real._drop_machine_nuisance(ep.X)
+        scored.setdefault(e["failure_class"], []).append(
+            float(np.max(mon.score_episode(ep))))
+
+    beh = [v for fc, vs in scored.items() if fc in behavioural for v in vs]
+    assert beh, "no behavioural injected episodes committed"
+    det = sum(v > theta for v in beh)
+    assert det >= 0.5 * len(beh), (
+        f"behavioural detection collapsed: {det}/{len(beh)} above "
+        f"theta={theta:.2f}; scores={sorted(round(v, 2) for v in beh)}")
+
+
+# -------------------------------------------------------------------
 def test_demo_null_holds_only_runs_that_did_the_task_and_got_it_right():
     """A healthy null must hold runs that performed the task AND answered it
     correctly. Task-incomplete runs are strongly anomalous to the monitor, and

@@ -28,6 +28,7 @@ FAST = [
     "derail.monitor.baseline",
     "derail.monitor.baselines",
     "derail.monitor.calibration",
+    "derail.monitor.conceptor",
     "derail.monitor.escalation",
     "derail.monitor.esn",
     "derail.monitor.grounding_verify",
@@ -42,6 +43,7 @@ SLOW = [
     "derail.monitor.grounding",
     "derail.monitor.hmt_esn",
     "derail.monitor.hybrid",
+    "derail.monitor.ngrc",
     "derail.monitor.seq_baselines",
     "derail.harness.demo_real",
 ]
