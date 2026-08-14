@@ -455,8 +455,10 @@ def test_paper_figures_are_all_real_data():
     import re
     from pathlib import Path
 
-    tex = (Path(__file__).resolve().parents[1] / "paper" / "main.tex"
-           ).read_text(encoding="utf-8")
+    main_tex = Path(__file__).resolve().parents[1] / "paper" / "main.tex"
+    if not main_tex.exists():
+        pytest.skip("manuscripts are local-only; nothing to inspect here")
+    tex = main_tex.read_text(encoding="utf-8")
     used = re.findall(r"includegraphics[^{]*\{([^}]+)\}", tex)
     assert used, "no figures found in the paper"
     assert "fig1_score_traces.png" not in used, (
@@ -546,8 +548,10 @@ def test_paper_leads_with_real_evidence_not_the_simulator():
     mechanism study that must not precede it."""
     from pathlib import Path
 
-    tex = (Path(__file__).resolve().parents[1] / "paper" / "main.tex"
-           ).read_text(encoding="utf-8")
+    main_tex = Path(__file__).resolve().parents[1] / "paper" / "main.tex"
+    if not main_tex.exists():
+        pytest.skip("manuscripts are local-only; nothing to inspect here")
+    tex = main_tex.read_text(encoding="utf-8")
     real = tex.index(r"\section{Real-Ecosystem Validation")
     sim = tex.index(r"\section{Controlled Study")
     assert real < sim, "the simulator section precedes the real-trace section"

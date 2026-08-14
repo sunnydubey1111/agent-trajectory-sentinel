@@ -567,15 +567,12 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
-- Papers — [`paper/main.tex`](paper/main.tex) (conference format; this is the
-  source of the preprint at
-  [arXiv:2608.02464](https://arxiv.org/abs/2608.02464), flattened for upload by
-  `py -m devtools.arxiv_package`) and
-  [`paper/paper.md`](paper/paper.md) (full length, converted to
-  [`paper/paper.tex`](paper/paper.tex) by `py -m devtools.md_to_latex`). The
-  PDFs are build products rather than committed files: `cd paper && latexmk
-  -pdf main.tex` produces them from a clean checkout, and
-  [`REPRODUCE.md`](REPRODUCE.md) lists both commands.
+- Papers — the manuscripts are **not** in this repository. The preprint is
+  public at [arXiv:2608.02464](https://arxiv.org/abs/2608.02464); the
+  full-length version and the two anonymised conference submissions are held
+  back while they are under review. Every number in them is reproduced here
+  by [`CLAIMS.md`](CLAIMS.md) from the committed tables, which is what makes
+  the results checkable without the manuscripts.
 - `results/` — every table and figure the claims above cite.
 - [`LICENSE`](LICENSE) (Apache-2.0), [`NOTICE`](NOTICE) and
   [`CITATION.cff`](CITATION.cff).

@@ -16,6 +16,13 @@ from devtools import arxiv_package
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
+#: The manuscripts are local-only (see .gitignore), so a checkout without them
+#: has no package to assemble and every test here skips rather than fails.
+pytestmark = pytest.mark.skipif(
+    not (REPO_ROOT / "paper" / "main.tex").exists(),
+    reason="manuscripts are local-only; no arXiv source to package")
+
+
 @pytest.fixture(scope="module")
 def package(tmp_path_factory) -> pathlib.Path:
     out = tmp_path_factory.mktemp("arxiv") / "pkg"

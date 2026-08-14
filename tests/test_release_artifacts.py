@@ -108,23 +108,28 @@ def test_readme_links_resolve() -> None:
     assert not broken, f"broken README links: {broken}"
 
 
-def test_manuscript_pdfs_rebuild_from_committed_sources() -> None:
-    """The PDFs are build products; their sources must be committed.
+def test_manuscript_pdfs_rebuild_from_their_sources() -> None:
+    """Where `paper/` exists, it must still hold everything a build needs.
 
-    They used to ship, and no longer do. What has to hold instead is that a
-    clean checkout can produce them: the sources, the bibliography and the
-    style file are present, and REPRODUCE.md says how. A PDF that happens to
-    exist locally is still checked for being a real PDF rather than a stub.
+    The manuscripts are local-only (see .gitignore), so this cannot assert
+    they are present — on any checkout but the author's the directory is
+    simply absent, and skipping is the correct outcome. What it still pins is
+    that a tree which HAS them is not missing a piece, and that REPRODUCE.md
+    keeps saying how to build them.
     """
+    paper = REPO_ROOT / "paper"
+    if not paper.is_dir():
+        pytest.skip("manuscripts are local-only; nothing to check here")
+
     for name in ("main.tex", "paper.tex", "references.bib", "preprint.sty"):
-        assert (REPO_ROOT / "paper" / name).exists(), f"paper/{name} missing"
+        assert (paper / name).exists(), f"paper/{name} missing"
 
     reproduce = (REPO_ROOT / "REPRODUCE.md").read_text("utf-8")
     assert "latexmk -pdf main.tex" in reproduce, (
         "REPRODUCE.md no longer says how to build the manuscripts")
 
     for name in ("main.pdf", "paper.pdf"):
-        pdf = REPO_ROOT / "paper" / name
+        pdf = paper / name
         if pdf.exists():
             assert pdf.read_bytes()[:5] == b"%PDF-", f"paper/{name} is not a PDF"
 
@@ -133,6 +138,8 @@ def test_markdown_to_latex_converts_the_manuscript_without_loss() -> None:
     """The converter must refuse to drop content rather than silently skip it."""
     from devtools import md_to_latex
 
+    if not md_to_latex.SOURCE.exists():
+        pytest.skip("manuscripts are local-only; nothing to convert here")
     source = md_to_latex.SOURCE.read_text("utf-8")
     tex = md_to_latex.convert(source)
     import re

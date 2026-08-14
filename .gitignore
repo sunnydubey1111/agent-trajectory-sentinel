@@ -28,40 +28,12 @@ results/seed424242/
 # regenerable deterministically, and the frozen baseline must pin
 # "same dataset, same splits" for every future comparison.
 
-# LaTeX build products (main.tex + references.bib + neurips.sty are the sources).
-# The two manuscript PDFs are now build products too, not committed artifacts:
-# they are regenerated from committed sources with latexmk and were only
-# churning the history. paper/paper.tex is generated from paper/paper.md by
-# devtools/md_to_latex.py and stays committed, so both PDFs rebuild from a
-# clean checkout with no manual steps. See REPRODUCE.md for the commands.
-paper/main.pdf
-paper/paper.pdf
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.blg
-paper/*.bbl
-paper/*.synctex.gz
-
 # Ephemeral disposable-seed study output (never published)
 results/seed4242*/
 results/seed9090*/
 # Sensitivity-arm tree (AGENTWATCH_RESULTS_ROOT): runs the published seeds
 # under non-published settings, deleted by its runner on success.
 results/_sensitivity/
-
-# LaTeX build artifacts
-paper/main.fls
-paper/main.fdb_latexmk
-paper/paper.fls
-paper/paper.fdb_latexmk
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.fdb_latexmk
-paper/*.fls
 
 # LaTeX build by-products from typesetting the manuscript.
 *.log
@@ -100,29 +72,20 @@ traces/_atbench/
 # the corpus twice and let the copy drift from the record.
 build/
 
-# The NeurIPS workshop submission is under double-blind review. It is
-# anonymised, and a public copy in a repository under the author's own name
-# defeats that, so the source, the built PDF and the venue style file are kept
-# out of the published tree until notification. They still build locally:
-#   cd paper && latexmk -pdf workshop.tex
-# NOTE: earlier commits still contain them; removing them from HEAD does not
-# remove them from history.
-paper/workshop.tex
-paper/workshop.pdf
-paper/neurips_2026.sty
-
-# The TMLR submission, same reasoning. TMLR states that non-anonymous
-# submissions are rejected without review, so the source and the built PDF stay
-# out of the published tree until notification. It builds locally:
-#   cd paper && latexmk -pdf tmlr.tex
-# The style files below are the official TMLR package (Apache-2.0), vendored so
-# the build works offline; they are not ours to redistribute here.
-paper/tmlr.tex
-paper/tmlr.pdf
-paper/tmlr.sty
-paper/tmlr.bst
-paper/fancyhdr.sty
-paper/math_commands.tex
+# The manuscripts are kept OUT of the published tree. Two of them are under
+# double-blind review (TMLR states that non-anonymous submissions are rejected
+# without review), and the rest are held back by the same decision, so the
+# whole directory is local-only. Earlier commits still contain the files that
+# used to be tracked; removing them from HEAD does not remove them from
+# history, and arXiv:2608.02464 is public independently of this repository.
+#
+# Everything still builds from a checkout that HAS the directory:
+#   cd paper && latexmk -pdf main.tex        # the preprint
+#   py -m devtools.md_to_latex               # paper.md -> paper.tex
+#   py -m devtools.arxiv_package --build --check
+# The style files vendored here (tmlr.sty, tmlr.bst, fancyhdr.sty) are the
+# official TMLR package (Apache-2.0) and are not ours to redistribute.
+paper/
 
 # Deck build products: deck/build.py regenerates both from the template in
 # seconds, and the inlined HTML is ~4 MB of base64 that churns on every edit.

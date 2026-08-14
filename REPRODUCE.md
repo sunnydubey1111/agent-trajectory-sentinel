@@ -230,6 +230,14 @@ suite checks the card's dimensions and its numbers, which do travel.
 
 ### Papers
 
+**The manuscripts are not in this repository.** `paper/` is local to the
+author while the conference versions are under review; the preprint itself is
+public at [arXiv:2608.02464](https://arxiv.org/abs/2608.02464). Nothing else
+here depends on them — every number they state is recomputed from a committed
+table by `py -m devtools.claims_ledger --check`, which is the artifact that
+makes the results checkable. The commands below apply to a tree that has the
+directory, and the tests covering them skip where it is absent.
+
 ```
 cd paper && latexmk -pdf main.tex                 # conference format  -> paper/main.pdf
 py -m devtools.md_to_latex --build                # full length        -> paper/paper.pdf

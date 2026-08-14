@@ -40,9 +40,13 @@ SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
     # Apache-2.0 -- section 4(d) makes NOTICE binding on anyone redistributing
     # this -- so a silent edit to either should fail the integrity check the
     # same way an edited trace does.
+    # `paper/` is deliberately absent: the manuscripts are local-only (see
+    # .gitignore), so hashing them would report them missing on every checkout
+    # but the author's — the same reason the anonymised submissions were never
+    # hashed. The claim ledger, not this manifest, is what ties the
+    # manuscripts' numbers to the artifacts they came from.
     "docs": (".", ("*.md", "LICENSE", "NOTICE", "docs/**/*.md",
-                   "paper/**/*.md", "paper/**/*.tex",
-                   "paper/**/*.bib", "requirements*.txt")),
+                   "requirements*.txt")),
 }
 EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
                  # Per-episode score dumps are regenerable and are not
