@@ -604,10 +604,10 @@ def fig_reliability() -> None:
     forced by the committed tables rather than chosen:
 
     * ECE is recomputed from the same bins the curve is drawn from, so the
-      annotation cannot disagree with the line. (Verified: this reproduces the
-      summary table's `iso_ece` to four decimals.) The earlier version read an
-      `ece` column from `h3_calibration.csv`, which that table no longer has -
-      its schema is now one row per stream with `iso_ece`.
+      annotation cannot disagree with the line, and it reproduces the summary
+      table's `iso_ece` to four decimals. It is NOT read from
+      `h3_calibration.csv`, whose schema is one row per stream with
+      `iso_ece` and carries no `ece` column to read.
     * `h3_reliability.csv` carries the ORACLE (isotonic) calibrator only. The
       label-free null has no per-bin series in the published artifacts, so it
       cannot be drawn; its calibration quality is reported instead from the

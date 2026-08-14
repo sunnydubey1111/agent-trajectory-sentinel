@@ -226,9 +226,9 @@ def test_mcp_only_accepts_configured_identifiers():
 def test_sql_tool_builds_its_fixture_outside_the_committed_corpus():
     """The fixture is a tool asset, not research data, and not a binary.
 
-    It used to be a committed `traces/ecommerce.db`: a fixture inside the
-    frozen episode corpus, uploaded with the published dataset, unhashed by
-    BASELINE_MANIFEST.json, and with nothing able to regenerate it.
+    `traces/` is frozen research data that the manifest hashes and the
+    published dataset ships, so a fixture must not live there, must be
+    rebuildable, and must be hashed with the code it belongs to.
     """
     from derail.harness.record_replay import runtime_root
 

@@ -234,9 +234,9 @@ def task_anchor_text(step: dict, reasoning: str) -> str:
     """Text the task-similarity anchor is measured against.
 
     The original user task if the trace carries one.  Otherwise the first
-    step's *reasoning* - never its tool results, which is how a first-step
-    wrong-document result used to be compared against itself and score as
-    perfectly relevant.
+    step's *reasoning* - never its tool results: anchoring on a result would
+    compare a first-step wrong-document against itself and score it perfectly
+    relevant.
     """
     task = step.get("task")
     if isinstance(task, str) and task.strip():
@@ -303,9 +303,9 @@ def _cos(a: np.ndarray, b: np.ndarray) -> float:
 def _json_broken(result: str, truncated: bool = True) -> bool:
     """True iff a JSON-looking result is NOT a valid JSON prefix.
 
-    Stored tool results used to be truncated unconditionally, so a cut-off
-    result must never count as corruption (an earlier JSON-validity
-    check false-positived on exactly that). A result is
+    A stored tool result may be truncated, so a cut-off result must never
+    count as corruption - a plain JSON-validity check false-positives on
+    exactly that. A result is
     flagged only when it can NOT be completed to valid JSON: the scan finds a
     mismatched closer, or closing the open string/brackets (with trailing
     ','/':' repaired) still fails to parse — i.e. the breakage is structural,

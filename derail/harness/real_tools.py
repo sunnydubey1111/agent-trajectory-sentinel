@@ -510,11 +510,10 @@ class SQLDatabaseTool:
     def _default_db() -> Path:
         """Built under the runtime root, never inside the committed corpus.
 
-        The fixture used to be a binary at `traces/ecommerce.db`: a tool
-        fixture living in the frozen episode corpus, published as part of the
-        Hugging Face dataset, unhashed by BASELINE_MANIFEST.json, and with
-        nothing in the repo able to regenerate it. It is now built on demand
-        from `SEED_SQL`.
+        `traces/` is frozen research data that BASELINE_MANIFEST.json hashes
+        and the published Hugging Face dataset ships, so a tool fixture does
+        not belong there. This one is built on demand from `SEED_SQL`, which
+        is committed, diffable and hashed with the code.
         """
         from derail.harness.record_replay import runtime_root
         return runtime_root() / "fixtures" / "ecommerce.db"

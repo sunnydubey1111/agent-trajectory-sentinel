@@ -24,7 +24,7 @@
    "derail/experiments/expand_healthy.py": "acb5c8e3a5ac60bc9b4ed7196cdcb247bc29feb3d63a04c4cd9ad0e12ff57c31",
    "derail/experiments/explain_hybrid.py": "7a4191769dbfb0a749942fcc4072a1ccb9b3b44d6669f6e32f74c40474b7ec60",
    "derail/experiments/import_aftraj.py": "334ae9cbdc6a8c639899c85d9029ee5cd358e2fb093a77dee7e250b4bb903639",
-   "derail/experiments/plots.py": "fd75a990bfcd3745ec3ec7e24709b1df6b4afffc462e73f967fbfabc32abaf6a",
+   "derail/experiments/plots.py": "449c263ecaad72c90cb4896832e6ea08cf736cfd1441af8774bbfd41df727c21",
    "derail/experiments/run_ablation.py": "900363f96b5db74b2566583387893ec821cf2723c8ba1b0d47c0b5482daddf52",
    "derail/experiments/run_atbench_study.py": "8c3c5c2dcbce8573336b7da52ec933ed0abb238b738a98c529155b4d2ab9c6ce",
    "derail/experiments/run_benchmark.py": "181847c790ccba208c159eb26a8367816b5cbb5eee669c8ed6aabbe2d564b108",
@@ -54,7 +54,7 @@
    "derail/harness/fixtures/ecommerce_seed.sql": "374e6ca3f47bf25c93231db6341b2086afe3e237cb91080bfbedbbd999e56db2",
    "derail/harness/frameworks.py": "d5640187b4ca0e8170b9d617774d4be24fbe814b4128a612767ad2a047038407",
    "derail/harness/inject.py": "3b94db79dcb383fa2a6c62bbdd3cbafe7311c6f9143068131d9007c89e279e19",
-   "derail/harness/real_tools.py": "bc1f2a8c4371944ff67c5ac093389841ff72b505c8fdb7cd1cd0dbe62600fbf8",
+   "derail/harness/real_tools.py": "d8925d2c6631e175382dce989dbc62a3afaea375a1ba1089fbc38da8db8efa6e",
    "derail/harness/record_replay.py": "be64cecd42be5977c3b099e2ac1389306c1fb519893f81767616c9d33552b0ae",
    "derail/harness/sandbox.py": "ae7100bc62b99cb384b5d8e8cf4cea8307990ed48eb1d33f2295959065ca9d8f",
    "derail/harness/tasks.py": "7b7803c6dec5603831855c49fe8bf6316654b90d8773a359a5cec0a91802f3dc",
@@ -77,7 +77,7 @@
    "derail/monitor/seq_baselines.py": "f7c8b6944b9c1ab12073007c9221323d66f468865f5bef095210d97eb182a36a",
    "derail/preconditions.py": "cb588a74b71174451ac532226c58fa9197792a8592a0781d7a0dd94dde3e4271",
    "derail/telemetry/__init__.py": "b42f2099187886def637d6aa840022266e05cb6c987a9394e708e23cd505eb46",
-   "derail/telemetry/adapter.py": "a64295fcb9a1b12e01f579bdbc727f5cf0a5fc82b024293a6f1e235a9d9118e3",
+   "derail/telemetry/adapter.py": "15b3c0388fb11a398e74e66a92d3a370c3d3d38732add185d92a89c909ceba42",
    "derail/telemetry/events.py": "961d1ea986d9516bb5ef0587750f4c687b4be739f36c8876cea2de19542c53ab",
    "derail/telemetry/generator.py": "da191cb1058fdf2f71dc7e03291b885630fb7a5b4c18d7fb461ee4a1a298121a",
    "derail/verify/__init__.py": "20448f3778f6a5d9abda216e16bd58211c1dc63d7534daa259ca16eb489c4244",
@@ -121,7 +121,7 @@
    "tests/test_reader_preconditions.py": "dd733c589acd3e5e161218f4cf2b730cfaddf7b44e2b5a516714c335b301813b",
    "tests/test_real_tool_functionality.py": "fb527c757d7138abb4d3b21ea2b09a630c18c898173ded5924c3d09cc616758a",
    "tests/test_release_artifacts.py": "672b4d493fe8814f1a4b2de738c1ac19ec92342a7f7947426a28b7003f5a52fd",
-   "tests/test_security_containment.py": "ebaee34d3dfb071236a04bb4c91a218ca0ab79c61f49171cb77f702587851973",
+   "tests/test_security_containment.py": "3aa55a199aab471489370634395bff316493b96d7318122436f48b262856912a",
    "tests/test_telemetry_events.py": "74598558b69b30a69b10ed39663bd025eb37c83c8df8980a2668c15f2cd44c5b",
    "tests/test_trace_audit.py": "f0de3b83314cc3afa7e1bf25287721d6986a1c7d17f41423ffa589db1249fc25",
    "verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -9429,7 +9429,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "734b36d383cff480b547fef5081da110d0f0a973840f3713c0d9319ee0959437",
+   "CHECKSUMS.md": "9232fcbbad94b81db6bac65e112c96f1da452c3b24a3f2ea1cb5956d7811df07",
    "CLAIMS.md": "e95532e309800bd0da6e4a14cd648d2bad2050ad5dae4f172c4bbdd00a8e02cf",
    "CONTRIBUTIONS.md": "589011dbd45b1f8bf56f0ec0b08419a24651013f09c61c41778886b8c2f48fc2",
    "DATA_CARD.md": "e65054d265f5fa2d0c1caa4b874b79c10b6ee4b305301e8b33c6967b2179591b",
@@ -9444,6 +9444,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Prune the template stylesheet from the Space.",
+ "note": "Release audit pass.",
  "file_count": 9435
 }
