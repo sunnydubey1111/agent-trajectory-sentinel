@@ -319,7 +319,7 @@ def recommended_monitor(standardizer: Standardizer,
     """Build and fit the recommended production monitor (see the hybrid study).
 
     Default is HybridWeighted(w=0.5) — fully label-free, grand-mean AUROC
-    0.812 across the eight benchmark datasets vs 0.802 (ESN) / 0.807
+    0.812 across the eight benchmark datasets vs 0.802 (ESN) / 0.808
     (DeltaMahalanobis), and never far from the per-dataset winner. When at
     least `min_labeled` labeled failure episodes are available (~20 is
     enough; injection runs produce them cheaply), returns HybridLogistic

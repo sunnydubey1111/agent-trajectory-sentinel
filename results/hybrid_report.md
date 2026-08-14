@@ -24,11 +24,10 @@ over all 1,002 injected episodes across the eight benchmark datasets
 | 4–8 steps | 170 | 0.72 | 0.58 | **+0.14** |
 | ≥ 9 steps | 381 | 0.78 | 0.38 | **+0.40** |
 
-corr(horizon, ESN advantage) = **+0.25**. An earlier revision of this table
-reported **−0.09** in the top band from a 716-episode, six-dataset scope
-computed before the degenerate-scale correction (DESIGN.md Amendment 6),
-which moved the Mahalanobis stream. The monotone trend survives and is the
-finding; the sign of the shortest band does not. Averaged over episodes the
+corr(horizon, ESN advantage) = **+0.25**. The monotone trend is the finding;
+the sign of the shortest band is not load-bearing and is sensitive to the
+scope and to the degenerate-scale correction (DESIGN.md Amendment 6), which
+moved the Mahalanobis stream. Averaged over episodes the
 ESN does not lose any band — Mahalanobis wins at the *dataset* level, on the
 corpora composed almost entirely of short-horizon episodes. The ESN's CUSUM
 accumulates
@@ -555,11 +554,10 @@ blend (off-topic paper folded into the answer).
 
 Findings, in decreasing comfort:
 
-1. **Commission failures transfer only weakly (corrected).** Under the
-   remediated ESN, just **1 of 3** fabricated-count episodes is caught by
-   the monitors (0.33, `organic_validation.csv`) — the entropy/behavior
-   turbulence around fabrication is *sometimes* what the stack detects, but
-   the clean 3/3 an earlier draft reported does not survive regeneration.
+1. **Commission failures transfer only weakly.** Just **1 of 3**
+   fabricated-count episodes is caught by the monitors (0.33,
+   `organic_validation.csv`) — the entropy/behaviour turbulence around
+   fabrication is *sometimes* what the stack detects, and not reliably.
    A dedicated preregistered fabrication study (`organic_hallucination.csv`)
    is underpowered (2 genuine hallucinations, 36% healthy FA) and makes no
    detection claim.

@@ -72,7 +72,7 @@
    "derail/monitor/grounding.py": "b9f5c9700a1b85466d29d9f0f476fa14db023596f7faae263728908b1b9fa1f6",
    "derail/monitor/grounding_verify.py": "0ef0bba6c682d37b3054e7622842407acad3b164508fdecc5fa6c23dd656159e",
    "derail/monitor/hmt_esn.py": "9957cc28656cf91d21fee86b4026306b815ff058b3b6c8b8a63f24f13c57d7a6",
-   "derail/monitor/hybrid.py": "ac27fcae47a54a992a739f11577ebe7161b52ff1f0441b8225134018b8ea8f0b",
+   "derail/monitor/hybrid.py": "a5dceb9cab61543edb48bbed99f943cecbd3191d7ef22ccaad9550bde4af5d04",
    "derail/monitor/ngrc.py": "b43cfc90bb41ce59ec9232642df54b94595bd0ac08a76ced18094fb615388ca8",
    "derail/monitor/seq_baselines.py": "f7c8b6944b9c1ab12073007c9221323d66f468865f5bef095210d97eb182a36a",
    "derail/preconditions.py": "cb588a74b71174451ac532226c58fa9197792a8592a0781d7a0dd94dde3e4271",
@@ -144,7 +144,7 @@
    "results/figures/fig5_judge_complementarity_real.png": "18881c16e1b56b492b7c5be14a87146286d616be17d0760263f2883105eabd6a",
    "results/figures/fig6_horizon_law.png": "255b91a07b1f01acc3ebf2cb2cc9c0c65fdc0aaa4c21723f699b604977e88800",
    "results/figures/hybrid_explain.png": "d040079b097fc319566ca6681a6312d56dda5d6f79d6332894c04372d469460e",
-   "results/hybrid_report.md": "0a5157748eb065ab7a266a8589223ee65ae91fd0a89c45681a24849d200ddae6",
+   "results/hybrid_report.md": "34251a4f6da0b5b36a5efe8cb11e7c37697542090bfa14b2224e6155b15d47c2",
    "results/multiseed.json": "8e9918022d71ff4b23a90edb2463dcf7d92e2e7e3f74d94a9d843ef0a192de0e",
    "results/results.json": "85ad4847f7795d8de1a6b051b273c5db9042adcab6f50d71a1f5f416aa04cee6",
    "results/run_meta.json": "93938b0abccdb1eab6c05090ede46757c219f537ac7837742ec91c00b48dd0db",
@@ -9429,7 +9429,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "78cd9d3517609e37c4cb574034349ea024dad872f805185dc7e9df9d8b86601a",
+   "CHECKSUMS.md": "009e507ef4d7160e56eea297b28ef8be2630910c388067f7cdb6cb27265e48c3",
    "CLAIMS.md": "e95532e309800bd0da6e4a14cd648d2bad2050ad5dae4f172c4bbdd00a8e02cf",
    "CONTRIBUTIONS.md": "589011dbd45b1f8bf56f0ec0b08419a24651013f09c61c41778886b8c2f48fc2",
    "DATA_CARD.md": "e65054d265f5fa2d0c1caa4b874b79c10b6ee4b305301e8b33c6967b2179591b",
@@ -9444,6 +9444,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Manuscripts moved out of the published tree; SQL fixture rebuilt from a committed seed.",
+ "note": "Release audit: manuscripts local-only, fixture seeded, superseded figures corrected.",
  "file_count": 9435
 }
