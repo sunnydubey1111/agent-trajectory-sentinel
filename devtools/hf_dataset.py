@@ -285,12 +285,17 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
 #: `data/episodes.jsonl` had a schema the hub could not cast, and uploading
 #: never deletes, so leaving it keeps a broken 32 MB file in the repo beside
 #: the parquet that replaced it.
-STALE_PATHS: tuple[str, ...] = (
-    "data/episodes.jsonl",
-    # A tool fixture that was published as if it were research data. It is
-    # rebuilt from a committed SQL seed now and no longer lives in traces/, so
-    # it is absent from the payload — and an upload only ever adds, which would
-    # leave the old binary behind as an orphan.
+STALE_PATHS: tuple[str, ...] = ("data/episodes.jsonl",)
+
+#: Paths a previous release put on the hub that have no local counterpart at
+#: all, so they can only be pruned, never merely dropped from the payload.
+#: Distinct from STALE_PATHS, which are BUILD artefacts: those still exist
+#: locally and must additionally be kept out of the upload.
+STALE_REMOTE_PATHS: tuple[str, ...] = (
+    # A tool fixture published as if it were research data. It is rebuilt from
+    # a committed SQL seed now and no longer lives in traces/, so it is absent
+    # from the payload — and an upload only ever adds, which would leave the
+    # old binary on the hub beside a corpus that no longer contains it.
     "traces/ecommerce.db",
 )
 
@@ -314,7 +319,7 @@ STALE_DIRS: tuple[str, ...] = (
 def _prune(api, repo_id: str) -> None:
     from huggingface_hub.errors import EntryNotFoundError
 
-    for path in STALE_PATHS:
+    for path in STALE_PATHS + STALE_REMOTE_PATHS:
         try:
             api.delete_file(path_in_repo=path, repo_id=repo_id,
                             repo_type="dataset",

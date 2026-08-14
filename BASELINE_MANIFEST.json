@@ -90,7 +90,7 @@
    "devtools/claims_ledger.py": "f06674cb8c10793117ab6c96a73ff8fe54354b0c6a1af2a6bcd45af667b88c42",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "d9ab4d995db90bb6ef29ed3228572634998bfdcfb5bba5f2a830a4f3126619be",
-   "devtools/hf_dataset.py": "f796d254d3ca69fbfacff3fc817a3cec3cde97860bdfa3e3716730ca2524bf80",
+   "devtools/hf_dataset.py": "62ec22b83b4b405c109b58b1bead09acada5a4699959b4d3a860d5fa8b16fde4",
    "devtools/hf_space.py": "3f67b57f26e1cc485a69f3ba5174cc544cda15c9e3333092c273e499634499b1",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
@@ -114,7 +114,7 @@
    "tests/test_claim_denominators.py": "0cc5c49a52cd17cb0f6cfc0ef836c860ccce8676e37118480f4700488620ff24",
    "tests/test_collection_validity.py": "fb4afbba6f3fb43a88a70e88af2719ef8797756f4ff1c5da220bd3b55c15cdbf",
    "tests/test_evaluation_validity.py": "0f910f3278b6bb53f4898294e7791b29981da59eba1992ff9e5ae8faa508a19e",
-   "tests/test_hf_dataset.py": "e4101378558ec57be6172073dd9f0c9d1436bbddda7d0eb1b95ac2f982ed56b9",
+   "tests/test_hf_dataset.py": "0adb0d24bb47ebabfa291c11a23148683049c0a895f509e54d5c979ceddeb33a",
    "tests/test_hf_space.py": "4c153dd002cd87fa2cb0068d3db5aa4e731dd2f1ff1f265331066c36f2a8b18f",
    "tests/test_module_selftests.py": "312c9e678d35d610bafe9197e579cd9231a4278205fa579c625c7bac6d92cabf",
    "tests/test_monitor_internals.py": "ba721fa000c003ff9621f81ced96a6b5a08a8e7e7037243a79e95ddf39655676",
@@ -9429,7 +9429,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "b93177bfc88038c1b8b956b46bb00c4bbe983a10e9ec3a302c30d1cb6f5abfb3",
+   "CHECKSUMS.md": "3304184791029dac57485880ba82eaee2a16809e00cfb64e53bba12c83d61568",
    "CLAIMS.md": "e95532e309800bd0da6e4a14cd648d2bad2050ad5dae4f172c4bbdd00a8e02cf",
    "CONTRIBUTIONS.md": "589011dbd45b1f8bf56f0ec0b08419a24651013f09c61c41778886b8c2f48fc2",
    "DATA_CARD.md": "e65054d265f5fa2d0c1caa4b874b79c10b6ee4b305301e8b33c6967b2179591b",

@@ -326,10 +326,14 @@ def test_prune_removes_the_already_published_scratch_directory() -> None:
     pytest.importorskip("huggingface_hub")
     api = _FakeApi()
     hf_dataset._prune(api, "someone/some-dataset")
-    assert api.files == list(hf_dataset.STALE_PATHS)
+    assert api.files == list(hf_dataset.STALE_PATHS
+                             + hf_dataset.STALE_REMOTE_PATHS)
     assert api.folders == list(hf_dataset.STALE_DIRS)
     for corpus in ("ollama", "ollama7b", "ollama_llama8b", "real"):
         assert f"traces/{corpus}/_cassettes" in api.folders
+    # The fixture binary has no local counterpart, so dropping it from the
+    # payload cannot unpublish it - only the prune can.
+    assert "traces/ecommerce.db" in api.files
 
 
 def test_pruned_directories_are_ones_the_payload_excludes() -> None:
