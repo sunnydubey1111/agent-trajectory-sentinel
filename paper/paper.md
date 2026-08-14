@@ -23,7 +23,7 @@ room to develop (its advantage over a memoryless Mahalanobis baseline
 grows monotonically with post-onset horizon); (2) a calibrated
 ESN+Mahalanobis hybrid whose learned fusion weights track the deployment
 regime, and which lifts grand-mean AUROC above either parent taken alone
-(0.826 against 0.802 for the ESN and 0.807 for Mahalanobis) while sitting
+(0.826 against 0.802 for the ESN and 0.808 for Mahalanobis) while sitting
 at or below the *per-dataset* better parent on 7 of 8 datasets in AUROC
 and on all 8 in detection rate — a pooled advantage, not a per-deployment
 guarantee; and
@@ -135,10 +135,10 @@ care what such a watchdog cannot do. Contributions:
    with post-onset horizon (+9 points at ≤3 steps, +14 at 4–8, +40 at ≥9;
    r = +0.25 over 1,002 injected episodes) (§6).
 4. **A calibrated hybrid** whose supervised fusion weights learn which
-   regime a deployment is in (Mahalanobis weight share 0.34 on
-   long-horizon data → 0.95 on short). Its advantage is a *pooled* one:
+   regime a deployment is in (Mahalanobis weight share 0.38 on
+   long-horizon data → 0.99 on short). Its advantage is a *pooled* one:
    grand-mean AUROC 0.826 beats either parent alone (ESN 0.802,
-   Mahalanobis 0.807), because each parent collapses on some dataset and
+   Mahalanobis 0.808), because each parent collapses on some dataset and
    the fusion never does. Per dataset it is a different story — the
    fusion is at or below whichever parent is better there on 7 of 8
    datasets in AUROC (mean −0.014) and on 8 of 8 in detection rate (mean
@@ -598,7 +598,7 @@ step or never. Read the direction carefully: averaged over episodes the
 ESN never *loses* a horizon band, its margin merely collapses to almost
 nothing when there is nothing to accumulate. Where Mahalanobis wins is at
 the *dataset* level, on the corpora made almost entirely of short-horizon
-episodes (`real_research7b` 0.848 vs 0.777 AUROC, `real_research3b` 0.665
+episodes (`real_research7b` 0.848 vs 0.777 AUROC, `real_research3b` 0.668
 vs 0.556). A
 controlled replication (research7b_long: identical tasks/tools/τ, 10
 tool calls instead of 5) moves ESN detection 0.27 → 0.60 and lead 0.23 →
@@ -611,8 +611,8 @@ baseline also benefits from more chances to fire.
 
 Of 1,002 injected episodes, 372 are detected by both parents, **273 by the
 ESN only, 57 by Mahalanobis only**, and 300 by neither — **330 of 1,002
-(32.9%)** are visible to exactly one detector. The cross-fit logistic fusion recovers **100% /
-66% / 79%** of the both/ESN-only/Maha-only cells and fires on just **1%**
+(32.9%)** are visible to exactly one detector. The cross-fit logistic fusion recovers **96% /
+61% / 75%** of the both/ESN-only/Maha-only cells and fires on just **1%**
 of the cases neither parent flags. Its learned Mahalanobis weight share
 tracks the regime: 0.38 (simulator, long horizons) → 0.99 (short-horizon
 research sets). In the 2-D calibrated-score plane the decision boundary
@@ -651,11 +651,11 @@ better *on that dataset*, the fusion is at or below it almost everywhere
 | autogen7b | 0.833 | 0.774 | 0.833 | 0.777 | −0.056 |
 | langgraph7b | 0.828 | 0.885 | 0.885 | 0.884 | −0.002 |
 | ollama7b | 0.994 | 0.895 | 0.994 | 0.982 | −0.013 |
-| real_research3b | 0.556 | 0.665 | 0.665 | 0.643 | −0.022 |
+| real_research3b | 0.556 | 0.668 | 0.668 | 0.640 | −0.028 |
 | real_research7b | 0.777 | 0.848 | 0.848 | 0.847 | −0.001 |
 | real_research7b_long | 0.790 | 0.849 | 0.849 | 0.857 | **+0.008** |
 | gemini | 0.749 | 0.756 | 0.756 | 0.731 | −0.025 |
-| **grand mean** | **0.802** | **0.807** | **0.840** | **0.826** | **−0.014** |
+| **grand mean** | **0.802** | **0.808** | **0.840** | **0.826** | **−0.015** |
 
 Table: Episode AUROC. The fusion is below the per-dataset better parent
 on 7 of 8 datasets; it is above on one (real_research7b_long).
@@ -737,14 +737,25 @@ gains never fall below +0.29 at any seed for any grounded fusion, but
 only **dual-budget** holds behavioral non-degradation at every seed
 (min exactly 0.000) — the strict-guarantee deployment.
 
-### 8.3 The prompt-hijack class
+### 8.3 The prompt-hijack class: a negative result
 
 Goal drift injected realistically — an instruction inside a tool result
-redirecting the agent — is detected at **0.91** by the grounded gate vs
-0.09 by the ESN alone: a fifth class where the content channel decides.
-(The simulator's synthetic slow-rotation drift remains undetectable by
-every monitor at budget, 0.0125, and is documented as by-construction
-hard.)
+redirecting the agent — is **not** recovered by the content channel. On
+`real_research7b` (22 episodes) the grounded gate detects 0.05, exactly
+what the ESN alone detects; the best of the four is the memoryless
+Δ-Mahalanobis at 0.27. The simulator's synthetic slow-rotation drift is
+likewise undetectable by every monitor at budget (0.0125).
+
+A powered follow-up agrees. On 120 healthy and 120 injected real
+goal-drift episodes with 9–11 post-onset steps — the runway the horizon
+law says a temporal monitor needs — the shipped ESN reaches AUROC 0.617 at
+detection **0.054**, and a conceptor arm built specifically for this class,
+scoring reservoir state geometry rather than prediction error, is reliably
+worse (pooled paired ΔAUC −0.051, 95% CI [−0.088, −0.014]). Two
+architecturally different detectors, given the runway, both fail. Goal
+drift is therefore not an architecture problem or a horizon problem: the
+signal is absent from this telemetry, and closing it needs a new
+measurement rather than a new monitor.
 
 ### 8.4 The measured negative result
 

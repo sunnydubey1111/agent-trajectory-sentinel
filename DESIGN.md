@@ -128,6 +128,17 @@ committed recordings and records any new one under `runtime_root()`
 (`runs/`, or `AGENTWATCH_RUNTIME_DIR`). Pinned by
 `test_serving_paths_cannot_write_into_the_committed_corpus`.
 
+**Nor do tool fixtures live in `traces/`.** The `sql_query` tool's e-commerce
+database was a committed 16 KB binary at `traces/ecommerce.db` — a fixture
+inside the episode corpus, uploaded with the published Hugging Face dataset,
+absent from the integrity manifest, and with nothing in the repo able to
+rebuild it. Its source of truth is now
+`derail/harness/fixtures/ecommerce_seed.sql`: plain SQL, diffable, hashed with
+the code, and rebuilt on demand into `runtime_root()/fixtures/` (atomically,
+so concurrent agents never see a half-written file). Same rows, same
+read-only enforcement (`mode=ro` plus `PRAGMA query_only`), one fewer binary
+in the dataset.
+
 Every library module carries an `if __name__ == "__main__":` smoke test that
 uses only that module + `derail.common` + third-party libs (NO sibling `derail`
 imports — construct synthetic `Episode`s with random X where needed) and prints

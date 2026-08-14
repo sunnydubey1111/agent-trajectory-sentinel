@@ -223,11 +223,40 @@ def test_mcp_only_accepts_configured_identifiers():
 
 
 # ---------------------------------------------------------------------
-def test_sql_tool_uses_a_repo_relative_database():
-    db = real_tools.SQLDatabaseTool().db_path
-    assert db.exists(), db
-    assert Path(__file__).resolve().parents[1] in db.parents, (
-        f"database path {db} is outside this checkout")
+def test_sql_tool_builds_its_fixture_outside_the_committed_corpus():
+    """The fixture is a tool asset, not research data, and not a binary.
+
+    It used to be a committed `traces/ecommerce.db`: a fixture inside the
+    frozen episode corpus, uploaded with the published dataset, unhashed by
+    BASELINE_MANIFEST.json, and with nothing able to regenerate it.
+    """
+    from derail.harness.record_replay import runtime_root
+
+    tool = real_tools.SQLDatabaseTool()
+    repo = Path(__file__).resolve().parents[1]
+    assert tool.SEED_SQL.exists(), "the SQL seed must be committed"
+    assert repo in tool.SEED_SQL.parents, tool.SEED_SQL
+    assert runtime_root().resolve() in tool.db_path.resolve().parents, (
+        f"fixture {tool.db_path} is not under the runtime root")
+    assert (repo / "traces") not in tool.db_path.resolve().parents, (
+        "the fixture is back inside the committed corpus")
+    assert not list((repo / "traces").glob("*.db")), \
+        "a database file reappeared in the trace corpus"
+
+
+def test_the_sql_fixture_is_rebuilt_deterministically_when_missing(tmp_path):
+    import hashlib
+
+    db = tmp_path / "fixture.db"
+    tool = real_tools.SQLDatabaseTool(db_path=db)
+    assert "Wireless Noise-Canceling Headphones" in tool.run(
+        "SELECT name FROM products WHERE id = 1")
+    first = hashlib.sha256(db.read_bytes()).hexdigest()
+
+    db.unlink()                       # a wiped runtime dir must self-heal
+    assert tool.run("SELECT COUNT(*) FROM orders").endswith("6")
+    assert hashlib.sha256(db.read_bytes()).hexdigest() == first, \
+        "rebuilding the fixture from the same seed is not deterministic"
 
 
 @pytest.mark.parametrize("query", [

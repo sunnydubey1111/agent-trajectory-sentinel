@@ -27,8 +27,12 @@ CHECKSUMS_DOC = REPO_ROOT / "CHECKSUMS.md"
 
 # section -> (root directory, glob patterns)
 SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
+    # `*.sql` covers committed tool fixtures (derail/harness/fixtures): they
+    # are code assets, not research data, and an edited fixture changes what a
+    # tool returns, so it must fail the integrity check like an edited module.
     "code": (".", ("derail/**/*.py", "verification/**/*.py",
-                   "experimental/**/*.py", "devtools/**/*.py", "tests/**/*.py")),
+                   "experimental/**/*.py", "devtools/**/*.py", "tests/**/*.py",
+                   "derail/**/*.sql")),
     "results": ("results", ("**/*.json", "**/*.csv", "**/*.md", "**/*.png")),
     "traces": ("traces", ("**/*.jsonl", "**/*.json")),
     # LICENSE and NOTICE are named explicitly because they carry no extension

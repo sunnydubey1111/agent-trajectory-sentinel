@@ -42,6 +42,7 @@ Every tool here is driven by untrusted model output, so:
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -494,14 +495,57 @@ class SQLDatabaseTool:
     )
     parameters = {"query": "The SELECT SQL query to execute."}
 
-    #: repo-relative default so the tool works in any checkout.
-    DEFAULT_DB = Path(__file__).resolve().parents[2] / "traces" / "ecommerce.db"
+    #: The fixture's source of truth: plain SQL, committed and diffable.
+    SEED_SQL = Path(__file__).resolve().parent / "fixtures" / "ecommerce_seed.sql"
+
     MAX_ROWS = 15
 
     def __init__(self, db_path: str | Path | None = None,
                  max_rows: int | None = None) -> None:
-        self.db_path = Path(db_path) if db_path is not None else self.DEFAULT_DB
+        self.db_path = (Path(db_path) if db_path is not None
+                        else self._default_db())
         self.max_rows = int(max_rows) if max_rows is not None else self.MAX_ROWS
+
+    @staticmethod
+    def _default_db() -> Path:
+        """Built under the runtime root, never inside the committed corpus.
+
+        The fixture used to be a binary at `traces/ecommerce.db`: a tool
+        fixture living in the frozen episode corpus, published as part of the
+        Hugging Face dataset, unhashed by BASELINE_MANIFEST.json, and with
+        nothing in the repo able to regenerate it. It is now built on demand
+        from `SEED_SQL`.
+        """
+        from derail.harness.record_replay import runtime_root
+        return runtime_root() / "fixtures" / "ecommerce.db"
+
+    def _ensure_db(self) -> None:
+        """Build the fixture from the committed seed if it is not there yet.
+
+        Deterministic: same seed, same rows. Built into a temporary file and
+        renamed, so two concurrent agents cannot observe a half-written
+        database.
+        """
+        if self.db_path.exists():
+            return
+        if not self.SEED_SQL.exists():
+            raise FileNotFoundError(f"missing SQL seed {self.SEED_SQL}")
+        import sqlite3
+        import tempfile
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        fd, tmp = tempfile.mkstemp(dir=self.db_path.parent, suffix=".part")
+        os.close(fd)
+        try:
+            con = sqlite3.connect(tmp)
+            try:
+                con.executescript(self.SEED_SQL.read_text("utf-8"))
+                con.commit()
+            finally:
+                con.close()
+            os.replace(tmp, self.db_path)
+        except BaseException:
+            Path(tmp).unlink(missing_ok=True)
+            raise
 
     @staticmethod
     def _is_single_read_statement(query: str) -> bool:
@@ -525,6 +569,10 @@ class SQLDatabaseTool:
             return "Error: empty query"
         if not self._is_single_read_statement(query):
             return "Error: Only a single SELECT/WITH query is permitted."
+        try:
+            self._ensure_db()
+        except (OSError, FileNotFoundError) as exc:
+            return f"Error: database fixture unavailable: {exc}"
         if not self.db_path.exists():
             return "Error: database file not found"
         try:
@@ -538,13 +586,18 @@ class SQLDatabaseTool:
             def _set_query_only(dbapi_conn, _record):  # noqa: ANN001
                 dbapi_conn.execute("PRAGMA query_only = ON")
 
-            with engine.connect() as conn:
-                result = conn.execute(text(query))
-                # Bounded fetch: fetchall() materialised the whole result set
-                # before slicing it.
-                rows = result.fetchmany(self.max_rows)
-                headers = list(result.keys())
-                result.close()
+            try:
+                with engine.connect() as conn:
+                    result = conn.execute(text(query))
+                    # Bounded fetch: fetchall() materialised the whole result
+                    # set before slicing it.
+                    rows = result.fetchmany(self.max_rows)
+                    headers = list(result.keys())
+                    result.close()
+            finally:
+                # A pooled connection keeps the file open, which on Windows
+                # blocks rebuilding the fixture and leaks a handle per query.
+                engine.dispose()
             if not rows:
                 return "(no rows returned)"
             lines = [", ".join(headers)]
