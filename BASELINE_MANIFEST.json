@@ -91,7 +91,7 @@
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "d9ab4d995db90bb6ef29ed3228572634998bfdcfb5bba5f2a830a4f3126619be",
    "devtools/hf_dataset.py": "62ec22b83b4b405c109b58b1bead09acada5a4699959b4d3a860d5fa8b16fde4",
-   "devtools/hf_space.py": "3f67b57f26e1cc485a69f3ba5174cc544cda15c9e3333092c273e499634499b1",
+   "devtools/hf_space.py": "37f1c48ef1a66e01e9d1a2bb921b353eb5d269f84517b22382f57cb40d38aabf",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "9be2c53a5ab899755ab303fd0e23ada2c976166cced3917b20fbe652b4c1a4a5",
@@ -9429,7 +9429,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "3304184791029dac57485880ba82eaee2a16809e00cfb64e53bba12c83d61568",
+   "CHECKSUMS.md": "734b36d383cff480b547fef5081da110d0f0a973840f3713c0d9319ee0959437",
    "CLAIMS.md": "e95532e309800bd0da6e4a14cd648d2bad2050ad5dae4f172c4bbdd00a8e02cf",
    "CONTRIBUTIONS.md": "589011dbd45b1f8bf56f0ec0b08419a24651013f09c61c41778886b8c2f48fc2",
    "DATA_CARD.md": "e65054d265f5fa2d0c1caa4b874b79c10b6ee4b305301e8b33c6967b2179591b",
@@ -9444,6 +9444,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Prune the published SQL fixture from the dataset.",
+ "note": "Prune the template stylesheet from the Space.",
  "file_count": 9435
 }

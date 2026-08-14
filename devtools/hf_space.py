@@ -232,6 +232,29 @@ def _card(repo_id: str, data: dict) -> str:
     ])
 
 
+#: Files a previous Space carried that the build no longer produces. Uploading
+#: only ever adds, so a file dropped from the payload stays on the hub until it
+#: is deleted explicitly. `style.css` is Hugging Face's default static-Space
+#: template stylesheet: `index.html` never referenced it, so it was dead weight
+#: served from the Space root.
+STALE_PATHS: tuple[str, ...] = ("style.css",)
+
+
+def _prune(api, repo_id: str) -> None:
+    from huggingface_hub.errors import EntryNotFoundError
+
+    for path in STALE_PATHS:
+        try:
+            api.delete_file(path_in_repo=path, repo_id=repo_id,
+                            repo_type="space",
+                            commit_message=f"Remove unused {path}")
+            print(f"[space] removed stale {path}")
+        except EntryNotFoundError:
+            pass
+        except Exception as exc:                 # already gone, or no rights
+            print(f"[space] could not remove {path}: {exc}")
+
+
 def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
     from huggingface_hub import HfApi
 
@@ -243,6 +266,7 @@ def push(out_dir: pathlib.Path, repo_id: str, private: bool) -> None:
     api.upload_folder(folder_path=str(out_dir), repo_id=repo_id,
                       repo_type="space",
                       commit_message="Publish the monitor replay")
+    _prune(api, repo_id)
     print(f"[space] pushed to https://huggingface.co/spaces/{repo_id}")
 
 
