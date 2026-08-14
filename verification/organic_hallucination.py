@@ -380,7 +380,19 @@ def _facts(steps: list[dict]) -> dict:
             "calc": calc}
 
 
-_TAX_RATES = (0.0, 0.08, 0.085, 0.10)   # common sales-tax rates the task uses
+# Why this does NOT call derail.monitor.grounding_verify, despite answering a
+# similar-sounding question. That module is an ONLINE monitor: deliberately
+# permissive, grounding a figure through a bounded 2^n subset-sum DP so it
+# yields false negatives and never false positives. This is an OFFLINE
+# objective LABELLER, and it must be strict in a way the monitor must not be:
+# an ITEM figure has to appear verbatim in a tool result (`_grounded_values`,
+# no subset sums at all, or a coincidental combination would legitimise a
+# fabricated price), while only a TOTAL may be derived, and then only through
+# pairwise subtotals and the grand total (`_derivable_totals`, O(n^2)).
+# Routing this through the monitor would relabel fabrications as grounded and
+# move the published organic numbers. The two are intentionally different
+# readings of the same corpus; keep them apart.
+_TAX_RATES = (0.0, 0.08, 0.085, 0.10)   # incl. 0.0: a total may carry no tax
 
 
 def _grounded_values(f: dict) -> set[float]:

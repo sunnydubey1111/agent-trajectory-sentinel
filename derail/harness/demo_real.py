@@ -133,10 +133,16 @@ def _backend():
 DEMO_CLASSES = ("looping", "rate_limit", "wrong_document", "malformed_json")
 
 
-def _cassette() -> Cassette:
+def _cassette(serving: bool = False) -> Cassette:
     """Cassette named after the corpus it records, so a repointed TRACES
-    cannot quietly keep replaying the previous corpus's recordings."""
-    return Cassette(f"traces/_cassettes/{TRACES.name}", mode="auto")
+    cannot quietly keep replaying the previous corpus's recordings.
+
+    `serving=True` for the demo: it replays the committed recordings but
+    records any new one under `runs/`, so watching the demo cannot append to
+    the dataset the published numbers are computed from.
+    """
+    return Cassette(f"traces/_cassettes/{TRACES.name}", mode="auto",
+                    serving=serving)
 
 
 def collect_healthy(n: int, n_inject: int = 0) -> None:
@@ -316,7 +322,7 @@ if __name__ == "__main__":
     elif args.demo:
         registry = _registry()
         mon, theta, theta5 = fit_monitor()
-        cas = _cassette()
+        cas = _cassette(serving=True)
         print(f"\n{'scenario':<18} {'alarm':>6} {'max_score':>12}  {'T':>2}  "
               f"verdict")
         n_fa = n_missed = 0

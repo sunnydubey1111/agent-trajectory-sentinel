@@ -125,6 +125,7 @@ def main() -> None:
         # false positives — they are reported separately, never netted in.
         money: dict[str, bool] = {}
         cover: dict[str, bool] = {}
+        unchecked = 0
         for r in labelled:
             steps = [json.loads(x) for x in
                      (src / r["file"]).read_text("utf-8").splitlines() if x]
@@ -133,6 +134,14 @@ def main() -> None:
                                          for f in res.findings)
             cover[r["episode_id"]] = any(f.check == "required_coverage"
                                          for f in res.findings)
+            unchecked += not res.checked
+        # A totals check that observed no price is not a pass. Reported so the
+        # false-positive rate below cannot be inflated by episodes the check
+        # never actually ran on.
+        print(f"[verify] {arm}: totals check ran on "
+              f"{len(labelled) - unchecked}/{len(labelled)} episodes"
+              + (f" — {unchecked} had no priced result to reconcile"
+                 if unchecked else ""))
 
         mon = pd.read_csv(TABLES / monitor_csv).set_index("episode_id")
         by_label: dict[str, list[str]] = {}

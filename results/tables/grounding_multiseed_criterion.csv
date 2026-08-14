@@ -23,13 +23,13 @@ seed,monitor,group,n,det_ref,det_grounded,delta
 101,hybrid_adaptive,behavioral,561,0.7594,0.7897,0.0303
 101,hybrid_logistic_g,content,313,0.2843,0.345,0.0607
 101,hybrid_logistic_g,behavioral,561,0.7594,0.7184,-0.041
-202,hybrid_weighted_g,content,313,0.2875,0.4728,0.1853
+202,hybrid_weighted_g,content,313,0.2843,0.4696,0.1853
 202,hybrid_weighted_g,behavioral,561,0.7398,0.7398,0.0
-202,hybrid_content_gate,content,313,0.2875,0.6038,0.3163
+202,hybrid_content_gate,content,313,0.2843,0.6006,0.3163
 202,hybrid_content_gate,behavioral,561,0.7398,0.7914,0.0517
-202,hybrid_adaptive,content,313,0.2875,0.5431,0.2556
+202,hybrid_adaptive,content,313,0.2843,0.5399,0.2556
 202,hybrid_adaptive,behavioral,561,0.7398,0.7879,0.0481
-202,hybrid_logistic_g,content,313,0.2875,0.3195,0.0319
+202,hybrid_logistic_g,content,313,0.2843,0.3163,0.0319
 202,hybrid_logistic_g,behavioral,561,0.7398,0.7255,-0.0143
 303,hybrid_weighted_g,content,313,0.278,0.4792,0.2013
 303,hybrid_weighted_g,behavioral,561,0.7504,0.7451,-0.0053
@@ -38,4 +38,4 @@ seed,monitor,group,n,det_ref,det_grounded,delta
 303,hybrid_adaptive,content,313,0.278,0.5495,0.2716
 303,hybrid_adaptive,behavioral,561,0.7504,0.7825,0.0321
 303,hybrid_logistic_g,content,313,0.278,0.3099,0.0319
-303,hybrid_logistic_g,behavioral,561,0.7504,0.7273,-0.0232
+303,hybrid_logistic_g,behavioral,561,0.7504,0.7255,-0.025

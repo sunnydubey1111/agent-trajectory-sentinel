@@ -57,9 +57,9 @@ real_research7b_long,hybrid_logistic,esn_cusum_max,-0.049,0.2066,4,0,0.125,0.5,4
 real_research7b_long,hybrid_logistic,delta_mahalanobis,-0.0186,0.0437,1,2,1.0,0.0,1.0,0.5829332678266148,1.0,False,8
 real_research3b,hybrid_weighted50,esn_cusum_max,-0.039,0.051,0,2,0.5,-0.022,1.0,0.31731050786291415,1.0,False,8
 real_research3b,hybrid_weighted50,delta_mahalanobis,-0.4667,0.2528,12,4,0.076812744140625,0.565,0.0009499525023748813,0.0009414265619956542,0.46088,False,8
-real_research3b,hybrid_max,esn_cusum_max,0.0,0.1333,0,0,1.0,0.0,1.0,1.0,1.0,False,8
+real_research3b,hybrid_max,esn_cusum_max,0.0,0.1336,0,0,1.0,0.0,1.0,1.0,1.0,False,8
 real_research3b,hybrid_max,delta_mahalanobis,-0.441,0.3163,14,4,0.0308837890625,0.587,0.0004999750012499375,0.0005554164225787355,0.21619,False,8
 real_research3b,hybrid_gated,esn_cusum_max,-0.1083,0.1021,4,2,0.6875,0.109,0.06254687265636719,0.025347318677468252,1.0,False,8
-real_research3b,hybrid_gated,delta_mahalanobis,-0.4626,0.1934,12,0,0.00048828125,0.696,0.0004999750012499375,0.0005558649180046512,0.00391,True,8
-real_research3b,hybrid_logistic,esn_cusum_max,-0.0785,0.2952,1,5,0.21875,-0.261,0.015949202539873007,0.008206476318626461,0.875,False,8
-real_research3b,hybrid_logistic,delta_mahalanobis,-0.328,0.225,9,3,0.14599609375,0.326,0.015949202539873007,0.008212655390912923,0.72998,False,8
+real_research3b,hybrid_gated,delta_mahalanobis,-0.4627,0.1933,12,0,0.00048828125,0.696,0.0004999750012499375,0.0005558649180046512,0.00391,True,8
+real_research3b,hybrid_logistic,esn_cusum_max,-0.0817,0.2918,1,5,0.21875,-0.304,0.007549622518874056,0.004723629382521776,0.875,False,8
+real_research3b,hybrid_logistic,delta_mahalanobis,-0.3333,0.2209,9,3,0.14599609375,0.283,0.015949202539873007,0.008212655390912923,0.72998,False,8

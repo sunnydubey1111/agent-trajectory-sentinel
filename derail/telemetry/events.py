@@ -39,6 +39,8 @@ import json
 import re
 from dataclasses import dataclass
 
+from derail.preconditions import error_shaped
+
 SCHEMA_VERSION = 5
 
 _NAME_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_.\-]*")
@@ -189,7 +191,7 @@ def parse_tool_bits(text: str) -> tuple[list[ToolCallEvent], str]:
             args_key=canonical_args(args_obj if args_obj is not None else args_raw),
             result=result,
             has_result=has_result,
-            is_error=result.lstrip().lower().startswith("error"),
+            is_error=error_shaped(result),
             latency_s=None,
             truncated=False,          # unknowable from text alone
             source="text"))

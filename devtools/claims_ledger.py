@@ -669,7 +669,7 @@ def build() -> list[Claim]:
               lambda: _criterion("hybrid_content_gate", "behavioral", "delta"), "Monitor"),
         Claim("transfer.within_family",
               "Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated",
-              0.4876, "results/tables/model_transfer.csv",
+              0.5217, "results/tables/model_transfer.csv",
               "py -m derail.experiments.run_model_transfer",
               lambda: _model_transfer_auroc("transfer"), "Monitor",
               denominator=lambda: _corpus_eval_n("real_research3b"),

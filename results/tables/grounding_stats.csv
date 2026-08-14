@@ -11,7 +11,7 @@ real_research7b,hybrid_logistic_g,hybrid_logistic,0.0366,0.1134,12,19,0.28104151
 real_research7b,hybrid_weighted_g,hybrid_weighted50,-0.0784,0.0547,10,0,0.001953125,0.064,0.0010999450027498626,0.0009111188771537128
 real_research7b_long,hybrid_logistic_g,hybrid_logistic,0.0147,0.2275,3,4,1.0,-0.143,0.5869206539673016,0.31810051771902914
 real_research7b_long,hybrid_weighted_g,hybrid_weighted50,-0.0559,0.3067,11,0,0.0009765625,2.0,0.00014999250037498125,0.00019909666556359792
-real_research3b,hybrid_logistic_g,hybrid_logistic,-0.0809,0.0556,3,0,0.25,0.065,0.5016749162541873,0.3119951261794791
+real_research3b,hybrid_logistic_g,hybrid_logistic,-0.0767,0.0581,3,0,0.25,0.087,0.504224788760562,0.15729920705028502
 real_research3b,hybrid_weighted_g,hybrid_weighted50,0.0,0.028,0,0,1.0,0.0,1.0,1.0
 ollama_llama8b,hybrid_logistic_g,hybrid_logistic,-0.0615,0.0994,1,10,0.01171875,-0.19,0.01814909254537273,0.0016440520076676439
 ollama_llama8b,hybrid_weighted_g,hybrid_weighted50,-0.033,0.0063,0,0,1.0,0.0,1.0,1.0

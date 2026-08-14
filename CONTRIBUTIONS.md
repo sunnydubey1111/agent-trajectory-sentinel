@@ -46,7 +46,7 @@ mechanistic requirement here, not a hedge.
 **One-class monitors are per-deployment by construction.** Transferred from
 qwen2.5:7b to llama3.1:8b over a matched task, tool and injector plan, the
 monitor sits at chance (AUROC **0.527**) while the *same* target recalibrated
-on itself reaches **0.885**; within-family 7b→3b falls to **0.488**. The
+on itself reaches **0.885**; within-family 7b→3b sits at **0.522**. The
 failure is the calibration, not a hard target.
 → `results/tables/model_transfer.csv`
 

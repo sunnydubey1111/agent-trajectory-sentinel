@@ -77,6 +77,7 @@ from derail.common import (
     Episode,
     rng_for,
 )
+from derail.preconditions import error_shaped
 from derail.telemetry.events import (SCHEMA_VERSION, ToolCallEvent,
                                      canonical_args, make_tool_event,
                                      parse_step_events, parse_tool_bits)
@@ -402,7 +403,7 @@ def _lex_miss(task_text: str, args: str, result: str,
     essentially always repeats at least one query or task content word.
     """
     r = result.strip()
-    if not r or r.lower().startswith("error") or r.startswith("("):
+    if not r or error_shaped(r) or r.startswith("("):
         return 0.0
     if r[0] in "{[":
         return 0.0      # structured data, not a document (json/char dims' job)

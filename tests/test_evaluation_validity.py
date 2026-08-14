@@ -519,6 +519,28 @@ def test_published_table_scope_is_pinned_not_implicit():
     assert "--all-datasets" in src, "no explicit way to sweep everything"
 
 
+def test_the_grounding_study_pins_its_published_scope_too():
+    """The same guard, for the same reason, on the other published study.
+
+    Defaulting to ALL of REAL_DATASETS lets every corpus added later widen the
+    scope of grounding_*.csv on the next regeneration, and
+    `run_grounding_multiseed` inherits that default for all five seeds.
+    """
+    import inspect
+
+    from derail.experiments.run_grounding_study import (
+        GROUNDING_PUBLISHED_DATASETS, main)
+    from derail.experiments.run_hybrid_study import REAL_DATASETS
+
+    pinned = set(GROUNDING_PUBLISHED_DATASETS)
+    assert pinned < set(REAL_DATASETS), "pin no longer a subset"
+    assert set(REAL_DATASETS) - pinned == {"aftraj"}, (
+        "a corpus entered REAL_DATASETS without a decision about whether the "
+        "published grounding tables should cover it")
+    assert "GROUNDING_PUBLISHED_DATASETS" in inspect.getsource(main), \
+        "default run no longer honours the pin"
+
+
 def test_paper_leads_with_real_evidence_not_the_simulator():
     """L1: real-ecosystem validation is the spine; the simulator is a labelled
     mechanism study that must not precede it."""

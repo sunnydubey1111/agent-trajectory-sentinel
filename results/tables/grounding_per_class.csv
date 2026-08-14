@@ -348,7 +348,7 @@ real_research3b,hybrid_adaptive,wrong_document,0.2,5.0
 real_research3b,hybrid_logistic,goal_drift,0.6,6.0
 real_research3b,hybrid_logistic,looping,0.5,6.0
 real_research3b,hybrid_logistic,tool_cascade,0.16666666666666666,3.0
-real_research3b,hybrid_logistic,context_corruption,0.3333333333333333,4.5
+real_research3b,hybrid_logistic,context_corruption,0.3333333333333333,5.0
 real_research3b,hybrid_logistic,malformed_json,0.3333333333333333,5.5
 real_research3b,hybrid_logistic,rate_limit,0.0,
 real_research3b,hybrid_logistic,timeout,0.0,

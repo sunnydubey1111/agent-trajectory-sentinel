@@ -226,7 +226,7 @@ the eight benchmark datasets (`results/tables/hybrid_benchmark.csv`):
 | monitor | grand-mean AUROC | needs labels |
 |---|---|---|
 | `esn_cusum_max` alone | 0.802 | no |
-| delta-Mahalanobis alone | 0.807 | no |
+| delta-Mahalanobis alone | 0.808 | no |
 | **`hybrid_weighted50`** (label-free default) | **0.812** | no |
 | **`hybrid_logistic`** (with ≥20 labelled failures) | **0.826** | yes |
 
@@ -525,7 +525,7 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   21% (p=0.61) do not beat retry luck. Kept as comparison arms.
 - **Monitors do not transfer across deployments.** qwen2.5:7b → llama3.1:8b
   sits at chance (AUROC 0.527) where recalibrating on the target reaches 0.885;
-  7b → 3b falls below chance. The null must match the serving distribution.
+  7b → 3b is no better (0.522). The null must match the serving distribution.
 - **The judge-LLM claim is halved by measurement.** A real gemini-2.5-flash
   judge scores p_detect 0.548 / p_false 0.052 against the stipulated 0.90 /
   0.02. The call saving survives; the detection recovery does not.

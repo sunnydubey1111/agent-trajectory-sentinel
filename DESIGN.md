@@ -92,6 +92,7 @@ LICENSE  CITATION.cff  USER_GUIDE.md  requirements*.txt
 derail/
   common.py                  # frozen contract: channels, Episode, OnlineMonitor
   config.py                  # API-key resolution (OS vault > env > .env)
+  preconditions.py           # what the text readers refuse rather than pass
   telemetry/generator.py     # healthy simulator + failure injector
   telemetry/adapter.py       # real-trace JSONL -> Episode
   monitor/esn.py             # ESN ensemble (+ single-ESN ablation)
@@ -114,7 +115,18 @@ derail/
 devtools/                    # manifest, snapshot, audits, ledger, data card
 verification/  experimental/ # pre-registered arms and exploratory studies
 tests/  traces/  results/  paper/
+runs/                        # runtime output of serving runs (gitignored)
 ```
+
+**Collection writes to `traces/`; serving does not.** `traces/` is the frozen
+research corpus `BASELINE_MANIFEST.json` hashes, so a run that merely *serves*
+the monitor — the demo, an ad-hoc live slice — must not add to it, or the
+dataset every published number is computed from would depend on who last ran
+the demo. Collectors legitimately write there, because their recordings are
+the dataset. The split is one flag: `Cassette(..., serving=True)` reads the
+committed recordings and records any new one under `runtime_root()`
+(`runs/`, or `AGENTWATCH_RUNTIME_DIR`). Pinned by
+`test_serving_paths_cannot_write_into_the_committed_corpus`.
 
 Every library module carries an `if __name__ == "__main__":` smoke test that
 uses only that module + `derail.common` + third-party libs (NO sibling `derail`
@@ -768,6 +780,23 @@ contrast, is *checkable* — and a check needs neither.
 - **Weaker than the oracle, by construction.** An agent that looks up the
   wrong city gets consistent arithmetic over the wrong inputs and passes
   `total_consistency`; `required_coverage` is what catches missing work.
+- **The number reader has a dialect, and refuses outside it.** The spec above
+  is pluggable; the parser under it reads US-dollar figures and English total
+  labels only. A euro price is not partially readable to it — it is
+  *invisible*, and an invisible price does not read as "unpriced" but as
+  "nothing to reconcile", i.e. a pass. Every guard in this contract fails that
+  way if left alone, so each reader asserts its own preconditions and raises
+  `UnsupportedInputError` instead (`derail/preconditions.py`);
+  `TaskSpec.strict_currency=False` restores the blind reading for a caller who
+  has decided it is acceptable. No committed trace carries a non-dollar
+  figure, so the guard is inert on this corpus by measurement, not by luck.
+- **"Could not check" is not "checked and clean."** A `VerificationResult`
+  whose `unverifiable` is set has no findings *and* no verdict; `checked`
+  distinguishes the two. It fires when a priced spec observed no price, and
+  when a spec prices nothing at all (`RESEARCH_SPEC` is coverage-only). Over
+  the 1,812 committed booking-shaped episodes 300 hit the first case, all 300
+  caught independently by `required_coverage` — which is a property of
+  `BOOKING_SPEC`'s required counts, not a guarantee this check provides.
 
 **The three checks are complementary and none subsumes the others.**
 `total_consistency` recomputes sum(multiplier x price) over the observed

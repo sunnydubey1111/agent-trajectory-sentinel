@@ -81,6 +81,14 @@ docs/
 traces/_mock_dry_run/
 traces/_smoke/
 
+# Runtime output of SERVING runs (the demo, ad-hoc live slices): cassettes
+# recorded while replaying, and anything else a live run produces. `traces/` is
+# the committed corpus that BASELINE_MANIFEST.json hashes, so a serving run
+# must never add to it — otherwise the dataset depends on who ran the demo.
+# Collectors still write to traces/ on purpose; only serving is redirected.
+# Override the location with AGENTWATCH_RUNTIME_DIR.
+runs/
+
 # Externally imported corpus (derail.experiments.import_aftraj): AFTraj-2K is
 # another project's data under CC-BY-4.0. It is fetched on demand for the
 # external-validation run and never redistributed from here.

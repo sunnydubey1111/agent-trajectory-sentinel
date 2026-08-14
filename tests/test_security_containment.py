@@ -21,6 +21,47 @@ from derail.harness.tools import SimpleTool, ToolRegistry
 
 
 # ---------------------------------------------------------------------
+def test_serving_paths_cannot_write_into_the_committed_corpus():
+    """`traces/` is hashed by BASELINE_MANIFEST.json; a demo must not add to it.
+
+    Collectors legitimately write there — their recordings ARE the dataset —
+    so this pins the split rather than banning writes outright: every serving
+    call site passes `serving=True`, which redirects recording under
+    `runtime_root()`.
+    """
+    import inspect
+
+    from derail.harness import agent_loop, demo_real
+    from derail.harness.record_replay import runtime_root
+
+    root = runtime_root().resolve()
+    traces = (Path(__file__).resolve().parents[1] / "traces").resolve()
+    assert not str(root).startswith(str(traces)), \
+        f"runtime root {root} is inside the committed corpus"
+
+    src = inspect.getsource(demo_real)
+    assert "_cassette(serving=True)" in src, \
+        "the demo_real serving path no longer marks its cassette as serving"
+    assert "cassette=_cassette()" in src, \
+        "the collector should keep writing its recordings into the dataset"
+    assert "serving=True" in inspect.getsource(agent_loop._run_live)
+
+
+def test_a_serving_cassette_records_outside_the_source_directory(tmp_path,
+                                                                 monkeypatch):
+    from derail.harness.record_replay import RUNTIME_DIR_ENV
+
+    src, rt = tmp_path / "corpus", tmp_path / "rt"
+    src.mkdir()
+    monkeypatch.setenv(RUNTIME_DIR_ENV, str(rt))
+    key = request_key("m", [{"role": "user", "text": "hi"}], {})
+
+    serving = Cassette(src, mode="auto", serving=True)
+    serving.call(key, lambda: {"text": "x"})
+    assert list(src.iterdir()) == [], "serving wrote into the source corpus"
+    assert list(rt.rglob("*.json")), "serving recorded nothing at all"
+
+
 def test_default_registry_excludes_host_code_and_navigation_tools():
     names = set(real_tools.default_registry().names())
     assert not (names & sandbox.DANGEROUS_TOOLS), (

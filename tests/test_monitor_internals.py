@@ -693,6 +693,7 @@ def test_repair_hint_cannot_carry_the_oracle_answer():
 
 def test_rollback_resumes_after_the_last_fact_gathering_step():
     from derail.intervene.rollback import rollback_step
+    from derail.verify.checks import BOOKING_SPEC
 
     trace = [
         {"text": '[lookup_flight({"i": 1}) -> $100]'},
@@ -702,7 +703,12 @@ def test_rollback_resumes_after_the_last_fact_gathering_step():
     ]
     # Resume just after the hotel lookup: the calculator step and the answer
     # are what the agent must redo.
-    assert rollback_step(trace) == 2
+    assert rollback_step(trace, BOOKING_SPEC) == 2
+    # The spec is required, not booking-defaulted: a generic function must not
+    # assume a task.
+    import pytest as _pytest
+    with _pytest.raises(TypeError):
+        rollback_step(trace)
 
 
 def test_rebuilt_history_replays_calls_and_their_results_in_order():

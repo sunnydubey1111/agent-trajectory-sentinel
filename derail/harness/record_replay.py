@@ -165,6 +165,21 @@ def recorded_at_stamp() -> float:
     return math.floor(time.time() * 1000) / 1000
 
 
+#: Where a live run may write. `traces/` is the committed research corpus that
+#: `BASELINE_MANIFEST.json` hashes, so a serving run must never add files to
+#: it: the dataset would then depend on who happened to run the demo. Override
+#: with AGENTWATCH_RUNTIME_DIR; `runs/` is gitignored.
+RUNTIME_DIR_ENV = "AGENTWATCH_RUNTIME_DIR"
+
+
+def runtime_root() -> Path:
+    """Root for runtime output, guaranteed outside the committed corpus."""
+    env = os.environ.get(RUNTIME_DIR_ENV)
+    root = (Path(env) if env
+            else Path(__file__).resolve().parents[2] / "runs")
+    return root
+
+
 class Cassette:
     """A directory of recorded request->response pairs (one JSON file each).
 
@@ -174,6 +189,13 @@ class Cassette:
       "record" -- always call the live function and (over)write the recording.
       "replay" -- never call; a missing recording is an error (CI / offline).
       "live"   -- passthrough; never read or write recordings (a real run).
+
+    `serving=True` splits reading from writing: recordings are READ from
+    `path` (the committed corpus, treated as read-only) and any new one is
+    WRITTEN under `runtime_root()`. Collectors leave it False, because their
+    recordings ARE the dataset; the demo and any other serving path set it, so
+    running the demo cannot mutate the corpus a published number is computed
+    from.
     """
 
     #: A key must be a plain identifier - never a path.
@@ -182,10 +204,16 @@ class Cassette:
     def __init__(self, path: str | Path, mode: str = "auto",
                  ttl_s: float | None = None,
                  cache_errors: bool = False,
-                 lock_timeout_s: float = 120.0) -> None:
+                 lock_timeout_s: float = 120.0,
+                 serving: bool = False) -> None:
         if mode not in ("auto", "record", "replay", "live"):
             raise ValueError(f"bad cassette mode {mode!r}")
         self.dir = Path(path)
+        self.serving = bool(serving)
+        #: Reads come from `dir` first, then `write_dir`; writes only ever go
+        #: to `write_dir`. They are the same directory unless serving.
+        self.write_dir = (runtime_root() / "cassettes" / self.dir.name
+                          if self.serving else self.dir)
         self.mode = mode
         # Time-sensitive corpora (weather, "latest" searches) must expire;
         # None keeps the historical forever-cache for reproducible corpora.
@@ -202,19 +230,33 @@ class Cassette:
         self._locks: dict[str, threading.Lock] = {}
         self._locks_guard = threading.Lock()
         if mode != "live":
-            self.dir.mkdir(parents=True, exist_ok=True)
+            self.write_dir.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------- key safety
-    def _file(self, key: str) -> Path:
+    def _check_key(self, key: str) -> None:
         if not isinstance(key, str) or not self._KEY_RE.match(key):
             raise ValueError(
                 f"unsafe cassette key {key!r}: expected [A-Za-z0-9._-]{{1,80}} "
                 f"starting alphanumeric (no path separators or traversal)")
-        root = self.dir.resolve()
+
+    def _in(self, root: Path, key: str) -> Path:
+        self._check_key(key)
+        root = root.resolve()
         path = (root / f"{key}.json").resolve()
         if path.parent != root:
             raise ValueError(f"cassette key {key!r} escapes {root}")
         return path
+
+    def _file(self, key: str) -> Path:
+        """Where a recording for `key` is READ from, preferring the source."""
+        src = self._in(self.dir, key) if self.dir.exists() else None
+        if src is not None and src.exists():
+            return src
+        return self._in(self.write_dir, key)
+
+    def _wfile(self, key: str) -> Path:
+        """Where a recording for `key` is WRITTEN. Never the source corpus."""
+        return self._in(self.write_dir, key)
 
     def _key_lock(self, key: str) -> threading.Lock:
         with self._locks_guard:
@@ -267,20 +309,19 @@ class Cassette:
         """
         if self.mode == "live":
             return fn()
-        path = self._file(key)
+        wpath = self._wfile(key)
 
         def _lookup() -> tuple[bool, Any]:
-            hit, response = self._read(path)
+            hit, response = self._read(self._file(key))
             if hit:
                 self.n_replayed += 1
                 return True, response
             for legacy in legacy_keys:
-                lpath = self._file(legacy)
-                lhit, lresponse = self._read(lpath)
+                lhit, lresponse = self._read(self._file(legacy))
                 if lhit:
                     self.n_replayed += 1
                     self.n_migrated += 1
-                    self._write(path, key, lresponse)
+                    self._write(wpath, key, lresponse)
                     return True, lresponse
             return False, None
 
@@ -303,7 +344,7 @@ class Cassette:
             failed = bool(is_error(result)) if is_error is not None else False
             if failed and not self.cache_errors:
                 return result             # transient failures are not cached
-            self._write(path, key, result)
+            self._write(wpath, key, result)
             self.n_recorded += 1
             return result
 
@@ -372,5 +413,31 @@ if __name__ == "__main__":
             raise AssertionError("replay of a missing key should error")
         except KeyError:
             pass
+
+    # --- serving reads the source corpus but never writes to it ---
+    with tempfile.TemporaryDirectory() as src, \
+            tempfile.TemporaryDirectory() as rt:
+        os.environ[RUNTIME_DIR_ENV] = rt
+        try:
+            collect = Cassette(src, mode="auto")
+            collect.call(k1, live)                     # the "committed" one
+            before = sorted(Path(src).iterdir())
+
+            serve = Cassette(src, mode="auto", serving=True)
+            assert serve.write_dir != serve.dir
+            assert serve.call(k1, live) == r1, "must replay the source"
+            fresh = request_key("gemini-2.5-flash", [{"role": "user",
+                                                      "text": "new"}], {})
+            serve.call(fresh, live)                    # records somewhere new
+            assert sorted(Path(src).iterdir()) == before, \
+                "a serving run wrote into the source corpus"
+            written = list((Path(rt) / "cassettes").rglob("*.json"))
+            assert len(written) == 1, written
+            # ...and a later serving run replays what it recorded aside.
+            n = calls["n"]
+            assert Cassette(src, mode="auto", serving=True).call(fresh, live)
+            assert calls["n"] == n, "runtime recording was not replayed"
+        finally:
+            os.environ.pop(RUNTIME_DIR_ENV, None)
 
     print("PASS record_replay smoke test |", m.summary())

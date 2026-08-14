@@ -1,7 +1,7 @@
 dataset,grounded,vs,dauc_ci_lo,dauc_ci_hi,mcnemar_n10,mcnemar_n01,mcnemar_p,perm_mean_dlead,perm_p,wilcoxon_p
-langgraph7b,hybrid_logistic_g,hybrid_logistic,-0.0117,0.038,0,8,0.0078125,-0.444,0.003249837508124594,0.002771783528378906
-langgraph7b,hybrid_weighted_g,hybrid_weighted50,-0.0,0.0082,0,0,1.0,0.0,1.0,1.0
-real_research7b,hybrid_logistic_g,hybrid_logistic,0.0349,0.1246,53,10,3.382168502403561e-08,0.58,4.999750012499375e-05,2.011889218654121e-10
-real_research7b,hybrid_weighted_g,hybrid_weighted50,0.0462,0.1647,69,0,3.3881317890172014e-21,0.932,4.999750012499375e-05,6.296013978559255e-18
-real_research3b,hybrid_logistic_g,hybrid_logistic,0.0188,0.1962,4,2,0.6875,0.957,0.00034998250087495624,0.0006528594889529167
-real_research3b,hybrid_weighted_g,hybrid_weighted50,0.0061,0.1246,6,0,0.03125,0.787,0.0002999850007499625,0.00032900363154043753
+langgraph7b,hybrid_logistic_g,hybrid_logistic,-0.0198,0.0094,0,4,0.125,-0.011,1.0,0.8348273291852392
+langgraph7b,hybrid_weighted_g,hybrid_weighted50,-0.0515,-0.0028,0,4,0.125,0.044,0.4301784910754462,0.13907106160717464
+real_research7b,hybrid_logistic_g,hybrid_logistic,0.0366,0.1134,12,19,0.28104151505976915,-0.123,0.012049397530123494,0.010761708595104443
+real_research7b,hybrid_weighted_g,hybrid_weighted50,-0.0784,0.0547,10,0,0.001953125,0.064,0.0010999450027498626,0.0009111188771537128
+real_research3b,hybrid_logistic_g,hybrid_logistic,-0.0767,0.0581,3,0,0.25,0.087,0.504224788760562,0.15729920705028502
+real_research3b,hybrid_weighted_g,hybrid_weighted50,0.0,0.028,0,0,1.0,0.0,1.0,1.0

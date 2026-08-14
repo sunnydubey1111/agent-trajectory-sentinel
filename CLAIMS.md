@@ -61,7 +61,7 @@ Status at generation: **all claims verified**
 | ESN advantage at post-onset horizon >= 9 steps | `0.404` | — | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
 | Content-gate detection gain on the content classes, worst seed | `0.307` | — | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
 | Content gate does not degrade behavioural detection, worst seed | `0.039` | — | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
-| Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated | `0.488` | `53` episodes | `results/tables/model_transfer.csv` | `py -m derail.experiments.run_model_transfer` |
+| Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated | `0.522` | `53` episodes | `results/tables/model_transfer.csv` | `py -m derail.experiments.run_model_transfer` |
 | Measured gemini-2.5-flash judge detection rate | `0.548` | `84` positives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
 | Measured gemini-2.5-flash judge false-alarm rate | `0.052` | `77` negatives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
 | Pooled injected episodes in the grounding table | `874` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |

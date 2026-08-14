@@ -69,6 +69,17 @@ from derail.monitor.hybrid import HybridLogistic, HybridWeighted, make_hybrids
 
 CONTENT_CLASSES = ("context_corruption", "wrong_document", "malformed_json")
 
+#: Datasets the PUBLISHED results/tables/grounding_*.csv are computed from.
+#: The same guard `run_hybrid_study.PUBLISHED_DATASETS` provides, and for the
+#: same reason: defaulting to all of `REAL_DATASETS` lets a corpus added later
+#: widen the scope of every grounding table on the next regeneration, without
+#: anyone asking. Request anything outside this set explicitly with --datasets.
+GROUNDING_PUBLISHED_DATASETS: tuple[str, ...] = (
+    "gemini", "autogen7b", "ollama7b", "langgraph7b",
+    "real_research7b", "real_research7b_long", "real_research3b",
+    "ollama_llama8b", "real_gemini_long", "real_research7b_long_ext",
+)
+
 
 def _crossfit_logistic(make, train, test, name_label, seed=0):
     """Out-of-fold scores for EVERY test episode under one rule + a val scorer.
@@ -334,7 +345,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="py -m derail.experiments.run_grounding_study")
     parser.add_argument("--datasets", nargs="*",
-                        default=list(REAL_DATASETS))
+                        default=list(GROUNDING_PUBLISHED_DATASETS))
     parser.add_argument("--out-prefix", default="grounding")
     parser.add_argument("--st", action="store_true",
                         help="MiniLM for ALL semantic dims (explicit "

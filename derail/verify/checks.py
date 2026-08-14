@@ -24,31 +24,66 @@ line items; confirm every declared-required call happened. What is per-task is
 the small `TaskSpec` saying which tools return line items and with what
 multiplicity. That spec is written once by whoever defines the task; it is not
 harvested from 120 calibration runs.
+
+The NUMBER READER underneath, and its dialect
+---------------------------------------------
+The mechanism is task-independent; the dialect the numbers are written in is
+not, so it is declared on the spec beside the line items: `currency` and
+`total_labels`, defaulting to US dollars and English. That matters because a
+figure the reader cannot match is not read as "unpriced" — it is read as
+absent, i.e. as "nothing to reconcile", which is a pass. Both readers
+therefore refuse input outside their declared dialect
+(`UnsupportedInputError`), and `TaskSpec.strict_currency=False` restores the
+blind behaviour for a caller that has decided it is acceptable.
 """
 
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 
+from derail.preconditions import (DEFAULT_CURRENCY, currency_tokens,
+                                  require_readable_money)
 from derail.telemetry.events import (ToolCallEvent, canonical_args,
                                      parse_tool_bits)
 
-#: A money-ish figure in a tool result, e.g. "$502" or "$165/night".
-_PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)")
-#: The agent's stated figure: "$4,935" or "4935 USD".
-_STATED_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*usd",
-                        re.I)
+#: The words the answer may use to name its total, most specific first.
+DEFAULT_TOTAL_LABELS = ("grand total", "overall total", "total")
+_AMOUNT = r"(\d[\d,]*(?:\.\d+)?)"
 
 
-#: A figure the answer explicitly calls the total. Preferred over "the last
-#: monetary figure", which mis-reads an answer that ends on a line item —
-#: observed live when a repaired run replied "Total flight cost: $2755, hotel
-#: cost: $1836, ...". Verified to change no verdict on the 480 committed
-#: demo-task episodes, so it is a strictly safer reading of the same rule.
-_LABELLED_TOTAL_RE = re.compile(
-    r"(?:grand\s+total|overall\s+total|total)(?!\s+\w+\s+cost)"
-    r"\D{0,40}?\$?\s?([\d,]+(?:\.\d+)?)", re.I)
+@lru_cache(maxsize=32)
+def _readers(currency: str, total_labels: tuple[str, ...]
+             ) -> tuple[re.Pattern[str], re.Pattern[str], re.Pattern[str]]:
+    """The three number readers for one (currency, label vocabulary).
+
+    Cached because `total_consistency` calls them once per tool result and the
+    patterns are pure functions of the spec.
+    """
+    sym = re.escape(currency)
+    code = re.escape(_symbol_code(currency))
+    labels = "|".join(re.escape(w).replace(r"\ ", r"\s+")
+                      for w in total_labels)
+    #: A money-ish figure in a tool result, e.g. "$502" or "$165/night".
+    price = re.compile(rf"{sym}\s?{_AMOUNT}")
+    #: The agent's stated figure: "$4,935" or "4935 USD".
+    stated = re.compile(rf"{sym}\s?{_AMOUNT}|{_AMOUNT}\s*{code}", re.I)
+    #: A figure the answer explicitly calls the total. Preferred over "the last
+    #: monetary figure", which mis-reads an answer that ends on a line item —
+    #: observed live when a repaired run replied "Total flight cost: $2755,
+    #: hotel cost: $1836, ...". Verified to change no verdict on the 480
+    #: committed demo-task episodes, so it is a strictly safer reading.
+    labelled = re.compile(
+        rf"(?:{labels})(?!\s+\w+\s+cost)\D{{0,40}}?{sym}?\s?"
+        rf"([\d,]+(?:\.\d+)?)", re.I)
+    return price, stated, labelled
+
+
+def _symbol_code(currency: str) -> str:
+    """The ISO code that pairs with a currency symbol ('$' -> 'USD')."""
+    return next((t for t in currency_tokens(currency) if t != currency),
+                currency)
 
 
 def _to_float(raw: str) -> float | None:
@@ -58,27 +93,45 @@ def _to_float(raw: str) -> float | None:
         return None
 
 
-def first_price(result: str) -> float | None:
-    """The first monetary figure in a tool result, or None."""
-    m = _PRICE_RE.search(result or "")
+def first_price(result: str, strict: bool = True,
+                currency: str = DEFAULT_CURRENCY) -> float | None:
+    """The first `currency` figure in a tool result, or None.
+
+    None means "this result quoted no price". `strict` keeps that true by
+    refusing a result that quotes one this reader cannot see.
+    """
+    if strict:
+        require_readable_money(result or "", "first_price", currency)
+    price, _, _ = _readers(currency, DEFAULT_TOTAL_LABELS)
+    m = price.search(result or "")
     return _to_float(m.group(1)) if m else None
 
 
-def stated_total(text: str) -> float | None:
+def stated_total(text: str, strict: bool = True,
+                 currency: str = DEFAULT_CURRENCY,
+                 total_labels: tuple[str, ...] = DEFAULT_TOTAL_LABELS
+                 ) -> float | None:
     """The total the agent asserts.
 
     Read from the figure the answer explicitly labels as a total; failing that,
     the last monetary figure. Position alone mis-reads an answer that ends on a
     line item, and a plain substring test mis-reads one whose line item happens
     to contain the right digits.
+
+    None means "the agent stated no total" — a finding in itself — so `strict`
+    refuses an answer whose total is stated in an unreadable currency rather
+    than reporting one that was never made.
     """
-    m = _LABELLED_TOTAL_RE.search(text or "")
+    if strict:
+        require_readable_money(text or "", "stated_total", currency)
+    _, stated, labelled = _readers(currency, tuple(total_labels))
+    m = labelled.search(text or "")
     if m is not None:
         v = _to_float(m.group(1))
         if v is not None:
             return v
     vals = []
-    for m in _STATED_RE.finditer(text or ""):
+    for m in stated.finditer(text or ""):
         v = _to_float(m.group(1) or m.group(2))
         if v is not None:
             vals.append(v)
@@ -121,6 +174,17 @@ class TaskSpec:
     #: relative tolerance when comparing the stated total to the recomputed one
     tolerance: float = 0.01
     name: str = "task"
+    #: Refuse text pricing anything in a currency this spec's number reader
+    #: cannot see, instead of silently reading it as priceless and passing.
+    #: Set False only for a corpus known to contain such text, where a blind
+    #: reading is a decision rather than an oversight.
+    strict_currency: bool = True
+    #: The currency the task is priced in, and the words its answers use to
+    #: name a total. The mechanism is task-independent; these two are not, so
+    #: they are declared here beside the line items rather than fixed in the
+    #: parser. A euro task in French passes its own.
+    currency: str = DEFAULT_CURRENCY
+    total_labels: tuple[str, ...] = DEFAULT_TOTAL_LABELS
 
 
 @dataclass
@@ -148,10 +212,20 @@ class VerificationResult:
     findings: list[Finding] = field(default_factory=list)
     recomputed_total: float | None = None
     stated: float | None = None
+    #: Why the totals check could not run, or None if it ran. Distinct from a
+    #: pass: no findings and `unverifiable` set means "not checked", which
+    #: `failed` deliberately does NOT report as a failure and a caller must
+    #: not read as a clean bill.
+    unverifiable: str | None = None
 
     @property
     def failed(self) -> bool:
         return bool(self.findings)
+
+    @property
+    def checked(self) -> bool:
+        """True only if the totals check actually read evidence."""
+        return self.unverifiable is None
 
 
 def _events_per_step(steps: list[dict]) -> list[list[ToolCallEvent]]:
@@ -250,7 +324,15 @@ def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
     That keeps what matters: a dropped line item, a double count or a spurious
     operation leaves no valid selection at all. Where no count is declared, all
     observed prices are used, as before. Nothing here reads the hidden world.
+
+    When there is no evidence to reconcile, the result is marked
+    `unverifiable` rather than returned clean: a spec that prices nothing has
+    no contract here, and a priced spec that observed no price has a contract
+    it could not test. For BOOKING_SPEC `required_coverage` catches the second
+    case on every booking-shaped episode in the corpus, but that is a property
+    of that spec's required counts, not a guarantee this check makes.
     """
+    strict = spec.strict_currency
     per_step = _events_per_step(steps)
     priced = {li.tool: li for li in spec.line_items}
     prices: dict[str, list[float]] = {}
@@ -267,7 +349,7 @@ def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
                 if key in bucket:      # same item re-queried, not bought twice
                     continue
                 bucket.add(key)
-            p = first_price(e.result)
+            p = first_price(e.result, strict=strict, currency=spec.currency)
             if p is None:
                 continue
             prices.setdefault(e.name, []).append(p)
@@ -280,14 +362,21 @@ def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
 
     said = None
     for s in reversed(steps):
-        said = stated_total(str(s.get("text", "")))
+        said = stated_total(str(s.get("text", "")), strict=strict,
+                            currency=spec.currency,
+                            total_labels=spec.total_labels)
         if said is not None:
             break
 
     res = VerificationResult(recomputed_total=total if seen_any else None,
                              stated=said)
     last = len(steps) - 1
+    if not priced:
+        res.unverifiable = "the task spec declares no priced line items"
+        return res
     if not seen_any:
+        res.unverifiable = ("no priced tool result was observed, so there was "
+                            "nothing to reconcile the stated total against")
         return res
     if said is None:
         res.findings.append(Finding("total_consistency", last,
@@ -458,4 +547,64 @@ if __name__ == "__main__":       # module self-test (no corpus, no network)
     # A tool result the agent never received cannot be invented by the check.
     assert first_price("Error: 429 rate limited") is None
     assert stated_total("no money here") is None
+
+    # --- preconditions -------------------------------------------------
+    from derail.preconditions import UnsupportedInputError
+
+    # A priced spec that observed no price is not a pass.
+    no_prices = [{"text": '[get_weather({"c": "x"}) -> sunny]'},
+                 {"text": "The grand total is $1120 USD."}]
+    r4 = total_consistency(no_prices, BOOKING_SPEC)
+    assert not r4.findings and not r4.checked, r4
+    assert "nothing to reconcile" in r4.unverifiable
+
+    # Nor is a spec that prices nothing at all — RESEARCH_SPEC is coverage-only
+    # and must not be readable as "the totals check passed".
+    r5 = total_consistency(two_arxiv, RESEARCH_SPEC)
+    assert not r5.findings and not r5.checked, r5
+
+    # A real check that ran reports so.
+    assert verify(ok, BOOKING_SPEC).checked
+
+    # Money this reader cannot see is refused, not read as absent.
+    euro = list(ok[:-1]) + [{"text": "The grand total is €1120."}]
+    try:
+        verify(euro, BOOKING_SPEC)
+    except UnsupportedInputError as exc:
+        assert "1120" in str(exc)
+    else:
+        raise AssertionError("a euro total must be refused, not read as none")
+    import dataclasses
+    blind = dataclasses.replace(BOOKING_SPEC, strict_currency=False)
+    r6 = verify(euro, blind)
+    assert not r6.failed and r6.stated == 1120.0, r6.findings
+    # ^ what the guard is FOR: blind, the reader takes €1120 for $1120, finds
+    #   it equals the dollars the tools returned, and passes the run.
+
+    # A euro task declares its dialect — currency, total wording, and the
+    # result shapes its tools return — and is checked properly in it.
+    eur_spec = dataclasses.replace(
+        BOOKING_SPEC, currency="€", total_labels=("montant total", "total"),
+        result_contracts=(("lookup_flight", r"^€\d+(\.\d+)?$"),
+                          ("lookup_hotel", r"^€\d+(\.\d+)?/night$")))
+    eur_ok = [{"text": '[lookup_flight({"a": 1}) -> €100]'},
+              {"text": '[lookup_flight({"a": 2}) -> €200]'},
+              {"text": '[lookup_flight({"a": 3}) -> €300]'},
+              {"text": '[lookup_flight({"a": 4}) -> €400]'},
+              {"text": '[lookup_hotel({"c": "x"}) -> €10/night]'},
+              {"text": '[lookup_hotel({"c": "y"}) -> €20/night]'},
+              {"text": '[lookup_hotel({"c": "z"}) -> €30/night]'},
+              {"text": '[get_weather({"c": "x"}) -> beau]'},
+              {"text": "Le montant total est €1120."}]
+    r7 = verify(eur_ok, eur_spec)
+    assert not r7.failed, r7.findings
+    assert r7.recomputed_total == 1120.0 and r7.stated == 1120.0
+    eur_bad = list(eur_ok[:-1]) + [{"text": "Le montant total est €4935."}]
+    assert verify(eur_bad, eur_spec).failed, "a wrong euro total must fail"
+    try:
+        verify(ok, eur_spec)          # the dollar run, read by the euro spec
+    except UnsupportedInputError:
+        pass
+    else:
+        raise AssertionError("a euro spec must refuse dollar figures")
     print("PASS: verify.checks self-test")

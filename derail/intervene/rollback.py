@@ -79,7 +79,7 @@ class Attempt:
     findings_after: list[Finding]
 
 
-def rollback_step(steps: list[dict], spec: TaskSpec = BOOKING_SPEC) -> int:
+def rollback_step(steps: list[dict], spec: TaskSpec) -> int:
     """Index to resume from: just after the last priced lookup.
 
     That is the last point at which the run was still gathering facts, before
@@ -191,7 +191,13 @@ def retry_from_checkpoint(steps: list[dict], seed: int, rung: str,
                           model: str = "qwen2.5:7b",
                           temperature: float = 0.2,
                           spec: TaskSpec = BOOKING_SPEC) -> Attempt:
-    """Roll back, apply the rung's repair, and re-run the agent live."""
+    """Roll back, apply the rung's repair, and re-run the agent live.
+
+    Booking-bound by construction, not just by the default `spec`: it rebuilds
+    the world and the task with `_make_world`/`_make_demo_task`. Another domain
+    needs its own runner, not another argument here. `rollback_step` above is
+    the generic half and takes no default.
+    """
     before = verify(steps, spec).findings
     k = rollback_step(steps, spec)
     world = _make_world(seed)
@@ -240,7 +246,7 @@ if __name__ == "__main__":       # self-test: no model, no network
         {"text": '[lookup_hotel({"c": "x"}) -> $10/night]'},
         {"text": 'The grand total is $999 USD.'},
     ]
-    k = rollback_step(trace)
+    k = rollback_step(trace, BOOKING_SPEC)
     assert k == 3, k          # resume just after the last priced lookup
 
     f = verify(trace, BOOKING_SPEC).findings

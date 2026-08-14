@@ -32,6 +32,7 @@ FAST = [
     "derail.monitor.escalation",
     "derail.monitor.esn",
     "derail.monitor.grounding_verify",
+    "derail.preconditions",
     "derail.telemetry.adapter",
     "derail.telemetry.generator",
     "derail.verify.checks",

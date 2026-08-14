@@ -1,12 +1,9 @@
 # Hybrid ESN + Mahalanobis monitor study — final report
 
-> **Source of record.** This report's headline claims — grand-mean ordering,
-> per-seed logistic advantage, the grounding success criterion, the
-> organic-failure decomposition and cross-model transfer — were re-derived
-> against the artifacts regenerated under the corrected pipeline (ESN
-> fit/score alignment plus the label-independent evaluation protocol). Where a
-> figure in the narrative below differs from the regenerated CSVs, the **CSVs
-> in `results/tables/` govern**.
+> **Source of record: the CSVs in `results/tables/` govern.** Every figure in
+> this report is recomputed from the committed tables, and the verdicts stated
+> here follow those numbers rather than the other way round. Where this
+> document and a CSV disagree, the CSV is right.
 
 Code: `derail/monitor/hybrid.py`,
 `derail/experiments/run_hybrid_study.py`, `collect_research7b_long.py`.
@@ -71,18 +68,24 @@ Detection rate averaged across datasets (`hybrid_per_class.csv`):
 | class | ESN | Maha | verdict |
 |---|---|---|---|
 | grounding_loss | **0.98** | 0.08 | temporal (slow drift) |
-| tool_cascade | **0.80** | 0.77 | temporal, weakly |
-| context_corruption | **0.38** | 0.19 | temporal, both weak |
-| goal_drift | 0.28 | 0.28 | tie, both weak |
-| timeout | 0.41 | **0.45** | state-based, weakly |
-| looping | 0.61 | **0.69** | state-based on short episodes |
-| rate_limit | 0.68 | **0.82** | state-based (abrupt error state) |
-| malformed_json / wrong_document | 0.14 / 0.09 | 0.05 / 0.05 | content corruption: nobody |
+| looping | **0.84** | 0.71 | temporal |
+| tool_cascade | **0.82** | 0.70 | temporal |
+| timeout | 0.56 | 0.56 | tie |
+| goal_drift | **0.49** | 0.15 | temporal, ESN weak in absolute terms |
+| context_corruption | **0.35** | 0.17 | temporal, both weak |
+| rate_limit | 0.63 | 0.65 | tie |
+| malformed_json | 0.18 | **0.22** | content corruption: nobody |
+| wrong_document | 0.11 | **0.19** | content corruption: nobody |
 
-Reading: failures that *build* (drift, cascades) need the reservoir's
-memory; failures that *jump* to an anomalous state (error storms) are
-caught instantly by the distance. Content corruption that changes data but
-not behavior remains undetected by every monitor — unchanged limitation.
+Reading: **there is no state-based column.** The ESN leads on every class
+that involves behaviour changing over steps, ties on the two abrupt-error
+classes (timeout, rate_limit), and is beaten only on the two *content*
+classes — where both monitors are near-useless anyway (0.11–0.22), which is
+precisely the blind spot the grounding channel exists to cover. The
+memory-versus-distance split is therefore not a split: the reservoir wins
+wherever there is anything to accumulate and ties where there is not, and
+neither monitor sees corruption that changes data without changing
+behaviour.
 
 ## 3. Hybrid results (`hybrid_benchmark.csv`)
 
@@ -95,10 +98,10 @@ AUROC by dataset (best in **bold**):
 | autogen7b | **0.833** | 0.774 | 0.822 | 0.819 | 0.810 | 0.777 |
 | ollama7b | 0.994 | 0.895 | 0.994 | 0.994 | **0.997** | 0.982 |
 | langgraph7b (held out, §7) | 0.828 | 0.885 | 0.875 | **0.906** | 0.885 | 0.884 |
-| real_research3b | 0.556 | **0.665** | 0.565 | 0.609 | 0.556 | 0.643 |
+| real_research3b | 0.556 | **0.668** | 0.565 | 0.612 | 0.556 | 0.640 |
 | real_research7b | 0.777 | 0.848 | 0.815 | 0.813 | **0.849** | 0.847 |
 | real_research7b_long | 0.790 | 0.849 | 0.790 | 0.790 | 0.782 | **0.857** |
-| **grand mean (8 datasets)** | 0.802 | 0.807 | 0.812 | 0.821 | 0.813 | **0.826** |
+| **grand mean (8 datasets)** | 0.802 | 0.808 | 0.812 | 0.821 | 0.813 | **0.826** |
 
 Logistic features use robust-z clipping at ±50 (`HybridLogistic(clip=50)`).
 The bound was chosen empirically: unclipped features reach z ~ 1e6 and
@@ -109,18 +112,25 @@ conditioning and matches or beats the unclipped variant on all six
 datasets (autogen7b +0.012, research7b_long +0.032).
 
 Statistical validation (`hybrid_stats.csv`, paired per-episode tests):
-hybrid_logistic is **never significantly below the local winner** (sim vs
-ESN: ΔAUC CI [−0.012, +0.007]; research7b vs Maha: CI [−0.009, +0.016];
-research7b_long vs Maha: CI [−0.034, +0.032]) and **significantly above
-the local loser** everywhere it matters (sim vs Maha: ΔAUC CI [+0.070,
-+0.132], McNemar p≈2e-40; research7b vs ESN: CI [+0.014, +0.100], McNemar
-p=3e-4; autogen7b vs Maha: McNemar p=0.03; research7b_long vs ESN:
-permutation p=5e-5 on lead).
+hybrid_logistic is **never significantly below the local winner on any of
+the eight datasets** — every ΔAUC confidence interval against the better
+standalone includes zero (tightest: research7b vs Maha [−0.010, +0.007];
+sim vs ESN [−0.009, +0.008]; langgraph7b vs Maha [−0.020, +0.021]; widest:
+research3b vs Maha [−0.333, +0.221], which is the small-corpus noise floor,
+not evidence of parity). Against the local *loser* it is significantly
+above on three datasets in AUROC (sim vs Maha [+0.074, +0.134], McNemar
+p = 1.8e-39; research7b vs ESN [+0.018, +0.133]; ollama7b vs Maha
+[+0.033, +0.146]) and elsewhere the interval straddles zero. Read the
+detection tests separately from the ranking intervals: research7b vs ESN is
+a clear AUROC win at McNemar p = 0.56 on detection, and autogen7b vs Maha is
+p = 0.22. A ranking gain is not an alarming gain.
 Supervision discipline: logistic weights come from the sim `cal` split or
 2-fold class-stratified cross-fit on real data — no episode is scored by a
 model that saw it in training. Weighted-0.5 is the recommended label-free
-variant (grand mean 0.812); gated never leads and its gate calibration is
-the weakest idea of the four; max now edges weighted (0.821 vs 0.812).
+variant (grand mean 0.812); max edges it (0.821). Gated takes the
+per-dataset lead on gemini, ollama7b and real_research7b but grand-means
+below max, and its gate calibration remains the least principled of the
+fusion rules.
 
 ## 4. Runtime (sim test set, 560 episodes)
 
@@ -139,7 +149,7 @@ under 5 s). All remain orders of magnitude below a judge-LLM call.
 **Deploy the hybrid.** Concretely:
 
 1. **Default (label-free deployments): `hybrid_weighted50`** — no labels
-   needed, grand-mean AUROC 0.812 > Maha 0.807 > ESN 0.802 over eight
+   needed, grand-mean AUROC 0.812 > Maha 0.808 > ESN 0.802 over eight
    datasets, never far from the local winner, +9% latency over ESN.
 2. **When ≥ ~20 labeled failure episodes exist: `hybrid_logistic`** — best
    grand mean (0.826), statistically at-or-above the better standalone on
@@ -173,36 +183,43 @@ Evidence: `hybrid_coefficients.csv`, `hybrid_complementarity.csv`, and
 `results/figures/hybrid_explain.png` — all derived from the exact scoring
 path of the benchmark (`hybrid_explain.csv`).
 
-**(a) The two detectors cover different failures.** Over all 793 injected
-episodes, 288 are caught by both standalones, but 197 are ESN-only and 54
-are Mahalanobis-only — 251 episodes (32%) where exactly one detector sees
-the failure. That partial overlap is the raw material fusion exploits.
+**(a) The two detectors cover different failures.** Over all 1,002 injected
+episodes, 372 are caught by both standalones, but 273 are ESN-only and 57
+are Mahalanobis-only — 330 episodes (32.9%) where exactly one detector sees
+the failure. That partial overlap is the raw material fusion exploits. Note
+the asymmetry: the ESN-only set is nearly five times the Mahalanobis-only
+set, so most of what fusion has to recover is reservoir evidence.
 
-**(b) The logistic recovers most of both one-sided sets.** Detection rate
-of hybrid_logistic inside each complementarity cell: both-detect **1.00**
-(288/288), ESN-only **0.81**, Maha-only **0.63**, neither **0.01**. It
-keeps essentially everything the union offers while staying at the 5% FA
-budget — and where neither sub-detector fires it stays silent rather than
-hallucinating alarms.
+**(b) The logistic recovers most of both one-sided sets, but not all.**
+Detection rate of hybrid_logistic inside each complementarity cell:
+both-detect **0.96** (372 episodes), ESN-only **0.61**, Maha-only **0.75**,
+neither **0.01**. So it keeps almost everything both parents agree on,
+recovers three-quarters of the smaller Mahalanobis-only set and only
+three-fifths of the larger ESN-only set, and stays essentially silent where
+neither sub-detector fires. It does not keep everything the union offers —
+holding the 5% FA budget costs it about 40% of the ESN-only cell.
 
 **(c) The weights learn which regime the deployment is in.** The
 Mahalanobis share of the learned weight mass tracks the dataset's
-character: 0.34 on sim (long horizons — lean on the reservoir), 0.38 on
-ollama7b, ~0.55–0.64 on langgraph7b/autogen7b (mixed), 0.90–1.03 on
-gemini/research7b/research7b_long (short horizons — lean on the distance).
-~20 labeled episodes suffice to place the boundary; the intercept
-consistently lands near −1.3, i.e. the boundary passes close to the
-healthy cluster's edge.
+character: **0.38** on sim (long horizons — lean on the reservoir),
+**0.48** on gemini, **0.78** on research3b, then **0.87–0.90** on
+langgraph7b/ollama7b and **0.98–1.00** on
+research7b_long/autogen7b/research7b (short horizons — lean on the
+distance). ~20 labeled episodes suffice to place the boundary. The
+intercept does *not* land in a consistent place: it ranges from −1.28
+(research7b) to −5.19 (ollama7b), so the boundary's distance from the
+healthy cluster is itself a per-deployment quantity.
 
 **(d) The picture.** In the figure, each episode is plotted at the step
 that maximizes the fused score, Mahalanobis confidence on x, ESN
 confidence on y. On sim the decision boundary is nearly **horizontal**
-(alarms are decided by ESN evidence); on gemini/research7b/long it is
-nearly **vertical** (Mahalanobis decides); on autogen7b/langgraph7b it is
-**diagonal** — both matter. Detected episodes hug one axis or the other,
-almost never the diagonal middle: the sub-detectors fire on *different*
-failures, and the learned line is what turns that union into one
-calibrated alarm.
+(alarms are decided by ESN evidence); on autogen7b, research7b and
+research7b_long it is nearly **vertical** (Mahalanobis decides, with the
+ESN coefficient at or below zero); gemini is the **diagonal** case where
+both coefficients are comparable (0.78 ESN against 0.70 Maha). Detected
+episodes hug one axis or the other, almost never the diagonal middle: the
+sub-detectors fire on *different* failures, and the learned line is what
+turns that union into one calibrated alarm.
 
 ## 7. Held-out generalization: langgraph7b
 
@@ -211,24 +228,33 @@ was **never used while developing the hybrids** — it entered the study
 only after the fusion design, clip value, and defaults were frozen. Same
 protocol, thresholds, and tests as every other dataset.
 
-Results (AUROC): Maha **0.738** > gated 0.710 > max 0.700 > weighted =
-logistic 0.671 > ESN 0.643. Runtime unchanged (hybrids ≈ 188–262 µs/step
-vs 6 µs Maha / 209 µs ESN). This is the noisiest dataset in the corpus
-(healthy-val FA 25% for every monitor at the 5% budget — 12 healthy val
-episodes; detection 0.31–0.49).
+Results (AUROC): max **0.906** > Maha = gated 0.885 > logistic 0.884 >
+weighted 0.875 > ESN 0.828 (`hybrid_benchmark.csv`). Runtime unchanged
+(hybrids 164–170 µs/step vs 3.8 µs Maha / 156 µs ESN). Detection at the 5%
+budget spans 0.51 (ESN) to 0.74 (Maha), at realized healthy false-alarm
+rates of 0.00 (ESN, weighted) to 0.14 (Maha) — the monitors that detect
+most here also alarm most.
 
-Verdict, stated precisely: the core claim **survives** — the best hybrid
-(gated) is statistically indistinguishable from the local winner (ΔAUC CI
-[−0.076, +0.019] vs Maha) and significantly above the local loser (CI
-[+0.010, +0.144] vs ESN, McNemar p = 0.03). The hybrids sit between the
-standalones rather than collapsing. What does **not** replicate here is
-hybrid_logistic's usual edge: with only 18/17 injected episodes per
-cross-fit fold on a noisy set, its per-dataset advantage disappears
-(on par with weighted). The grand-mean ordering over all datasets holds
-(logistic 0.830 > max 0.817 > Maha 0.812 > gated ≈ weighted 0.810 >
-ESN 0.800), and the deployment recommendation in §5 stands —
-with the honest caveat that on small, noisy healthy pools the label-free
-weighted variant is as good as the learned one.
+Verdict, stated precisely: the core claim **survives, and on this dataset
+more than survives.** The best hybrid (max) is significantly *above* the
+local winner in ranking — ΔAUC CI [+0.001, +0.053] vs Maha, entirely above
+zero — and above the local loser too (CI [+0.014, +0.149] vs ESN). But read
+ranking and alarming apart: on detection at the budget, Maha beats max 0.74
+to 0.56, and McNemar makes that gap real (17 Maha-only detections against 1
+max-only, p = 1.4e-4, surviving Holm). So the fusion orders episodes better
+than either parent while firing less often than the better-firing parent —
+exactly the pooled-advantage-not-dominance pattern §3 reports, appearing
+again on a set the design never saw.
+
+hybrid_logistic replicates its usual edge here: level with Maha on AUROC
+(CI [−0.020, +0.021]), clearly above ESN on detection (21 logistic-only
+against 2 ESN-only, p = 6.6e-5, Holm-rejected), and ahead of the label-free
+weighted variant on both AUROC (0.884 vs 0.875) and detection (0.71 vs
+0.56).
+
+The grand-mean ordering over all datasets holds (logistic 0.825 > max
+0.817 > weighted 0.810 ≈ gated 0.809 > Maha 0.805 > ESN 0.800), and the
+deployment recommendation in §5 stands.
 
 ## 8. Multiseed stability (5 seeds)
 
@@ -238,14 +264,14 @@ simulator master seed, with data splits frozen per protocol
 (`run_hybrid_multiseed.py`; seed 0 verified byte-identical to the
 published tables).
 
-Grand-mean AUROC across seeds (post-remediation regeneration): logistic
-**0.830 ± 0.006** > max 0.817 ± 0.006 > Maha 0.812 ± 0.003 > gated 0.810 ±
-0.006 ≈ weighted 0.810 ± 0.005 > ESN 0.800 ± 0.004. Two conclusions:
+Grand-mean AUROC across seeds: logistic **0.825 ± 0.007** > max 0.817 ±
+0.006 > weighted 0.810 ± 0.005 ≈ gated 0.809 ± 0.006 > Maha 0.805 ± 0.003 >
+ESN 0.800 ± 0.003. Two conclusions:
 
 1. **The learned-hybrid-over-standalone gap survives seed noise, paired
-   per seed, and is larger than before:** logistic − ESN = +0.030 ± 0.003
-   (positive at every seed, worst +0.025); logistic − Maha = +0.019 ±
-   0.005 (worst +0.010); the label-free weighted − ESN = +0.010 ± 0.002
+   per seed:** logistic − ESN = +0.025 ± 0.004 (positive at every seed,
+   worst +0.019); logistic − Maha = +0.021 ± 0.006 (worst +0.011); the
+   label-free weighted − ESN = +0.010 ± 0.002
    (worst +0.007). Note that Δ-Mahalanobis now grand-means *above* the ESN
    and above the weighted/gated hybrids — it is a strong baseline, and only
    the *learned* logistic fusion clears it. Differences among the
@@ -269,36 +295,41 @@ yield exact zeros (verified inert). Ungrounded reference monitors were
 scored on a 51-dim view so no grounding information leaks into baselines.
 
 **The success criterion** (content classes must improve, behavioral classes
-must not degrade), pooled over all 393 injected episodes across six real
-datasets, paired McNemar:
+must not degrade), pooled over all 874 injected episodes across the ten
+real datasets (`grounding_multiseed_criterion.csv`, seed 0):
 
-| comparison | content (n=140) | behavioral (n=253) |
+| comparison vs the ungrounded hybrid | content (n=313) | behavioral (n=561) |
 |---|---|---|
-| hybrid_weighted_g vs hybrid_weighted50 | 0.15 → **0.34** (+27/−1, p=2.2e-7) | 0.62 → **0.65** (+9/−0, p=0.004) |
-| hybrid_logistic_g vs hybrid_logistic | 0.14 → **0.33** (+27/−0, p=1.5e-8) | 0.70 → 0.66 (−9, p=0.004) |
+| hybrid_content_gate | 0.272 → **0.578** (+0.307) | 0.738 → **0.786** (+0.048) |
+| hybrid_adaptive | 0.272 → **0.524** (+0.252) | 0.738 → **0.777** (+0.039) |
+| hybrid_weighted_g | 0.272 → **0.454** (+0.182) | 0.738 → 0.733 (−0.005) |
+| hybrid_logistic_g | 0.272 → 0.316 (+0.045) | 0.738 → 0.692 (−0.046) |
 
-**hybrid_weighted_g passes both halves** — content detection doubles while
-behavioral detection improves. The logistic variant gains as much on
-content but trades away 9 behavioral detections; use the weighted union.
+**hybrid_content_gate passes both halves** — content detection more than
+doubles while behavioral detection improves. `hybrid_adaptive` also passes.
+The weighted and logistic grounded unions do not: both trade away
+behavioral detections, the logistic one heavily. Use the gate.
 
-Per-class means across datasets: malformed_json 0.07 → **0.91** (closed;
-the standalone channel scores 1.00), context_corruption 0.18 → **0.33**
-(halved gap; the standalone channel reaches 0.77 on real_research7b),
-wrong_document 0.13 → 0.05–0.27 (**open** — hash embeddings are too crude
-for semantic query↔result relevance; a MiniLM opt-in is the obvious next
-probe). Best single dataset: real_research7b_long, hybrid_weighted_g AUROC
-0.913 / detection 0.83 at 0% FA (ungrounded best: 0.845/0.71).
+Per-class means across the ten datasets (ungrounded → content gate):
+malformed_json 0.13 → **0.90**, context_corruption 0.34 → **0.58**,
+wrong_document 0.09 → **0.47**. None of the three is closed everywhere:
+malformed_json and context_corruption reach 1.00 on the long research
+collectors and stay at 0.15–0.17 on langgraph7b and research3b, and
+wrong_document is 1.00 on real_gemini_long and _long_ext but 0.00 on
+research7b_long. Where the corruption alters result text the channel sees
+it; where it does not, nothing does.
 
-Grand-mean AUROC (6 real datasets): hybrid_logistic_g 0.833 >
-hybrid_weighted_g 0.820 > hybrid_logistic 0.812 > weighted50 0.798 >
-Maha 0.794 > ESN 0.787.
+Grand-mean AUROC (ten real datasets): hybrid_logistic_g 0.864 ≈
+hybrid_content_gate 0.864 > hybrid_adaptive 0.856 > joint_budget 0.831 >
+hybrid_weighted_g 0.822 > hybrid_logistic 0.819 > Maha 0.810 > ESN 0.809 >
+weighted50 0.807. The standalone grounding stream alone is 0.595 — it is a
+complement, not a monitor.
 
-Ablation (each dim alone): char_anom is the workhorse (malformed_json
-1.00, context_corruption 0.27 single-handedly); query_dis supplies the
-only wrong_document signal (0.09); reason_dis/self_dis contribute small
-context signals; json_broken detects nothing on this corpus — the
-injector's malformations are caught earlier by character statistics — but
-stays as the principled detector for malformed-but-clean-charset JSON.
+Ablation (each dim alone, `grounding_ablation.csv`): char_anom is the
+workhorse (malformed_json **1.00**, context_corruption 0.37
+single-handedly); **lex_miss is the strongest wrong_document signal at
+0.60**, ahead of query_dis (0.28); reason_dis/mem_dis contribute small
+malformed-json signals (0.20); json_broken reaches 0.40 on malformed_json.
 
 Runtime: the grounded union costs 202 µs/step monitor-side (vs 196
 ungrounded) plus 253 µs/step in the adapter (four extra hash embeds) —
@@ -341,25 +372,28 @@ realistic val sizes (2.5% of 24 episodes ⇒ θ = max ⇒ behavioral
 detection collapses to 0.05). The working mechanism is a **train-max trip**:
 the grounding stream overrides only above the healthy-train maximum of its
 normalized stream — a level no healthy training episode ever reached, so
-it spends almost no FA budget. Pooled over 393 injected episodes:
+it spends almost no FA budget. Pooled over 874 injected episodes:
 
-| fusion | content (n=140) | behavioral (n=253) | pooled FA | AUROC |
+| fusion | content (n=313) | behavioral (n=561) | mean FA | AUROC |
 |---|---|---|---|---|
-| weighted50 (ungrounded) | 0.15 | 0.62 | 0.126 | 0.798 |
-| weighted_g (§9) | 0.34 | 0.68 | 0.099 | 0.821 |
-| **content_gate** | **0.44** (+41/−0, p=9e-13) | **0.68** (+16/−0, p=3e-5) | 0.133 | 0.831 |
-| dual_budget | **0.46** (+44/−0, p=1e-13) | 0.68 | 0.140 | 0.799 |
-| adaptive | 0.34 | 0.68 | **0.099** | 0.825 |
+| weighted50 (ungrounded) | 0.272 | 0.738 | 0.118 | 0.807 |
+| weighted_g (§9) | 0.454 | 0.733 | 0.105 | 0.822 |
+| **content_gate** | **0.578** | **0.786** | 0.122 | **0.864** |
+| joint_budget | 0.53 (ctx) | — | **0.105** | 0.831 |
+| adaptive | 0.524 | 0.777 | 0.116 | 0.856 |
 
-**Guards (objective 4)**: behavioral detection improves under every new
-fusion (+16/−0); malformed_json improves (0.91 → 0.93–0.98);
-context-gate runtime is 204 µs/step — indistinguishable from weighted_g;
-FA moves ≤ +1.4 points vs the ungrounded baseline.
+**Guards (objective 4)**: behavioral detection improves under the gate and
+adaptive (+0.048, +0.039) and *falls* under weighted_g and logistic_g;
+malformed_json improves 0.13 → 0.90; FA moves ≤ +0.4 points vs the
+ungrounded baseline, and the gate is not the cheapest — joint_budget and
+weighted_g run lower FA.
 
 **Context corruption per dataset** (weighted50 → content_gate):
-real_research7b 0.00 → **0.64** (channel ceiling 0.77), research7b_long
-0.00 → **0.83** (= channel ceiling), autogen7b 0.67 → 0.67, gemini 0.24 →
-0.24 (v1, inert channel), langgraph7b 0.18 → 0.18, ollama7b 0.00 → 0.00.
+real_research7b 0.05 → **0.36**, research7b_long 0.00 → **1.00**,
+research7b_long_ext 0.00 → **1.00**, real_gemini_long 0.70 → **0.80**,
+ollama7b 1.00 → 1.00, ollama_llama8b 0.88 → 0.88, gemini 0.33 → 0.33 (v1,
+inert channel), langgraph7b 0.15 → 0.15, autogen7b 0.12 → 0.12,
+research3b 0.17 → 0.17.
 
 **Recommendation.** `hybrid_content_gate` is the grounded label-free
 default (`recommended_monitor()` updated); `hybrid_adaptive` is the
@@ -368,10 +402,11 @@ dual_budget adds ~2 points of content detection over the gate for ~1
 point of FA — a deployment choice, not a different mechanism.
 
 **Final assessment: improved where the corruption is visible in content,
-and the fusion loss is eliminated.** Detection reaches 0.44–1.0 on the
+and the fusion loss is eliminated.** Detection reaches 0.36–1.00 on the
 collectors whose corruption actually alters result content (real_research7b
-0.44, real_research7b_long 0.67, ollama7b 1.0) — at or near the standalone
-channel's own ceiling, i.e. fusion no longer loses what the channel sees.
+0.36, both long research sets 1.00, ollama7b 1.00) — at or near the
+standalone channel's own ceiling, i.e. fusion no longer loses what the
+channel sees.
 Pooled content-class detection (all ten datasets) rises from 0.28
 (ungrounded) to 0.59 (content gate), a +0.31 gain that holds at every seed;
 on the longest research collector the content gate reaches 1.00. The remaining misses are of a different kind: corruptions
@@ -405,32 +440,35 @@ no healthy training episode flags, and self-disables elsewhere; the
 supervised logistic instead takes it as a raw fourth feature and prices
 it per domain.
 
-**Results** (pooled, 393 injected episodes, six datasets; paired McNemar
-vs the ungrounded hybrid):
+**Results** (pooled, 874 injected episodes, ten datasets, vs the
+ungrounded hybrid):
 
-| monitor | content (n=140) | behavioral (n=253) | ctx | mjson | wrongdoc | FA |
+| monitor | content (n=313) | behavioral (n=561) | ctx | mjson | wrongdoc | FA |
 |---|---|---|---|---|---|---|
-| weighted50 (ungrounded) | 0.15 | 0.62 | 0.18 | 0.07 | 0.13 | 0.126 |
-| **content_gate** | **0.59** (+62/−0, p=4e-19) | **0.69** improved | 0.43 | 0.93 | 0.58 | 0.133 |
-| dual_budget | 0.61 (+65/−0, p=5e-20) | 0.69 | 0.44 | 0.98 | 0.58 | 0.140 |
-| logistic_g (labels) | 0.48 | 0.66 | 0.21 | 0.72 | **1.00** | 0.126 |
+| weighted50 (ungrounded) | 0.272 | 0.738 | 0.34 | 0.13 | 0.09 | 0.118 |
+| **content_gate** | **0.578** | **0.786** | 0.58 | 0.90 | 0.47 | 0.122 |
+| adaptive | 0.524 | 0.777 | 0.53 | 0.80 | 0.47 | 0.116 |
+| logistic_g (labels) | 0.316 | 0.692 | 0.28 | 0.53 | 0.21 | 0.098 |
 
-On the datasets that carry the class, wrong_document detection is
-**1.00** for every improved fusion on real_research7b; on the long set
-the flag self-disables (dirty null: wordy zero-overlap results occur in
-healthy long episodes) and the supervised logistic covers it at 1.00.
-Behavioral classes improve under every variant; malformed_json improves;
-runtime is unchanged (204 µs/step monitor-side; the lex feature adds ~2
-µs/result at the adapter).
+Read the wrong_document column per dataset rather than pooled: the gate
+reaches **1.00** on real_gemini_long and real_research7b_long_ext, 0.20 on
+research3b, 0.14 on research7b and **0.00** on research7b_long, where the
+flag self-disables against a dirty null (wordy zero-overlap results occur
+in healthy long episodes). The supervised logistic does not rescue that
+case here — it is 0.21 pooled. Behavioral detection improves under the gate
+and adaptive only; runtime is unchanged (204 µs/step monitor-side; the lex
+feature adds ~2 µs/result at the adapter).
 
-**Recommendation.** The lexical zero-overlap flag with clean-null
-gating — the lightest possible mechanism (string ops, no model, no new
-dependency) — resolves wrong_document. **MiniLM is not required** and is
-not adopted; it remains an explicit opt-in for the one residual it could
-plausibly help with (ollama7b's trigram-plausible context corruption,
-§10). Deployment guidance unchanged: `hybrid_content_gate` label-free
-default; `hybrid_logistic_g` when ~20 labeled failures exist (and the
-only variant that covers wrong_document in dirty-null domains).
+**Recommendation.** The lexical zero-overlap flag with clean-null gating —
+the lightest possible mechanism (string ops, no model, no new dependency) —
+is the best wrong_document signal available (0.60 standalone in the
+ablation, against query_dis at 0.28), and it resolves the class outright on
+the domains with a clean null. It does not resolve it everywhere: pooled
+detection is 0.47 and the dirty-null long set stays at 0.00. **MiniLM is
+not required** and is not adopted (§13). Deployment guidance:
+`hybrid_content_gate` is the label-free default; `hybrid_logistic_g` needs
+~20 labeled failures and, on the current corpus, is worse on every content
+class than the gate.
 
 ## 12. Multiseed stability of the grounded monitors
 
@@ -451,19 +489,23 @@ fusions** (regenerated criterion). Post-remediation:
   at every seed.
 - **hybrid_adaptive**: content min +0.252, behavioral min **+0.030** →
   PASS at every seed.
-- **weighted_g**: content min +0.095 but behavioral min **−0.008** →
+- **weighted_g**: content min +0.182 but behavioral min **−0.005** →
   FAILS (a shared threshold still lets a bad reservoir draw trade a
   behavioral detection).
-- **logistic_g**: content min −0.081, behavioral min −0.051 → FAILS.
+- **logistic_g**: content min +0.032, behavioral min **−0.046** → FAILS on
+  the behavioral half at every seed.
 
 So the deployable label-free recommendation is the **content_gate** (it
-now clears the strict criterion at every seed), with `joint_budget` as
-the per-stream-threshold option when a hard never-trade-behavioral
-guarantee is wanted.
+clears the strict criterion at every seed), with `joint_budget` as the
+per-stream-threshold option when a hard never-trade-behavioral guarantee
+is wanted.
 
-Aggregate stability (grand mean over datasets × 5 seeds, regenerated):
-content_gate AUROC 0.837 (best), adaptive 0.828, joint_budget 0.805,
-ungrounded 0.803; FA: gate 0.135, joint_budget 0.111, ungrounded 0.130.
+Aggregate stability (grand mean over datasets × 5 seeds): logistic_g AUROC
+0.869, content_gate 0.866, adaptive 0.857, joint_budget 0.832, ungrounded
+0.807; FA: gate 0.122, adaptive 0.116, joint_budget 0.105, ungrounded
+0.118. The gate is the best monitor that also passes the criterion —
+logistic_g edges it on AUROC while failing the behavioral half, which is
+why the criterion and not the AUROC decides the recommendation.
 
 **Deployment guidance, refined**: content_gate remains the best
 average-case single-threshold monitor (top AUROC, near-zero mean
@@ -522,13 +564,15 @@ Findings, in decreasing comfort:
    is underpowered (2 genuine hallucinations, 36% healthy FA) and makes no
    detection claim.
 2. **Omission failures are structurally invisible — and trivially
-   fixable.** All 7 aborts evade every monitor (0/7): a silent empty
-   final step produces no anomalous telemetry, and anomaly scores are
-   built for OVER-activity, not absence. A five-line deterministic
-   completion check (final step empty or a bare tool call) catches 7/7
-   aborts at 0/19 healthy false positives. Recommendation: ship it as a
-   zero-cost side-channel alongside the monitor; a learned detector for
-   this is the wrong tool.
+   fixable.** Every behavioural monitor scores 0/7 on the aborts: a silent
+   empty final step produces no anomalous telemetry, and anomaly scores are
+   built for OVER-activity, not absence. Only the standalone grounding
+   stream alarms on one of the seven (1/7, and marginally — 7.82 against a
+   threshold of 7.44), which is not a mechanism to rely on. A five-line
+   deterministic completion check (final step empty or a bare tool call)
+   catches 7/7 aborts at 0/19 healthy false positives. Recommendation: ship
+   it as a zero-cost side-channel alongside the monitor; a learned detector
+   for this is the wrong tool.
 3. **Thresholds do not transfer across sampling temperature.** Healthy
    high-temperature organic episodes alarm at ~0.36 (`organic_hallucination.csv`)
    under thresholds calibrated on temperature-0.2 healthy runs — the u
@@ -536,8 +580,8 @@ Findings, in decreasing comfort:
    calibrate the healthy null under the SAME decoding configuration as
    production.
 
-   **AMENDED 2026-07-28 — necessary, not sufficient, and the organic
-   detection it was supporting does not survive.** Three things were wrong.
+   **Necessary, not sufficient — and the organic detection this was
+   supporting does not survive.** Three things were wrong.
    (a) `score_organic_halluc` chose θ on the same healthy episodes the gate
    was fit on; in-sample scores run low, θ landed low, and every class
    over-alarmed. Fixed to nested out-of-fold θ. (b) A degenerate-scale defect
@@ -577,34 +621,45 @@ checks; failures of plausible-content corruption need external reference
 
 ## 15. Dataset reinforcement (T6): three thin spots addressed
 
-Note on provenance: sections 9–14 report the dataset state at their own
-commits; this section's tables (`grounding_t6_*.csv`, `model_transfer.csv`)
-reflect the post-T6 corpus (langgraph7b healthy 60→100, real_research7b
-+22 goal_drift episodes, new real_research3b).
+Note on scope: this section's tables (`grounding_t6_*.csv`,
+`model_transfer.csv`) cover the three corpora T6 reinforced — langgraph7b
+(healthy 60→100), real_research7b (+22 goal_drift episodes) and the new
+real_research3b — rather than the full ten-corpus grounding scope of
+§§9–12.
 
-**(a) langgraph7b FA artifact: fixed by data.** With 100 healthy episodes
-(val 20 instead of 12), the 25%-FA-for-every-monitor artifact vanishes —
-realized FA 0.00 across all monitors at the 5% budget, content-gate AUROC
-0.710 → 0.773. The "noisiest benchmark" was a small-validation artifact,
-not a property of LangGraph.
+**(a) langgraph7b FA artifact: largely fixed by data.** With 100 healthy
+episodes (val 20 instead of 12), the 25%-FA-for-every-monitor artifact
+vanishes and content-gate AUROC reaches **0.884**. Realized FA is 0.00 for
+the ESN, both weighted variants, the content gate and adaptive, but not for
+every monitor: Δ-Mahalanobis still sits at 0.143 and the two logistic
+variants at 0.095. The "noisiest benchmark" was a small-validation
+artifact, not a property of LangGraph — but the fix is not uniform across
+monitors.
 
-**(b) goal_drift finally exists on real tools — and the grounded gate
-owns it.** New injector class (DESIGN-consistent, prompt-layer goal
-hijack delivered through a tool result; post-injection drift is the real
-model's organic response). Detection on real_research7b: ESN 0.09,
-Mahalanobis 0.27, ungrounded hybrid 0.27, **content gate / dual budget
-0.91**; on real_research3b: 0.83. The hijack text in the result stream is
-exactly what the grounding dims see — a fifth failure class where the
-content channel is the difference-maker. (This also softens the old
-"goal_drift ~0.28 everywhere" limitation: that number was the simulator's
-prompt-free drift, which remains open — see T7.)
+**(b) goal_drift exists on real tools, and NO monitor owns it.** New
+injector class (DESIGN-consistent, prompt-layer goal hijack delivered
+through a tool result; post-injection drift is the real model's organic
+response). Detection on real_research7b (22 episodes): ESN **0.05**,
+Δ-Mahalanobis **0.27**, ungrounded hybrid **0.05**, content gate
+**0.05**; on real_research3b (5 episodes) every behavioural monitor
+reaches 0.80 and Mahalanobis 0.00.
 
-**(c) Cross-model transfer: catastrophic, calibration is per-model.**
+The content channel is **not** the difference-maker on this class: the
+gate scores exactly what the ESN scores on research7b, and the best
+detector there is the memoryless distance at 0.27.
+`grounding_t6_per_class.csv` and `grounding_per_class.csv` agree with each
+other at 0.045, and agree with the powered drift study (`real_research7b_long_drift`, 120 healthy / 120 injected),
+where the shipped ESN reaches detection 0.054 on real goal drift with
+9–11 post-onset steps. Read the two together: **goal drift is not
+detected by anything in this stack**, and the corpora agree on that.
+
+**(c) Cross-model transfer: calibration is per-model.**
 Same framework, tasks, and tools, agent swapped qwen2.5:7b → 3b:
-transferred monitors collapse (AUROC 0.29–0.38 — below chance; FA 1.00),
-while in-domain 3b calibration recovers only to 0.56–0.67 AUROC (best:
-Δ-Mahalanobis 0.67) even with 21 training healthy episodes — recalibration
-helps but is itself weak on this hard 3b set. Together with T5's temperature
+transferred monitors sit at chance (AUROC 0.45–0.52) and alarm on
+everything (FA 1.00), while in-domain 3b calibration recovers only to
+0.56–0.67 AUROC (best: Δ-Mahalanobis 0.67) even with 21 training healthy
+episodes — recalibration helps but is itself weak on this hard 3b set. The
+Together with T5's temperature
 finding, the deployment rule is now sharply supported: **the healthy null
 is specific to the (model, decoding-config) pair and must be calibrated
 per deployment** — which the one-class protocol makes cheap (~30 healthy
@@ -615,32 +670,40 @@ threshold-granularity noise; the AUROC ordering is the reliable signal.
 
 ## 16. T7 diagnosis: goal_drift and timeout, reframed
 
-Diagnosis-first, per the backlog; verdict: **no new detector work is
-justified** — the two "chronically weak" classes decompose into solved,
-bounded, and by-construction-hard parts.
+Diagnosis-first, per the backlog. The original verdict was **no new
+detector work is justified**, on the reading that both "chronically weak"
+classes decomposed into solved, bounded and by-construction-hard parts.
+Against the regenerated tables, half of that verdict does not hold.
 
-**goal_drift splits into two different phenomena.**
+**goal_drift is one phenomenon, not two, and neither form is detected.**
 - *Prompt-hijack drift* (the realistic mechanism, T6's injector — an
-  instruction in a tool result diverts the agent): **solved** by the
-  grounded gate (0.91 research7b, 0.83 research3b vs ESN 0.09/0.83,
-  ungrounded 0.27). Moderate on the older mock-tool sets (gemini 0.59,
-  ollama7b 0.33) whose drift injection predates the hijack mechanism.
+  instruction in a tool result diverts the agent): **not solved**.
+  research7b ESN 0.05, Mahalanobis 0.27, content gate 0.05; research3b
+  0.80 behavioural, Mahalanobis 0.00. Higher on the older mock-tool sets
+  (gemini 0.73, ollama7b 0.86, ollama_llama8b 0.66) whose drift injection
+  predates the hijack mechanism and is behaviourally louder.
 - *Slow semantic rotation* (the simulator's synthetic class): detection
-  0.0125 for EVERY monitor at the 5% budget — the drift is, by
-  construction, indistinguishable from healthy variation within episode
-  length at this FA budget. This is the honest hard case; any fix is a
-  research effort (lower-frequency drift channels), and no organic
-  episode (T5) exhibited this failure shape. Deferred as future work.
+  0.0125 for EVERY monitor at the 5% budget — by construction
+  indistinguishable from healthy variation within episode length.
 
-**timeout is horizon-bounded, not detector-bounded.** Detection: 0.50
-(research7b, T≈5–6), 0.83 (research3b), **1.00** (research7b_long,
-T≈11). The ramping injector needs post-tau tool calls to realize an
-error; short episodes offer 1–2 chances. Where the horizon exists, every
-monitor detects every timeout. No feature work can change the realization
-probability — episode length can.
+The two therefore no longer split into "solved" and "hard". The powered
+study on `real_research7b_long_drift` (120 healthy / 120 injected, 9–11
+post-onset steps) puts the shipped ESN at detection **0.054** with AUROC
+0.617, and a purpose-built conceptor arm scoring state geometry rather
+than prediction error came in reliably *worse* (pooled paired dAUC −0.051,
+CI [−0.088, −0.014]). Runway is not the binding constraint and neither is
+architecture: **the drift signal is not present in this telemetry.**
 
-With this, the backlog's detector-side items are closed: every failure
-class is either detected at high rates by the shipped stack, covered by
-the deterministic completion check (aborts), horizon-bounded (timeout on
-short episodes), reference-dependent (escalation's job), or documented as
-by-construction hard (synthetic slow rotation).
+**timeout is horizon-bounded, not detector-bounded — confirmed.**
+Detection: 0.17 (research3b, T short), 0.50 (research7b, T≈5–6),
+**1.00** (research7b_long and its _ext sibling, T≈11). The ramping
+injector needs post-tau tool calls to realize an error; short episodes
+offer one or two chances. Where the horizon exists, every monitor detects
+every timeout. No feature work changes the realization probability —
+episode length does.
+
+So the detector-side items close for every class **except goal drift**:
+detected at high rates by the shipped stack, covered by the deterministic
+completion check (aborts), horizon-bounded (timeout on short episodes),
+or reference-dependent (escalation's job). Goal drift is open, and the
+next move on it is new telemetry rather than another monitor.

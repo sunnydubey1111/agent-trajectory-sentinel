@@ -96,7 +96,9 @@ def _run_live(model: str, budget_usd: float, backend_kind: str = "gemini",
     if inject_class:
         from derail.harness.inject import ToolInjector
         injector = ToolInjector(inject_class, tau=tau, seed=7)
-    cassette = Cassette("traces/_cassettes/slice", mode="auto")
+    # Serving, not collection: this runs one ad-hoc live slice, so it replays
+    # the committed recordings but records new ones under `runs/`.
+    cassette = Cassette("traces/_cassettes/slice", mode="auto", serving=True)
     task = ("Find the two most recent arXiv papers about echo state networks "
             "for anomaly detection, and give a one-line summary of each. "
             "Use the arxiv_search and wikipedia_search tools; use the python "
