@@ -90,7 +90,7 @@
    "devtools/claims_ledger.py": "f06674cb8c10793117ab6c96a73ff8fe54354b0c6a1af2a6bcd45af667b88c42",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "d9ab4d995db90bb6ef29ed3228572634998bfdcfb5bba5f2a830a4f3126619be",
-   "devtools/hf_dataset.py": "3d2c892c092e9cc03baa0c24ac74f68b0fc4d004670f36640c0fa08c20f77731",
+   "devtools/hf_dataset.py": "f796d254d3ca69fbfacff3fc817a3cec3cde97860bdfa3e3716730ca2524bf80",
    "devtools/hf_space.py": "3f67b57f26e1cc485a69f3ba5174cc544cda15c9e3333092c273e499634499b1",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
@@ -9429,7 +9429,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "009e507ef4d7160e56eea297b28ef8be2630910c388067f7cdb6cb27265e48c3",
+   "CHECKSUMS.md": "b93177bfc88038c1b8b956b46bb00c4bbe983a10e9ec3a302c30d1cb6f5abfb3",
    "CLAIMS.md": "e95532e309800bd0da6e4a14cd648d2bad2050ad5dae4f172c4bbdd00a8e02cf",
    "CONTRIBUTIONS.md": "589011dbd45b1f8bf56f0ec0b08419a24651013f09c61c41778886b8c2f48fc2",
    "DATA_CARD.md": "e65054d265f5fa2d0c1caa4b874b79c10b6ee4b305301e8b33c6967b2179591b",
@@ -9444,6 +9444,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Release audit: manuscripts local-only, fixture seeded, superseded figures corrected.",
+ "note": "Prune the published SQL fixture from the dataset.",
  "file_count": 9435
 }

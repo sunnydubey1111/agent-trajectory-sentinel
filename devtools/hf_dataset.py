@@ -285,7 +285,14 @@ def build(out_dir: pathlib.Path, repo_id: str = DEFAULT_REPO_ID) -> dict:
 #: `data/episodes.jsonl` had a schema the hub could not cast, and uploading
 #: never deletes, so leaving it keeps a broken 32 MB file in the repo beside
 #: the parquet that replaced it.
-STALE_PATHS: tuple[str, ...] = ("data/episodes.jsonl",)
+STALE_PATHS: tuple[str, ...] = (
+    "data/episodes.jsonl",
+    # A tool fixture that was published as if it were research data. It is
+    # rebuilt from a committed SQL seed now and no longer lives in traces/, so
+    # it is absent from the payload — and an upload only ever adds, which would
+    # leave the old binary behind as an orphan.
+    "traces/ecommerce.db",
+)
 
 #: Directories an earlier release published that must not survive a re-upload.
 #: Corpus scratch that reached the hub through the `ignore_patterns` gap
