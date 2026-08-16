@@ -326,10 +326,13 @@ statistical monitor: a deterministic per-step **numeric-grounding verifier**
 ([`derail/monitor/grounding_verify.py`](derail/monitor/grounding_verify.py))
 that checks whether every monetary figure the agent asserts traces to a tool
 result it actually received. It needs no ground-truth answer, so it is
-deployable online. Measured: **0 false positives across 89 real healthy runs**
-(0/25, 0/55, 0/9), and on a provoked-fabrication corpus that finally powers the
-class (11 ungrounded-input fabrications in 120 episodes) it catches **0.55**.
-Specific, about half sensitive — stated as measured.
+deployable online. Measured: **0 false positives across 55 label-healthy runs**
+(0/15, 0/38, 0/2 over the three organic corpora), and it fires on none of the
+36 `incomplete` runs either — those state a correct total but skip required
+work, so they are not fabrications and the verifier is right to stay quiet. On
+a provoked-fabrication corpus that finally powers the class (11
+ungrounded-input fabrications in 120 episodes) it catches **0.55**. Specific,
+about half sensitive — stated as measured.
 
 ### Real traces and other frameworks
 

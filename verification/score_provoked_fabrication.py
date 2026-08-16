@@ -1,4 +1,4 @@
-"""L2c / review point #3 - does the grounding verifier catch PROVOKED fabrication?
+"""Does the grounding verifier catch PROVOKED fabrication?
 
 `organic_hallucination.py --collect` with AGENTWATCH_ORGANIC_WITHHOLD raises the
 organic fabrication base rate without injecting anything: a fraction of
@@ -77,6 +77,10 @@ def main() -> int:
                  (OUT / r["file"]).read_text("utf-8").splitlines() if x]
         flags = verifier_flags(steps)
         out.append({
+            # Each corpus numbers its episodes from zero, so `episode_id` alone
+            # collides across the corpora this module is run over; (dataset,
+            # episode_id) is the key that survives a cross-study join.
+            "dataset": OUT.name,
             "episode_id": r["episode_id"], "label": r["label"],
             "kind": _kind(r["evidence"]) if r["label"] == "hallucinated" else "",
             "n_withheld": r.get("n_withheld", 0), "T": r["T"],

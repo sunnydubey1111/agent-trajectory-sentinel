@@ -69,7 +69,7 @@ WEATHER_WORDS = ("sunny", "rainy", "windy", "mild")
 # to the demo's calibration model, so no existing corpus changes.
 ORGANIC_MODEL = os.environ.get("AGENTWATCH_ORGANIC_MODEL", MODEL)
 
-# ----------------------------------------------------------- L2c provocation
+# ------------------------------------------- transient-failure provocation
 # Fabrication is too rare at baseline to test (9 flagged in 175 episodes, only
 # 2 of them fabricated INPUTS, against a pre-registered minimum of 10). This
 # raises the base rate WITHOUT injecting anything: a fraction of price-bearing

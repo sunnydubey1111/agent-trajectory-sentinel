@@ -296,7 +296,7 @@ def test_gemini_backend_thinking_budget_defaults_to_unchanged():
     assert sig.parameters["thinking_budget"].default is None
 
 
-# ------------------------------------------- L2c: provocation must stay honest
+# ----------------------------------------- provocation must stay honest
 def test_provocation_is_transient_not_a_permanent_withhold():
     """The retry MUST succeed: a permanent withhold makes the correct answer
     unreachable, which manufactures positives instead of provoking them."""

@@ -78,7 +78,12 @@ def holdout(corpus: str) -> None:
         money = any(f.check == "total_consistency" for f in res.findings)
         cover = any(f.check == "required_coverage" for f in res.findings)
         by_label.setdefault(r["label"], []).append((money, cover))
-        rows.append({"episode_id": r["episode_id"], "label": r["label"],
+        # Every corpus numbers its own episodes from zero, so `episode_id` is
+        # unique only within one of them. `dataset` is what makes a row
+        # traceable to the corpus it was measured on, and what makes the key
+        # (dataset, episode_id) unique across the whole results tree.
+        rows.append({"dataset": corpus,
+                     "episode_id": r["episode_id"], "label": r["label"],
                      "total_consistency": money, "required_coverage": cover})
     TABLES.mkdir(parents=True, exist_ok=True)
     out = TABLES / f"verification_{corpus.replace('organic_demo7b_', '')}.csv"
@@ -159,6 +164,7 @@ def main() -> None:
             both = sum(money[i] or cover[i] for i in ids)
             m_hit = int(mon.loc[ids, "alarmed"].sum())
             rows.append({
+                "dataset": corpus,
                 "arm": arm, "label": lab, "n": len(ids),
                 "total_consistency": c_hit,
                 "total_consistency_rate": round(c_hit / len(ids), 3),
@@ -236,7 +242,7 @@ def contract_coverage() -> None:
             per_label.setdefault(label, []).append(bool(findings))
             if findings:
                 onset = entry.get("tau")
-                rows.append({"corpus": directory.name,
+                rows.append({"dataset": directory.name,
                              "episode_id": entry["episode_id"],
                              "label": label, "tau": onset,
                              "first_violation_step": findings[0].step,

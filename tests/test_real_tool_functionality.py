@@ -1,6 +1,9 @@
 """Real-tool functionality.
 
-Covers, H29, M27, M31, M32, L04, L05.
+The tools reach live third-party endpoints, so these check the contracts that
+hold regardless of what those endpoints return: output caps are applied, the
+SQL tool stays read-only, and a tool's fingerprint changes when a setting that
+would change its output changes.
 """
 from __future__ import annotations
 

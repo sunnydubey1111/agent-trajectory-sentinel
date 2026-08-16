@@ -335,7 +335,8 @@ if __name__ == "__main__":
 
     # an INJECTED episode halted BEFORE tau is a wrongful early halt -
     # it carries the redo penalty, is detected=False, and IS counted as
-    # wrongful (previously it was rewarded: no penalty, invisible).
+    # wrongful. Scoring it any other way rewards halting before the fault
+    # exists: no penalty, and invisible in the summary.
     early = run_policy("halt_on_alarm", [injected_ep],
                        {"smoke-f0": np.where(np.arange(T) >= 5, 5.0, 0.1)},
                        None, theta_soft, judge, seed)[0]

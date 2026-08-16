@@ -216,6 +216,12 @@ def main(argv: list[str] | None = None) -> None:
                 print(f"  [{i}/{len(jobs)}]", flush=True)
 
     df = pd.DataFrame(rows)
+    # `episode_id` restarts at zero in every corpus, so the corpus name is what
+    # makes a row attributable and (dataset, episode_id, rung, rep) unique.
+    # Assigned rather than inserted so the --from-csv path, which reads rows
+    # that already carry the column, stays idempotent.
+    df["dataset"] = CORPUS.name
+    df = df[["dataset"] + [c for c in df.columns if c != "dataset"]]
     TABLES.mkdir(parents=True, exist_ok=True)
     df.to_csv(TABLES / "repair_policies.csv", index=False)
 

@@ -265,9 +265,10 @@ if __name__ == "__main__":
     assert 200.0 in m2.check_step("You were charged $200."), \
         "positive charge validated by a negative-200 refund"
 
-    # a figure grounded as a subset-sum must STAY grounded after an
-    # unrelated later tool value arrives (monotonicity). With 8+ tool values the
-    # old code dropped all subset-sums and un-grounded a previously valid total.
+    # a figure grounded as a subset-sum must STAY grounded after an unrelated
+    # later tool value arrives (monotonicity). The subset-sum search is bounded,
+    # so a naive cap drops every subset-sum once 8+ tool values are in play and
+    # un-grounds a total that was legitimately grounded a step earlier.
     m3 = NumericGroundingMonitor()
     m3.start_episode()
     vals = [11.0, 22.0, 33.0, 44.0, 55.0, 66.0, 77.0]     # 7 values

@@ -376,7 +376,8 @@ def main(argv: list[str] | None = None) -> int:
     for i, sample in enumerate(samples, 1):
         result = judge(sample)
         verdict = parse_verdict(result["text"])
-        rows.append({"episode_id": sample.episode_id,
+        rows.append({"dataset": args.corpus,
+                     "episode_id": sample.episode_id,
                      "failure_class": sample.failure_class or "healthy",
                      "t": sample.t, "onset": sample.onset,
                      "label": sample.label, "verdict": verdict,
@@ -388,10 +389,12 @@ def main(argv: list[str] | None = None) -> int:
     TABLES.mkdir(parents=True, exist_ok=True)
     csv_path = TABLES / f"{args.out_prefix}.csv"
     with csv_path.open("w", encoding="utf-8", newline="") as fh:
-        fh.write("episode_id,failure_class,t,onset,label,verdict,prompt_key\n")
+        fh.write("dataset,episode_id,failure_class,t,onset,label,verdict,"
+                 "prompt_key\n")
         for r in rows:
             v = "" if r["verdict"] is None else int(r["verdict"])
-            fh.write(f'{r["episode_id"]},{r["failure_class"]},{r["t"]},'
+            fh.write(f'{r["dataset"]},{r["episode_id"]},{r["failure_class"]},'
+                     f'{r["t"]},'
                      f'{"" if r["onset"] is None else r["onset"]},'
                      f'{r["label"]},{v},{r["prompt_key"][:12]}\n')
 

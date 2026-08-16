@@ -1,7 +1,10 @@
 """Monitor / calibration / escalation internals.
 
-Covers, H25, H26, H27, M12, M13, M16, M17, M18/, M19, M20, M21,
-M22, M23, L01, L02,,.
+The properties the monitor is only correct if it has: causal scoring (a score
+at t uses the prediction made at t-1), thresholds picked on healthy validation
+rather than test, the degenerate-scale contract of DESIGN.md Amendment 6, the
+healthy-null composition rule of Amendment 7, and conformal calibration that
+counts ties conservatively.
 """
 from __future__ import annotations
 
@@ -111,7 +114,7 @@ def test_null_calibrator_is_monotone_and_bounded():
     assert grid.min() >= 0.0 and grid.max() < 1.0
 
 
-# ------------------------------------------------------------- / M17
+# -------------------------------------------- shared episode fixture
 def _ep(eid, healthy, tau=None, T=30):
     return Episode(X=rng_for(0, eid).normal(size=(T, D_TOTAL)), episode_id=eid,
                    is_healthy=healthy, failure_class=None if healthy else "looping",
@@ -158,7 +161,7 @@ def test_demo_numeric_verifier_checks_text_before_observing_same_turn_results():
         "same-turn results are observed before the text is checked"
 
 
-# ------------------------------------------------------------- / M13
+# ------------------------------------------------- numeric grounding
 def test_numeric_grounding_signs_preserved():
     assert _nums("charge of $200") == [200.0]
     assert _nums("refund of -$200") == [-200.0]

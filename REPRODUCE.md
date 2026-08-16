@@ -128,10 +128,47 @@ py -m derail.experiments.run_fairness                    # fairness.csv
 py -m derail.experiments.run_real_traces                 # real_traces.csv, from committed traces
 py -m derail.experiments.run_hybrid_study                # hybrid_*.csv
 py -m derail.verify.run_verification_study               # verification_vs_monitor.csv
-py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout
-py -m derail.verify.run_verification_study --contract-coverage
+py -m derail.verify.run_verification_study --contract-coverage   # tool_contract_coverage.csv
 py -m verification.l3_serving_temperature                # serving_temperature.csv
 py -m derail.intervene.evaluate_repair_policies --from-csv   # re-analyse the repair study
+py -m derail.experiments.score_organic                   # organic_validation.csv
+py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120
+```
+
+**The four `verification_*.csv` tables.** One study, four corpora. The table is
+named after the corpus, and the corpus name is in each row's `dataset` column —
+without it the four are indistinguishable, since every corpus numbers its
+episodes `organic-demo-000` upward.
+
+```
+py -m derail.verify.run_verification_study --holdout organic_demo7b_cold      # verification_cold.csv
+py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout   # verification_holdout.csv
+py -m derail.verify.run_verification_study --holdout organic_demo7b_provoked  # verification_provoked.csv
+py -m derail.verify.run_verification_study --holdout organic_llama8b_cold     # verification_organic_llama8b_cold.csv
+```
+
+**The organic scoring tables.** Both modules read one corpus at a time from
+`AGENTWATCH_ORGANIC_DIR`, so the corpus is chosen by environment rather than by
+flag. `score_organic_halluc` also needs an explicit output path, or a second
+corpus overwrites the first corpus's published table.
+
+```
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b \
+AGENTWATCH_ORGANIC_OUT_CSV=results/tables/organic_hallucination.csv \
+py -m verification.score_organic_halluc
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b_cold \
+AGENTWATCH_ORGANIC_OUT_CSV=results/tables/organic_hallucination_cold.csv \
+py -m verification.score_organic_halluc
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b_ext \
+AGENTWATCH_ORGANIC_OUT_CSV=results/tables/organic_hallucination_ext.csv \
+py -m verification.score_organic_halluc
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b_holdout \
+AGENTWATCH_ORGANIC_OUT_CSV=results/tables/organic_hallucination_holdout.csv \
+py -m verification.score_organic_halluc
+
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b py -m verification.score_provoked_fabrication
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b_ext py -m verification.score_provoked_fabrication
+AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b_provoked py -m verification.score_provoked_fabrication
 ```
 
 **The rest of `results/tables/`.** Both studies pin their published dataset

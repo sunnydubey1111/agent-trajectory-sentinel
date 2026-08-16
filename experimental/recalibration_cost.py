@@ -1,6 +1,6 @@
-"""Review point #3 - how cheap is per-deployment recalibration, really?
+"""How cheap is per-deployment recalibration, really?
 
-L4 established the deployment RULE: monitors calibrated on one agent model are
+The transfer study established the deployment RULE: monitors calibrated on one agent model are
 at chance on another (qwen7b -> llama8b, AUROC 0.527) while the same target
 recalibrated on itself reaches 0.885. Recalibration is mandatory. It is also
 label-free, so the only real question a deployer has is **how many healthy

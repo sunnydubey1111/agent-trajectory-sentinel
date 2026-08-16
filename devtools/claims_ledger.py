@@ -434,6 +434,29 @@ def _contract_within_one_step() -> int:
     return int((d.first_violation_step - d.tau <= 1).sum())
 
 
+#: The three corpora whose tables carry the grounding verifier's own verdict.
+_FABRICATION_TABLES = ("fabrication_organic_demo7b.csv",
+                       "fabrication_organic_demo7b_ext.csv",
+                       "provoked_fabrication.csv")
+
+
+def _verifier_healthy(column: str) -> int:
+    """Grounding-verifier verdicts on runs the labeller called healthy.
+
+    README quoted this as "0 across 89 (0/25, 0/55, 0/9)" with no ledger claim
+    behind it, and no component of that triple matched any committed table —
+    it was a hand-carried figure that drifted as the labeller gained the
+    `incomplete` class. Recomputed here so it cannot drift again.
+    """
+    total = 0
+    for name in _FABRICATION_TABLES:
+        d = _table(name)
+        healthy = d[d.label == "healthy"]
+        total += int(healthy["verifier_flagged"].astype(bool).sum()
+                     if column == "flagged" else len(healthy))
+    return total
+
+
 def build() -> list[Claim]:
     """Every claim the README, DESIGN.md and both papers make in headline form."""
     return [
@@ -703,20 +726,31 @@ def build() -> list[Claim]:
               lambda: _healthy_fp("verification_holdout.csv", "anycheck"), "Verification"),
         Claim("llama.caught", "llama3.1:8b failures caught (all checks)", 1.0,
               "results/tables/verification_organic_llama8b_cold.csv",
-              "py -m derail.verify.run_verification_study",
+              "py -m derail.verify.run_verification_study "
+              "--holdout organic_llama8b_cold",
               lambda: _fail_rate("verification_organic_llama8b_cold.csv", "anycheck"),
               "Verification"),
         Claim("llama.fp", "llama3.1:8b false positives", 0,
               "results/tables/verification_organic_llama8b_cold.csv",
-              "py -m derail.verify.run_verification_study",
+              "py -m derail.verify.run_verification_study "
+              "--holdout organic_llama8b_cold",
               lambda: _healthy_fp("verification_organic_llama8b_cold.csv", "anycheck"),
               "Verification"),
         Claim("provoked.fabrications", "Provoked fabrications caught", 26,
               "results/tables/verification_provoked.csv",
-              "py -m verification.score_provoked_fabrication",
+              "py -m derail.verify.run_verification_study "
+              "--holdout organic_demo7b_provoked",
               lambda: int(_checks("verification_provoked.csv")
                           .query("label == 'hallucinated'").anycheck.sum()),
               "Verification"),
+        Claim("grounding.verifier_fp",
+              "Grounding-verifier false positives on label-healthy runs", 0,
+              "results/tables/fabrication_organic_demo7b.csv",
+              "AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b "
+              "py -m verification.score_provoked_fabrication",
+              lambda: _verifier_healthy("flagged"), "Verification",
+              denominator=lambda: _verifier_healthy("n"),
+              expected_denominator=55),
         Claim("contract.flagged", "Episodes flagged by tool_contract", 218,
               "results/tables/tool_contract_coverage.csv",
               "py -m derail.verify.run_verification_study --contract-coverage",

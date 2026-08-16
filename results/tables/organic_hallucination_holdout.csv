@@ -1,121 +1,121 @@
-episode_id,label,peak,alarmed,evidence
-organic-demo-000,healthy,0.969,False,total 2903.0 == truth
-organic-demo-001,healthy,0.59,False,total 4021.0 == truth
-organic-demo-003,healthy,0.359,False,total 2852.0 == truth
-organic-demo-004,healthy,1.105,True,total 2983.0 == truth
-organic-demo-005,healthy,0.208,False,total 2967.0 == truth
-organic-demo-006,healthy,0.657,False,total 2637.0 == truth
-organic-demo-008,healthy,0.2,False,total 2879.0 == truth
-organic-demo-009,healthy,2.965,True,total 2664.0 == truth
-organic-demo-010,healthy,0.865,False,total 2891.0 == truth
-organic-demo-014,healthy,0.76,False,total 3628.0 == truth
-organic-demo-016,healthy,0.197,False,total 3474.0 == truth
-organic-demo-023,healthy,0.586,False,total 2676.0 == truth
-organic-demo-024,healthy,0.633,False,total 3175.0 == truth
-organic-demo-027,healthy,0.365,False,total 2785.0 == truth
-organic-demo-029,healthy,0.412,False,total 2813.0 == truth
-organic-demo-033,healthy,0.776,False,total 3090.0 == truth
-organic-demo-034,healthy,0.224,False,total 3156.0 == truth
-organic-demo-036,healthy,0.228,False,total 3700.0 == truth
-organic-demo-039,healthy,0.26,False,total 3159.0 == truth
-organic-demo-041,healthy,0.192,False,total 3514.0 == truth
-organic-demo-042,healthy,0.564,False,total 2303.0 == truth
-organic-demo-047,healthy,0.179,False,total 2052.0 == truth
-organic-demo-049,healthy,0.675,False,total 3727.0 == truth
-organic-demo-050,healthy,0.37,False,total 3541.0 == truth
-organic-demo-051,healthy,1.164,True,total 2940.0 == truth
-organic-demo-052,healthy,0.175,False,total 3444.0 == truth
-organic-demo-055,healthy,0.979,False,total 3415.0 == truth
-organic-demo-056,healthy,0.859,False,total 3516.0 == truth
-organic-demo-057,healthy,0.426,False,total 3166.0 == truth
-organic-demo-059,healthy,0.198,False,total 2966.0 == truth
-organic-demo-060,healthy,0.254,False,total 3078.0 == truth
-organic-demo-061,healthy,0.188,False,total 2550.0 == truth
-organic-demo-063,healthy,0.175,False,total 2783.0 == truth
-organic-demo-065,healthy,0.458,False,total 2661.0 == truth
-organic-demo-067,healthy,1.678,True,total 2635.0 == truth
-organic-demo-068,healthy,0.197,False,total 4053.0 == truth
-organic-demo-071,healthy,0.882,False,total 3116.0 == truth
-organic-demo-072,healthy,0.266,False,total 1659.0 == truth
-organic-demo-074,healthy,0.933,False,total 3752.0 == truth
-organic-demo-075,healthy,0.507,False,total 2694.0 == truth
-organic-demo-076,healthy,0.616,False,total 2688.0 == truth
-organic-demo-078,healthy,0.447,False,total 3559.0 == truth
-organic-demo-079,healthy,0.179,False,total 2876.0 == truth
-organic-demo-085,healthy,1.426,True,total 2918.0 == truth
-organic-demo-086,healthy,0.271,False,total 2321.0 == truth
-organic-demo-088,healthy,0.314,False,total 2533.0 == truth
-organic-demo-090,healthy,1.372,True,total 3635.0 == truth
-organic-demo-093,healthy,0.733,False,total 2324.0 == truth
-organic-demo-094,healthy,0.665,False,total 3406.0 == truth
-organic-demo-098,healthy,0.207,False,total 2271.0 == truth
-organic-demo-099,healthy,0.678,False,total 3766.0 == truth
-organic-demo-100,healthy,0.343,False,total 2058.0 == truth
-organic-demo-101,healthy,0.512,False,total 3208.0 == truth
-organic-demo-102,healthy,0.259,False,total 2761.0 == truth
-organic-demo-107,healthy,3.114,True,total 3094.0 == truth
-organic-demo-108,healthy,0.192,False,total 2734.0 == truth
-organic-demo-109,healthy,0.287,False,total 3898.0 == truth
-organic-demo-110,healthy,0.5,False,total 3181.0 == truth
-organic-demo-112,healthy,0.204,False,total 3462.0 == truth
-organic-demo-113,healthy,0.201,False,total 2214.0 == truth
-organic-demo-114,healthy,0.265,False,total 3385.0 == truth
-organic-demo-117,healthy,0.391,False,total 3426.0 == truth
-organic-demo-118,healthy,0.209,False,total 3743.0 == truth
-organic-demo-119,healthy,0.303,False,total 4533.0 == truth
-organic-demo-002,incomplete,1.596,True,"total 3060.0 == truth but weather never looked up for Cusco, Osaka, Prague"
-organic-demo-007,arithmetic_error,2.09,True,stated 1790.8 vs truth 2350 (derivable from grounded inputs)
-organic-demo-011,incomplete,2.905,True,"total 2542.0 == truth but weather never looked up for Cusco, Bergen, Prague"
-organic-demo-012,arithmetic_error,0.738,False,stated 8072.0 vs truth 3690 (derivable from grounded inputs)
-organic-demo-013,arithmetic_error,1.212,True,stated 9858.0 vs truth 2639 (derivable from grounded inputs)
-organic-demo-015,hallucinated,0.518,False,"bergen: said sunny, tool said mild"
-organic-demo-017,hallucinated,1.684,True,total 27072.4 is neither the correct 3480 nor any arithmetic derivation of grounded inputs
-organic-demo-018,arithmetic_error,0.518,False,stated 11220.0 vs truth 2708 (derivable from grounded inputs)
-organic-demo-019,hallucinated,18.132,True,ungrounded item figures [3188.0]
-organic-demo-020,incomplete,3.529,True,"total 3016.0 == truth but weather never looked up for Tunis, Bergen, Lisbon"
-organic-demo-021,incomplete,4.931,True,"total 2195.0 == truth but weather never looked up for Tunis, Bergen, Cusco"
-organic-demo-022,incomplete,5.745,True,"total 3101.0 == truth but weather never looked up for Lisbon, Osaka, Tunis"
-organic-demo-025,arithmetic_error,0.702,False,stated 4770.0 vs truth 2796 (derivable from grounded inputs)
-organic-demo-026,incomplete,4.118,True,"total 3547.0 == truth but weather never looked up for Cusco, Prague, Tunis"
-organic-demo-028,hallucinated,0.285,False,"osaka: said rainy, tool said windy"
-organic-demo-030,hallucinated,1.354,True,total 1362.3 is neither the correct 2289 nor any arithmetic derivation of grounded inputs
-organic-demo-031,arithmetic_error,1.482,True,stated 174.12 vs truth 3586 (derivable from grounded inputs)
-organic-demo-032,arithmetic_error,2.121,True,stated 5973.0 vs truth 2955 (derivable from grounded inputs)
-organic-demo-035,arithmetic_error,0.63,False,stated 6864.0 vs truth 2572 (derivable from grounded inputs)
-organic-demo-037,hallucinated,1.933,True,"osaka: said mild, tool said sunny"
-organic-demo-038,arithmetic_error,2.382,True,stated 6673.0 vs truth 2763 (derivable from grounded inputs)
-organic-demo-040,arithmetic_error,5.576,True,stated 6678.0 vs truth 1867 (derivable from grounded inputs)
-organic-demo-043,arithmetic_error,3.064,True,stated 2244.0 vs truth 2388 (derivable from grounded inputs)
-organic-demo-044,arithmetic_error,1.348,True,stated 1933.0 vs truth 2291 (derivable from grounded inputs)
-organic-demo-045,arithmetic_error,3.715,True,stated 2361.0 vs truth 2561 (derivable from grounded inputs)
-organic-demo-046,arithmetic_error,1.873,True,stated 2002.0 vs truth 2362 (derivable from grounded inputs)
-organic-demo-048,arithmetic_error,1.321,True,stated 6799.0 vs truth 3057 (derivable from grounded inputs)
-organic-demo-053,incomplete,1.992,True,"total 2369.0 == truth but weather never looked up for Lisbon, Cusco, Prague"
-organic-demo-054,arithmetic_error,10.384,True,stated 9114.0 vs truth 2715 (derivable from grounded inputs)
-organic-demo-058,arithmetic_error,0.689,False,stated 12138.0 vs truth 2867 (derivable from grounded inputs)
-organic-demo-062,arithmetic_error,0.209,False,stated 7805.0 vs truth 3139 (derivable from grounded inputs)
-organic-demo-064,hallucinated,2.486,True,total 300.06 is neither the correct 2463 nor any arithmetic derivation of grounded inputs
-organic-demo-066,arithmetic_error,1.915,True,stated 2269.0 vs truth 2699 (derivable from grounded inputs)
-organic-demo-069,arithmetic_error,0.532,False,stated 2464.0 vs truth 2993 (derivable from grounded inputs)
-organic-demo-070,incomplete,5.335,True,"total 3787.0 == truth but weather never looked up for Lisbon, Bergen, Cusco"
-organic-demo-073,arithmetic_error,1.283,True,stated 4397.0 vs truth 2015 (derivable from grounded inputs)
-organic-demo-077,arithmetic_error,8.0,True,stated 2133.0 vs truth 2380 (derivable from grounded inputs)
-organic-demo-080,incomplete,2.327,True,"total 2469.0 == truth but weather never looked up for Tunis, Cusco, Prague"
-organic-demo-081,arithmetic_error,6.231,True,stated 7956.0 vs truth 3448 (derivable from grounded inputs)
-organic-demo-082,arithmetic_error,0.58,False,stated 5088.0 vs truth 2056 (derivable from grounded inputs)
-organic-demo-083,arithmetic_error,0.333,False,stated 5556.0 vs truth 2463 (derivable from grounded inputs)
-organic-demo-084,incomplete,1.916,True,"total 2462.0 == truth but weather never looked up for Lisbon, Osaka, Cusco"
-organic-demo-087,arithmetic_error,3.591,True,stated 2682.0 vs truth 2963 (derivable from grounded inputs)
-organic-demo-089,arithmetic_error,3.516,True,stated 2921.0 vs truth 3567 (derivable from grounded inputs)
-organic-demo-091,arithmetic_error,0.641,False,stated 5745.0 vs truth 2795 (derivable from grounded inputs)
-organic-demo-092,arithmetic_error,0.383,False,stated 8207.0 vs truth 3433 (derivable from grounded inputs)
-organic-demo-095,incomplete,3.341,True,"total 1953.0 == truth but weather never looked up for Tunis, Lisbon, Prague"
-organic-demo-096,arithmetic_error,0.179,False,stated 7574.0 vs truth 3058 (derivable from grounded inputs)
-organic-demo-097,arithmetic_error,0.493,False,stated 4453.0 vs truth 2007 (derivable from grounded inputs)
-organic-demo-103,hallucinated,0.197,False,"osaka: said rainy, tool said windy; prague: said windy, tool said rainy"
-organic-demo-104,arithmetic_error,4.344,True,stated 2393.0 vs truth 3059 (derivable from grounded inputs)
-organic-demo-105,arithmetic_error,8.605,True,stated 7332.0 vs truth 2907 (derivable from grounded inputs)
-organic-demo-106,incomplete,1.661,True,"total 2702.0 == truth but weather never looked up for Osaka, Bergen, Prague"
-organic-demo-111,arithmetic_error,30.68,True,stated 2682.0 vs truth 3556 (derivable from grounded inputs)
-organic-demo-115,arithmetic_error,27.643,True,stated 1955.0 vs truth 2169 (derivable from grounded inputs)
-organic-demo-116,arithmetic_error,1.49,True,stated 2639.0 vs truth 3378 (derivable from grounded inputs)
+dataset,episode_id,label,peak,alarmed,evidence
+organic_demo7b_holdout,organic-demo-000,healthy,0.969,False,total 2903.0 == truth
+organic_demo7b_holdout,organic-demo-001,healthy,0.59,False,total 4021.0 == truth
+organic_demo7b_holdout,organic-demo-003,healthy,0.359,False,total 2852.0 == truth
+organic_demo7b_holdout,organic-demo-004,healthy,1.105,True,total 2983.0 == truth
+organic_demo7b_holdout,organic-demo-005,healthy,0.208,False,total 2967.0 == truth
+organic_demo7b_holdout,organic-demo-006,healthy,0.657,False,total 2637.0 == truth
+organic_demo7b_holdout,organic-demo-008,healthy,0.2,False,total 2879.0 == truth
+organic_demo7b_holdout,organic-demo-009,healthy,2.965,True,total 2664.0 == truth
+organic_demo7b_holdout,organic-demo-010,healthy,0.865,False,total 2891.0 == truth
+organic_demo7b_holdout,organic-demo-014,healthy,0.76,False,total 3628.0 == truth
+organic_demo7b_holdout,organic-demo-016,healthy,0.197,False,total 3474.0 == truth
+organic_demo7b_holdout,organic-demo-023,healthy,0.586,False,total 2676.0 == truth
+organic_demo7b_holdout,organic-demo-024,healthy,0.633,False,total 3175.0 == truth
+organic_demo7b_holdout,organic-demo-027,healthy,0.365,False,total 2785.0 == truth
+organic_demo7b_holdout,organic-demo-029,healthy,0.412,False,total 2813.0 == truth
+organic_demo7b_holdout,organic-demo-033,healthy,0.776,False,total 3090.0 == truth
+organic_demo7b_holdout,organic-demo-034,healthy,0.224,False,total 3156.0 == truth
+organic_demo7b_holdout,organic-demo-036,healthy,0.228,False,total 3700.0 == truth
+organic_demo7b_holdout,organic-demo-039,healthy,0.26,False,total 3159.0 == truth
+organic_demo7b_holdout,organic-demo-041,healthy,0.192,False,total 3514.0 == truth
+organic_demo7b_holdout,organic-demo-042,healthy,0.564,False,total 2303.0 == truth
+organic_demo7b_holdout,organic-demo-047,healthy,0.179,False,total 2052.0 == truth
+organic_demo7b_holdout,organic-demo-049,healthy,0.675,False,total 3727.0 == truth
+organic_demo7b_holdout,organic-demo-050,healthy,0.37,False,total 3541.0 == truth
+organic_demo7b_holdout,organic-demo-051,healthy,1.164,True,total 2940.0 == truth
+organic_demo7b_holdout,organic-demo-052,healthy,0.175,False,total 3444.0 == truth
+organic_demo7b_holdout,organic-demo-055,healthy,0.979,False,total 3415.0 == truth
+organic_demo7b_holdout,organic-demo-056,healthy,0.859,False,total 3516.0 == truth
+organic_demo7b_holdout,organic-demo-057,healthy,0.426,False,total 3166.0 == truth
+organic_demo7b_holdout,organic-demo-059,healthy,0.198,False,total 2966.0 == truth
+organic_demo7b_holdout,organic-demo-060,healthy,0.254,False,total 3078.0 == truth
+organic_demo7b_holdout,organic-demo-061,healthy,0.188,False,total 2550.0 == truth
+organic_demo7b_holdout,organic-demo-063,healthy,0.175,False,total 2783.0 == truth
+organic_demo7b_holdout,organic-demo-065,healthy,0.458,False,total 2661.0 == truth
+organic_demo7b_holdout,organic-demo-067,healthy,1.678,True,total 2635.0 == truth
+organic_demo7b_holdout,organic-demo-068,healthy,0.197,False,total 4053.0 == truth
+organic_demo7b_holdout,organic-demo-071,healthy,0.882,False,total 3116.0 == truth
+organic_demo7b_holdout,organic-demo-072,healthy,0.266,False,total 1659.0 == truth
+organic_demo7b_holdout,organic-demo-074,healthy,0.933,False,total 3752.0 == truth
+organic_demo7b_holdout,organic-demo-075,healthy,0.507,False,total 2694.0 == truth
+organic_demo7b_holdout,organic-demo-076,healthy,0.616,False,total 2688.0 == truth
+organic_demo7b_holdout,organic-demo-078,healthy,0.447,False,total 3559.0 == truth
+organic_demo7b_holdout,organic-demo-079,healthy,0.179,False,total 2876.0 == truth
+organic_demo7b_holdout,organic-demo-085,healthy,1.426,True,total 2918.0 == truth
+organic_demo7b_holdout,organic-demo-086,healthy,0.271,False,total 2321.0 == truth
+organic_demo7b_holdout,organic-demo-088,healthy,0.314,False,total 2533.0 == truth
+organic_demo7b_holdout,organic-demo-090,healthy,1.372,True,total 3635.0 == truth
+organic_demo7b_holdout,organic-demo-093,healthy,0.733,False,total 2324.0 == truth
+organic_demo7b_holdout,organic-demo-094,healthy,0.665,False,total 3406.0 == truth
+organic_demo7b_holdout,organic-demo-098,healthy,0.207,False,total 2271.0 == truth
+organic_demo7b_holdout,organic-demo-099,healthy,0.678,False,total 3766.0 == truth
+organic_demo7b_holdout,organic-demo-100,healthy,0.343,False,total 2058.0 == truth
+organic_demo7b_holdout,organic-demo-101,healthy,0.512,False,total 3208.0 == truth
+organic_demo7b_holdout,organic-demo-102,healthy,0.259,False,total 2761.0 == truth
+organic_demo7b_holdout,organic-demo-107,healthy,3.114,True,total 3094.0 == truth
+organic_demo7b_holdout,organic-demo-108,healthy,0.192,False,total 2734.0 == truth
+organic_demo7b_holdout,organic-demo-109,healthy,0.287,False,total 3898.0 == truth
+organic_demo7b_holdout,organic-demo-110,healthy,0.5,False,total 3181.0 == truth
+organic_demo7b_holdout,organic-demo-112,healthy,0.204,False,total 3462.0 == truth
+organic_demo7b_holdout,organic-demo-113,healthy,0.201,False,total 2214.0 == truth
+organic_demo7b_holdout,organic-demo-114,healthy,0.265,False,total 3385.0 == truth
+organic_demo7b_holdout,organic-demo-117,healthy,0.391,False,total 3426.0 == truth
+organic_demo7b_holdout,organic-demo-118,healthy,0.209,False,total 3743.0 == truth
+organic_demo7b_holdout,organic-demo-119,healthy,0.303,False,total 4533.0 == truth
+organic_demo7b_holdout,organic-demo-002,incomplete,1.596,True,"total 3060.0 == truth but weather never looked up for Cusco, Osaka, Prague"
+organic_demo7b_holdout,organic-demo-007,arithmetic_error,2.09,True,stated 1790.8 vs truth 2350 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-011,incomplete,2.905,True,"total 2542.0 == truth but weather never looked up for Cusco, Bergen, Prague"
+organic_demo7b_holdout,organic-demo-012,arithmetic_error,0.738,False,stated 8072.0 vs truth 3690 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-013,arithmetic_error,1.212,True,stated 9858.0 vs truth 2639 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-015,hallucinated,0.518,False,"bergen: said sunny, tool said mild"
+organic_demo7b_holdout,organic-demo-017,hallucinated,1.684,True,total 27072.4 is neither the correct 3480 nor any arithmetic derivation of grounded inputs
+organic_demo7b_holdout,organic-demo-018,arithmetic_error,0.518,False,stated 11220.0 vs truth 2708 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-019,hallucinated,18.132,True,ungrounded item figures [3188.0]
+organic_demo7b_holdout,organic-demo-020,incomplete,3.529,True,"total 3016.0 == truth but weather never looked up for Tunis, Bergen, Lisbon"
+organic_demo7b_holdout,organic-demo-021,incomplete,4.931,True,"total 2195.0 == truth but weather never looked up for Tunis, Bergen, Cusco"
+organic_demo7b_holdout,organic-demo-022,incomplete,5.745,True,"total 3101.0 == truth but weather never looked up for Lisbon, Osaka, Tunis"
+organic_demo7b_holdout,organic-demo-025,arithmetic_error,0.702,False,stated 4770.0 vs truth 2796 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-026,incomplete,4.118,True,"total 3547.0 == truth but weather never looked up for Cusco, Prague, Tunis"
+organic_demo7b_holdout,organic-demo-028,hallucinated,0.285,False,"osaka: said rainy, tool said windy"
+organic_demo7b_holdout,organic-demo-030,hallucinated,1.354,True,total 1362.3 is neither the correct 2289 nor any arithmetic derivation of grounded inputs
+organic_demo7b_holdout,organic-demo-031,arithmetic_error,1.482,True,stated 174.12 vs truth 3586 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-032,arithmetic_error,2.121,True,stated 5973.0 vs truth 2955 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-035,arithmetic_error,0.63,False,stated 6864.0 vs truth 2572 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-037,hallucinated,1.933,True,"osaka: said mild, tool said sunny"
+organic_demo7b_holdout,organic-demo-038,arithmetic_error,2.382,True,stated 6673.0 vs truth 2763 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-040,arithmetic_error,5.576,True,stated 6678.0 vs truth 1867 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-043,arithmetic_error,3.064,True,stated 2244.0 vs truth 2388 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-044,arithmetic_error,1.348,True,stated 1933.0 vs truth 2291 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-045,arithmetic_error,3.715,True,stated 2361.0 vs truth 2561 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-046,arithmetic_error,1.873,True,stated 2002.0 vs truth 2362 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-048,arithmetic_error,1.321,True,stated 6799.0 vs truth 3057 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-053,incomplete,1.992,True,"total 2369.0 == truth but weather never looked up for Lisbon, Cusco, Prague"
+organic_demo7b_holdout,organic-demo-054,arithmetic_error,10.384,True,stated 9114.0 vs truth 2715 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-058,arithmetic_error,0.689,False,stated 12138.0 vs truth 2867 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-062,arithmetic_error,0.209,False,stated 7805.0 vs truth 3139 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-064,hallucinated,2.486,True,total 300.06 is neither the correct 2463 nor any arithmetic derivation of grounded inputs
+organic_demo7b_holdout,organic-demo-066,arithmetic_error,1.915,True,stated 2269.0 vs truth 2699 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-069,arithmetic_error,0.532,False,stated 2464.0 vs truth 2993 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-070,incomplete,5.335,True,"total 3787.0 == truth but weather never looked up for Lisbon, Bergen, Cusco"
+organic_demo7b_holdout,organic-demo-073,arithmetic_error,1.283,True,stated 4397.0 vs truth 2015 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-077,arithmetic_error,8.0,True,stated 2133.0 vs truth 2380 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-080,incomplete,2.327,True,"total 2469.0 == truth but weather never looked up for Tunis, Cusco, Prague"
+organic_demo7b_holdout,organic-demo-081,arithmetic_error,6.231,True,stated 7956.0 vs truth 3448 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-082,arithmetic_error,0.58,False,stated 5088.0 vs truth 2056 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-083,arithmetic_error,0.333,False,stated 5556.0 vs truth 2463 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-084,incomplete,1.916,True,"total 2462.0 == truth but weather never looked up for Lisbon, Osaka, Cusco"
+organic_demo7b_holdout,organic-demo-087,arithmetic_error,3.591,True,stated 2682.0 vs truth 2963 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-089,arithmetic_error,3.516,True,stated 2921.0 vs truth 3567 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-091,arithmetic_error,0.641,False,stated 5745.0 vs truth 2795 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-092,arithmetic_error,0.383,False,stated 8207.0 vs truth 3433 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-095,incomplete,3.341,True,"total 1953.0 == truth but weather never looked up for Tunis, Lisbon, Prague"
+organic_demo7b_holdout,organic-demo-096,arithmetic_error,0.179,False,stated 7574.0 vs truth 3058 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-097,arithmetic_error,0.493,False,stated 4453.0 vs truth 2007 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-103,hallucinated,0.197,False,"osaka: said rainy, tool said windy; prague: said windy, tool said rainy"
+organic_demo7b_holdout,organic-demo-104,arithmetic_error,4.344,True,stated 2393.0 vs truth 3059 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-105,arithmetic_error,8.605,True,stated 7332.0 vs truth 2907 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-106,incomplete,1.661,True,"total 2702.0 == truth but weather never looked up for Osaka, Bergen, Prague"
+organic_demo7b_holdout,organic-demo-111,arithmetic_error,30.68,True,stated 2682.0 vs truth 3556 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-115,arithmetic_error,27.643,True,stated 1955.0 vs truth 2169 (derivable from grounded inputs)
+organic_demo7b_holdout,organic-demo-116,arithmetic_error,1.49,True,stated 2639.0 vs truth 3378 (derivable from grounded inputs)

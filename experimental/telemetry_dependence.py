@@ -1,11 +1,11 @@
-"""Review point #1 - what does a deployment LOSE without token logprobs?
+"""What does a deployment LOSE without token logprobs?
 
 The system already degrades gracefully: `load_real` inspects each corpus's
 `has_logprobs` and drops the token-surprisal (`u`) channel when the provider
 does not supply it, so a monitor runs on `(e, m, x)` instead of `(e, u, m, x)`
 with no code change. What was missing is the *price* of that degradation.
 
-L5 measured it across providers - a Gemini tier that rejects
+The cross-provider comparison measured it - a Gemini tier that rejects
 `response_logprobs` scores AUROC 0.794 against a paired qwen corpus's 0.790,
 but detection at a matched FA budget of 0.38 against 0.57. That comparison
 CANNOT establish the cause, because provider and channel availability move

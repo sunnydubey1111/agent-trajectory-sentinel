@@ -119,7 +119,8 @@ def main() -> None:
         k = _fold(r["episode_id"])
         assert r["episode_id"] not in fit_ids[k]       # scored out-of-fold
         alarmed, peak = _alarmed(gates[k], ep)
-        out.append({"episode_id": r["episode_id"], "label": r["label"],
+        out.append({"dataset": OUT.name,
+                    "episode_id": r["episode_id"], "label": r["label"],
                     "peak": round(peak, 3), "alarmed": bool(alarmed),
                     "evidence": r["evidence"]})
     for r in non_healthy:
@@ -127,7 +128,8 @@ def main() -> None:
         # Scored by a fold gate too (fit on healthy only, so out-of-sample) -
         # the SAME model family the healthy negatives use.
         alarmed, peak = _alarmed(gates[_fold(r["episode_id"])], ep)
-        out.append({"episode_id": r["episode_id"], "label": r["label"],
+        out.append({"dataset": OUT.name,
+                    "episode_id": r["episode_id"], "label": r["label"],
                     "peak": round(peak, 3), "alarmed": bool(alarmed),
                     "evidence": r["evidence"]})
     res = pd.DataFrame(out)

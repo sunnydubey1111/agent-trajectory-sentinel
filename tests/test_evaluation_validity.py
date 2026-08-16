@@ -1,8 +1,10 @@
 """Evaluation validity.
 
-Covers the protocol primitives and the specific defects the review named:..H23, M04, M06..M11,,,,,/04/05/07.
-Study-integration is checked by asserting the source no longer contains the
-defective construct, plus focused numeric tests on the shared primitives.
+The protocol primitives that keep a reported number honest: label-independent
+folds, one scoring rule per fold, family-wise error control, and length
+confounds reported rather than assumed away. Study integration is checked by
+asserting the source no longer contains the defective construct, plus focused
+numeric tests on the shared primitives.
 """
 from __future__ import annotations
 
@@ -27,7 +29,7 @@ def _ep(eid, healthy, width=D_TOTAL, T=6):
                    severity=None if healthy else 0.5)
 
 
-# ---------------------------------------------------- / (folds)
+# ----------------------------------------------- cross-fitting and folds
 def test_fold_assignment_is_label_independent():
     eps = [_ep(f"h{i}", True) for i in range(10)] + \
           [_ep(f"inj{i}", False) for i in range(10)]
@@ -67,7 +69,7 @@ def test_cross_fit_scores_one_rule_for_both_classes():
         assert len(offsets) == 1, f"fold {fold} used >1 scoring rule"
 
 
-# ------------------------------------------------------------- / M09
+# --------------------------------------------- family-wise error control
 def test_holm_bonferroni_controls_family():
     fam = {"a": 0.001, "b": 0.2, "c": 0.04, "d": 0.5}
     holm = protocol.holm_bonferroni(fam)
@@ -293,11 +295,12 @@ def test_seq_scaling_does_not_average_the_seed_column():
     assert 'df.groupby("N_train").mean().reset_index()' not in src
 
 
-# ------------------------------------------------------------- (shares)
+# ------------------------------------------- reported coefficient shares
 def test_coefficient_share_is_bounded():
     import pandas as pd
     from derail.experiments.explain_hybrid import coefficients_table
-    # Opposite-sign coefficients used to give a share > 1.0.
+    # Opposite-sign coefficients make a naive share exceed 1.0, which would
+    # publish "this monitor contributes 130% of the fusion".
     ex = pd.DataFrame([{"dataset": "d", "coef_esn": -0.2, "coef_maha": 0.9,
                         "intercept": 0.0}])
     out = coefficients_table(ex)
@@ -313,7 +316,7 @@ def test_demo_degenerate_filter_is_a_declared_policy():
     assert "n_degenerate" in src
 
 
-# ------------------------------------------ review point #1: telemetry cost
+# ------------------------- what a deployment loses without token logprobs
 def test_channel_selection_degrades_on_missing_logprobs():
     """A corpus without logprobs must drop the u channel, not fake it."""
     from derail.experiments.run_hybrid_study import REAL_DATASETS, load_real
@@ -341,7 +344,7 @@ def test_horizon_helper_treats_healthy_as_unbounded():
     assert _horizon(injected) == 7.0
 
 
-# ------------------------------------- review point #2a: tamper-check limits
+# ---------------------------- cross-channel tamper check, and its limits
 def test_tamper_check_flags_a_pinned_channel_and_not_a_varying_one():
     import numpy as np
 
@@ -391,7 +394,7 @@ def test_replay_attack_preserves_healthy_variability():
         assert got[ch] >= floor, ch
 
 
-# ------------------------------- review point #3: recalibration budget honesty
+# --------------------------------- recalibration budget must cover both
 def test_recalibration_budget_covers_fit_and_threshold():
     """n healthy episodes is the WHOLE budget: a deployment cannot also have a
     separate full-size threshold set, so the split must come out of n."""

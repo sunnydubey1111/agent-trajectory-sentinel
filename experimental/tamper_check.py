@@ -1,6 +1,6 @@
-"""Review point #2a - a cross-channel tamper check, and its honest limit.
+"""A cross-channel tamper check, and its honest limit.
 
-L6 (`adversarial_evasion.py`) measured the robustness limit: an adversary who
+`adversarial_evasion.py` measured the robustness limit: an adversary who
 replaces a telemetry channel with the healthy grand-mean blunts single-channel
 detection, and one who shapes EVERY behavioural channel drives detection to the
 false-alarm floor. That is a real limitation and it stays disclosed.

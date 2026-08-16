@@ -133,6 +133,7 @@ def score() -> None:
             alarm = int(np.flatnonzero(s > theta)[0]) \
                 if np.any(s > theta) else None
             rows.append({
+                "dataset": ORGANIC.name,
                 "monitor": mon.name, "episode_id": lab["episode_id"],
                 "label": lab["label"],
                 "failure_mode": lab.get("failure_mode", ""),

@@ -16,7 +16,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (71 claims checked).
+ (72 claims checked).
 
 ## Corpus
 
@@ -80,9 +80,10 @@ Status at generation: **all claims verified**
 | Held-out failures caught by totals check | `0.536` | — | `results/tables/verification_holdout.csv` | `py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout` |
 | Held-out failures caught with coverage | `0.929` | — | `results/tables/verification_holdout.csv` | `py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout` |
 | Held-out false positives | `0` | — | `results/tables/verification_holdout.csv` | `py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout` |
-| llama3.1:8b failures caught (all checks) | `1` | — | `results/tables/verification_organic_llama8b_cold.csv` | `py -m derail.verify.run_verification_study` |
-| llama3.1:8b false positives | `0` | — | `results/tables/verification_organic_llama8b_cold.csv` | `py -m derail.verify.run_verification_study` |
-| Provoked fabrications caught | `26` | — | `results/tables/verification_provoked.csv` | `py -m verification.score_provoked_fabrication` |
+| llama3.1:8b failures caught (all checks) | `1` | — | `results/tables/verification_organic_llama8b_cold.csv` | `py -m derail.verify.run_verification_study --holdout organic_llama8b_cold` |
+| llama3.1:8b false positives | `0` | — | `results/tables/verification_organic_llama8b_cold.csv` | `py -m derail.verify.run_verification_study --holdout organic_llama8b_cold` |
+| Provoked fabrications caught | `26` | — | `results/tables/verification_provoked.csv` | `py -m derail.verify.run_verification_study --holdout organic_demo7b_provoked` |
+| Grounding-verifier false positives on label-healthy runs | `0` | `55` episodes | `results/tables/fabrication_organic_demo7b.csv` | `AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b py -m verification.score_provoked_fabrication` |
 | Episodes flagged by tool_contract | `218` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
 | Flagged episodes caught within one step of onset | `215` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
 | Checks: failures caught at T=0.2 (totals only) | `0.597` | `57` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
