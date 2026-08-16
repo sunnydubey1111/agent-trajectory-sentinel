@@ -226,6 +226,51 @@ def run_policy(policy: str, episodes: list[Episode],
     return outcomes
 
 
+def cost_at(mean_cost: float, mean_judge_calls: float, ratio: float,
+            *, recorded_ratio: float = 1.0) -> float:
+    """Re-express a recorded mean cost at a different judge/step price ratio.
+
+    The cost model is linear in `COST_JUDGE`, so a table produced at one ratio
+    carries enough information to answer "what would this have been at
+    another?" without re-running anything: the non-judge part is
+    `mean_cost - recorded_ratio * mean_judge_calls`, and it does not move.
+    """
+    non_judge = mean_cost - recorded_ratio * mean_judge_calls
+    return non_judge + ratio * mean_judge_calls
+
+
+def cost_ratio_at(selective: tuple[float, float],
+                  every_step: tuple[float, float], ratio: float,
+                  *, recorded_ratio: float = 1.0) -> float:
+    """Selective-policy cost as a fraction of judging every step, at `ratio`.
+
+    Each argument is that policy's `(mean_cost, mean_judge_calls)` as recorded.
+    Below 1.0 the selective policy is the cheaper one.
+    """
+    return (cost_at(*selective, ratio, recorded_ratio=recorded_ratio)
+            / cost_at(*every_step, ratio, recorded_ratio=recorded_ratio))
+
+
+def cost_ratio_break_even(selective: tuple[float, float],
+                          every_step: tuple[float, float],
+                          *, recorded_ratio: float = 1.0) -> float:
+    """The judge/step price ratio at which selective escalation stops winning.
+
+    Reported rather than assumed, because `COST_JUDGE == COST_STEP` is a choice
+    of units and the conclusion drawn from it is not scale-free: a judge cheap
+    enough relative to an agent step makes judging EVERY step the cheaper
+    option, and no amount of selectivity recovers that.
+    """
+    s_cost, s_calls = selective
+    e_cost, e_calls = every_step
+    num = ((s_cost - recorded_ratio * s_calls)
+           - (e_cost - recorded_ratio * e_calls))
+    den = e_calls - s_calls
+    if den == 0:
+        return float("nan")
+    return num / den
+
+
 def summarize_policy(outcomes: list[PolicyOutcome]) -> dict:
     """Aggregate PolicyOutcomes.
 

@@ -434,18 +434,54 @@ def _char_stats(text: str) -> tuple[float, float]:
     return alnum, junk
 
 
+#: Function words dropped before the overlap test. English, because the tasks
+#: in this project are English; supply another set through `_lex_miss(stop=)`
+#: for another language.
+#:
+#: It matters less than it looks. The test is an INTERSECTION of two sets
+#: produced by the same filter, so a stoplist that misses a language's function
+#: words makes both sides larger and the overlap MORE likely — the dim
+#: under-fires rather than false-alarms. The language-neutral `len(w) > 2` rule
+#: below already removes most short function words in any language, which is
+#: why a French decoy is still flagged correctly with an English stoplist.
 _LEX_STOP = frozenset(
     "a an the of for in on with to and or is are was be this that how "
     "what".split())
 
+#: Word characters in ANY script, minus underscore. `[a-z0-9]+` matched ASCII
+#: letters only, which made this dim structurally inert outside the Latin
+#: alphabet: a Cyrillic or Greek result tokenized to nothing, fell under
+#: `min_words`, and scored 0.0 — reported as "relevant" because it could not be
+#: read at all. Measured on the committed corpora: this changes the verdict on
+#: 0 of 30,070 tool events, so it is a capability fix, not a result change.
+_WORD_RE = re.compile(r"[^\W_]+", re.UNICODE)
 
-def _content_words(text: str) -> list[str]:
-    return [w for w in re.findall(r"[a-z0-9]+", text.lower())
-            if w not in _LEX_STOP and len(w) > 2]
+#: Document-like results the lexical reader could not tokenize into enough
+#: words to judge. Non-zero means this dim is inert on that traffic — see
+#: `lex_unreadable`.
+LEX_UNREADABLE = 0
+
+
+def lex_unreadable() -> int:
+    """How many document-like results the lexical relevance dim could not read.
+
+    A space-free script (Chinese, Japanese, Thai) tokenizes to one run per
+    phrase, so it never reaches `min_words` and the dim silently returns 0.0.
+    Segmenting it needs a per-language model, which this project deliberately
+    does not carry; counting the cases is what keeps the gap visible instead of
+    letting a permanently-quiet feature read as a permanently-clean one.
+    """
+    return LEX_UNREADABLE
+
+
+def _content_words(text: str, stop: frozenset[str] = _LEX_STOP) -> list[str]:
+    return [w for w in _WORD_RE.findall(text.lower())
+            if w not in stop and len(w) > 2]
 
 
 def _lex_miss(task_text: str, args: str, result: str,
-              min_words: int = 4) -> float:
+              min_words: int = 4,
+              stop: frozenset[str] = _LEX_STOP) -> float:
     """Binary lexical retrieval-relevance miss of one DOCUMENT result.
 
     1.0 iff a document-like result (>= min_words content words; not an
@@ -465,12 +501,19 @@ def _lex_miss(task_text: str, args: str, result: str,
         return 0.0
     if r[0] in "{[":
         return 0.0      # structured data, not a document (json/char dims' job)
-    rw = _content_words(r)
+    rw = _content_words(r, stop)
     if len(rw) < min_words:
+        # Long enough to be a document, but it did not tokenize into enough
+        # words to judge — a space-free script, most likely. Counted so the
+        # dim's silence on that traffic is observable rather than assumed to
+        # mean "relevant"; see `lex_unreadable`.
+        if len(r.split()) < min_words and len(r) >= 4 * min_words:
+            global LEX_UNREADABLE
+            LEX_UNREADABLE += 1
         return 0.0
     rset = set(rw)
     for src in (args, task_text):
-        if set(_content_words(src)) & rset:
+        if set(_content_words(src, stop)) & rset:
             return 0.0
     return 1.0
 

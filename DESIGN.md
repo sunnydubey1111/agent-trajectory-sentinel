@@ -25,7 +25,9 @@ Hypotheses:
   drift and looping; no single channel dominates all classes. (Core table.)
 - **H3 (calibrated escalation)**: ensemble disagreement yields calibrated alarm
   confidence enabling an escalation policy that recovers most judge-LLM
-  detection quality at a small fraction of its cost.
+  detection quality at a small fraction of its judge CALLS — 7.6% of them,
+  for 0.83 detection against 0.99. Whether that is a saving in money depends
+  on a price ratio this project does not measure; see "Escalation costs".
 
 ## Architecture
 
@@ -194,6 +196,36 @@ published throughput figures are unaffected because they are measured by
 Collectors deliberately pass no sink — a collection run's evidence *is* the
 trace it writes, and duplicating it into a second file would create two
 records of the same thing that can disagree.
+
+## Escalation costs
+
+`COST_STEP` and `COST_JUDGE` are both 1.0. That is a choice of **units**, not
+a measurement: nothing here prices either quantity in currency, and a
+published escalation figure is a statement about **call counts under a stated
+exchange rate**, never about a bill.
+
+Only the ratio does anything, and the cost model is linear in it, so the
+committed table can be re-expressed at any other rate with no rerun
+(`escalation.cost_ratio_at`, `cost_ratio_break_even`). Computed from
+`h3_escalation.csv`:
+
+| COST_JUDGE / COST_STEP | selective vs judge-every-step |
+|---|---|
+| 0.10 | 1.05 — **judging every step is cheaper** |
+| 0.16 | 1.00 — break-even |
+| 1.00 (published) | 0.61 |
+| 10.0 | 0.17 |
+
+So the qualitative conclusion holds for any ratio at or above ~0.16 and the
+published table sits about 6× above that, which is the honest way to state its
+robustness: it survives a judge several times cheaper than an agent step, and
+reverses only if the judge is more than roughly six times cheaper. The
+selected policy makes 7.6% of the judge calls for 0.83 detection against 0.99.
+
+Override with `AGENTWATCH_COST_STEP` / `AGENTWATCH_COST_JUDGE` to price a
+deployment's own rate. `run_experiment` refuses to write such a run to the
+publication path, exactly as it refuses a judge-parameter override — a table
+produced at another rate answers a different question while looking identical.
 
 Every library module carries an `if __name__ == "__main__":` smoke test that
 uses only that module + `derail.common` + third-party libs (NO sibling `derail`

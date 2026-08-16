@@ -988,18 +988,25 @@ def main(argv: list[str] | None = None) -> None:
             "results/seed<N>/); the published tables come from a full-size run "
             "at the master seed via run_multiseed.")
 
-    # Judge-override guard (L8): a run under non-default judge parameters is a
-    # sensitivity arm, not a publication result. It must not be able to land in
-    # the published tree even by accident.
-    if (os.environ.get("AGENTWATCH_JUDGE_P_DETECT")
-            or os.environ.get("AGENTWATCH_JUDGE_P_FALSE")):
+    # Sensitivity-override guard: a run under non-default judge parameters OR a
+    # non-default cost ratio is a sensitivity arm, not a publication result. It
+    # must not be able to land in the published tree even by accident. The cost
+    # constants are here for the same reason as the judge rates: the escalation
+    # conclusion is stated at COST_JUDGE == COST_STEP, and a table produced at
+    # another rate answers a different question while looking identical.
+    _overrides = [name for name in ("AGENTWATCH_JUDGE_P_DETECT",
+                                    "AGENTWATCH_JUDGE_P_FALSE",
+                                    "AGENTWATCH_COST_STEP",
+                                    "AGENTWATCH_COST_JUDGE")
+                  if os.environ.get(name)]
+    if _overrides:
         if not os.environ.get("AGENTWATCH_RESULTS_ROOT"):
             raise SystemExit(
-                "refusing to write a JUDGE-OVERRIDE run to the publication "
-                "path. A run under measured judge parameters is a sensitivity "
-                "arm; set AGENTWATCH_RESULTS_ROOT to a disposable directory "
-                "(e.g. results/_sensitivity) so results/ keeps the published "
-                "stipulated-judge numbers.")
+                f"refusing to write a SENSITIVITY run to the publication "
+                f"path; overridden: {', '.join(_overrides)}. Set "
+                f"AGENTWATCH_RESULTS_ROOT to a disposable directory (e.g. "
+                f"results/_sensitivity) so results/ keeps the published "
+                f"stipulated-judge, unit-cost numbers.")
 
     t0 = time.perf_counter()
     _set_results_dirs(args.seed)

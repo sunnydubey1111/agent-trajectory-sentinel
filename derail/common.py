@@ -13,6 +13,7 @@ Do not change constants or signatures here without updating DESIGN.md.
 
 from __future__ import annotations
 
+import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Optional
@@ -318,8 +319,28 @@ class DatasetConfig:
 # --------------------------------------------------------------------------
 # Cost model (escalation experiments, H3)
 # --------------------------------------------------------------------------
-COST_STEP: float = 1.0    # cost of one executed agent step (1 LLM call)
-COST_JUDGE: float = 1.0   # cost of one judge-LLM call
+# NORMALIZED UNITS, not money. Both default to 1.0, which makes a judge call
+# cost exactly one agent step; that is a choice of units, not a measurement,
+# and nothing in this project measures either quantity in currency. A published
+# escalation figure is therefore a statement about CALL COUNTS under a stated
+# exchange rate, never about a bill.
+#
+# The rate matters, and its effect is quantified rather than assumed. Only the
+# ratio COST_JUDGE/COST_STEP does anything, and the cost model is linear in it,
+# so the committed table can be re-expressed at any rate without a rerun --
+# `escalation.cost_ratio_at` does exactly that. Measured on the committed
+# h3_escalation.csv: selective escalation is cheaper than judging every step
+# for any ratio at or above ~0.16, and the published table sits at 1.0, about
+# 6x above that flip point. The conclusion therefore survives a judge several
+# times cheaper than an agent step, and reverses only if the judge is more than
+# roughly six times cheaper.
+#
+# Override with AGENTWATCH_COST_STEP / AGENTWATCH_COST_JUDGE to re-run any arm
+# at a deployment's own rate. A non-default rate is a sensitivity arm and
+# `run_experiment` refuses to write it to the publication path, exactly as it
+# refuses a judge-parameter override.
+COST_STEP: float = float(os.environ.get("AGENTWATCH_COST_STEP", "1.0"))
+COST_JUDGE: float = float(os.environ.get("AGENTWATCH_COST_JUDGE", "1.0"))
 
 
 @dataclass
