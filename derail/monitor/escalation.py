@@ -6,7 +6,7 @@ p_false) and the per-call cost (COST_JUDGE relative to COST_STEP) are assumed
 parameters, so every H3b escalation result is CONDITIONAL on those assumptions
 and is a sensitivity analysis, not a measured cost saving.
 
-L8 has now MEASURED that judge (`derail.experiments.run_judge_calibration`):
+That judge has since been MEASURED (`derail.experiments.run_judge_calibration`):
 a real gemini-2.5-flash judge on a labelled subset of traces/ollama7b scores
 p_detect = 0.548 (95% CI 0.44-0.65) and p_false = 0.052 (95% CI 0.020-0.126)
 over 161 distinct prompts. BOTH stipulated values sit outside their measured
@@ -145,11 +145,10 @@ def _outcome(episode: Episode, halted_at: Optional[int],
 
     A WRONGFUL halt is any halt that stopped the episode while it was not yet
     derailed: a healthy episode halted at all, OR an injected episode halted
-    BEFORE its onset tau. Both discard work that has to be redone, so both now
-    carry the redo penalty and both are reported. Previously the redo penalty
-    and the wrongful-halt count applied to healthy episodes only, so an
-    injected episode halted before tau saved steps, was detected=False, and was
-    invisible - a free reward for halting too early.
+    BEFORE its onset tau. Both discard work that has to be redone, so both
+    carry the redo penalty and both are reported. Charging healthy episodes
+    only would make an injected episode halted before tau save steps, report
+    detected=False and stay invisible - a free reward for halting too early.
     """
     executed = episode.T if halted_at is None else halted_at + 1
     cost = COST_STEP * executed + COST_JUDGE * judge_calls

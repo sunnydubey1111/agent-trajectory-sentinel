@@ -277,7 +277,7 @@ if __name__ == "__main__":
     assert m3.check_step(f"Total ${total:g}.") == [], "subset-sum not grounded"
     m3.observe_tool_results("[t -> $999]")                # an 8th, unrelated value
     assert m3.check_step(f"Total ${total:g}.") == [], \
-        "a previously grounded total became ungrounded after a new value (M12)"
+        "a previously grounded total became ungrounded after a new value"
 
     # a fabricated figure in a currency the regex cannot see is invisible to
     # it, so refuse the input rather than report the run clean.

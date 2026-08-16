@@ -363,9 +363,9 @@ def recommended_monitor(standardizer: Standardizer,
 
     # Branch on telemetry width FIRST: on grounded (v4) telemetry the
     # explicit grounding detector must never be dropped just because more
-    # labels became available. The old order checked the label count first, so
-    # reaching min_labeled switched a grounded gate for an UNgrounded logistic
-    # and silently removed the content detector.
+    # labels became available. Checking the label count first would let
+    # reaching min_labeled switch a grounded gate for an UNgrounded logistic,
+    # silently removing the content detector.
     if grounded:
         from derail.monitor.grounding import (GRD_DIM_NAMES,
                                               GroundingMonitor,

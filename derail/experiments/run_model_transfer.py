@@ -10,8 +10,8 @@ The cross-framework matrix already showed monitors do not transfer across
 FRAMEWORKS without refit; this answers the finer question.
 
 Two arms are run:
-  T6c  within-family  qwen2.5:7b -> qwen2.5:3b   (the original study)
-  L4   cross-FAMILY   qwen2.5:7b -> llama3.1:8b  (Phase 10 external validity)
+  within-family  qwen2.5:7b -> qwen2.5:3b   (the original study)
+  cross-FAMILY   qwen2.5:7b -> llama3.1:8b  (external validity)
 
 Cross-family is the stronger test: a different tokenizer, chat template and
 tool-calling style, not just a smaller sibling.

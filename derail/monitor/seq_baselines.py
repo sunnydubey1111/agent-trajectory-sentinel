@@ -18,7 +18,7 @@ Monitors:
                                   "nonlinear temporal".
   GRUMonitor       ("gru")        1-layer GRU(64) + linear head, Adam/BPTT.
   LSTMMonitor      ("lstm")       1-layer LSTM(64), identical protocol (a
-                                  GRU subclass; reviewers ask for it by name).
+                                  GRU subclass; reported as its own arm).
   TCNMonitor       ("tcn")        causal dilated conv stack (RF 16) + head.
 
 Capacity note: GRU trains ~21k parameters, LSTM ~28k, TCN ~27k; the ESN trains
@@ -270,7 +270,7 @@ class GRUMonitor(_NextStepMonitor):
 class LSTMMonitor(GRUMonitor):
     """1-layer LSTM next-step predictor (identical protocol to GRUMonitor).
 
-    Included because reviewers ask for it by name; at this scale GRU and
+    Included as a named comparator in its own right; at this scale GRU and
     LSTM are near-equivalent (GRU has fewer parameters).
     """
 

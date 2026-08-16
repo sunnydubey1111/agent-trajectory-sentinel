@@ -457,11 +457,10 @@ def _h1_verdict(h1_results: dict[str, dict],
                  else float("nan"))
     seq_advantage = esn_la - _lead_all(best_seq)
 
-    # H1 verdict is a PAIRED-DIFFERENCE inference. The old logic
-    # (a) declared support from a positive point estimate alone, ignoring the
-    # paired p-value, and (b) called a baseline "significantly different" when
-    # its one-sample mean fell outside the ESN's one-sample CI - which is not a
-    # paired-difference interval. Here support requires BOTH a positive paired
+    # H1 verdict is a PAIRED-DIFFERENCE inference. A positive point estimate
+    # alone is not support, and a baseline whose one-sample mean falls outside
+    # the ESN's one-sample CI is not "significantly different" either - that is
+    # not a paired-difference interval. Support requires BOTH a positive paired
     # advantage and a Holm-corrected paired test that rejects, and the reported
     # interval is a bootstrap CI of the per-episode lead difference.
     ids_p, lead_p, _ = _paired_episode_values(h1_results[H1_PRIMARY]["df"])
@@ -671,10 +670,10 @@ def run_h3_calibration(components: ComponentStreams,
     for stream in STREAMS:
         # NULL calibrator: F0(score) is the healthy-null ECDF percentile, i.e.
         # 1 - a false-alarm p-value. Under the healthy null it is Uniform(0,1);
-        # it is NOT P(derailed | score). The old code computed ECE of F0
-        # against failure labels, which requires a posterior it never
-        # produced. The honest test of a null statistic is its
-        # UNIFORMITY / false-alarm calibration on healthy test episodes.
+        # it is NOT P(derailed | score). An ECE of F0 against failure labels
+        # would require a posterior this statistic never produces. The honest
+        # test of a null statistic is its UNIFORMITY / false-alarm calibration
+        # on healthy test episodes.
         null_cal = NullCalibrator()
         null_cal.fit(max_scores("val", val_eps, stream))
         null_h = np.asarray(
@@ -747,7 +746,7 @@ def _h3a_verdict(cal_headline: dict[str, dict[str, float]]) -> str:
 # H3b — cost-optimal escalation to a judge-LLM
 # ---------------------------------------------------------------------------
 def _judge_config() -> JudgeConfig:
-    """Judge parameters, overridable for the L8 sensitivity analysis.
+    """Judge parameters, overridable for the judge sensitivity analysis.
 
     The defaults (0.90 / 0.02) are STIPULATED. `run_judge_calibration` measures
     a real Gemini-Flash judge on a labelled subset and gets materially worse
@@ -769,7 +768,7 @@ def _judge_config() -> JudgeConfig:
         kwargs[field] = value
     judge = JudgeConfig(**kwargs)
     if kwargs:
-        print(f"[experiment] JUDGE OVERRIDE (L8 sensitivity): "
+        print(f"[experiment] JUDGE OVERRIDE (sensitivity run): "
               f"p_detect={judge.p_detect} p_false={judge.p_false}")
     return judge
 
@@ -1070,7 +1069,7 @@ def main(argv: list[str] | None = None) -> None:
             "quick": bool(args.quick),
             "dataset": dataclasses.asdict(ds_cfg),
             "sim": dataclasses.asdict(sim_cfg),
-            # The judge ACTUALLY used, not the default: an L8 sensitivity run
+            # The judge ACTUALLY used, not the default: a sensitivity run
             # must not record itself as having used the stipulated rates.
             "judge": dataclasses.asdict(_judge_config()),
             "esn_K": 4 if args.quick else 8,

@@ -297,8 +297,8 @@ class Cassette:
     def _hold(self, key: str):
         """Hold the per-key lock, honouring `lock_timeout_s`.
 
-        The timeout was previously stored and never used, so a caller that
-        asked for one got an unbounded wait instead. `threading.Lock` is also
+        A caller that asks for a timeout gets one; a stored-but-unread timeout
+        would be an unbounded wait wearing a bound. `threading.Lock` is also
         per-PROCESS: two processes sharing a cassette directory can still
         record the same key concurrently. That is safe because `_write` is an
         atomic temp-file rename, so the loser is overwritten rather than the

@@ -17,8 +17,8 @@ def test_vector_search_ranks_by_lexical_relevance():
     from derail.harness.real_tools import VectorSearchTool
     t = VectorSearchTool()
     # A CUSUM query must return the CUSUM document, not a random one; an ESN
-    # query must return the ESN document. The old hashing embedding ranked
-    # these at random.
+    # query must return the ESN document. A hashing embedding ranks these at
+    # random.
     assert "CUSUM" in t.run("CUSUM change detection", limit=1)
     assert "Echo State" in t.run("echo state network reservoir", limit=1)
     # Shared words drive relevance; a query with no overlap returns nothing.

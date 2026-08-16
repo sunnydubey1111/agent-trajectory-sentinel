@@ -1,6 +1,6 @@
 """Training-fairness diagnostics for the GRU/LSTM-vs-ESN comparison.
 
-Answers three reviewer questions with data (simulator testbed, default seed):
+Answers three fairness questions with data (simulator testbed, default seed):
 
   1. CONVERGENCE — are the backprop baselines trained to a plateau at the
      default 40 epochs? (Per-epoch training MSE is logged; we report the

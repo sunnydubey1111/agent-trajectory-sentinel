@@ -135,7 +135,7 @@ def fig_score_traces() -> None:
 # ---------------------------------------------------------------- fig 2
 
 # --------------------------------------------------------------- real traces
-#: Figures lead with REAL end-to-end agent traces (operator directive, L1b).
+#: Figures lead with REAL end-to-end agent traces (operator directive).
 #: The simulator panel is secondary and must say so on the figure itself: its
 #: goal-drift stream is a *designed* slow rotation that reads as a capability
 #: gap, while on real traces the same monitor detects goal drift at 0.66-0.86.
@@ -418,7 +418,7 @@ def fig_monitor_benchmark_real(table: str = "l7b_benchmark") -> None:
 
     Mean AUROC per monitor across the real deployments, with each corpus drawn
     as a dot so the spread is visible rather than hidden behind an average -
-    the per-dataset variation is the point (see the tie results in L7b).
+    the per-dataset variation is the point (see the ties in the l7b_* tables).
     """
     df = pd.read_csv(RESULTS / "tables" / f"{table}.csv")
     df = df[df["dataset"] != "sim"]

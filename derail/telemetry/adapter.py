@@ -206,9 +206,9 @@ def embed_text(text: str, use_sentence_transformers: bool | None = None) -> np.n
 
 #: Value written into the surprisal dims when a step carries no logprobs.
 #: Surprisal is -log p >= 0 for any real token, so a negative marker cannot
-#: collide with an observed value - the old 0.05 floor did, and it was also
-#: the clamp applied to genuine high-confidence steps, so "missing" and "very
-#: confident" were indistinguishable.
+#: collide with an observed value. A positive floor such as 0.05 does collide,
+#: and doubles as the clamp on genuine high-confidence steps, which makes
+#: "missing" and "very confident" indistinguishable.
 MISSING_SURPRISAL = -1.0
 
 
@@ -633,7 +633,7 @@ def validate_steps(steps: object, context: str = "<trace>") -> list[dict]:
     Fields are coerced where a sane coercion exists (a numeric string token
     count, a missing text) and rejected where silence would corrupt features:
     non-finite latency or logprobs, negative counts, a non-list trace, or an
-    empty run - all of which previously reached the feature vectors as NaN, a
+    empty run - each of which otherwise reaches the feature vectors as NaN, a
     TypeError deep in numpy, or a malformed one-dimensional array.
     """
     if not isinstance(steps, list):

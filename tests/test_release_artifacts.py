@@ -77,8 +77,8 @@ def test_readme_links_resolve() -> None:
     """Every relative link in the README points at something.
 
     A `file.md#section` link is checked in both halves: the file must exist and
-    the heading must too. Previously the fragment was treated as part of the
-    path, so any anchored link failed even when it was correct.
+    the heading must too. Treating the fragment as part of the path fails every
+    anchored link, correct ones included.
 
     The centred header is raw HTML, so `href=` and `src=` are scanned too --
     otherwise the badge row and the hero image would be the one part of the

@@ -8,7 +8,7 @@ local.
 
 Episode counts match what the original collection requested, so the corpora
 stay comparable in size; ACCEPTED counts are lower wherever the acceptance gate
-rejects an episode the old run kept. Each corpus directory is cleared and
+rejects an episode. Each corpus directory is cleared and
 rewritten in place, and every rejection is recorded in its rejected.json.
 
     py -m devtools.recollect_frameworks              # all four

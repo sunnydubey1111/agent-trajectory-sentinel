@@ -5,7 +5,8 @@ on healthy + that class's injected episodes. Every monitor here is ONE-CLASS
 (fit on healthy only), so no failure class ever participates in training -
 there is nothing to "leave out". This is per-class evaluation, NOT
 leave-one-failure-out (which would require a learner trained on the OTHER
-failure classes and tested on the held-out one); the old name overstated it. The output table is named accordingly.
+failure classes and tested on the held-out one). The output table is named
+accordingly.
 
 Run: py -m derail.experiments.run_leave_one_out
 """

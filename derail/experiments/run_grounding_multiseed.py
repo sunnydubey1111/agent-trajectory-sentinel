@@ -1,4 +1,4 @@
-"""Grounded-monitor multiseed stability (T2, exp/grounding-multiseed).
+"""Grounded-monitor multiseed stability.
 
 Re-runs the full grounding study at four extra monitor-side seeds and
 aggregates with the published seed-0 tables:

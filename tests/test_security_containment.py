@@ -1,7 +1,7 @@
 """Containment of tools driven by untrusted model output.
 
 Covers the validity rules this module enforces.
-Every test states the behaviour the review asked for, not the implementation,
+Every test states the behaviour required, not the implementation,
 so a future refactor that reopens the hole fails here.
 """
 from __future__ import annotations

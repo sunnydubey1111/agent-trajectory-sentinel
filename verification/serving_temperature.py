@@ -1,4 +1,4 @@
-"""L3 - Does organic detection survive at the SERVING temperature?
+"""Does organic detection survive at the SERVING temperature?
 
 Every organic detection number in this
 repository was measured at sampling temperature 0.9; the demo and the shipped
@@ -13,7 +13,7 @@ temperature. Each arm is scored against its OWN temperature-matched cross-fit
 null (a shared null would reintroduce the confound).
 
 Run (after collecting and scoring both arms):
-  py -m verification.l3_serving_temperature
+  py -m verification.serving_temperature
 Writes results/tables/serving_temperature.csv
 """
 from __future__ import annotations
@@ -68,12 +68,12 @@ def main() -> None:
     TABLES.mkdir(parents=True, exist_ok=True)
     table.to_csv(TABLES / "serving_temperature.csv", index=False)
 
-    print("[L3] organic detection at provoking (0.9) vs serving (0.2) "
+    print("[temperature] organic detection at provoking (0.9) vs serving (0.2) "
           "temperature\n")
     print(table.to_string(index=False))
 
     # ---- base rate and failure mix, reported BEFORE any detection claim ----
-    print("\n[L3] organic failure base rate and mix")
+    print("\n[temperature] organic failure base rate and mix")
     mix = {}
     for arm, df in (("0.9", hot), ("0.2", cold)):
         n_fail = int((df.label != "healthy").sum())
@@ -102,35 +102,35 @@ def main() -> None:
     n_cold, k_cold = _all_fail(cold)
     nh_hot, kh_hot = _counts(hot, "healthy")
     nh_cold, kh_cold = _counts(cold, "healthy")
-    print(f"\n[L3] all-failure detection   T=0.9: {k_hot}/{n_hot} = "
+    print(f"\n[temperature] all-failure detection   T=0.9: {k_hot}/{n_hot} = "
           f"{k_hot / max(n_hot, 1):.0%}   (healthy FA {kh_hot / max(nh_hot, 1):.0%})")
-    print(f"[L3] all-failure detection   T=0.2: {k_cold}/{n_cold} = "
+    print(f"[temperature] all-failure detection   T=0.2: {k_cold}/{n_cold} = "
           f"{k_cold / max(n_cold, 1):.0%}   (healthy FA "
           f"{kh_cold / max(nh_cold, 1):.0%})")
 
     if n_cold < MIN_N:
         print(f"\n[VERDICT] NO VERDICT - the serving arm produced only "
               f"{n_cold} failures (pre-registered floor {MIN_N}).")
-        print(f"\n[L3] wrote {TABLES / 'serving_temperature.csv'}")
+        print(f"\n[temperature] wrote {TABLES / 'serving_temperature.csv'}")
         return
 
     p_arm = _fisher(k_cold, n_cold, k_hot, n_hot, "two-sided")
-    print(f"[L3] across-arm Fisher (two-sided) p = {p_arm:.4g}")
+    print(f"[temperature] across-arm Fisher (two-sided) p = {p_arm:.4g}")
 
     # ---- confound-free per-class check: arithmetic_error ------------------
     na_c, ka_c = _counts(cold, "arithmetic_error")
     na_h, ka_h = _counts(hot, "arithmetic_error")
-    print(f"\n[L3] arithmetic_error only   T=0.9: {ka_h}/{na_h}"
+    print(f"\n[temperature] arithmetic_error only   T=0.9: {ka_h}/{na_h}"
           f"   T=0.2: {ka_c}/{na_c}")
     if na_c < MIN_N:
-        print(f"[L3] arithmetic_error UNDERPOWERED at 0.2 (n={na_c} < "
+        print(f"[temperature] arithmetic_error UNDERPOWERED at 0.2 (n={na_c} < "
               f"{MIN_N}) - no per-class claim.")
         p_cls = None
         cold_beats_own_fa = None
     else:
         p_cls = _fisher(ka_c, na_c, ka_h, na_h, "two-sided")
         cold_beats_own_fa = _fisher(ka_c, na_c, kh_cold, nh_cold, "greater")
-        print(f"[L3] arithmetic_error across-arm p = {p_cls:.4g}; "
+        print(f"[temperature] arithmetic_error across-arm p = {p_cls:.4g}; "
               f"at 0.2 vs its own healthy FA p = {cold_beats_own_fa:.4g}")
 
     # ---- pre-declared verdicts -------------------------------------------
@@ -152,7 +152,7 @@ def main() -> None:
     else:
         print("[VERDICT] INCONCLUSIVE - neither pre-registered criterion met.")
 
-    print(f"\n[L3] wrote {TABLES / 'serving_temperature.csv'}")
+    print(f"\n[temperature] wrote {TABLES / 'serving_temperature.csv'}")
 
 
 if __name__ == "__main__":

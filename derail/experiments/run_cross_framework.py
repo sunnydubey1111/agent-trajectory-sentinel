@@ -82,10 +82,9 @@ def run_cross_framework():
 
     # Precompute the on-diagonal healthy split for EVERY framework ONCE, so the
     # diagonal cell trains only on the train portion and tests only on the
-    # held-out portion. The old code fit the monitor on ALL of a framework's
-    # healthy episodes and then "held out" 40% of that same set, so on the
-    # diagonal every held-out healthy test episode had been in training
-    #. Split first, then fit.
+    # held-out portion. Fitting on ALL of a framework's healthy episodes and
+    # then "holding out" 40% of that same set puts every diagonal test episode
+    # in training. Split first, then fit.
     diag_split: dict[str, tuple[list, list]] = {}
     for fw in framework_names:
         healthy = data[fw]["healthy"]

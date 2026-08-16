@@ -2,7 +2,7 @@
 
 Bootstrap CIs (metrics.bootstrap_ci) quantify uncertainty of a single
 monitor's statistic; the tests here compare TWO monitors on the SAME test
-episodes, which is the question reviewers actually ask ("is the primary
+episodes, which is the question that actually matters ("is the primary
 better than this baseline, or is it seed noise?"):
 
   - paired_permutation_test: two-sided sign-flip permutation test on the

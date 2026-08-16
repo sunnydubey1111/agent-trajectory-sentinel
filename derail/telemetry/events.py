@@ -25,9 +25,8 @@ A step written by this project now carries its tool calls as data:
 text for the older corpora, so no already-collected trace is lost:
 
   * ``[name({args}) -> result]``   - the v2/v3 in-bracket form;
-  * ``[name({args})] -> result``   - the form `collect_framework_traces.py`
-    wrote, which the old regex never matched at all: 41 committed
-    LangGraph-7B traces carry recoverable results in it;
+  * ``[name({args})] -> result``   - the arrow-outside-bracket form; 41
+    committed LangGraph-7B traces carry recoverable results in it;
   * ``[name({args})]``             - the v1 form with no result recorded.
 
 The fallback is bracket-depth aware, so a result containing ``]`` survives, and

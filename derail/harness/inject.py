@@ -175,10 +175,10 @@ class ToolInjector:
                            content=_DECOYS[int(self.rng.integers(len(_DECOYS)))])
         if fc == "malformed_json":
             # Structurally invalid, not merely cut short: an array closed by a
-            # brace plus a value-less key. The old payload was a valid JSON
-            # *prefix*, so the truncation-tolerant grounding check - which
-            # exists because stored results really were truncated - classified
-            # the injected corruption as harmless.
+            # brace plus a value-less key. A payload that is a valid JSON
+            # *prefix* would be classified as harmless by the
+            # truncation-tolerant grounding check, which exists because stored
+            # results really are truncated.
             frag = str(result.content)[:60].replace('"', "'")
             return replace(result, is_error=False,
                            content='{"results": [{"text": "' + frag

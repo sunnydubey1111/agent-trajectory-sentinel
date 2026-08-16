@@ -1,4 +1,4 @@
-"""L8 - measure a real LLM judge instead of stipulating one.
+"""Measure a real LLM judge instead of stipulating one.
 
 Every H3b escalation result in this study is conditional on `JudgeConfig`:
 p_detect = 0.90 and p_false = 0.02, both ASSUMED. This runner replaces

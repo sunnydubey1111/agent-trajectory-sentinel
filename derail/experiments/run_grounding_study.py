@@ -85,10 +85,11 @@ def _crossfit_logistic(make, train, test, name_label, seed=0):
     """Out-of-fold scores for EVERY test episode under one rule + a val scorer.
 
     Each episode (healthy or injected) is assigned to a fold by its id and
-    scored by the model trained without its fold. The old version scored
-    injected episodes with a single opposite-fold model but AVERAGED two
-    models for healthy episodes, so the true class chose the scoring rule. A model trained on all injected scores the disjoint
-    validation cohort.
+    scored by the model trained without its fold. One rule for every episode:
+    scoring injected episodes with a single opposite-fold model while AVERAGING
+    two models for healthy ones would let the true class choose the scoring
+    rule. A model trained on all injected scores the disjoint validation
+    cohort.
     """
     injected = [ep for ep in test if not ep.is_healthy]
     cf = cross_fit_scores(test, make, train, k=2, salt=f"{name_label}:{seed}")

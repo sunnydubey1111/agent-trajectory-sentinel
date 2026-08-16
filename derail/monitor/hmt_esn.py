@@ -119,8 +119,8 @@ class _Bank:
     def accumulate(self, U_in: np.ndarray, Y: np.ndarray) -> None:
         """Add one episode's ridge rows: feature at t=2..T-2 -> target x_{t+1}
         at t=3..T-1, matching the first transition the held-out normalisation
-        and streaming score (feature t=2 -> x_3). The old start (t=3 -> x_4)
-        never trained the first scored transition."""
+        and streaming score (feature t=2 -> x_3). Starting at t=3 -> x_4 would
+        leave the first scored transition untrained."""
         T = U_in.shape[0]
         if T < _WASHOUT + 1:
             return

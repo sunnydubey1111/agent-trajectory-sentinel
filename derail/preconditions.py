@@ -2,7 +2,8 @@
 
 Every reader in this repo that parses agent or tool text understands a
 specific dialect: US-dollar figures, English labels, English error prefixes.
-Fed something outside that dialect, each one used to return its CLEAN value —
+Fed something outside that dialect, a reader that does not check returns its
+CLEAN value —
 an ungrounded euro figure read as "all grounded", a JSON error result read as
 "the tool succeeded", no observed price read as "the total checks out". A
 reader that answers on input it cannot read is worse than one that fails,

@@ -129,7 +129,7 @@ py -m derail.experiments.run_real_traces                 # real_traces.csv, from
 py -m derail.experiments.run_hybrid_study                # hybrid_*.csv
 py -m derail.verify.run_verification_study               # verification_vs_monitor.csv
 py -m derail.verify.run_verification_study --contract-coverage   # tool_contract_coverage.csv
-py -m verification.l3_serving_temperature                # serving_temperature.csv
+py -m verification.serving_temperature                # serving_temperature.csv
 py -m derail.intervene.evaluate_repair_policies --from-csv   # re-analyse the repair study
 py -m derail.experiments.score_organic                   # organic_validation.csv
 py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120
@@ -183,14 +183,14 @@ py -m derail.experiments.run_grounding_multiseed         # grounding_seed*/_mult
 py -m derail.experiments.run_model_transfer              # model_transfer.csv
 py -m experimental.power_analysis                        # power_analysis.csv (reads hybrid_diagnosis)
 
-# L7b: the published scope plus the two later corpora, reported separately so
-# the eight-dataset tables above keep their scope.
+# The published scope plus the two later corpora, reported separately so the
+# eight-dataset tables above keep their scope.
 py -m derail.experiments.run_hybrid_study --out-prefix l7b --datasets \
     sim gemini autogen7b ollama7b langgraph7b real_research7b \
     real_research7b_long real_research3b ollama_llama8b real_gemini_long
 py -m experimental.power_analysis --diagnosis l7b_diagnosis --out power_analysis_l7b
 
-# T6: the three corpora the dataset-reinforcement section reports on.
+# The three corpora the dataset-reinforcement section reports on.
 py -m derail.experiments.run_grounding_study --out-prefix grounding_t6 \
     --datasets langgraph7b real_research7b real_research3b
 ```

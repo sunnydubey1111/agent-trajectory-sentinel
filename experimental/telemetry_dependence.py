@@ -14,8 +14,8 @@ logprobs and scores each one twice, with and without `u`, everything else
 identical - same episodes, same splits, same seeds, same thresholds.
 
 If the within-corpus ablation reproduces the cross-provider gap, the honest
-reading of L5 is "one telemetry channel missing", not "a worse model". If it
-does not, the L5 gap is provider-specific and the paper must say so.
+reading of the Gemini result is "one telemetry channel missing", not "a worse
+model". If it does not, the gap is provider-specific and the paper must say so.
 
 Deployment consequence either way: coverage is reported CONDITIONAL on the
 telemetry a deployment can actually emit.
@@ -70,7 +70,7 @@ def _score(data, channels, seed: int = 0) -> list[dict]:
     return rows
 
 
-#: The L5 pair: same long task, same classes, same onset, different provider.
+#: The pair: same long task, same classes, same onset, different provider.
 PAIR = ("real_gemini_long", "real_research7b_long")
 HORIZON_MIN = 4
 
@@ -166,7 +166,7 @@ def main() -> int:
               f"AUROC {da:+.3f}, detection {dd:+.3f} over {len(deltas)} corpora")
     print(f"[telemetry] wrote {path}")
 
-    print("\n[horizon] second candidate explanation for the L5 provider gap")
+    print("\n[horizon] second candidate explanation for the provider gap")
     hrows = horizon_matched()
     hdf = pd.DataFrame(hrows)
     hpath = TABLES_DIR / "telemetry_horizon_matched.csv"

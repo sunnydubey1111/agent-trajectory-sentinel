@@ -1,4 +1,4 @@
-"""The trace auditor must reproduce the review's named findings (/H08).
+"""The trace auditor must reproduce its named findings.
 
 If these stop matching, either the auditor's evidence rules drifted or the
 committed corpora changed - both are things we want to hear about immediately.

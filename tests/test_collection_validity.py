@@ -222,7 +222,7 @@ def test_recollect_refuses_and_deletes_nothing_when_a_model_is_gone(monkeypatch,
     assert "nothing was deleted" in capsys.readouterr().out
 
 
-# ------------------------------------------------------- L8 judge calibration
+# ---------------------------------------------------------- judge calibration
 def test_judge_samples_are_labelled_by_verified_onset():
     """A positive is a step at/after the onset the injection was OBSERVED at."""
     from derail.experiments.run_judge_calibration import build_samples
@@ -268,7 +268,7 @@ def test_wilson_interval_brackets_the_point_estimate():
     assert wilson(0, 10)[0] == 0.0   # no negative lower bound at zero counts
 
 
-# --------------------------------------------------- L5 paid-collection guards
+# ------------------------------------------------------ paid-collection guards
 def test_gemini_long_collector_refuses_to_spend_without_confirmation():
     from derail.experiments import collect_gemini_long as cgl
 
@@ -340,7 +340,7 @@ def test_verifier_scoring_separates_assertions_from_tool_results():
     assert 299.0 not in flags, "a tool result was treated as an assertion"
 
 
-# ------------------------------- L2b: the invalid llama organic arm stays out
+# ------------------------------------ the invalid llama organic arm stays out
 def test_organic_llama_corpus_is_not_a_scoreable_dataset():
     """organic_llama8b is harness-confounded evidence, not organic evidence.
     Registering it in REAL_DATASETS would let a study score it by accident."""
@@ -431,7 +431,7 @@ def test_frozen_long_corpus_is_not_grown_in_place():
     assert "trace_sha256" in ext[0] and "provenance_fingerprint" in ext[0]
 
 
-# ------------------------------------------------- L2b tool-call nudge (off)
+# ----------------------------------------------------- tool-call nudge (off)
 def test_tool_nudge_is_off_by_default():
     """Enabling it changes agent-loop semantics for every future episode, so it
     must never turn on implicitly."""

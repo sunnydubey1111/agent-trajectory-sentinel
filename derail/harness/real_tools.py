@@ -713,9 +713,9 @@ class MCPClientTool:
     """Invoke a tool on an MCP server that the *operator* configured.
 
     The model names a server by identifier; it never supplies a command line.
-    A model-supplied `server_cmd` was arbitrary process execution,
-    and the old implementation also ignored the protocol error flag, split the
-    command with `str.split`, and broke inside a running event loop.
+    A model-supplied `server_cmd` would be arbitrary process execution. The
+    protocol error flag is honoured, the command is never split with
+    `str.split`, and the client works inside a running event loop.
     """
 
     name = "mcp_call"

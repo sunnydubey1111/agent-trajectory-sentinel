@@ -146,7 +146,7 @@ def test_hmt_kill_switch_is_single_prespecified_decision():
     from derail.experiments import run_hmt_ab
     src = inspect.getsource(run_hmt_ab._verdict)
     assert "PRIMARY_ARCH" in src
-    assert "c1 or c2 or c3 or c4" not in src       # the old any-of-any gate
+    assert "c1 or c2 or c3 or c4" not in src       # no any-of-any gate
     assert "exploratory" in src.lower()
 
 
@@ -156,7 +156,7 @@ def test_h1_verdict_uses_paired_difference_and_holm():
     src = inspect.getsource(run_experiment._h1_verdict)
     assert "_paired_diff_ci" in src
     assert "p_base_holm" in src
-    # the old one-sample-CI significance test is gone
+    # no one-sample-CI significance test
     assert 'base["mean_lead_all"] < esn["mean_lead_all_ci_lo"]' not in src
 
 
@@ -175,7 +175,7 @@ def test_organic_verification_scores_the_shipped_gate():
     from verification import score_organic_halluc
     src = inspect.getsource(score_organic_halluc.main)
     assert "score_step" in src            # the served fusion, incl. lex
-    assert "np.maximum(zb, zg)" not in src  # the old manual re-fusion is gone
+    assert "np.maximum(zb, zg)" not in src  # no manual re-fusion
 
 
 def test_organic_theta_is_selected_out_of_fold_not_in_sample():
@@ -198,13 +198,13 @@ def test_organic_theta_is_selected_out_of_fold_not_in_sample():
 
 
 def test_serving_temperature_arms_are_scored_against_their_own_nulls():
-    """L3's whole point is that the 0.9 and 0.2 arms carry SEPARATE
+    """The whole point is that the 0.9 and 0.2 arms carry SEPARATE
     temperature-matched nulls. Reading one arm's healthy FA while scoring the
     other would reintroduce the confound the study exists to remove."""
-    from verification import l3_serving_temperature as l3
+    from verification import serving_temperature as st
 
-    assert l3.MIN_N == 10, "pre-registered power floor changed"
-    src = inspect.getsource(l3.main)
+    assert st.MIN_N == 10, "pre-registered power floor changed"
+    src = inspect.getsource(st.main)
     # Each arm's healthy cohort is counted from that arm's own frame.
     assert '_counts(hot, "healthy")' in src
     assert '_counts(cold, "healthy")' in src
@@ -216,9 +216,9 @@ def test_serving_temperature_reports_failure_mix_before_claiming_detection():
     """A detection drop is only interpretable if the failure MIX is shown:
     fewer aborted runs at 0.2 would lower detection without the monitor
     changing at all."""
-    from verification import l3_serving_temperature as l3
+    from verification import serving_temperature as st
 
-    src = inspect.getsource(l3.main)
+    src = inspect.getsource(st.main)
     mix_at = src.index("failure-mix shift")
     verdict_at = src.index("[VERDICT]")
     assert mix_at < verdict_at, "mix must be reported before any verdict"
@@ -421,7 +421,7 @@ def test_recalibration_reports_realized_false_alarms():
         assert needed in cols, needed
 
 
-# --------------------------------------------- L7b: collection targets honest
+# ------------------------------------------------- collection targets honest
 def test_power_target_is_nan_when_no_feasible_n_helps():
     """A tie must report NaN, not a huge number: 'collect 50k episodes' would
     read as an action when the honest answer is 'there is nothing to detect'."""
@@ -446,7 +446,7 @@ def test_power_target_is_finite_for_a_real_effect():
     assert got == got and got < 200
 
 
-# ------------------------------------------ L1b: figures lead with real data
+# ----------------------------------------------- figures lead with real data
 def test_paper_figures_are_all_real_data():
     """Every figure in the paper must come from measured telemetry.
 
@@ -547,7 +547,7 @@ def test_the_grounding_study_pins_its_published_scope_too():
 
 
 def test_paper_leads_with_real_evidence_not_the_simulator():
-    """L1: real-ecosystem validation is the spine; the simulator is a labelled
+    """Real-ecosystem validation is the spine; the simulator is a labelled
     mechanism study that must not precede it."""
     from pathlib import Path
 
@@ -564,9 +564,8 @@ def test_paper_leads_with_real_evidence_not_the_simulator():
 def test_reliability_figure_rebuilds_from_published_artifacts():
     """fig4 must be buildable from what results/tables actually contains.
 
-    It previously read an `ece` column that h3_calibration.csv no longer has,
-    so the figure could not be regenerated at all - a published figure with no
-    reproducible path.
+    Reading a column h3_calibration.csv does not carry leaves the figure
+    unbuildable - a published figure with no reproducible path.
     """
     from derail.experiments import plots
 

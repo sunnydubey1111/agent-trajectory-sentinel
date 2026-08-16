@@ -1,7 +1,7 @@
 """The deterministic readers must refuse input they cannot read.
 
-Each reader here used to answer its CLEAN value on input outside the dialect
-it parses — an unreadable currency read as "no money mentioned", a JSON error
+An unchecked reader answers its CLEAN value on input outside the dialect it
+parses — an unreadable currency read as "no money mentioned", a JSON error
 envelope read as "the tool succeeded", no observed price read as "the total
 reconciles". A clean answer on unread input is indistinguishable from a real
 pass, which is what the "0 observed false positives" headline is made of.

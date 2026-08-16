@@ -39,7 +39,7 @@ SWEEPS: dict[str, list] = {
     "K": [1, 2, 4, 8, 16],
     "cusum_k": [0.25, 0.5, 0.75, 1.0],
     # beta=0 turns the disagreement (ensemble prediction-spread) term OFF, so
-    # this sweep is also the ablation the review asked for: it shows whether
+    # this sweep doubles as the disagreement ablation: it shows whether
     # the fixed disagreement weight of 0.5 is doing any work.
     "beta_disagreement": [0.0, 0.25, 0.5, 1.0, 2.0],
 }

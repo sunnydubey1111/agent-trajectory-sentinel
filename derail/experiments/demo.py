@@ -8,7 +8,7 @@ a failure mid-run — Loop Trap, Goal Hijack, Tool Failures, Data
 Corruption — and the score trace crosses the alarm line before the
 agent's visible output goes wrong.
 
-Score contract with the UI (this is the part the old demo got wrong):
+Score contract with the UI (the part that is easy to get wrong):
 every score the server sends is NORMALIZED so that 1.0 = alarm,
 regardless of which monitor is being served.  `scores` is the fused
 display score (max of the behavioral and grounding streams, each in
@@ -459,7 +459,7 @@ class StreamingContentGate(OnlineMonitor):
         zg = grounding robust z, tripped past the healthy train max
         lex = lexical retrieval-relevance miss (immediate override)
 
-    Dual-budget serving (T2's strict-guarantee deployment): each stream is
+    Dual-budget serving (the strict-guarantee deployment): each stream is
     thresholded on its OWN healthy null — a shared threshold lets boosted
     grounding spikes in the healthy tail price slow behavioral drift out.
     Display units: stream / its-own-alarm-level, so 1.0 = alarm for both.
@@ -957,7 +957,7 @@ def _fit_synthetic_fallback() -> tuple[OnlineMonitor, dict]:
 class DemoState:
     """All mutable run state, guarded by one lock. snapshot() COPIES the
     lists under the lock — the agent thread appends while HTTP threads
-    serialize, and handing out live references was a race in the old demo."""
+    serialize, so handing out a live reference is a race."""
 
     def __init__(self) -> None:
         self.lock = threading.Lock()
@@ -1874,9 +1874,9 @@ def _require_ollama(model: str = MODEL) -> None:
 def _require_free_port(port: int) -> None:
     """Refuse to start when another demo server already answers on the port.
 
-    Windows SO_REUSEADDR lets two servers bind the same port silently, and
-    the OLD zombie then answers requests with stale code. We bind without
-    reuse (below) AND preflight-detect a live server here for a clear error.
+    Windows SO_REUSEADDR lets two servers bind the same port silently, and the
+    leftover process then answers requests with stale code. This binds without
+    reuse (below) AND preflight-detects a live server here for a clear error.
     """
     import httpx
     try:
@@ -1991,8 +1991,8 @@ def alarm_repair_matrix(seeds: tuple[int, ...] = (21, 22, 23, 24, 25),
 
     It is a LIVE study -- a served model, real injections, one row per episode
     -- so re-running yields a fresh sample of the same experiment, not the same
-    bytes. The committed CSV is one such sample; this makes it reproducible as
-    an experiment, which it previously was not: there was no runner at all.
+    bytes. The committed CSV is one such sample, and this runner is what makes
+    it reproducible as an experiment.
     """
     _require_ollama()
     monitor, calib = fit_monitor()

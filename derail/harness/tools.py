@@ -127,10 +127,10 @@ _JSON_TYPES = {str: "string", int: "integer", float: "number", bool: "boolean",
 def tool_json_schema(tool: Tool) -> dict:
     """JSON Schema for one tool's arguments, derived from ``run``'s signature.
 
-    Frameworks previously declared *every* parameter required and typed
-    everything as a string, so valid calls like ``list_dir()`` were rejected
-    and action-dependent parameters were advertised as mandatory.
     A parameter with a default is optional, and its annotation gives the type.
+    Declaring *every* parameter required and typing everything as a string
+    rejects valid calls like ``list_dir()`` and advertises action-dependent
+    parameters as mandatory.
     """
     sig = inspect.signature(tool.run)
     properties: dict[str, dict] = {}

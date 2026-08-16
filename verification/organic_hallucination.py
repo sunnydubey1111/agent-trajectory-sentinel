@@ -44,7 +44,7 @@ from derail.experiments.demo import (DEMO_MAX_STEPS, DEMO_TOOL_SPECS, MODEL,
                                      _step_record, _tool_bit)
 
 ROOT = Path(__file__).resolve().parents[1]
-# Corpus dir; overridable so an ADDITIVE organic batch (L2) can be collected
+# Corpus dir; overridable so an ADDITIVE organic batch can be collected
 # into a separate directory without mutating the frozen organic_demo7b corpus.
 OUT = Path(os.environ.get("AGENTWATCH_ORGANIC_DIR",
                           str(ROOT / "traces" / "organic_demo7b")))
@@ -63,7 +63,7 @@ TEMPERATURE = float(os.environ.get("AGENTWATCH_ORGANIC_TEMPERATURE", "0.9"))
 # respect it or it would stop with a corpus that cannot be scored.
 MIN_HEALTHY_FOR_NULL = 15
 WEATHER_WORDS = ("sunny", "rainy", "windy", "mild")
-# L2b: the organic evidence was one model (qwen2.5:7b) on one task. A second
+# The organic evidence is one model (qwen2.5:7b) on one task. A second
 # FAMILY answers whether the organic findings - arithmetic error dominant,
 # fabrication rare - are a property of agents or a property of qwen. Defaults
 # to the demo's calibration model, so no existing corpus changes.
@@ -90,7 +90,7 @@ UNAVAILABLE = ("ERROR: service temporarily unavailable - no data returned. "
                "Retry the call.")
 
 
-# ------------------------------------------------------ L2b tool-call nudge
+# ---------------------------------------------------------- tool-call nudge
 # A model that writes a tool call as TEXT instead of issuing a structured one
 # produces stop_reason="end_turn", which this loop reads as "task finished" -
 # so a recoverable mistake becomes a dead episode mid-task. That is a harness

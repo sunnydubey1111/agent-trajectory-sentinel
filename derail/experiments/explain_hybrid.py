@@ -72,9 +72,9 @@ def coefficients_table(ex: pd.DataFrame) -> pd.DataFrame:
     These are the MEAN-over-folds coefficients the cross-fit reports; the
     per-fold decision boundaries differ and are what actually scored each
     episode. The weight share is a share of MAGNITUDE
-    (|coef|/sum|coef|), which is bounded in [0, 1]; the old signed ratio
-    coef_maha/(coef_esn+coef_maha) exceeded 100% whenever the coefficients had
-    opposite signs (the committed 1.031).
+    (|coef|/sum|coef|), which is bounded in [0, 1]. A signed ratio
+    coef_maha/(coef_esn+coef_maha) is not: it exceeds 100% whenever the
+    coefficients have opposite signs.
     """
     rows = []
     for ds, g in ex.groupby("dataset", sort=False):

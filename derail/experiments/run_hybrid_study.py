@@ -80,16 +80,16 @@ REAL_DATASETS: dict[str, Path] = {
     # generalization study: never used to develop the hybrids
     "real_research7b": TRACES_DIR / "real_research7b",
     "real_research7b_long": TRACES_DIR / "real_research7b_long",
-    "real_research3b": TRACES_DIR / "real_research3b",  # T6c model transfer
-    # L4: a second model FAMILY collected on the ollama7b task /
+    "real_research3b": TRACES_DIR / "real_research3b",  # within-family transfer
+    # A second model FAMILY collected on the ollama7b task /
     # tool / injector plan, so qwen7b -> llama8b is a cross-FAMILY transfer
     # rather than a smaller sibling of the same model.
     "ollama_llama8b": TRACES_DIR / "ollama_llama8b",
-    # L5: Gemini on the SAME long research task as
+    # Gemini on the SAME long research task as
     # real_research7b_long, replacing the 18-episode/1-positive `real` set with
     # one that has post-onset horizon. Provider is the only difference.
     "real_gemini_long": TRACES_DIR / "real_gemini_long",
-    # L7b: the long research task grown to 13 injected per class
+    # The long research task grown to 13 injected per class
     # (n=91) so its paired comparisons can reach 80% power. ADDITIVE sibling -
     # `real_research7b_long` stays frozen at the 72 episodes every published
     # table was computed from. Unlike that pre-v5 corpus, every episode here
@@ -382,9 +382,9 @@ def evaluate_dataset(name: str, data: dict[str, list[Episode]],
         })
 
     # -- paired statistics: EVERY hybrid vs each standalone -----------------
-    # The old code selected the maximum-test-AUROC hybrid and then computed its
-    # p-values on that SAME test set, which is post-selection inference
-    #. Instead every hybrid-vs-standalone comparison is pre-specified
+    # Selecting the maximum-test-AUROC hybrid and then computing its p-values
+    # on that SAME test set is post-selection inference.
+    # Instead every hybrid-vs-standalone comparison is pre-specified
     # and reported, and the whole family of McNemar p-values is corrected with
     # Holm-Bonferroni. No comparison is chosen after seeing the test
     # scores, so there is nothing to over-fit.
@@ -435,7 +435,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--datasets", nargs="*", default=None,
                         help=f"subset of {['sim'] + list(REAL_DATASETS)}")
     parser.add_argument("--all-datasets", action="store_true",
-                        help="include the Phase 10 corpora too (changes the "
+                        help="include the later corpora too (changes the "
                              "scope of every table - use --out-prefix with it)")
     parser.add_argument("--out-prefix", default="hybrid",
                         help="table filename prefix (default: hybrid)")

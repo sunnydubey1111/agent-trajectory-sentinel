@@ -96,10 +96,10 @@ def _evaluate(monitors, train, val, test, fa_budget=FA_BUDGET):
 
 
 #: The kill switch is decided on ONE prespecified architecture and ONE
-#: prespecified primary criterion. The old switch passed if ANY of
-#: four architectures met ANY of four criteria - 16 chances, with C4 firing on
-#: any positive content-class delta > 1e-9 - which is optimistic test-set
-#: search. hmt_full is the paper's actual contribution (multi-timescale +
+#: prespecified primary criterion. Passing if ANY of four architectures met
+#: ANY of four criteria would be 16 chances, with a content-class criterion
+#: firing on any positive delta > 1e-9 - optimistic test-set search rather
+#: than a decision. hmt_full is the paper's actual contribution (multi-timescale +
 #: hierarchical); the other cells are exploratory ablations, reported but not
 #: gating.
 PRIMARY_ARCH = "hmt_full"

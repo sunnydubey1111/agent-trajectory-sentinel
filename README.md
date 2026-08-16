@@ -93,7 +93,7 @@ py -m derail.experiments.collect_traces --mock-llm # pipeline dry run -> traces/
 py -m derail.experiments.run_real_traces           # evaluate collected real traces
 py -m derail.verify.run_verification_study --holdout organic_demo7b_holdout
 py -m derail.intervene.evaluate_repair_policies --parallel 4   # offline; real model calls
-py -m verification.l3_serving_temperature          # serving vs provoking temperature
+py -m verification.serving_temperature          # serving vs provoking temperature
 ```
 
 Every module also carries a self-contained smoke test:

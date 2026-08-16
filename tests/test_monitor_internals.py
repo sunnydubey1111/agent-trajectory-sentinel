@@ -195,7 +195,7 @@ def test_numeric_grounding_provenance_is_monotone():
     assert m.check_step(f"Total ${total:g}.") == []
     m.observe_tool_results("[t -> $999]")            # 8th, unrelated value
     assert m.check_step(f"Total ${total:g}.") == [], \
-        "a grounded total became ungrounded after a new value (M12)"
+        "a grounded total became ungrounded after a new value"
 
 
 # -------------------------------------------------------------------
@@ -203,7 +203,7 @@ def test_esn_ridge_trains_the_first_scored_transition():
     from derail.monitor import esn
     src = inspect.getsource(esn.ESNEnsembleMonitor.fit)
     assert "Z[_WASHOUT - 1 : T - 1]" in src            # train from washout-1
-    assert "Z[_WASHOUT : T - 1]" not in src            # not the old off-by-one
+    assert "Z[_WASHOUT : T - 1]" not in src            # not off by one
 
 
 # -------------------------------------------------------------------
@@ -341,9 +341,9 @@ def test_hmte_null_does_not_drift():
     healthy = [mon.score_step(x) for x in mk(500).X]
     mon.start_episode()
     perturbed = [mon.score_step(x) for x in mk(501, perturb=20).X]
-    # The healthy CUSUM stays far below the perturbed one; the old uncentered
-    # distance (mean ~2.9 into a k=0.5 CUSUM) drifted up on every healthy step,
-    # so the null tracked the signal. Now it is a small fraction of it.
+    # The healthy CUSUM stays far below the perturbed one. An uncentered
+    # distance (mean ~2.9 into a k=0.5 CUSUM) drifts up on every healthy step,
+    # so the null tracks the signal instead of sitting under it.
     assert healthy[-1] < 0.2 * perturbed[-1]
 
 
@@ -367,7 +367,7 @@ def test_supervised_hybrid_resets_stale_coefficients():
     assert reset_i < ret_i, "coefficients not reset before the early return"
 
 
-# ------------------------------------------------------------- M16
+# ------------------------------------------------- grounding z is bounded
 def test_grounding_z_is_capped_and_finite():
     from derail.monitor.grounding import GroundingMonitor
     src = inspect.getsource(GroundingMonitor.z_dims)
@@ -384,12 +384,12 @@ def test_beta_disagreement_is_ablated():
 def test_judge_is_disclosed_as_stipulated():
     from derail.monitor import escalation as esc
     assert "STIPULATED" in (esc.__doc__ or "")
-    # L8: the disclosure must also carry the measured rates, so a reader of the
+    # The disclosure must also carry the measured rates, so a reader of the
     # module cannot take 0.90/0.02 for a measurement.
     assert "0.548" in (esc.__doc__ or "") and "0.057" in (esc.__doc__ or "")
 
 
-def test_judge_defaults_are_unchanged_by_the_l8_measurement():
+def test_judge_defaults_are_unchanged_by_the_measurement():
     """Measuring the judge must not silently move any published number."""
     from derail.common import JudgeConfig
     assert JudgeConfig().p_detect == 0.90

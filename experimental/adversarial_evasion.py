@@ -1,4 +1,4 @@
-"""L6 - Adversarial-evasion robustness limit of the primary monitor.
+"""Adversarial-evasion robustness limit of the primary monitor.
 
 The monitors are NOT designed against an adversary who shapes the telemetry
 while still failing the task. This script measures how far such a white-box

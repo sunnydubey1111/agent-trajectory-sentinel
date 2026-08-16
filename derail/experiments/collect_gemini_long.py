@@ -1,4 +1,4 @@
-"""L5 - a Gemini corpus long enough to be scoreable.
+"""A Gemini corpus long enough to be scoreable.
 
 The committed Gemini corpus (`traces/real`) is 18 episodes with ONE positive
 and a mean length of 5 steps. With an ESN washout of 3, most of those episodes
@@ -44,7 +44,7 @@ from derail.harness.record_replay import Cassette, CostMeter
 
 SOURCE = "real_gemini_long"
 MODEL_DEFAULT = "gemini-2.5-flash"
-#: Operator-approved hard cap for L5.
+#: Operator-approved hard cap for this collection.
 BUDGET_DEFAULT = 5.0
 MAX_STEPS = 24
 TAU = 2

@@ -205,10 +205,10 @@ class ESNEnsembleMonitor(OnlineMonitor):
             Z = self._features(self._states(U), U)   # (T, K, F)
             # Train from washout-1 so the readout learns the SAME first scored
             # transition that held-out normalization and streaming serve:
-            # feature at t=2 -> target x_3. The old start (t=3 -> x_4) never
-            # trained on the t=2->t=3 transition, yet that is the first
-            # transition scored at serving time - the readout was extrapolating
-            # by one step on every episode's first scored step.
+            # feature at t=2 -> target x_3. Starting at t=3 -> x_4 would skip
+            # the t=2->t=3 transition, yet that is the first transition scored
+            # at serving time - the readout would extrapolate by one step on
+            # every episode's first scored step.
             Zr = Z[_WASHOUT - 1 : T - 1]             # features at t = 2..T-2
             Yr = U[_WASHOUT : T]                     # targets x_{t+1} at 3..T-1
             n_rows += Zr.shape[0]

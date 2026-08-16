@@ -1,9 +1,9 @@
 """Two assumptions that are invisible until the deployment stops matching them.
 
-G2-7: the lexical relevance dim reads words with a fixed tokenizer and an
-English stoplist. G2-8: the escalation economics price a judge call at exactly
-one agent step. Neither is wrong; both are choices that a reader can mistake
-for measurements, and one of them used to make a monitor dim silently inert.
+The lexical relevance dim reads words with a fixed tokenizer and an English
+stoplist. The escalation economics price a judge call at exactly one agent
+step. Neither is wrong; both are choices that a reader can mistake for
+measurements, and either can leave a monitor dim silently inert.
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ TASK = "find recent papers on echo state networks"
 QUERY = '{"query": "echo state networks"}'
 
 
-# ----------------------------------------------------- G2-7: reading words
+# ----------------------------------------------------------- reading words
 def test_an_on_topic_english_document_is_not_flagged():
     assert A._lex_miss(TASK, QUERY,
                        "Echo state networks are reservoir models.") == 0.0
@@ -81,7 +81,7 @@ def test_readable_input_does_not_inflate_the_unreadable_counter():
     assert A.lex_unreadable() == before
 
 
-# ------------------------------------------------- G2-8: what 1.0 buys you
+# ------------------------------------------------------- what 1.0 buys you
 def test_cost_units_are_normalized_not_currency():
     from derail import common
 

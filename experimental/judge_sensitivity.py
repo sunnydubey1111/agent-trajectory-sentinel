@@ -1,4 +1,4 @@
-"""L8 - does H3b survive a REAL judge? A paired stipulated-vs-measured run.
+"""Does H3b survive a REAL judge? A paired stipulated-vs-measured run.
 
 `derail.experiments.run_judge_calibration` measures a real Gemini-Flash judge
 on a labelled subset and finds it materially worse than the parameters H3b

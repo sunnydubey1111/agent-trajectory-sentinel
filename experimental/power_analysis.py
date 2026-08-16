@@ -1,4 +1,4 @@
-"""L7 - Statistical power of the paired detection comparisons at current n.
+"""Statistical power of the paired detection comparisons at current n.
 
 The real-agent corpora are small (18-171 injected episodes per dataset), so a
 significant/non-significant McNemar result must be read against the *power* the
@@ -102,7 +102,7 @@ N_FEASIBLE_MAX = 2000
 def _n_for_power(p_a: float, p_b: float, rng: np.random.Generator) -> float:
     """Smallest n reaching TARGET_POWER at the OBSERVED discordance rates.
 
-    This is L7b's actual question: not "is this underpowered?" but "how many
+    This is the actual question: not "is this underpowered?" but "how many
     more positives would fix it?" - and, just as importantly, when the honest
     answer is that no feasible number would, because the two monitors are tied
     rather than separated by an effect too small to see.
@@ -158,7 +158,7 @@ def main(argv: list[str] | None = None) -> None:
                 "mcnemar_p": round(_exact_mcnemar_p(b, c), 4),
                 "achieved_power": round(power_obs, 3),
                 "mde_80pct": round(mde, 3) if mde == mde else np.nan,
-                # L7b: the collection target. NaN = no feasible n reaches 80%
+                # The collection target. NaN = no feasible n reaches 80%
                 # at this discordance, i.e. the monitors are tied here and more
                 # episodes would not change the verdict.
                 "n_for_80pct": _n_for_power(b / n if n else 0.0,

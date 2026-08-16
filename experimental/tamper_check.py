@@ -79,7 +79,7 @@ def is_tampered(ep: Episode, std: Standardizer,
 
 def pin_channels(ep: Episode, channels: tuple[str, ...],
                  healthy_mean: np.ndarray) -> Episode:
-    """The L6 attack: replace channels with the healthy grand-mean (constant)."""
+    """The attack: replace channels with the healthy grand-mean (constant)."""
     X = ep.X.copy()
     for ch in channels:
         X[:, CHANNEL_SLICES[ch]] = healthy_mean[CHANNEL_SLICES[ch]]
@@ -143,12 +143,12 @@ def main() -> int:
     record("healthy", healthy_test, "false-alarm budget")
 
     print("\n[tamper] injected episodes (these rates are DETECTION)")
-    record("injected_no_evasion", injected, "L6 baseline")
+    record("injected_no_evasion", injected, "no-evasion baseline")
     for chans in (("e",), ("u",), ("m",), ("e", "u", "m")):
         name = "+".join(chans)
         record(f"pinned_{name}",
                [pin_channels(ep, chans, healthy_mean) for ep in injected],
-               "L6 constant-pinning attack")
+               "constant-pinning attack")
     record("replayed_e+u+m",
            [replay_channels(ep, CHANNELS, train, seed=17) for ep in injected],
            "ADAPTIVE attack: real healthy variation")

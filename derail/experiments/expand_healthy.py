@@ -3,10 +3,10 @@
 Runs healthy episodes of the 10 real tasks across seeds [812, 813, 814].
 
 This is a LIVE, PAID collector: it calls the Gemini API and writes into a
-committed corpus. It used to have no command line at all, so any invocation --
-including `--help` -- started a real collection against `traces/real/`. It now
-refuses to run without `--yes`, and refuses to write into a corpus that already
-holds episodes without `--allow-existing`.
+committed corpus. Nothing spends without an explicit instruction to spend: it
+refuses to run without `--yes` -- so no invocation, `--help` included, can
+start a real collection by accident -- and refuses to write into a corpus that
+already holds episodes without `--allow-existing`.
 
     py -m derail.experiments.expand_healthy --estimate
     py -m derail.experiments.expand_healthy --yes --out-dir traces/_scratch

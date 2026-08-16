@@ -1,4 +1,4 @@
-"""Runtime/footprint benchmark of the monitors (reviewer request).
+"""Runtime/footprint benchmark of the monitors.
 
 Reports, per monitor: one-off fit time on the healthy train split, per-step
 scoring latency (median and p95 over ~10k streamed steps, measured around

@@ -164,10 +164,10 @@ def _attach_results(step: dict, results: list[str],
                     errors: list[bool] | None = None) -> None:
     """Fold executed tool results into the step as structured events.
 
-    The old collector appended "-> result" *outside* the bracket, a form the
-    adapter never parsed, so grounding features were absent from every
-    framework corpus.  Results are now data first; the rendered bit
-    uses the canonical in-bracket form for readability.
+    Results are data first: a result appended as "-> result" *outside* the
+    bracket is not a form the adapter parses, and grounding features would be
+    absent from the whole corpus. The rendered bit uses the canonical
+    in-bracket form for readability.
     """
     bits = []
     for i, ((name, args), result) in enumerate(zip(step.get("_calls", []),

@@ -31,7 +31,7 @@ FA_BUDGET = 0.10
 # corpora; the tail fit is worth revisiting where the empirical rule's
 # order-statistic floor binds (few calibration episodes).
 THETA_METHOD = os.environ.get("AGENTWATCH_THETA_METHOD", "empirical")
-# Output CSV is overridable so an ADDITIVE batch (L2) in a separate corpus dir
+# Output CSV is overridable so an ADDITIVE batch in a separate corpus dir
 # writes to its own table instead of clobbering the frozen organic_hallucination.csv.
 OUT_CSV = Path(os.environ.get(
     "AGENTWATCH_ORGANIC_OUT_CSV",

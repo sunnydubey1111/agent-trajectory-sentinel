@@ -1,4 +1,4 @@
-"""L2 - Organic vs injected detectability, side by side.
+"""Organic vs injected detectability, side by side.
 
 Contrasts how the primary monitor fares on NATURAL (organic, non-injected)
 failures versus the CONTROLLED (injected) failures the rest of the study uses.
@@ -13,7 +13,7 @@ re-checks whether the larger organic sample changes the earlier UNDERPOWERED
 verdict on organic fabrication.
 
 Run (after collecting + scoring the ext corpus):
-  py -m verification.l2_organic_vs_injected
+  py -m verification.organic_vs_injected
 Writes results/tables/organic_vs_injected.csv
 """
 from __future__ import annotations
@@ -27,7 +27,7 @@ from scipy import stats as sps
 ROOT = Path(__file__).resolve().parents[1]
 TABLES = ROOT / "results" / "tables"
 EXT_CSV = TABLES / "organic_hallucination_ext.csv"
-# Serving-temperature arm (L3). Optional: if it has not been scored yet the
+# Serving-temperature arm. Optional: if it has not been scored yet the
 # table is produced exactly as before, with the 0.9 arm alone.
 COLD_CSV = TABLES / "organic_hallucination_cold.csv"
 
@@ -73,7 +73,7 @@ def main() -> None:
             "healthy_fa": round(organic_fa, 3),
             "note": ctx.get(lab, ""),
         })
-    # Serving-temperature arm (L3): the same 120 task seeds at the temperature
+    # Serving-temperature arm: the same 120 task seeds at the temperature
     # the demo and the monitor actually serve.
     if COLD_CSV.exists():
         cold = pd.read_csv(COLD_CSV)
@@ -93,15 +93,15 @@ def main() -> None:
     table = pd.DataFrame(rows)
     table.to_csv(TABLES / "organic_vs_injected.csv", index=False)
 
-    print("[L2] organic vs injected detectability (primary monitor)\n")
+    print("[organic] organic vs injected detectability (primary monitor)\n")
     print(table.to_string(index=False))
-    print(f"\n[L2] organic healthy false-alarm rate: {organic_fa:.0%} "
+    print(f"\n[organic] organic healthy false-alarm rate: {organic_fa:.0%} "
           f"(n_healthy={len(heal)}) vs injected "
           f"{float(prim['healthy_fa_rate']):.0%} - organic detection buys a "
           "markedly higher false-alarm cost, and that gap is the honest "
           "organic-vs-injected message.")
     if COLD_CSV.exists():
-        print(f"[L2] the cost is NOT a high-temperature artefact: the serving "
+        print(f"[organic] the cost is NOT a high-temperature artefact: the serving "
               f"arm (T=0.2) realizes {cold_fa:.0%} against the same served 10% "
               f"budget, above the T=0.9 arm's {organic_fa:.0%}.")
 
@@ -113,10 +113,10 @@ def main() -> None:
                [int(heal.alarmed.sum()), len(heal) - int(heal.alarmed.sum())]]
         p = sps.fisher_exact(tbl, alternative="greater")[1]
         if len(d) < 10:
-            print(f"[L2] organic {lab}: UNDERPOWERED at n={len(d)} "
+            print(f"[organic] organic {lab}: UNDERPOWERED at n={len(d)} "
                   "(< pre-registered 10) - no claim.")
         else:
-            print(f"[L2] organic {lab} POWERED at n={len(d)}: detection "
+            print(f"[organic] organic {lab} POWERED at n={len(d)}: detection "
                   f"{d.alarmed.mean():.0%} vs FA {organic_fa:.0%}, Fisher "
                   f"p={p:.4f} -> {'SUPPORTED' if p < 0.05 else 'NOT SUPPORTED'}")
 
@@ -124,7 +124,7 @@ def main() -> None:
     # actually powers.
     _fisher("hallucinated")
     _fisher("arithmetic_error")
-    print(f"\n[L2] wrote {TABLES / 'organic_vs_injected.csv'}")
+    print(f"\n[organic] wrote {TABLES / 'organic_vs_injected.csv'}")
 
 
 if __name__ == "__main__":
