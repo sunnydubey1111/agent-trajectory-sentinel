@@ -43,9 +43,13 @@ Re-run HMTE-ESN-M under `derail/experiments/run_hmt_ab.py`'s protocol:
 * threshold picked on `val` at the 5% FA budget, realized FA rate reported;
 * a held-out Mahalanobis fit — estimate mean/covariance on the calibration
   episodes the sub-monitors' readouts did **not** train on;
-* bootstrap dAUC CI against the `esn_cusum_max` baseline, over episode
-  resamples;
-* multiple seeds.
+* a **pooled** interval against the `esn_cusum_max` baseline — paired
+  differences over replicates that vary the data split *and* the reservoir
+  draw (`run_hmt_ab.py --replicates N`), Holm-corrected across the metrics
+  reported. A bootstrap over episode resamples at a single split is **not**
+  sufficient: on this corpus the split-to-split spread is several times the
+  difference between architectures, and three separate conclusions drawn that
+  way (multi-timescale, depth, reservoir size) did not survive pooling.
 
 Until then the honest statement about HMTE-ESN-M is: **untested.**
 

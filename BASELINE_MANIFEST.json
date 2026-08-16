@@ -34,7 +34,7 @@
    "derail/experiments/run_fairness.py": "af7bc4ab0026a84d02d18f887889604011dca652053c66a807c44d790ac0568f",
    "derail/experiments/run_grounding_multiseed.py": "626bd9e40406c822d758474a1c28611a6362acd050077ac2662f160ab813bbcc",
    "derail/experiments/run_grounding_study.py": "eb5cd81dc44b16479e1a6e82625ff2d2e4aa889cd2325a74a577352ea6260291",
-   "derail/experiments/run_hmt_ab.py": "4fae51faade8eb4c9b3327aa3e033a36467efc8c5e634a7bf25621cb238bec1a",
+   "derail/experiments/run_hmt_ab.py": "c4e44e8cf9bbf8c6ccc5da9651c501c9b7899d557479c98151986cf36120ea19",
    "derail/experiments/run_hybrid_multiseed.py": "00d53b49de854fc90e5a1415ecce42ca247b693eca95531f32f2dc4faff9a63a",
    "derail/experiments/run_hybrid_study.py": "f8a6ef96b395012a87779ec3d4bed4705aa1d01fee7f6a4a155a9dc3aec682e3",
    "derail/experiments/run_judge_calibration.py": "c6fa92071d1057e7786fe79463d8cfd3800e53aef6d84577881b8ecca5683710",
@@ -247,9 +247,14 @@
    "results/tables/h3_escalation.csv": "ae0350e467f7a040295e85537572497c919503741d2d7ec22b91b5f57e6a435a",
    "results/tables/h3_reliability.csv": "09ec5adf798fbbaf21bacba86db27c832a206d618be8073a7dead3d660b22e4f",
    "results/tables/healthy_intervention.csv": "aaa3bf99e8ea074a8cb72eec836d0bf726265cfb8ebc6a9e2d61c60843a7d188",
+   "results/tables/hmt_ab.SINGLE_SPLIT.md": "38e2f8147a8f5e07a896d8f1bee3e21679c66254aacedc426c952e987055d18f",
    "results/tables/hmt_ab_real.csv": "e7eb370414e67b5d8362a50914642c0788f2501ba46314441d813d288e140fd3",
    "results/tables/hmt_ab_sim.csv": "8d637bfeb50d2818efb3b300312218e4365f3bb89b721217056d1779ba0b9a0e",
-   "results/tables/hmte_vs_baseline.QUARANTINE.md": "19a978a94de668d98989a283698fd9c4c8975e69bb63f45c63fe47356c94d334",
+   "results/tables/hmt_pooled_real.csv": "71c91df59480d3ca54e35b8d1163e0e8f67e0007a4bcad545b6693e55e8d6618",
+   "results/tables/hmt_pooled_real_replicates.csv": "f0718b145c97fb1a3785d134f6e7eed0cf41e0ac03a4b22d548c4625382cc5fc",
+   "results/tables/hmt_pooled_sim.csv": "9ff27e90f7a0f103939f292795ada96e382c25077382ee55be5cf3aa68a64289",
+   "results/tables/hmt_pooled_sim_replicates.csv": "4dcfc66567aeecc240baaa406ace18c2e649d1f310f3f1a2402d4bb27615ebb0",
+   "results/tables/hmte_vs_baseline.QUARANTINE.md": "4deb5bde09806782a44e994cda4eb6b5bb02c7f52ced55af50b2e7a7c4dbd03c",
    "results/tables/hmte_vs_baseline.csv": "2e54cdc1ba8f74cef21431f95b791d2a3203b1563595186278873e8834faf53c",
    "results/tables/hybrid_benchmark.csv": "431806d617c1a89af2c1a5b44b0accbb86a74bdf65b68b580f224bf94f3be503",
    "results/tables/hybrid_coefficients.csv": "a452a1f3e3ca2c9fe58fbb2efb1047ed1edfa6715ecabc6831c6736e0e6bc0dc",
@@ -9437,7 +9442,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "c68f8a207d90aaa93b3a2345c0cc6aaee8b0c43c213f3dfb31fe1fef590f745a",
+   "CHECKSUMS.md": "a95020bfc9b7307ac1e80587235e370cf552b108cf50ceaccaf39587628135d0",
    "CLAIMS.md": "c888313272668a18991425404df0f6cfdcaa45536db8f184a9ca3edebb2163fc",
    "CONTRIBUTIONS.md": "d71c85fd10b0bba6237e866f8cb7374fd1a96f0dd9b077e36341a63b1901dede",
    "DATA_CARD.md": "ab8ca199d03007e8b572e17e6d8513f419daa5ea7ecc640c818aed14351ab8d4",
@@ -9453,5 +9458,5 @@
   }
  },
  "note": "",
- "file_count": 9443
+ "file_count": 9448
 }
