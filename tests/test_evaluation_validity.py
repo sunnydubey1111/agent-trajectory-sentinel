@@ -560,16 +560,20 @@ def test_paper_leads_with_real_evidence_not_the_simulator():
     assert "no deployment claim rests on it" in tex
 
 
-def test_reliability_figure_rebuilds_from_published_artifacts():
+def test_reliability_figure_rebuilds_from_published_artifacts(tmp_path):
     """fig4 must be buildable from what results/tables actually contains.
 
     Reading a column h3_calibration.csv does not carry leaves the figure
     unbuildable - a published figure with no reproducible path.
+
+    It renders into a temporary directory: font rasterisation differs between
+    platforms, so rebuilding in place would replace a published artifact with
+    bytes the integrity manifest then reports as drift.
     """
     from derail.experiments import plots
 
-    plots.fig_reliability()          # raises if the schema drifts again
-    assert (plots.FIGURES / "fig4_reliability.png").exists()
+    plots.fig_reliability(out_dir=tmp_path)   # raises if the schema drifts again
+    assert (tmp_path / "fig4_reliability.png").exists()
 
 
 def test_reliability_ece_is_computed_from_the_bins_it_draws():

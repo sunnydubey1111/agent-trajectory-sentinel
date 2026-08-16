@@ -597,8 +597,14 @@ def fig_h2_heatmap() -> None:
 
 
 # ---------------------------------------------------------------- fig 4
-def fig_reliability() -> None:
+def fig_reliability(out_dir: Path | None = None) -> None:
     """H3a: reliability diagram of episode-level alarm confidence (fused).
+
+    `out_dir` exists so a caller can prove the figure still BUILDS without
+    overwriting the published one. A re-render is not byte-identical across
+    platforms -- font rasterisation differs -- so a check that rebuilds in
+    place reports itself as a changed artifact on any machine but the one that
+    published it.
 
     Reads only what the published artifacts actually contain. Two notes, both
     forced by the committed tables rather than chosen:
@@ -655,7 +661,7 @@ def fig_reliability() -> None:
                  "alarm confidence, fused stream",
                  loc="left", fontsize=11)
     fig.tight_layout()
-    fig.savefig(FIGURES / "fig4_reliability.png", dpi=150)
+    fig.savefig((out_dir or FIGURES) / "fig4_reliability.png", dpi=150)
     plt.close(fig)
 
 
