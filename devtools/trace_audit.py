@@ -23,7 +23,7 @@ import re
 import sys
 from dataclasses import asdict, dataclass, field
 
-from derail.harness.inject import _DECOYS, _ERROR_TEMPLATES
+from derail.harness.inject import _DECOYS
 from derail.telemetry.events import parse_step_events
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]

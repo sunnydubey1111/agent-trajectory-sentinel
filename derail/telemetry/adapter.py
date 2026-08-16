@@ -79,9 +79,7 @@ from derail.common import (
     rng_for,
 )
 from derail.preconditions import error_shaped
-from derail.telemetry.events import (SCHEMA_VERSION, ToolCallEvent,
-                                     canonical_args, make_tool_event,
-                                     parse_step_events, parse_tool_bits)
+from derail.telemetry.events import (parse_step_events)
 
 _HASH_BUCKETS = 512
 _HIGH_SURPRISAL_NATS = 2.5

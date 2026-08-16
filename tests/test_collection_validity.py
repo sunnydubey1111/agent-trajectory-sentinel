@@ -416,7 +416,6 @@ def test_frozen_long_corpus_is_not_grown_in_place():
     """Published tables were computed from 72 episodes. Growth belongs in the
     _ext sibling; a corpus without v5 provenance cannot be verified on reuse,
     so extending it in place silently invalidates every table citing it."""
-    import json
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1] / "traces"

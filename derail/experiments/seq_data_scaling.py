@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-from derail.common import DatasetConfig, SimConfig, Standardizer, rng_for
+from derail.common import DatasetConfig, SimConfig, Standardizer
 from derail.telemetry.generator import make_dataset
 from derail.monitor.esn import ESNEnsembleMonitor
 from derail.monitor.seq_baselines import GRUMonitor, LSTMMonitor

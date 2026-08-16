@@ -18,10 +18,8 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-import time
 from pathlib import Path
 
-from derail.common import rng_for
 from derail.config import get_api_key
 from derail.common import stable_hash
 from derail.harness.collection import (CorpusInUse, accept_episode,

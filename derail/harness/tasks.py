@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable
-from pathlib import Path
+from typing import Callable
 
 
 class RealTask:

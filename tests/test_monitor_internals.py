@@ -501,9 +501,7 @@ def test_halting_and_repairing_are_exclusive_responses_to_an_alarm():
     from instead, capped at one retry so the cost stays about one model call
     whatever the failure class was.
     """
-    import inspect
 
-    from derail.experiments import demo
 
     src = _demo_episode_source()
     assert "if alarmed and st.halt_on_alarm:" in src, \
@@ -556,9 +554,7 @@ def test_a_spent_repair_against_a_dead_tool_layer_escalates():
     refusal is another anomalous step. A measured loop trap burned 16 such
     steps and drove the score from 0.17 to 97 before its budget ran out.
     """
-    import inspect
 
-    from derail.experiments import demo
 
     src = _demo_episode_source()
     assert "escalated_tool_layer_down" in src
@@ -575,9 +571,7 @@ def test_every_exit_resolves_an_in_flight_repair():
     Only the halting path resolved it at first, so a repair that ran out of
     step budget left the UI showing a finished episode as still recovering.
     """
-    import inspect
 
-    from derail.experiments import demo
 
     src = _demo_episode_source()
     exits = ("budget_exhausted", "stopped_by_user", "agent_error",
@@ -597,9 +591,7 @@ def test_no_unreachable_code_in_the_live_episode_loop():
     arming while every test still passed.
     """
     import ast
-    import inspect
 
-    from derail.experiments import demo
 
     tree = ast.parse(_demo_episode_source())
     stranded = []
@@ -964,7 +956,6 @@ def test_repair_rewinds_monitor_and_feature_state_with_the_agent():
     """A rollback that rewinds only the conversation leaves the ESN CUSUM and
     the causal feature accumulators integrating steps the agent no longer has,
     so the post-repair score would describe a history that was discarded."""
-    from derail.experiments import demo
 
     src = _demo_episode_source()
     i = src.index("del tele[k:]")

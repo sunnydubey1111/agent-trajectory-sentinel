@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
         # --- WS4: healthy vs injected on the SAME scripted run ------------
         from derail.harness.inject import ToolInjector
-        from derail.common import IDX_ERROR_FLAG, IDX_TOOL_SUCCESS
+        from derail.common import IDX_ERROR_FLAG
 
         reg2 = ToolRegistry([ArxivSearch(get=lambda url: xml)])
         healthy = run_real_episode(_ScriptedBackend(n_calls=3), reg2,

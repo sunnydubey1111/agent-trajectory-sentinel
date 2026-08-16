@@ -9,7 +9,6 @@ before scoring. No threshold tuning here — the served 10% FA budget.
 """
 from __future__ import annotations
 
-import json
 import os
 from pathlib import Path
 
@@ -17,7 +16,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats as sps
 
-from derail.common import Standardizer, rng_for
+from derail.common import Standardizer
 from derail.evaluation.metrics import pick_threshold
 from derail.evaluation.protocol import fold_of
 from derail.experiments.demo import NUISANCE_DIMS, StreamingContentGate

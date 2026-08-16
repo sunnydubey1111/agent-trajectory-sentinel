@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import time
 from pathlib import Path
 
 from derail.common import rng_for, stable_hash
@@ -18,10 +17,10 @@ from derail.harness.collection import (CorpusInUse, guard_output_dir,accept_epis
                                        write_manifest)
 from derail.harness.real_tools import build_registry, _ensure_tls
 from derail.harness.agent_loop import run_real_episode
-from derail.harness.inject import ToolInjector, FAILURE_CLASSES
+from derail.harness.inject import ToolInjector
 from derail.harness.tasks import REAL_TASKS
 from derail.harness.record_replay import Cassette, CostMeter
-from derail.experiments.collect_traces import GeminiBackend, estimate_cost
+from derail.experiments.collect_traces import GeminiBackend
 
 TRACES_DIR = Path(__file__).resolve().parents[2] / "traces" / "real"
 MODEL_DEFAULT = "gemini-2.5-flash"

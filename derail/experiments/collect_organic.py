@@ -24,8 +24,7 @@ from pathlib import Path
 
 from derail.experiments.collect_traces import OllamaBackend
 from derail.harness.agent_loop import run_real_episode
-from derail.harness.collect_real import (RESEARCH_TASK_TOOLS, _TOPICS,
-                                         _default_task)
+from derail.harness.collect_real import (RESEARCH_TASK_TOOLS, _default_task)
 from derail.harness.real_tools import _ensure_tls, build_registry
 from derail.harness.record_replay import Cassette
 

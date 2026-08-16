@@ -35,7 +35,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import average_precision_score
 
-from derail.common import Episode, OnlineMonitor, Standardizer
+from derail.common import Episode, Standardizer
 from derail.evaluation.metrics import (
     episode_auc,
     evaluate_alarms,

@@ -8,13 +8,12 @@ numeric tests on the shared primitives.
 """
 from __future__ import annotations
 
-import ast
 import inspect
 
 import numpy as np
 import pytest
 
-from derail.common import D_TOTAL, D_TOTAL_EXT, D_TOTAL_GRD, Episode
+from derail.common import D_TOTAL, Episode
 from derail.evaluation import protocol
 from derail.evaluation.metrics import length_confound_report
 

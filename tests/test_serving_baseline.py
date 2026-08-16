@@ -1,7 +1,6 @@
 """The rolling baseline a deployment calibrates against at serving time."""
 from __future__ import annotations
 
-import pytest
 
 from derail.monitor.baseline import (DRIFTING, RECALIBRATING, TRUSTED,
                                      RollingBaseline, ServingConfig)

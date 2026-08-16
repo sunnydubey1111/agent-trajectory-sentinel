@@ -44,13 +44,16 @@ jobs:
         run: python -m devtools.hf_dataset --build
       - name: Fast tests
         run: python -m pytest -m "not slow and not network and not ollama"
-      - name: Integrity gates
-        # The manifest and the claims ledger are the two things that catch a
-        # result artifact drifting away from the code that produced it. Running
-        # the suite without them lets a stale table ship green.
-        run: |
-          python -m devtools.artifact_manifest --check
-          python -m devtools.claims_ledger --check
+      # The manifest and the claims ledger are the two things that catch a
+      # result artifact drifting away from the code that produced it. Running
+      # the suite without them lets a stale table ship green. They are separate
+      # steps because the job log is not public: with one combined step a
+      # failure says only "exit code 1", and which gate tripped has to be
+      # guessed at.
+      - name: Integrity gate - artifact manifest
+        run: python -m devtools.artifact_manifest --check
+      - name: Integrity gate - claims ledger
+        run: python -m devtools.claims_ledger --check
 
   optimized:
     # `python -O` strips asserts, and 400+ of them sit outside self-tests. A
@@ -68,6 +71,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
           python -m pip install pytest-github-actions-annotate-failures
+      - name: Install optional framework wrappers
+        # The same set the fast job installs. Without them the framework tests
+        # do not skip, they ERROR on import - so this job would report a
+        # missing dependency as if `-O` had broken a guard.
+        run: |
+          python -m pip install langchain-core langgraph langchain-ollama \
+            autogen-agentchat autogen-core autogen-ext pydantic
       - name: Fast tests under -O
         run: python -O -m pytest -m "not slow and not network and not ollama"
 
@@ -98,9 +108,14 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install from the lock file
+        # The lock pins torch==2.12.0+cpu, which exists only on the PyTorch CPU
+        # wheel index - the same index REPRODUCE.md tells a reader to use.
+        # Installing from PyPI alone cannot resolve it, so the extra index is
+        # part of what "the lock file resolves" has to mean.
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.lock.txt
+          python -m pip install -r requirements.lock.txt \
+            --extra-index-url https://download.pytorch.org/whl/cpu
       - name: Compile every module against the locked set
         run: python -m compileall -q derail verification experimental devtools
 

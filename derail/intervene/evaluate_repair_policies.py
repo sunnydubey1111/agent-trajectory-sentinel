@@ -34,7 +34,6 @@ from pathlib import Path
 
 import pandas as pd
 import numpy as np
-from scipy import stats as sps
 
 from derail.evaluation.stats import paired_permutation_test
 from derail.intervene.rollback import SCORED_RUNGS, retry_from_checkpoint

@@ -7,7 +7,6 @@ so a future refactor that reopens the hole fails here.
 from __future__ import annotations
 
 import json
-import os
 import tempfile
 import time
 from pathlib import Path
