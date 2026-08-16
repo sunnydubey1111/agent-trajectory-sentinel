@@ -71,7 +71,7 @@ from derail.telemetry.adapter import (
     step_signal_ext,
     step_signal_grd,
 )
-from derail.telemetry.events import parse_tool_bits
+from derail.telemetry.events import canonical_args, parse_tool_bits
 
 PORT = 8765
 MODEL = "qwen2.5:7b"          # calibration + trace-collection model (fixed)
@@ -1212,6 +1212,33 @@ def _stuck_on_tools(tele: list[dict]) -> bool:
 
 
 def run_demo_episode(seed: int) -> None:
+    """Run one demo episode, closing its audit trail on every exit path.
+
+    The body below returns from six places — answered, halted by the watchdog,
+    escalated on a tool contract, escalated on a dead tool layer, stopped by
+    the user, budget exhausted — plus whatever an exception does. Emitting the
+    outcome at each of them is how four of the seven runs in a live rehearsal
+    ended up with no `outcome` and no `run_end`: precisely the halted ones,
+    the runs an incident review would actually open. One `finally` is the only
+    version of this that cannot be missed when a seventh exit is added.
+    """
+    st = STATE
+    audit = AuditLog(st.run_id)
+    try:
+        _run_demo_episode(seed, audit)
+    finally:
+        audit.outcome(status=st.end_reason or st.status or "unknown",
+                      episode_id=st.run_id, steps=len(st.steps),
+                      detail={"answer_check": st.answer_check,
+                              "repair_state": st.repair_state,
+                              "grounding": st.grounding_verdict,
+                              "check_verdict": st.check_verdict,
+                              "alarm_step": st.alarm_step,
+                              "contract_step": st.contract_step})
+        audit.run_end()
+
+
+def _run_demo_episode(seed: int, audit: AuditLog) -> None:
     # Function-level import: rollback imports this module, so importing it at
     # top level would be circular. Both repair triggers below use it.
     from derail.intervene.rollback import (rebuild_history, repair_message,
@@ -1220,10 +1247,6 @@ def run_demo_episode(seed: int) -> None:
     st = STATE
     world = _make_world(seed)
     task, distractor = _make_demo_task(seed, world)
-    # The audit trail for this run. Write-only and failure-isolated: no branch
-    # below reads it, so the demo scores, halts and repairs identically whether
-    # the sink works or is unavailable.
-    audit = AuditLog(st.run_id)
     audit.run_start(episode_id=st.run_id, model=MODEL, task=task,
                     config={"seed": seed, "halt_on_alarm": st.halt_on_alarm,
                             "repair_enabled": st.repair_enabled})
@@ -1562,6 +1585,14 @@ def run_demo_episode(seed: int) -> None:
                 step_error = step_error or is_err
                 results.append({"id": use["id"], "name": use["name"],
                                 "content": result, "is_error": is_err})
+                # The executed call, as data. The demo runs its own loop rather
+                # than `agent_loop.run_real_episode`, so wiring the sink there
+                # left the demo's trail with no tool records at all — an audit
+                # of a halted run could see the score that halted it but not
+                # the tool result that moved the score.
+                audit.tool(t, episode_id=st.run_id, name=use["name"],
+                           args_key=canonical_args(use["input"]),
+                           result=result, is_error=is_err)
                 tool_bits.append(_tool_bit(use["name"], use["input"], result))
                 feed_tools.append(
                     f"{use['name']}({json.dumps(use['input'], sort_keys=True)})"
@@ -1740,13 +1771,6 @@ def run_demo_episode(seed: int) -> None:
                         passed=not verdict.failed,
                         detail="; ".join(f.terse for f in verdict.findings)
                         or None)
-            audit.outcome(status=st.end_reason or "answered",
-                          episode_id=st.run_id, steps=len(tele),
-                          detail={"answer_check": st.answer_check,
-                                  "repair_state": st.repair_state,
-                                  "grounding": st.grounding_verdict,
-                                  "alarm_step": st.alarm_step})
-            audit.run_end()
             return
         probe_pending = False
 
@@ -1761,11 +1785,6 @@ def run_demo_episode(seed: int) -> None:
         if st.repair_state == "repairing":
             st.repair_state = "repair_failed"
         st.running = False
-    audit.outcome(status=st.end_reason or "budget_exhausted",
-                  episode_id=st.run_id, steps=len(tele),
-                  detail={"repair_state": st.repair_state,
-                          "alarm_step": st.alarm_step})
-    audit.run_end()
 
 
 # ------------------------------------------------------------ http server

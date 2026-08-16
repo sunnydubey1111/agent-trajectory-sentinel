@@ -90,6 +90,33 @@ def test_raw_content_is_not_persisted_by_default(tmp_path):
     assert "customer" not in body
 
 
+def test_tool_arguments_are_digested_not_stored(tmp_path):
+    """Found by running the demo live, not by any offline test.
+
+    Callers naturally pass `canonical_args(...)` as the key, which IS the
+    arguments; a live rehearsal put the task's city names into the trail. The
+    digest has to happen inside the sink, or every call site is a chance to
+    leak.
+    """
+    log = AuditLog("args", root=tmp_path)
+    log.tool(0, name="lookup_flight",
+             args_key='{"destination":"Osaka","origin":"Lisbon"}',
+             result="$412", is_error=False)
+    body = log.path.read_text("utf-8")
+    assert "Osaka" not in body and "Lisbon" not in body
+    assert log.records()[0]["args"]["sha256"], "argument identity was lost"
+
+
+def test_the_same_arguments_still_produce_the_same_key(tmp_path):
+    """Digesting must not destroy what the key is for: spotting a retry."""
+    log = AuditLog("retry", root=tmp_path)
+    log.tool(0, name="t", args_key='{"a":1}')
+    log.tool(1, name="t", args_key='{"a":1}')
+    log.tool(2, name="t", args_key='{"a":2}')
+    keys = [r["args"]["sha256"] for r in log.records()]
+    assert keys[0] == keys[1] and keys[0] != keys[2]
+
+
 def test_a_digest_still_identifies_the_same_bytes():
     """Metadata has to be enough to prove two runs saw the same payload."""
     a, b = digest("same"), digest("same")
@@ -239,6 +266,38 @@ def test_the_serving_loop_treats_the_sink_as_optional(tmp_path):
     events = [r["event"] for r in log.records()]
     assert events[0] == "run_start" and events[-1] == "run_end"
     assert "tool" in events and "step" in events
+
+
+def test_every_demo_exit_path_closes_its_trail():
+    """The other defect a live rehearsal found: four of seven runs ended with
+    no `outcome` and no `run_end`, and they were exactly the HALTED ones — the
+    runs an incident review would actually open.
+
+    The body returns from six places plus whatever an exception does, so the
+    close has to sit in a `finally`, not at each return.
+    """
+    import inspect
+
+    from derail.experiments import demo
+
+    src = inspect.getsource(demo.run_demo_episode)
+    assert "finally:" in src, (
+        "run_demo_episode must close its audit trail in a finally; emitting "
+        "at each return is how the halted runs were missed")
+    assert "audit.run_end()" in src and "audit.outcome(" in src
+    # The body must not close it too, or a normal exit double-emits.
+    body = inspect.getsource(demo._run_demo_episode)
+    assert "audit.run_end()" not in body
+
+
+def test_the_demo_records_the_tools_it_executed():
+    """The demo runs its own loop rather than `run_real_episode`, so wiring
+    only the shared loop left its trail with no tool records at all."""
+    import inspect
+
+    from derail.experiments import demo
+
+    assert "audit.tool(" in inspect.getsource(demo._run_demo_episode)
 
 
 def test_a_failing_sink_does_not_change_the_serving_loop(tmp_path):

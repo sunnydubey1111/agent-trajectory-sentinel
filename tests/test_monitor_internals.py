@@ -20,6 +20,20 @@ from derail.monitor.calibration import NullCalibrator
 from derail.monitor.grounding_verify import NumericGroundingMonitor, _nums
 
 
+def _demo_episode_source() -> str:
+    """Source of the demo's whole per-episode path.
+
+    `run_demo_episode` is a thin wrapper that closes the audit trail in a
+    `finally`; the loop itself lives in `_run_demo_episode`. These checks are
+    about the episode path, not about which function currently holds it, so
+    they read both and cannot be broken by splitting it again.
+    """
+    from derail.experiments import demo
+
+    return (inspect.getsource(demo.run_demo_episode)
+            + "\n" + inspect.getsource(demo._run_demo_episode))
+
+
 # -------------------------------------------------------------------
 def test_constant_healthy_scale_is_unscaled_not_amplified():
     """A quantity that never varies in healthy data gives no basis for
@@ -491,7 +505,7 @@ def test_halting_and_repairing_are_exclusive_responses_to_an_alarm():
 
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     assert "if alarmed and st.halt_on_alarm:" in src, \
         "halting must take precedence over repairing"
     assert 'st.status = "halted"' in src
@@ -546,7 +560,7 @@ def test_a_spent_repair_against_a_dead_tool_layer_escalates():
 
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     assert "escalated_tool_layer_down" in src
     # The escalation must come AFTER the repair has been offered, or the
     # alarm would never get its retry at all.
@@ -565,7 +579,7 @@ def test_every_exit_resolves_an_in_flight_repair():
 
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     exits = ("budget_exhausted", "stopped_by_user", "agent_error",
              "halted_by_watchdog")
     for reason in exits:
@@ -587,7 +601,7 @@ def test_no_unreachable_code_in_the_live_episode_loop():
 
     from derail.experiments import demo
 
-    tree = ast.parse(inspect.getsource(demo.run_demo_episode))
+    tree = ast.parse(_demo_episode_source())
     stranded = []
     for node in ast.walk(tree):
         for field in ("body", "orelse", "finalbody"):
@@ -740,7 +754,7 @@ def test_demo_serves_the_deterministic_check_alongside_the_monitor():
 
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     # The checks parse tool calls out of a step's text, so they must read the
     # telemetry-shaped list. st.steps is UI-shaped: its `text` holds only the
     # agent's prose, with tool calls in a separate field, so verifying against
@@ -889,7 +903,7 @@ def test_demo_repairs_a_failing_run_and_shows_it():
 
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     assert "rollback_step(tele, BOOKING_SPEC)" in src
     # `located` names the failing check and no computed value: measured best
     # of the rungs and the only one of the two strongest that cannot hand the
@@ -952,7 +966,7 @@ def test_repair_rewinds_monitor_and_feature_state_with_the_agent():
     so the post-repair score would describe a history that was discarded."""
     from derail.experiments import demo
 
-    src = inspect.getsource(demo.run_demo_episode)
+    src = _demo_episode_source()
     i = src.index("del tele[k:]")
     after = src[i:i + 1200]
     for expected in ("st.monitor.start_episode()", "xstate = ExtFeatureState()",
@@ -1062,7 +1076,7 @@ def test_demo_installs_a_fingerprinted_self_calibrating_baseline():
     assert "extend(calib" in src, "the baseline must be seeded from the corpus"
 
     # A completed run is offered to it, gated on the deterministic verdict.
-    loop = inspect.getsource(demo.run_demo_episode)
+    loop = _demo_episode_source()
     assert "st.baseline.observe(" in loop
     assert "checks_passed=not verdict.failed" in loop
 

@@ -200,8 +200,18 @@ class AuditLog:
              result: str | None = None, is_error: bool = False,
              truncated: bool = False, latency_s: float | None = None,
              episode_id: str | None = None) -> None:
+        """One executed tool call.
+
+        `args_key` is DIGESTED, not stored. Callers naturally pass
+        `canonical_args(...)`, which is the arguments themselves — a live demo
+        run put the task's city names straight into the trail that way. The
+        digest keeps what the key is for (same arguments produce the same
+        value, so a retry is still identifiable) and drops what it should
+        never have carried. Enforcing it here rather than at each call site
+        makes the guarantee structural: no caller can leak by being careless.
+        """
         self._emit("tool", t=t, episode_id=episode_id, name=name,
-                   args_key=args_key, result=self._text(result),
+                   args=self._text(args_key), result=self._text(result),
                    is_error=bool(is_error), truncated=bool(truncated),
                    latency_s=latency_s)
 
@@ -273,7 +283,7 @@ if __name__ == "__main__":       # module self-test
         log.run_start(episode_id="ep-1", model="m", task="a secret task")
         log.step(0, action="tool_call", latency_s=1.25,
                  features={"e": 0.5, "u": 1.5})
-        log.tool(0, name="lookup_flight", args_key='{"a":1}',
+        log.tool(0, name="lookup_flight", args_key='{"city":"Osaka"}',
                  result="Error: boom", is_error=True)
         log.score(0, monitor="esn_cusum_max", score=12.5, threshold=9.0,
                   alarmed=True)
@@ -288,7 +298,9 @@ if __name__ == "__main__":       # module self-test
             "outcome", "run_end"], [r["event"] for r in recs]
         # Content is NOT persisted by default.
         assert recs[0]["task"]["sha256"] and "content" not in recs[0]["task"]
-        assert "secret task" not in log.path.read_text("utf-8")
+        body = log.path.read_text("utf-8")
+        assert "secret task" not in body
+        assert "Osaka" not in body, "tool arguments reached the audit log"
         assert recs[3]["alarmed"] is True and recs[3]["threshold"] == 9.0
         assert log.dropped == 0 and log.written == 8
 
