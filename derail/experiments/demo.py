@@ -61,6 +61,7 @@ from derail.monitor.esn import _WASHOUT, ESNEnsembleMonitor
 from derail.monitor.grounding import GRD_DIM_NAMES, GroundingMonitor
 from derail.monitor.grounding_verify import NumericGroundingMonitor
 from derail.monitor.hybrid import _robust_stats
+from derail.audit import AuditLog, digest
 from derail.preconditions import error_shaped
 from derail.telemetry.adapter import (
     ExtFeatureState,
@@ -971,6 +972,9 @@ class DemoState:
         self._clear_run()
 
     def _clear_run(self) -> None:
+        #: Identifies this run in the audit trail. Regenerated per run so two
+        #: runs of the demo never share a log file.
+        self.run_id = uuid.uuid4().hex[:12]
         self.task = ""
         self.task_struct: dict | None = None
         self.hijacked = False
@@ -1216,6 +1220,13 @@ def run_demo_episode(seed: int) -> None:
     st = STATE
     world = _make_world(seed)
     task, distractor = _make_demo_task(seed, world)
+    # The audit trail for this run. Write-only and failure-isolated: no branch
+    # below reads it, so the demo scores, halts and repairs identically whether
+    # the sink works or is unavailable.
+    audit = AuditLog(st.run_id)
+    audit.run_start(episode_id=st.run_id, model=MODEL, task=task,
+                    config={"seed": seed, "halt_on_alarm": st.halt_on_alarm,
+                            "repair_enabled": st.repair_enabled})
     # Same task-scoped toolset the calibration corpus was collected under.
     backend = _make_live_backend()
     backend.reset(task)
@@ -1266,6 +1277,18 @@ def run_demo_episode(seed: int) -> None:
         actually has, not the one that was discarded.
         """
         nonlocal budget, xstate, gstate, gcheck
+        # The two decisions this makes, recorded before either is acted on:
+        # where the run was rewound to, and what it was asked to do again.
+        audit.decision(t, episode_id=st.run_id, kind="checkpoint",
+                       reason=f"repair triggered by {trigger}",
+                       detail={"resume_from_step": k})
+        audit.decision(t, episode_id=st.run_id, kind="rollback",
+                       reason=trigger,
+                       detail={"discarded_steps": max(len(tele) - k, 0)})
+        audit.decision(t, episode_id=st.run_id, kind="repair", reason=trigger,
+                       detail={"rung": "located",
+                               "hint": digest(hint),
+                               "findings": [f.check for f in (findings or [])]})
         with st.lock:
             st.repair_state = "repairing"
             st.repair_trigger = trigger
@@ -1592,9 +1615,27 @@ def run_demo_episode(seed: int) -> None:
             for name, v in zip(("e", "u", "m", "x"), chan_disp):
                 st.channels[name].append(round(v, 4))
             st.explain = factors
-            if st.alarm_step is None and fused > 1.0:
+            newly_alarmed = st.alarm_step is None and fused > 1.0
+            if newly_alarmed:
                 st.alarm_step = t
                 st.alarm_explain = factors
+        # Outside the state lock: the audit sink must never be able to hold a
+        # lock the UI thread needs, and it must never be inside a critical
+        # section whose correctness a stalled disk could affect.
+        audit.step(t, episode_id=st.run_id, action=step["action"],
+                   latency_s=latency, output_tokens=out["output_tokens"],
+                   text=step["text"],
+                   features={"fused": fused, "behavioural": b, "grounding": g,
+                             "e": chan_disp[0], "u": chan_disp[1],
+                             "m": chan_disp[2], "x": chan_disp[3],
+                             "ungrounded": len(ungrounded),
+                             "step_error": float(step_error)})
+        audit.score(t, episode_id=st.run_id, monitor="fused_channel_max",
+                    score=fused, threshold=1.0, alarmed=fused > 1.0)
+        if newly_alarmed:
+            audit.decision(t, episode_id=st.run_id, kind="escalate",
+                           reason="fused score crossed the served threshold",
+                           detail={"factors": factors[:3]})
 
         if out["stop_reason"] == "end_turn":
             # A too-early answer under corruption/hijack gets
@@ -1692,6 +1733,20 @@ def run_demo_episode(seed: int) -> None:
                 st.status = "finished"
                 st.end_reason = "answered"
                 st.running = False
+            audit.check(t, episode_id=st.run_id, check="answer_check",
+                        passed=st.answer_check == "correct",
+                        detail=st.answer_check)
+            audit.check(t, episode_id=st.run_id, check="verify",
+                        passed=not verdict.failed,
+                        detail="; ".join(f.terse for f in verdict.findings)
+                        or None)
+            audit.outcome(status=st.end_reason or "answered",
+                          episode_id=st.run_id, steps=len(tele),
+                          detail={"answer_check": st.answer_check,
+                                  "repair_state": st.repair_state,
+                                  "grounding": st.grounding_verdict,
+                                  "alarm_step": st.alarm_step})
+            audit.run_end()
             return
         probe_pending = False
 
@@ -1706,6 +1761,11 @@ def run_demo_episode(seed: int) -> None:
         if st.repair_state == "repairing":
             st.repair_state = "repair_failed"
         st.running = False
+    audit.outcome(status=st.end_reason or "budget_exhausted",
+                  episode_id=st.run_id, steps=len(tele),
+                  detail={"repair_state": st.repair_state,
+                          "alarm_step": st.alarm_step})
+    audit.run_end()
 
 
 # ------------------------------------------------------------ http server

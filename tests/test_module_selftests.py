@@ -19,6 +19,7 @@ from conftest import REPO_ROOT
 
 # (module, marks) - runtimes measured on the dev box.
 FAST = [
+    "derail.audit",
     "derail.evaluation.stats",
     "derail.harness.agent_loop",
     "derail.harness.collect_real",

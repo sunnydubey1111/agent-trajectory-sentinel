@@ -91,6 +91,7 @@ DESIGN.md  README.md  CLAIMS.md  DATA_CARD.md  REPRODUCE.md  CHECKSUMS.md
 LICENSE  CITATION.cff  USER_GUIDE.md  requirements*.txt
 derail/
   common.py                  # frozen contract: channels, Episode, OnlineMonitor
+  audit.py                   # append-only JSONL audit trail for serving runs
   config.py                  # API-key resolution (OS vault > env > .env)
   preconditions.py           # what the text readers refuse rather than pass
   telemetry/generator.py     # healthy simulator + failure injector
@@ -116,6 +117,8 @@ devtools/                    # manifest, snapshot, audits, ledger, data card
 verification/  experimental/ # pre-registered arms and exploratory studies
 tests/  traces/  results/  paper/
 runs/                        # runtime output of serving runs (gitignored)
+  audit/<run_id>.jsonl       #   the audit trail, one file per serving run
+  cassettes/                 #   provider recordings made while serving
 ```
 
 **Collection writes to `traces/`; serving does not.** `traces/` is the frozen
@@ -138,6 +141,59 @@ the code, and rebuilt on demand into `runtime_root()/fixtures/` (atomically,
 so concurrent agents never see a half-written file). Same rows, same
 read-only enforcement (`mode=ro` plus `PRAGMA query_only`), one fewer binary
 in the dataset.
+
+## The audit trail
+
+The architecture diagram has always carried an Audit / Log Store box, and the
+runtime-flow caption promises "the audit trail every stage writes to". For a
+long time nothing implemented it: the only durable runtime output was provider
+cassettes and the SQL fixture, and both exist to make a run *repeatable*, not
+to make a past run *answerable*. `derail/audit.py` is that box.
+
+**Shape.** Append-only JSON Lines, one file per run at
+`runs/audit/<run_id>.jsonl`, flushed per record so a run killed mid-episode
+still leaves everything up to that point. No database and no service: the
+question a post-incident review asks is "what did the monitor see, and what
+did it decide?", and a file is the only dependency that is certain to still
+exist when someone asks it.
+
+**Vocabulary.** Seven closed event types — `run_start`, `step`, `tool`,
+`score`, `check`, `decision`, `outcome` — plus `run_end`. Every record carries
+the schema version, run id, UTC timestamp and, where it applies, the step
+index and episode id, so any two records can be joined. `score` carries the
+value, the threshold it was compared against and the verdict; `decision`
+carries one of a closed set (`checkpoint`, `rollback`, `repair`, `escalate`,
+`halt`, `resume`) so a repair can be reconstructed end to end.
+
+**Privacy is the default, not an option.** Prompts, tool arguments, tool
+results and model output are recorded as a length plus a truncated SHA-256 —
+enough to prove two runs saw the same bytes and to line a record up against a
+trace, not enough to leak a customer record. Raw content requires an explicit
+opt-in (`AGENTWATCH_AUDIT_CONTENT=1`), and even then every string passes
+through the same secret redaction the tool layer applies before anything
+reaches a model or a cassette. Each run records which mode it used, so a quiet
+trail cannot be mistaken for a redacted one.
+
+**It cannot break what it observes.** Every write is failure-isolated: a full
+disk, a revoked permission or an unserializable value increments a drop
+counter and warns once, and never raises into the caller. The dependency
+points one way — no monitor module imports it, and
+`test_the_serving_loop_treats_the_sink_as_optional` asserts that
+`run_real_episode` returns byte-identical telemetry with the sink wired, with
+it absent, and with it deliberately broken. A log that can change a verdict is
+not an audit log.
+
+**Cost.** About 144 µs per record with the per-record flush, measured; that is
+comparable to the monitor's own 173 µs per step, and about 0.005% of a real
+2.68 s agent step, which is what the serving path actually spends. The
+published throughput figures are unaffected because they are measured by
+`run_benchmark` on the monitor alone, which does not log.
+
+**Scope today.** Wired into the two serving paths: the live demo
+(`run_demo_episode`) and the ad-hoc live slice (`agent_loop._run_live`).
+Collectors deliberately pass no sink — a collection run's evidence *is* the
+trace it writes, and duplicating it into a second file would create two
+records of the same thing that can disagree.
 
 Every library module carries an `if __name__ == "__main__":` smoke test that
 uses only that module + `derail.common` + third-party libs (NO sibling `derail`

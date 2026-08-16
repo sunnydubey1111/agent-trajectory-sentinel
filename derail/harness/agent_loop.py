@@ -19,17 +19,34 @@ from typing import Any
 
 from derail.harness.record_replay import Cassette, CostMeter
 from derail.harness.tools import ToolRegistry
-from derail.telemetry.events import SCHEMA_VERSION, make_tool_event
+from derail.telemetry.events import (SCHEMA_VERSION, canonical_args,
+                                     make_tool_event)
 
 
 def run_real_episode(backend: Any, registry: ToolRegistry, task: str, *,
                      max_steps: int = 12, cassette: Cassette | None = None,
-                     injector: Any | None = None) -> list[dict]:
+                     injector: Any | None = None,
+                     audit: Any | None = None,
+                     episode_id: str | None = None) -> list[dict]:
     """Run one episode; return the list of v2/v3 step dicts.
 
     An optional WS4 injector transforms tool results from its onset tau; the
     runner advances injector.t once per step so tau is exact ground truth.
+
+    `audit` is an optional `derail.audit.AuditLog`. It is write-only and
+    side-effect-free: nothing read back from it reaches the returned steps, and
+    every call into it is failure-isolated, so a broken sink changes neither
+    the telemetry this produces nor any decision made from it. Collectors leave
+    it None — a collection run's evidence IS the trace it writes.
     """
+    from derail.audit import NullAuditLog
+
+    log = audit if audit is not None else NullAuditLog()
+    log.run_start(episode_id=episode_id, task=task,
+                  model=getattr(backend, "model", None),
+                  config={"max_steps": max_steps,
+                          "injected": getattr(injector, "failure_class", None),
+                          "tau": getattr(injector, "tau", None)})
     backend.reset(task)
     steps: list[dict] = []
     for t in range(max_steps):
@@ -53,6 +70,9 @@ def run_real_episode(backend: Any, registry: ToolRegistry, task: str, *,
             events.append(make_tool_event(
                 res.name, res.args, res.content, is_error=res.is_error,
                 latency_s=res.latency_s, call_id=str(use.get("id", ""))))
+            log.tool(t, episode_id=episode_id, name=res.name,
+                     args_key=canonical_args(res.args), result=res.content,
+                     is_error=res.is_error, latency_s=res.latency_s)
         if results:
             backend.add_tool_results(results)
 
@@ -71,8 +91,16 @@ def run_real_episode(backend: Any, registry: ToolRegistry, task: str, *,
                       "task": task,
                       "tool_events": events,
                       "schema": SCHEMA_VERSION})
+        log.step(t, episode_id=episode_id, action=action, latency_s=latency,
+                 output_tokens=int(out.get("output_tokens", 0)), text=text,
+                 features={"n_tool_calls": len(events),
+                           "n_tool_errors": sum(1 for e in events
+                                                if e.get("is_error")),
+                           "step_error": float(step_error)})
         if out["stop_reason"] == "end_turn":
             break
+    log.outcome(status="completed", episode_id=episode_id, steps=len(steps))
+    log.run_end()
     return steps
 
 
@@ -81,6 +109,8 @@ def _run_live(model: str, budget_usd: float, backend_kind: str = "gemini",
     """One real episode on a real research task (Gemini or local Ollama)."""
     from derail.harness.real_tools import _ensure_tls, default_registry
     from derail.telemetry.adapter import episode_from_trace
+
+    from derail.audit import AuditLog
 
     _ensure_tls()   # this machine's AV intercepts TLS; fix before any HTTPS
     registry = default_registry()
@@ -108,8 +138,12 @@ def _run_live(model: str, budget_usd: float, backend_kind: str = "gemini",
     inj_note = f"; INJECT {inject_class}@tau={tau}" if inject_class else ""
     print(f"[slice] LIVE {backend_kind}:{model}; budget ${budget_usd:.2f}"
           f"{inj_note}\n  task: {task}\n")
+    # A serving run leaves an audit trail. It is write-only: nothing below
+    # reads it back, so the slice behaves identically if the sink fails.
+    audit = AuditLog()
     steps = run_real_episode(backend, registry, task, max_steps=12,
-                             cassette=cassette, injector=injector)
+                             cassette=cassette, injector=injector,
+                             audit=audit, episode_id="slice-live")
     ep = episode_from_trace(
         steps, "slice-live",
         tau=(tau if inject_class else None),
