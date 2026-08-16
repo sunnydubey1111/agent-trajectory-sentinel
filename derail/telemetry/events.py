@@ -214,10 +214,17 @@ def parse_step_events(step: dict) -> tuple[list[ToolCallEvent], str]:
     Structured `tool_events` win outright: when a collector recorded what it
     actually executed, model-written text can no longer fabricate a tool call
     or hide one.
+
+    "Outright" includes the EMPTY list. A collector that writes the key is
+    reporting what it executed, and an empty list is the report "nothing"; the
+    step's text can then only be the model's prose, which may well contain
+    tool-like syntax it merely described. Falling back to the parser there is
+    what lets written syntax read as an executed call. Only an ABSENT key means
+    the corpus has no structured record and the text is all there is.
     """
     raw = step.get("tool_events")
     text = str(step.get("text", ""))
-    if isinstance(raw, list) and raw:
+    if isinstance(raw, list):
         events = []
         for ev in raw:
             if not isinstance(ev, dict):

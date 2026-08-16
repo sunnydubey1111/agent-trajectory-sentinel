@@ -31,6 +31,18 @@ silently rewritten mid-run), `looping`, `tool_cascade`,
 `grounding_loss`, plus `rate_limit`, `timeout`, `malformed_json` and
 `wrong_document` on the research collectors.
 
+**What an injected label asserts, exactly.** It records FAULT
+EXPOSURE, not confirmed task failure: the acceptance gate requires
+that the injector really mutated a result and that at least one step
+followed, so there is something to detect. Whether the agent then
+went wrong is a separate question, and one these labels do not
+answer -- an agent that noticed the fault and recovered carries the
+same label as one that derailed. Detection rates on injected corpora
+are therefore rates of *detecting an exposed fault*, and a claim that
+reads them as "caught a failed task" claims more than the label
+supports. The organic corpora below carry that stronger claim,
+because their labels are graded against a computable ground truth.
+
 **Organic.** Nothing is injected. Episodes are labelled after the fact,
 objectively and by script, from each run's own tool results against a
 computable ground truth -- `healthy`, `arithmetic_error`, `hallucinated`,

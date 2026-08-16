@@ -44,6 +44,65 @@ jobs:
         run: python -m devtools.hf_dataset --build
       - name: Fast tests
         run: python -m pytest -m "not slow and not network and not ollama"
+      - name: Integrity gates
+        # The manifest and the claims ledger are the two things that catch a
+        # result artifact drifting away from the code that produced it. Running
+        # the suite without them lets a stale table ship green.
+        run: |
+          python -m devtools.artifact_manifest --check
+          python -m devtools.claims_ledger --check
+
+  optimized:
+    # `python -O` strips asserts, and 400+ of them sit outside self-tests. A
+    # deployment running with the flag gets different behaviour from anything
+    # CI ever exercised, so exercise it: a guard that only holds without -O is
+    # not a guard, and this job is where that shows up.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install core dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pytest-github-actions-annotate-failures
+      - name: Fast tests under -O
+        run: python -O -m pytest -m "not slow and not network and not ollama"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install linters
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ruff
+      - name: Lint
+        # Undefined names, unused imports and the like. Deliberately a narrow
+        # rule set: this is a correctness gate, not a style rewrite of 33k
+        # lines, and a noisy lint job is one nobody reads.
+        run: ruff check --select E9,F63,F7,F82,F401,F811 derail verification devtools tests
+
+  locked-requirements:
+    # Reproduction claims rest on requirements.lock.txt actually resolving.
+    # Nothing checked that, so a lock file could rot untested.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install from the lock file
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.lock.txt
+      - name: Compile every module against the locked set
+        run: python -m compileall -q derail verification experimental devtools
 
   slow:
     runs-on: ubuntu-latest

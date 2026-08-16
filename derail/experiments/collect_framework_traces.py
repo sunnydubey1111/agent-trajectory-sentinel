@@ -417,7 +417,11 @@ def main(argv: list[str] | None = None) -> None:
         except Exception as exc:  # noqa: BLE001 — skip episode, keep batch
             print(f"  [error] {episode_id}: {type(exc).__name__}: {exc}")
             continue
-        verdict = accept_episode(steps, injector=injector, min_steps=4)
+        # Same booking task as `collect_traces`, and likewise with no per-run
+        # verifier: a healthy run here is unverified by construction, graded
+        # afterwards by the deterministic checks rather than at collection.
+        verdict = accept_episode(steps, injector=injector, min_steps=4,
+                                 allow_unverified_healthy=True)
         if not verdict.accepted:
             rejected.append({"episode_id": episode_id, "requested_class": fc,
                              "reason": verdict.reason, "facts": verdict.facts})

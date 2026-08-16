@@ -1,10 +1,10 @@
-arm,label,n,total_consistency,total_consistency_rate,with_coverage,with_coverage_rate,monitor_alarmed,monitor_rate,checks_p_vs_healthy,monitor_p_vs_healthy
-T=0.9 (provoking),healthy,38,0,0.0,0,0.0,6,0.158,,
-T=0.9 (provoking),arithmetic_error,37,26,0.703,36,0.973,12,0.324,0.0,0.07783
-T=0.9 (provoking),hallucinated,7,7,1.0,7,1.0,3,0.429,0.0,0.130678
-T=0.9 (provoking),other,20,20,1.0,20,1.0,13,0.65,0.0,0.000248
-T=0.9 (provoking),incomplete,18,0,0.0,16,0.889,5,0.278,1.0,0.239927
-T=0.2 (serving),healthy,63,0,0.0,0,0.0,11,0.175,,
-T=0.2 (serving),arithmetic_error,37,29,0.784,37,1.0,17,0.459,0.0,0.002509
-T=0.2 (serving),hallucinated,7,5,0.714,5,0.714,3,0.429,2e-06,0.137387
-T=0.2 (serving),incomplete,13,0,0.0,13,1.0,11,0.846,1.0,7e-06
+dataset,arm,label,n,total_consistency,total_consistency_rate,with_coverage,with_coverage_rate,monitor_alarmed,monitor_rate,checks_p_vs_healthy,monitor_p_vs_healthy
+organic_demo7b_ext,T=0.9 (provoking),healthy,38,0,0.0,0,0.0,6,0.158,,
+organic_demo7b_ext,T=0.9 (provoking),arithmetic_error,37,26,0.703,36,0.973,12,0.324,0.0,0.07783
+organic_demo7b_ext,T=0.9 (provoking),hallucinated,7,7,1.0,7,1.0,3,0.429,0.0,0.130678
+organic_demo7b_ext,T=0.9 (provoking),other,20,20,1.0,20,1.0,13,0.65,0.0,0.000248
+organic_demo7b_ext,T=0.9 (provoking),incomplete,18,0,0.0,16,0.889,5,0.278,1.0,0.239927
+organic_demo7b_cold,T=0.2 (serving),healthy,63,0,0.0,0,0.0,11,0.175,,
+organic_demo7b_cold,T=0.2 (serving),arithmetic_error,37,29,0.784,37,1.0,17,0.459,0.0,0.002509
+organic_demo7b_cold,T=0.2 (serving),hallucinated,7,5,0.714,5,0.714,3,0.429,2e-06,0.137387
+organic_demo7b_cold,T=0.2 (serving),incomplete,13,0,0.0,13,1.0,11,0.846,1.0,7e-06

@@ -55,8 +55,13 @@ class NullCalibrator:
             episodes. Must be non-empty and finite.
         """
         s = np.asarray(val_healthy_max_scores, dtype=float).ravel()
-        assert s.size >= 1, "NullCalibrator.fit needs at least one score"
-        assert np.all(np.isfinite(s)), "non-finite healthy max scores"
+        # Raised rather than asserted: these run under `python -O` too, where
+        # an assert is compiled out and a null quietly built from NaNs would
+        # produce a threshold that no score can ever exceed.
+        if s.size < 1:
+            raise ValueError("NullCalibrator.fit needs at least one score")
+        if not np.all(np.isfinite(s)):
+            raise FloatingPointError("non-finite healthy max scores")
         self.sorted_ = np.sort(s)
         self.n_ = int(s.size)
         return self

@@ -287,11 +287,11 @@ repeats (n=55 genuinely-wrong episodes):
 |---|---|---|---|
 | `none` — untouched | 0% | — | — |
 | `resample` — rollback + fresh sample | 16% | *the control* | 14.7 |
-| **`located` — + which check failed, no values** | **45%** | **p=0.0005** | 6.4 |
-| `generic` — + "re-check your work" | 36% | p=0.0347 | **5.8** |
-| `specific` — + the finding, with values | 36% | p=0.0192 | 8.1 |
-| `recompute` — + "use the calculator" | 28% | p=0.17 (n.s.) | 7.2 |
-| `adaptive` | 21% | p=0.61 (n.s.) | 10.6 |
+| **`located` — + which check failed, no values** | **45%** | **p=0.0001** | 6.4 |
+| `generic` — + "re-check your work" | 36% | p=0.0093 | **5.8** |
+| `specific` — + the finding, with values | 36% | p=0.0023 | 8.1 |
+| `recompute` — + "use the calculator" | 28% | p=0.13 (n.s.) | 7.2 |
+| `adaptive` | 21% | p=0.48 (n.s.) | 10.6 |
 
 Net over all 120 episodes, charging each policy for any correct run it broke:
 `located` takes success **52% → 73%**, recovering 25 failures and breaking
@@ -524,8 +524,8 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   in 89 healthy runs, and that number exists only under provocation. Unprovoked
   fabricated inputs are 2 in 175 organic episodes, below the pre-registered
   floor of 10, so no unprovoked claim is made.
-- **Two repair rungs did not work.** `recompute` 28% (p=0.17) and `adaptive`
-  21% (p=0.61) do not beat retry luck. Kept as comparison arms.
+- **Two repair rungs did not work.** `recompute` 28% (p=0.13) and `adaptive`
+  21% (p=0.48) do not beat retry luck. Kept as comparison arms.
 - **Monitors do not transfer across deployments.** qwen2.5:7b → llama3.1:8b
   sits at chance (AUROC 0.527) where recalibrating on the target reaches 0.885;
   7b → 3b is no better (0.522). The null must match the serving distribution.

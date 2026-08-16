@@ -60,12 +60,35 @@ class Provenance:
     requested_class: str | None
     requested_tau: int | None
     injector_seed: int | None
+    #: Generation settings that change what the model produces. Recorded
+    #: because a resume must re-collect when any of them moves: two episodes
+    #: differing only in system instruction or output cap are not the same
+    #: sample, and without these the fingerprint calls them identical.
+    system_instruction_sha256: str = ""
+    max_output_tokens: int | None = None
+    reasoning_budget: int | None = None
+    #: SDK / provider revision the episode was collected against. Free-form
+    #: because each backend names its own; empty when the caller cannot tell.
+    sdk_revision: str = ""
     schema: int = SCHEMA_VERSION
     contract: int = COLLECTOR_CONTRACT_VERSION
 
+    #: Fields omitted from the fingerprint while they hold their default.
+    #: They were added after corpora had already been collected, so hashing an
+    #: unset one would change every stored fingerprint and make `reusable`
+    #: report the whole committed dataset as stale - re-collecting Gemini
+    #: episodes that cost real money to answer a question nothing asked. A
+    #: collector that DOES supply one gets it hashed and binding from then on.
+    _LATE_FIELDS = ("system_instruction_sha256", "max_output_tokens",
+                    "reasoning_budget", "sdk_revision")
+
     def fingerprint(self) -> str:
         """Hash of everything that must not change under a resume."""
-        return _sha256_text(json.dumps(asdict(self), sort_keys=True,
+        payload = asdict(self)
+        for name in self._LATE_FIELDS:
+            if not payload.get(name):
+                payload.pop(name, None)
+        return _sha256_text(json.dumps(payload, sort_keys=True,
                                        separators=(",", ":"), default=str))
 
 
@@ -125,8 +148,18 @@ def guard_output_dir(out_dir: Path, *, allow_existing: bool,
         return
     try:
         entries = json.loads(manifest.read_text(encoding="utf-8"))
-    except Exception:      # noqa: BLE001 - unreadable manifest is not a corpus
-        return
+    except (OSError, ValueError) as exc:
+        # An unreadable manifest is the case this guard exists for, not an
+        # exemption from it. The directory demonstrably holds a manifest, so
+        # something collected here; refusing to parse it is the least safe
+        # moment to decide there is nothing to protect. Failing open here is
+        # how 70 committed Gemini traces were overwritten.
+        raise CorpusInUse(
+            f"{out_dir} holds a manifest.json that cannot be read "
+            f"({type(exc).__name__}: {exc}).\n"
+            f"Refusing to collect over a corpus whose contents are unknown. "
+            f"Pass --out-dir to collect somewhere new, or {flag} to write "
+            f"into this directory on purpose.") from exc
     if not entries:
         return
     raise CorpusInUse(
@@ -150,7 +183,10 @@ def registry_roster_sha256(registry) -> str:
 def make_provenance(*, collector: str, backend: str, model: str,
                     temperature: float | None, episode_seed: int | None,
                     task_text: str, registry, task_name: str | None = None,
-                    injector=None) -> Provenance:
+                    injector=None, system_instruction: str = "",
+                    max_output_tokens: int | None = None,
+                    reasoning_budget: int | None = None,
+                    sdk_revision: str = "") -> Provenance:
     return Provenance(
         collector=collector, backend=backend, model=model,
         temperature=temperature, episode_seed=episode_seed,
@@ -159,7 +195,12 @@ def make_provenance(*, collector: str, backend: str, model: str,
         tool_roster_sha256=registry_roster_sha256(registry),
         requested_class=None if injector is None else injector.failure_class,
         requested_tau=None if injector is None else injector.tau,
-        injector_seed=None if injector is None else injector.seed)
+        injector_seed=None if injector is None else injector.seed,
+        system_instruction_sha256=(_sha256_text(system_instruction)
+                                   if system_instruction else ""),
+        max_output_tokens=max_output_tokens,
+        reasoning_budget=reasoning_budget,
+        sdk_revision=sdk_revision)
 
 
 # --------------------------------------------------------------- acceptance
@@ -175,7 +216,8 @@ class Verdict:
 
 
 def accept_episode(steps: list[dict], *, injector=None, min_steps: int = 4,
-                   success: bool | None = None) -> Verdict:
+                   success: bool | None = None,
+                   allow_unverified_healthy: bool = False) -> Verdict:
     """Decide whether an episode may be written, and with which label.
 
     An injected episode is accepted only if the injector actually mutated a
@@ -184,6 +226,18 @@ def accept_episode(steps: list[dict], *, injector=None, min_steps: int = 4,
     intent, not about the trace.  A healthy episode is accepted only
     if its task verifier says it succeeded, when a verifier exists;
     an unsuccessful run is a failure of an unknown kind, not a negative.
+
+    `success=None` means nothing verified the run - either no verifier exists
+    for the task, or the verifier itself raised. Such a run is refused unless
+    `allow_unverified_healthy`, because admitting it puts an unknown-quality
+    episode into the healthy null that every threshold is derived from, and a
+    null quietly containing failures raises the bar for every real one. The
+    flag defaults false so that admitting them is a recorded decision.
+
+    An injected episode's label records FAULT EXPOSURE, not confirmed task
+    failure: the injector demonstrably mutated a result and at least one step
+    followed. Whether the agent then went wrong is a separate question the
+    label does not answer, and claims built on these episodes must say so.
 
     The reported onset is the step where the mutation FIRST landed, not the
     requested tau.
@@ -215,6 +269,12 @@ def accept_episode(steps: list[dict], *, injector=None, min_steps: int = 4,
     if success is False:
         return Verdict(False, "task did not succeed: not a healthy episode",
                        facts=facts)
+    if success is None and not allow_unverified_healthy:
+        return Verdict(False, "no verifier confirmed this run: refusing to "
+                              "record it as healthy (pass "
+                              "allow_unverified_healthy=True to admit it)",
+                       facts=facts)
+    facts["unverified_healthy"] = success is None
     return Verdict(True, "healthy run accepted", label=None, tau=None,
                    facts=facts)
 
@@ -311,7 +371,9 @@ if __name__ == "__main__":
     steps = [{"text": f"step {t}", "latency_s": 1.0} for t in range(6)]
 
     # --- healthy acceptance is gated on task success ---
-    assert accept_episode(steps).accepted
+    unverified = accept_episode(steps)
+    assert not unverified.accepted and "no verifier" in unverified.reason
+    assert accept_episode(steps, allow_unverified_healthy=True).accepted
     assert accept_episode(steps, success=True).accepted
     bad = accept_episode(steps, success=False)
     assert not bad.accepted and "did not succeed" in bad.reason

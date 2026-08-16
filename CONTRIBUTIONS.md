@@ -156,12 +156,12 @@ n=55 genuinely-wrong episodes with three independent repeats each.
 margin above that is credited to the repair.
 
 **Naming the failing check does at least as well as supplying the answer.**
-The value-free `located` rung recovers **45%** (p=0.0005) against `specific` at
-36% (p=0.019) — and 26 of 55 `specific` hints contained the correct total
+The value-free `located` rung recovers **45%** (p=0.0001) against `specific` at
+36% (p=0.0023) — and 26 of 55 `specific` hints contained the correct total
 outright. The recovery does not come from handing over the answer.
 
-**Two rungs are reported as failures.** `recompute` 28% (p=0.17) and `adaptive`
-21% (p=0.61) do not beat retry luck. They are kept as comparison arms.
+**Two rungs are reported as failures.** `recompute` 28% (p=0.13) and `adaptive`
+21% (p=0.48) do not beat retry luck. They are kept as comparison arms.
 
 **Rollback is real.** A committed trace plus its seed rebuilds the conversation
 at step *k*; every step after is a fresh model call, and the monitor, grounding

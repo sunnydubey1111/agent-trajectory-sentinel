@@ -62,6 +62,13 @@ class ServingConfig:
     prompt: str = ""
     tools: tuple[str, ...] = ()
     telemetry_schema: int | str = ""
+    #: The monitor's own shape - reservoir size, K, channel set, whatever the
+    #: caller varies. A threshold is a property of the scorer as much as of the
+    #: system scored: change the reservoir and the old scores are on a
+    #: different scale, so the stored theta is wrong in exactly the way a
+    #: changed model makes it wrong. Without this the baseline survives that
+    #: change and stays confidently miscalibrated.
+    monitor: str = ""
 
     def fingerprint(self) -> str:
         payload = asdict(self)
@@ -83,14 +90,23 @@ class RollingBaseline:
     #: Runs whose own score already exceeds the working threshold are refused
     #: admission, so an alarming run cannot widen the null that judges it.
     admit_alarming: bool = False
+    #: Multiple of the budget the OUT-OF-SAMPLE rate must exceed before the
+    #: baseline calls itself drifting.
+    drift_multiple: float = 2.0
 
     _scores: deque = field(default_factory=deque, init=False, repr=False)
+    #: Whether each recently OFFERED healthy run alarmed at the threshold that
+    #: existed before it arrived. Kept separately from `_scores` because the
+    #: runs that matter most for drift are exactly the ones guarded admission
+    #: keeps out of `_scores`.
+    _offers: deque = field(default_factory=deque, init=False, repr=False)
     _fingerprint: str = field(default="", init=False)
     _recalibrating: bool = field(default=False, init=False)
     _rejected: int = field(default=0, init=False)
 
     def __post_init__(self) -> None:
         self._scores = deque(maxlen=self.window)
+        self._offers = deque(maxlen=self.window)
         self._fingerprint = self.config.fingerprint()
 
     # -- identity ---------------------------------------------------------
@@ -111,6 +127,7 @@ class RollingBaseline:
         self.config = config
         self._fingerprint = new
         self._scores.clear()
+        self._offers.clear()
         self._rejected = 0
         self._recalibrating = True
         return True
@@ -140,11 +157,16 @@ class RollingBaseline:
         if not checks_passed:
             self._rejected += 1
             return False
-        if not self.admit_alarming and self.state == TRUSTED:
-            theta = self.threshold()
-            if theta is not None and score > theta:
-                self._rejected += 1
-                return False
+        # Judge this run against the threshold that exists BEFORE it joins the
+        # null, and record the verdict. That makes the rate prequential: every
+        # entry was scored out-of-sample, including the ones refused below.
+        theta = self.threshold()
+        alarmed = theta is not None and score > theta
+        if theta is not None:
+            self._offers.append(alarmed)
+        if not self.admit_alarming and alarmed and self.state == TRUSTED:
+            self._rejected += 1
+            return False
         self._scores.append(float(score))
         if self._recalibrating and self.n >= self.n_required:
             self._recalibrating = False
@@ -165,21 +187,42 @@ class RollingBaseline:
             return RECALIBRATING
         if self.n < self.n_required:
             return WARMING_UP
-        if self.realized_fa() is not None and self.realized_fa() > 2 * self.fa_budget:
+        drift = self.drift_fa()
+        if drift is not None and drift > self.drift_multiple * self.fa_budget:
             return DRIFTING
         return TRUSTED
 
     def realized_fa(self) -> float | None:
         """Fraction of the window that would alarm at the current threshold.
 
-        Reported rather than assumed: the study measured budgets missed by up
-        to threefold, so a deployment must be able to see the rate it is
-        actually getting.
+        IN-SAMPLE, and only useful as such: `threshold()` fits theta to these
+        very scores and `pick_threshold` guarantees the in-sample rate is at
+        most the budget, so this can report a feasibility failure but never
+        drift. Use `drift_fa` for that.
         """
         theta = self.threshold()
         if theta is None or not self._scores:
             return None
         return sum(1 for s in self._scores if s > theta) / len(self._scores)
+
+    def drift_fa(self) -> float | None:
+        """Prequential alarm rate: each run judged before it joined the null.
+
+        Out-of-sample by construction, which is the whole point. `realized_fa`
+        compares a threshold to the scores it was fitted on, and
+        `pick_threshold` guarantees that rate is at most the budget, so a
+        drift state defined on it is unreachable rather than merely rare.
+
+        This also sees what `realized_fa` structurally cannot: guarded
+        admission refuses a healthy run that alarms, so the runs that most
+        indicate drift are precisely the ones kept out of `_scores`. They are
+        counted here before that refusal.
+
+        None until enough runs have been judged for a rate to mean anything.
+        """
+        if len(self._offers) < self.n_required:
+            return None
+        return sum(self._offers) / len(self._offers)
 
     def can_act(self) -> bool:
         """May the monitor drive an autonomous action right now?
@@ -196,6 +239,7 @@ class RollingBaseline:
                 "rejected": self._rejected,
                 "threshold": self.threshold(),
                 "realized_fa": self.realized_fa(),
+                "drift_fa": self.drift_fa(),
                 "fingerprint": self._fingerprint[:12]}
 
     def extend(self, scores: Iterable[float]) -> None:

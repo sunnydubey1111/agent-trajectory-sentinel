@@ -80,11 +80,20 @@ class GroundingMonitor(OnlineMonitor):
 
     def z_dims(self, x_t: np.ndarray) -> np.ndarray:
         """Per-dim one-sided robust z (attribution view of score_step)."""
-        assert self._med is not None, "fit() first"
+        if self._med is None:
+            raise RuntimeError("fit() first")
         z = (np.asarray(x_t, dtype=float)[self.dim_idx]
              - self._med) / self._scale
         z = np.clip(z, 0.0, self._Z_CAP)
-        assert np.all(np.isfinite(z)), "non-finite grounding z"
+        # Raised, not asserted: `python -O` strips asserts, and a NaN score
+        # then flows into the alarm rule where `NaN > theta` is False - the
+        # monitor reports "no alarm" for a step it could not score at all.
+        # A guard that disappears under the flag a deployment is most likely
+        # to use is not a guard.
+        if not np.all(np.isfinite(z)):
+            raise FloatingPointError(
+                "non-finite grounding z; the monitor cannot score this step "
+                "and must not silently report it as quiet")
         return z
 
     def score_step(self, x_t: np.ndarray) -> float:

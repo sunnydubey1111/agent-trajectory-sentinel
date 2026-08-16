@@ -97,7 +97,8 @@ def collect_dataset(source_dir: Path, make_backend: Callable[[int], object],
                     cassette: Cassette | None = None, verbose: bool = True,
                     collector: str = "collect_real", backend: str = "?",
                     temperature: float | None = None,
-                    verify: Callable[[list[dict]], bool] | None = None
+                    verify: Callable[[list[dict]], bool] | None = None,
+                    allow_unverified_healthy: bool = False
                     ) -> list[dict]:
     """Collect healthy + injected episodes into source_dir; write manifest.
 
@@ -108,7 +109,10 @@ def collect_dataset(source_dir: Path, make_backend: Callable[[int], object],
       "healthy gets the early topics, failures get the later ones";
     * an episode is written only if `accept_episode` says the evidence supports
       its label - a no-op injection or an unsuccessful healthy run is rejected
-      and logged in `rejected.json`, never quietly kept;
+      and logged in `rejected.json`, never quietly kept. With no `verify` a
+      healthy run is unverified, which is refused unless the caller passes
+      `allow_unverified_healthy` and thereby takes responsibility for a null
+      whose quality nothing checked;
     * every entry carries a provenance fingerprint and a trace checksum, and a
       resume re-collects rather than relabels when either differs.
     """
@@ -145,7 +149,9 @@ def collect_dataset(source_dir: Path, make_backend: Callable[[int], object],
                                  max_steps=max_steps, cassette=cassette,
                                  injector=injector)
         success = None if verify is None else bool(verify(steps))
-        verdict = accept_episode(steps, injector=injector, success=success)
+        verdict = accept_episode(
+            steps, injector=injector, success=success,
+            allow_unverified_healthy=allow_unverified_healthy)
         if not verdict.accepted:
             rejected.append({"episode_id": episode_id,
                              "requested_class": failure_class,
@@ -247,7 +253,10 @@ if __name__ == "__main__":
             registry, n_healthy=args.healthy,
             n_inject_per_class=args.inject_per_class, classes=classes,
             tau=args.tau, model=args.model, cassette=cassette,
-            collector="collect_real", backend=args.backend, temperature=0.2)
+            collector="collect_real", backend=args.backend, temperature=0.2,
+            # The research task has no computable ground truth, so no verifier
+            # can run at collection; the null is filtered downstream instead.
+            allow_unverified_healthy=True)
         if args.backend == "gemini":
             print(f"[collect] {meter.summary()}")
         print(f"[collect] evaluate: py -m derail.experiments.run_real_traces "
@@ -284,7 +293,8 @@ if __name__ == "__main__":
             man = collect_dataset(
                 src, lambda s: _Scripted(4), reg, n_healthy=6,
                 n_inject_per_class=2, classes=("looping", "wrong_document"),
-                tau=2, max_steps=8, model="scripted", verbose=False)
+                tau=2, max_steps=8, model="scripted", verbose=False,
+                allow_unverified_healthy=True)
             assert len(man) == 6 + 2 * 2, len(man)
             assert (src / "manifest.json").exists()
             labeled = [e for e in man if e["failure_class"]]

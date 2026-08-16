@@ -175,6 +175,16 @@ def stable_hash(*tags: object, mod: int = 2**63) -> int:
     never seed anything reproducible. This is the same character-hash the
     rng streams use, exposed for callers that need an int seed rather than a
     Generator (e.g. trace collectors deriving a per-episode world seed).
+
+    KNOWN LIMITATION, deliberately not fixed. Tags are concatenated with no
+    separator, so ("ab", "c") and ("a", "bc") hash identically and would share
+    an RNG stream. Adding a separator is a one-line change that alters the
+    output for EVERY tag tuple, which would re-roll every seeded split,
+    reservoir and injection in the project, invalidate every published table,
+    and orphan the per-episode seeds recorded in the committed manifests. That
+    cost is only worth paying alongside a full regeneration.
+    `test_stable_hash_tag_vocabulary_cannot_collide` guards the gap in the
+    meantime by checking the tag tuples this repository actually passes.
     """
     h = 0
     for tag in tags:

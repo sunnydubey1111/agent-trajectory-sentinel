@@ -149,10 +149,16 @@ def collect_healthy(n: int, n_inject: int = 0) -> None:
     """Collect n healthy (and optionally n_inject per class) demo episodes."""
     from derail.harness.collect_real import collect_dataset
 
+    # This task has no computable ground-truth answer, so nothing can verify a
+    # run at collection time. The null is filtered instead at fit time, where
+    # `fit_monitor` drops any run that skipped a call `RESEARCH_SPEC` requires
+    # (DESIGN.md Amendment 7). Stated here so "unverified" is a recorded
+    # decision rather than a default nobody chose.
     collect_dataset(TRACES, lambda s: _backend(), _registry(),
                     n_healthy=n, n_inject_per_class=n_inject,
                     classes=DEMO_CLASSES if n_inject else (), tau=2,
-                    task_fn=demo_task, model=MODEL, cassette=_cassette())
+                    task_fn=demo_task, model=MODEL, cassette=_cassette(),
+                    allow_unverified_healthy=True)
 
 
 #: Wall-clock latency dims. On a local box these measure the MACHINE, not the
@@ -398,7 +404,7 @@ if __name__ == "__main__":
             collect_dataset(src, lambda s: _Scripted(5), reg, n_healthy=8,
                             n_inject_per_class=0, classes=(),
                             task_fn=lambda s: "demo task", model="scripted",
-                            verbose=False)
+                            verbose=False, allow_unverified_healthy=True)
             mon, theta, theta5 = fit_monitor(src)
             healthy = run_and_score(mon, theta, reg, _Scripted(5))
             injected = run_and_score(mon, theta, reg, _Scripted(5),

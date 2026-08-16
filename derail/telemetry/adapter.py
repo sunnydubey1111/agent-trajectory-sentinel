@@ -45,6 +45,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 from pathlib import Path
 from typing import Iterable, Optional
@@ -87,7 +88,20 @@ _HIGH_SURPRISAL_NATS = 2.5
 _PROJECTION_SEED = 811_2026
 
 # Telemetry v3: assumed context budget for the utilization ratio (tokens).
-CTX_BUDGET_TOKENS = 8192.0
+# Override with AGENTWATCH_CTX_BUDGET_TOKENS to match the deployment.
+#
+# This is a per-DEPLOYMENT fact, not a constant of the system, and getting it
+# wrong makes a feature silently useless rather than wrong: `IDX_CTX_RATIO`
+# is cumulative tokens over this budget, so on a 128k-context model an 8192
+# budget saturates the ratio at its 2.0 clamp within a few steps and the dim
+# carries no signal at all — dead rather than absent, which nothing reports.
+# Every corpus here was collected against models of roughly this budget.
+CTX_BUDGET_TOKENS = float(os.environ.get("AGENTWATCH_CTX_BUDGET_TOKENS",
+                                         "8192"))
+#: Sentence-embedding model, when `use_sentence_transformers` is on. Recorded
+#: in provenance because changing it changes every semantic dim, so two
+#: corpora embedded with different models are not comparable.
+ST_MODEL_NAME = os.environ.get("AGENTWATCH_ST_MODEL", "all-MiniLM-L6-v2")
 # Tool calls are read from the structured `tool_events` field when present
 # and parsed out of the step text otherwise; see derail.telemetry.events.
 
@@ -103,6 +117,46 @@ ACTION_MAP = {
     "function_result": "tool_result", "final": "synthesis",
     "answer": "synthesis", "respond": "synthesis", "response": "synthesis",
 }
+
+#: Action names seen that `ACTION_MAP` does not know, in order of first sight.
+#: An unmapped name is folded into `tool_call`, which is a guess: a genuinely
+#: new step kind is then indistinguishable from a real tool call in the one-hot
+#: dims. An explicit "unknown" category would be the honest encoding, but
+#: `ACTION_TYPES` is part of the frozen feature schema (`common.D_TOTAL` and
+#: the absolute `IDX_*` offsets), so adding one renumbers every dim downstream
+#: and moves every published number. Recording the names instead makes the
+#: guess visible to a caller who wants to check whether it was ever exercised.
+UNMAPPED_ACTIONS: dict[str, int] = {}
+
+
+def unmapped_actions() -> dict[str, int]:
+    """Unknown action names encountered so far, and how often."""
+    return dict(UNMAPPED_ACTIONS)
+
+
+def _action_of(step: dict) -> str:
+    raw = str(step.get("action", "")).lower()
+    action = ACTION_MAP.get(raw)
+    if action is None:
+        if raw:
+            UNMAPPED_ACTIONS[raw] = UNMAPPED_ACTIONS.get(raw, 0) + 1
+        action = "tool_call"
+    return action
+
+
+def _latency_of(step: dict) -> float:
+    """Step latency in seconds, floored at 1ms; negative values are rejected.
+
+    A negative duration is not a small one, it is a broken record: clamping it
+    to the floor turns a corrupt trace into a plausible-looking fast step and
+    feeds it to the monitor as evidence.
+    """
+    value = float(step.get("latency_s", 1.0))
+    if value < 0.0:
+        raise TraceSchemaError(
+            f"negative latency_s ({value!r}); a duration cannot be negative, "
+            f"so this trace is corrupt rather than merely fast")
+    return max(value, 1e-3)
 
 # Lazily-loaded MiniLM model; only ever touched when a caller EXPLICITLY
 # passes use_sentence_transformers=True. Installing sentence-transformers
@@ -136,7 +190,7 @@ def _st_embed(text: str) -> np.ndarray:
     global _ST_MODEL
     if _ST_MODEL is None:
         from sentence_transformers import SentenceTransformer
-        _ST_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+        _ST_MODEL = SentenceTransformer(ST_MODEL_NAME)
     e = np.asarray(_ST_MODEL.encode([text])[0], dtype=float)
     v = e @ _projection(e.size)
     n = float(np.linalg.norm(v))
@@ -203,9 +257,9 @@ def step_signal(step: dict, use_sentence_transformers: bool | None = None
                            use_sentence_transformers)
     x[D_SEM:D_SEM + 4] = uncertainty_features(
         None if logprobs_missing(step) else step.get("token_logprobs"))
-    action = ACTION_MAP.get(str(step.get("action", "")).lower(), "tool_call")
+    action = _action_of(step)
     x[D_SEM + 4 + ACTION_TYPES.index(action)] = 1.0
-    latency = max(float(step.get("latency_s", 1.0)), 1e-3)
+    latency = _latency_of(step)
     n_tokens = int(step.get("output_tokens",
                             len(step.get("token_logprobs") or []) or 1))
     x[D_SEM + 4 + 4] = math.log(latency)
@@ -259,9 +313,13 @@ def step_signal_ext(step: dict, state: ExtFeatureState,
     n_retry = sum(1 for k in keys if k in state.seen_calls)
     state.seen_calls.update(keys)
 
-    latency = max(float(step.get("latency_s", 1.0)), 1e-3)
+    latency = _latency_of(step)
     n_tokens = int(step.get("output_tokens",
                             len(step.get("token_logprobs") or []) or 1))
+    # `text` includes the rendered tool bits, whose tokens are already counted
+    # in `output_tokens` for a step the model produced, so this over-counts a
+    # tool-heavy step. It feeds only IDX_CTX_RATIO, a monotone utilisation
+    # proxy clamped at 2.0, not a billing figure.
     state.cum_tokens += float(n_tokens) + len(str(step.get("text", ""))) / 4.0
 
     x[IDX_COS_DRIFT] = (0.0 if state.prev_emb is None

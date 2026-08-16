@@ -36,12 +36,15 @@ import pandas as pd
 import numpy as np
 from scipy import stats as sps
 
-from derail.intervene.rollback import RUNGS, retry_from_checkpoint
+from derail.evaluation.stats import paired_permutation_test
+from derail.intervene.rollback import SCORED_RUNGS, retry_from_checkpoint
 from derail.verify.checks import BOOKING_SPEC, stated_total, verify
 
 ROOT = Path(__file__).resolve().parents[2]
 TABLES = ROOT / "results" / "tables"
 CORPUS = ROOT / "traces" / "organic_demo7b_cold"      # the SERVING arm
+#: Fixed so the reported p-values are reproducible rather than re-rolled.
+PERMUTATION_SEED = 0
 
 
 def _correct_via_checks_parser(steps: list[dict], expected: float) -> bool:
@@ -149,7 +152,7 @@ def main(argv: list[str] | None = None) -> None:
           f"unnecessary interventions)")
 
     jobs = [(e, rung, args.model, args.temperature, rep)
-            for e in flagged for rung in RUNGS
+            for e in flagged for rung in SCORED_RUNGS
             for rep in range(1, args.repeats + 1)]
     rows = []
     # Resumable: rows already committed for an (episode, rung) pair are kept as
@@ -259,22 +262,32 @@ def main(argv: list[str] | None = None) -> None:
           f"{'vs resample':>13}{'extra calls':>13}")
 
     def _paired_p(rung: str, ref: str) -> float:
-        """Median exact McNemar p across repeats (each repeat is one pairing)."""
-        ps = []
-        for rep in reps:
-            a = wrong[(wrong.rung == rung) & (wrong.rep == rep)]                 .set_index("episode_id")
-            b = wrong[(wrong.rung == ref) & (wrong.rep == rep)]                 .set_index("episode_id")
-            ids = a.index.intersection(b.index)
-            disc_a = int(sum(bool(a.loc[i, "now_correct"])
-                             and not bool(b.loc[i, "now_correct"]) for i in ids))
-            disc_b = int(sum(bool(b.loc[i, "now_correct"])
-                             and not bool(a.loc[i, "now_correct"]) for i in ids))
-            n_disc = disc_a + disc_b
-            ps.append(sps.binomtest(disc_a, n_disc, 0.5).pvalue
-                      if n_disc else 1.0)
-        return float(np.median(ps))
+        """Clustered paired permutation p, episode as the unit of inference.
 
-    for rung in RUNGS:
+        The repeats are not independent samples: they re-run the SAME
+        episodes, so a p-value per repeat and then a summary of those
+        p-values is not a test of anything. A median of p-values in
+        particular has no null distribution - it is neither a valid
+        combination (Fisher, Stouffer) nor a corrected minimum, and it drifts
+        toward 0.5 as repeats are added regardless of the effect.
+
+        Clustering is handled where it actually lives: average each episode's
+        outcome over its repeats, giving one number per episode, then
+        sign-flip those paired differences. Episodes are exchangeable under
+        H0; repeats within an episode are not.
+        """
+        a = (wrong[wrong.rung == rung].groupby("episode_id").now_correct
+             .mean())
+        b = (wrong[wrong.rung == ref].groupby("episode_id").now_correct
+             .mean())
+        ids = a.index.intersection(b.index)
+        if len(ids) == 0:
+            return 1.0
+        return float(paired_permutation_test(a.loc[ids].to_numpy(),
+                                             b.loc[ids].to_numpy(),
+                                             seed=PERMUTATION_SEED)["p_value"])
+
+    for rung in SCORED_RUNGS:
         sub = wrong[wrong.rung == rung]
         if sub.empty:
             continue
@@ -289,15 +302,16 @@ def main(argv: list[str] | None = None) -> None:
                 line += f"{_paired_p(rung, ref):>{w}.4f}"
         line += f"{sub.model_calls.mean():>13.1f}"
         print(line)
-    print("  (paired exact McNemar within each repeat, median across repeats; "
-          "'vs none' = beats doing nothing, 'vs resample' = beats retry luck)")
+    print("  (paired sign-flip permutation over episodes, repeats averaged "
+          "within episode; 'vs none' = beats doing nothing, 'vs resample' = "
+          "beats retry luck)")
 
     # ---- cost of firing on runs that were already correct -----------------
     ok = df[df.was_correct]
     if len(ok):
         print(f"\n[intervene] unnecessary interventions: "
               f"{len(ok[ok.rung == 'none'])} episodes were already correct")
-        for rung in RUNGS:
+        for rung in SCORED_RUNGS:
             s = ok[ok.rung == rung]
             if not len(s):
                 continue
@@ -325,7 +339,7 @@ def main(argv: list[str] | None = None) -> None:
     print(f"{'none':<10}{n_correct_base:>9}"
           f"{n_correct_base / n_total:>8.0%}{'':>11}{'':>8}")
     reps_all = sorted(df.rep.unique()) if "rep" in df.columns else [1]
-    for rung in RUNGS:
+    for rung in SCORED_RUNGS:
         if rung == "none":
             continue
         sel = df[df.rung == rung]
@@ -366,7 +380,7 @@ def main(argv: list[str] | None = None) -> None:
           f"(fires on {len(flagged)}/{n_total} runs)")
     print(f"{'rung':<10}{'calls':>7}{'s/step':>8}{'added s':>9}"
           f"{'calls/recovery':>16}")
-    for rung in RUNGS:
+    for rung in SCORED_RUNGS:
         if rung == "none":
             continue
         sub = wrong[wrong.rung == rung]
@@ -391,7 +405,7 @@ def main(argv: list[str] | None = None) -> None:
               f"independent repeats (genuinely-wrong episodes)")
         print(f"{'rung':<10}{'mean':>8}{'min':>8}{'max':>8}{'spread':>9}")
         w = df[~df.was_correct]
-        for rung in RUNGS:
+        for rung in SCORED_RUNGS:
             per = [g.now_correct.mean()
                    for _, g in w[w.rung == rung].groupby("rep")]
             if len(per) > 1:

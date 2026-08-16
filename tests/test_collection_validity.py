@@ -560,12 +560,27 @@ def test_guard_refuses_to_collect_over_an_existing_corpus(tmp_path: Path):
     guard_output_dir(tmp_path, allow_existing=True)           # explicit: fine
 
 
-def test_guard_ignores_an_unreadable_manifest(tmp_path: Path):
-    """A corrupt manifest is not evidence of a corpus, and must not wedge a run."""
+def test_guard_refuses_an_unreadable_manifest(tmp_path: Path):
+    """An unreadable manifest is the case the guard exists for, not a pass.
+
+    A directory holding a manifest.json demonstrably had a collection run into
+    it. Failing to parse that file is the least safe moment to conclude there
+    is nothing worth protecting — the guard's own docstring records that a dry
+    run once overwrote 70 committed Gemini traces.
+    """
+    from derail.harness.collection import CorpusInUse, guard_output_dir
+
+    (tmp_path / "manifest.json").write_text("{not json", "utf-8")
+    with pytest.raises(CorpusInUse, match="cannot be read"):
+        guard_output_dir(tmp_path, allow_existing=False)
+
+
+def test_guard_still_yields_to_an_explicit_allow_existing(tmp_path: Path):
+    """Refusing must stay overridable, or a resume cannot run at all."""
     from derail.harness.collection import guard_output_dir
 
     (tmp_path / "manifest.json").write_text("{not json", "utf-8")
-    guard_output_dir(tmp_path, allow_existing=False)
+    guard_output_dir(tmp_path, allow_existing=True)
 
 
 @pytest.mark.parametrize("module", [

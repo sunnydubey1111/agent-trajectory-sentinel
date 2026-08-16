@@ -46,7 +46,7 @@ from functools import lru_cache
 from derail.preconditions import (DEFAULT_CURRENCY, currency_tokens,
                                   require_readable_money)
 from derail.telemetry.events import (ToolCallEvent, canonical_args,
-                                     parse_tool_bits)
+                                     parse_step_events)
 
 #: The words the answer may use to name its total, most specific first.
 DEFAULT_TOTAL_LABELS = ("grand total", "overall total", "total")
@@ -173,6 +173,20 @@ class TaskSpec:
     result_contracts: tuple[tuple[str, str], ...] = ()
     #: relative tolerance when comparing the stated total to the recomputed one
     tolerance: float = 0.01
+    #: Absolute floor under the relative tolerance, and the value the relative
+    #: part is measured against when a candidate total is smaller than it.
+    #: Both are task facts: the floor is the rounding a correct answer may
+    #: carry (cents), the pivot stops a near-zero candidate from being held to
+    #: a near-zero window. Declared rather than fixed in the comparison so a
+    #: task priced in whole units or in millions can state its own.
+    tolerance_floor: float = 0.5
+    tolerance_pivot: float = 1.0
+    #: Ceiling on the candidate-selection search. The search is combinatorial
+    #: in how many prices a run observed, which is bounded for a booking task
+    #: and unbounded for a long or adversarial episode. Past this the check
+    #: reports `unverifiable` rather than spending the time or, worse, being
+    #: quietly capped into answering a smaller question than it was asked.
+    max_selection_candidates: int = 100_000
     name: str = "task"
     #: Refuse text pricing anything in a currency this spec's number reader
     #: cannot see, instead of silently reading it as priceless and passing.
@@ -229,23 +243,15 @@ class VerificationResult:
 
 
 def _events_per_step(steps: list[dict]) -> list[list[ToolCallEvent]]:
-    out = []
-    for s in steps:
-        structured = s.get("tool_events")
-        if structured:
-            evs = []
-            for e in structured:
-                evs.append(ToolCallEvent(
-                    name=e.get("name", ""), args=e.get("args"),
-                    args_key="", result=str(e.get("result", "")),
-                    has_result=True, is_error=bool(e.get("is_error")),
-                    latency_s=e.get("latency_s"), truncated=False,
-                    source="structured"))
-            out.append(evs)
-        else:
-            evs, _ = parse_tool_bits(str(s.get("text", "")))
-            out.append(evs)
-    return out
+    """The tool calls of each step, read by the one telemetry reader.
+
+    Delegated rather than reimplemented: a second reader here would answer
+    differently from the one the monitor uses, and `tool_contract` depends on
+    `has_result` to decide whether there is a result to match a pattern
+    against at all. `parse_step_events` derives that, `truncated` and
+    `args_key` from the record instead of assuming them.
+    """
+    return [parse_step_events(s)[0] for s in steps]
 
 
 def required_coverage(steps: list[dict], spec: TaskSpec) -> list[Finding]:
@@ -277,18 +283,17 @@ def required_coverage(steps: list[dict], spec: TaskSpec) -> list[Finding]:
     # Earliest step at which an outstanding requirement is already certain:
     # the agent has begun combining, so it is no longer gathering. Falls back
     # to the final step when the run never reaches that point.
+    # Counts below are whole-episode, and dating a shortfall to `onset` is
+    # sound because they only ever grow: a requirement unmet at the end was
+    # unmet at the combining step too. The converse is what would need a
+    # running tally, and it cannot happen.
     onset = last
     if spec.combining_tools:
-        running: dict[str, set] = {}
         for i, evs in enumerate(per_step):
             if any(e.name in spec.combining_tools and not e.is_error
                    for e in evs):
                 onset = i
                 break
-            for e in evs:
-                if not e.is_error:
-                    running.setdefault(e.name, set()).add(
-                        canonical_args(e.args))
     for li in spec.line_items:
         if li.required_calls is None:
             continue
@@ -382,8 +387,13 @@ def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
         res.findings.append(Finding("total_consistency", last,
                                     "no total stated in the final answer"))
         return res
-    tol = max(spec.tolerance * max(abs(total), 1.0), 0.5)
-    if _selection_matches(prices, priced, said, tol):
+    decided = _selection_matches(prices, priced, said, spec)
+    if decided is None:
+        res.unverifiable = (
+            f"more than {spec.max_selection_candidates:,} candidate selections "
+            f"of the observed prices; the stated total was not reconciled")
+        return res
+    if decided:
         return res
     res.findings.append(Finding(
         "total_consistency", last,
@@ -393,28 +403,49 @@ def total_consistency(steps: list[dict], spec: TaskSpec) -> VerificationResult:
     return res
 
 
+def tolerance_for(spec: TaskSpec, value: float) -> float:
+    """Absolute window allowed when comparing a stated total to `value`."""
+    return max(spec.tolerance * max(abs(value), spec.tolerance_pivot),
+               spec.tolerance_floor)
+
+
 def _selection_matches(prices: dict[str, list[float]],
                        priced: dict[str, LineItem],
-                       said: float, tol: float) -> bool:
+                       said: float, spec: TaskSpec) -> bool | None:
     """Can the stated total be built from the observed prices?
+
+    None means the search exceeded `spec.max_selection_candidates` and the
+    question was not decided - distinct from False, which is a real mismatch.
 
     Each line item contributes exactly `required_calls` of the prices seen for
     it, or all of them when no count is declared. Extra lookups the agent chose
     not to use are therefore allowed; a missing or double-counted one is not.
+
+    The tolerance is computed against each CANDIDATE selection, not against the
+    sum of everything observed. Scaling it by the grand total would let an
+    agent widen its own acceptance window by making extra expensive lookups it
+    never used - the window for a $900 candidate must not depend on a $5,000
+    flight the agent priced and discarded.
     """
     from itertools import combinations
+    from math import comb
 
-    sums: list[set] = [{0.0}]
+    cap = spec.max_selection_candidates
+    sums: set[float] = {0.0}
     for tool, ps in sorted(prices.items()):
         li = priced[tool]
         need = li.required_calls
         if need is None or need >= len(ps):
             options = {li.multiplier * sum(ps)}
         else:
+            if comb(len(ps), need) > cap:
+                return None
             options = {li.multiplier * sum(c)
                        for c in combinations(sorted(ps), need)}
-        sums = [{a + b for a in sums[0] for b in options}]
-    return any(abs(said - v) <= tol for v in sums[0])
+        sums = {a + b for a in sums for b in options}
+        if len(sums) > cap:
+            return None
+    return any(abs(said - v) <= tolerance_for(spec, v) for v in sums)
 
 
 def tool_contract(steps: list[dict], spec: TaskSpec) -> list[Finding]:
@@ -444,7 +475,11 @@ def tool_contract(steps: list[dict], spec: TaskSpec) -> list[Finding]:
             if pattern is None or event.is_error or not event.has_result:
                 continue
             result = (event.result or "").strip()
-            if pattern.match(result):
+            # fullmatch, not match: a contract describes the WHOLE result. A
+            # malformed result that happens to start with a legal price would
+            # satisfy `match` and pass, which is the case this check exists
+            # for. Contracts are authored as complete shapes for that reason.
+            if pattern.fullmatch(result):
                 continue
             findings.append(Finding(
                 check="tool_contract", step=t,
@@ -474,12 +509,15 @@ BOOKING_SPEC = TaskSpec(
     combining_tools=("calculator",),
     #: Taken from the tool implementations in `collect_traces._run_tool`, which
     #: can return only these shapes. `get_weather` is free text and declares no
-    #: contract.
+    #: contract. Each alternative describes a COMPLETE result, because
+    #: `tool_contract` fullmatches: the two message-shaped outcomes carry
+    #: explanatory text after the phrase, so they end in `.*` rather than
+    #: stopping at the prefix.
     result_contracts=(
-        ("lookup_flight", r"^\$\d+(\.\d+)?$|^No route found"),
-        ("lookup_hotel", r"^\$\d+(\.\d+)?/night$|^Unknown city\.$"),
-        ("search_catalog", r"^\$\d+(\.\d+)?$|^Item not found\.$"),
-        ("calculator", r"^-?\d+(\.\d+)?$|^Error: "),
+        ("lookup_flight", r"\$\d+(\.\d+)?|No route found.*"),
+        ("lookup_hotel", r"\$\d+(\.\d+)?/night|Unknown city\."),
+        ("search_catalog", r"\$\d+(\.\d+)?|Item not found\."),
+        ("calculator", r"-?\d+(\.\d+)?|Error: .*"),
     ),
     name="demo_booking",
 )

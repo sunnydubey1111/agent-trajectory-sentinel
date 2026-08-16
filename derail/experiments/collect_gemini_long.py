@@ -116,7 +116,10 @@ def main(argv: list[str] | None = None) -> int:
         tau=args.tau, max_steps=MAX_STEPS, model=args.model,
         task_fn=_long_task,
         cassette=Cassette(f"traces/_cassettes/{SOURCE}", mode="auto"),
-        collector="collect_gemini_long", backend="gemini", temperature=0.2)
+        collector="collect_gemini_long", backend="gemini", temperature=0.2,
+        # Long-form research task: no computable ground truth, so nothing can
+        # verify a healthy run at collection time.
+        allow_unverified_healthy=True)
     print(f"[collect_gemini_long] {meter.summary()}")
     print(f"[collect_gemini_long] evaluate: py -m derail.experiments."
           f"run_hybrid_study --datasets {SOURCE}")

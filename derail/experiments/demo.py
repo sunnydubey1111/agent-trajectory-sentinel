@@ -1638,7 +1638,7 @@ def run_demo_episode(seed: int) -> None:
                     st.check_repair_used = True
                 # `located` names the failing check and no computed value.
                 # Measured best of the rungs scored offline (45% recovery,
-                # p=0.0005 vs
+                # p=0.0001 vs
                 # the resampling control) at the same cost as `specific`, and
                 # it is the honest one: a `specific` hint quotes the total
                 # recomputed from the agent's own figures, which for a run

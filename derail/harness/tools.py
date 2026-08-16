@@ -19,6 +19,7 @@ they satisfy so the adapter and monitors never change.
 
 from __future__ import annotations
 
+import hashlib
 import inspect
 import json
 import time
@@ -84,8 +85,27 @@ CASSETTE_SCHEMA_VERSION = "tool/v2"
 #: Constructor-time settings that change what a tool returns. They belong in
 #: the cassette key, otherwise a reconfigured tool replays a recording made by
 #: a different implementation.
-_FINGERPRINT_ATTRS = ("root", "db_path", "max_results", "max_rows", "max_file_chars",
-                      "timeout_s", "allow_network", "allow_hosts", "servers")
+_FINGERPRINT_ATTRS = ("root", "db_path", "max_results", "max_rows",
+                      "max_file_chars", "max_output_bytes", "timeout_s",
+                      "allow_network", "allow_hosts", "servers")
+
+
+def _source_digest(cls: type) -> str:
+    """Hash of the tool class's own source, or "" when it cannot be read.
+
+    The class NAME does not identify an implementation: edit what a tool
+    returns, keep its name and settings, and every recorded cassette replays
+    the old answers under the new code with nothing to notice. Reading the
+    source ties a recording to the implementation that produced it.
+
+    Falls back to "" for a class defined interactively or in a zipimport,
+    where no source exists; the fingerprint is then no weaker than before.
+    """
+    try:
+        return hashlib.sha256(
+            inspect.getsource(cls).encode("utf-8")).hexdigest()[:16]
+    except (OSError, TypeError):
+        return ""
 
 
 def tool_fingerprint(tool: Tool) -> str:
@@ -94,6 +114,7 @@ def tool_fingerprint(tool: Tool) -> str:
     cfg = {a: str(getattr(tool, a)) for a in _FINGERPRINT_ATTRS if hasattr(tool, a)}
     return json.dumps(
         {"class": f"{cls.__module__}.{cls.__qualname__}",
+         "source": _source_digest(cls),
          "params": sorted(getattr(tool, "parameters", {})),
          "config": cfg},
         sort_keys=True, separators=(",", ":"), default=str)

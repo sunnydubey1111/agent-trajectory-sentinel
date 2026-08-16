@@ -22,6 +22,8 @@ Neither touches the simulator or the monitor; this is collection-time infra.
 
 from __future__ import annotations
 
+import contextlib
+import datetime
 import hashlib
 import json
 import math
@@ -35,19 +37,46 @@ from pathlib import Path
 from typing import Any, Callable
 
 # ------------------------------------------------------------------ pricing
-# Confirmed 2026-07 list prices, USD per 1M tokens (text tier). Pro is
-# context-length tiered at 200k prompt tokens; Flash / Flash-Lite are flat.
-# Source: ai.google.dev/gemini-api/docs/pricing.
-_PRO_THRESHOLD = 200_000
+# Loaded from `pricing/gemini.json`, not written here: list prices are
+# time-sensitive, and a table in source has no field saying when it was true.
+# The file carries `as_of` and a source URL, so a stale table is visible rather
+# than inferred, and `PRICING_STALE_AFTER_DAYS` turns "old" into a warning.
+# Override the path with AGENTWATCH_PRICING_FILE to price against a contract
+# rate or a historical snapshot.
+_PRICING_PATH = Path(os.environ.get(
+    "AGENTWATCH_PRICING_FILE",
+    str(Path(__file__).resolve().parents[2] / "pricing" / "gemini.json")))
 
+
+def _load_pricing() -> dict:
+    with _PRICING_PATH.open("r", encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+_PRICING = _load_pricing()
+#: Prompt-token count above which the Pro long-context tier applies.
+_PRO_THRESHOLD: int = int(_PRICING["pro_context_threshold_tokens"])
+#: USD per 1M tokens, per model.
 GEMINI_PRICING: dict[str, dict[str, float]] = {
-    "gemini-2.5-flash":       {"in": 0.30, "out": 2.50, "cached_in": 0.03},
-    "gemini-2.5-flash-lite":  {"in": 0.10, "out": 0.40, "cached_in": 0.01},
-    # Pro: (<=200k, >200k) pairs — resolved per-call by prompt size.
-    "gemini-2.5-pro":         {"in": 1.25, "in_hi": 2.50,
-                               "out": 10.0, "out_hi": 15.0,
-                               "cached_in": 0.125, "cached_in_hi": 0.25},
+    m: {k: float(v) for k, v in rates.items()}
+    for m, rates in _PRICING["models"].items()
 }
+#: How old the table may be before `pricing_age_warning` complains.
+PRICING_STALE_AFTER_DAYS = 180
+
+
+def pricing_age_warning() -> str | None:
+    """A message if the price table is older than the staleness window.
+
+    Returned rather than printed so a caller can decide whether an estimate
+    built on stale list prices is worth surfacing to the operator.
+    """
+    as_of = datetime.date.fromisoformat(str(_PRICING["as_of"]))
+    age = (datetime.date.today() - as_of).days
+    if age <= PRICING_STALE_AFTER_DAYS:
+        return None
+    return (f"price table is {age} days old (as_of {as_of}, source "
+            f"{_PRICING.get('source', 'unknown')}); estimates may be wrong")
 
 
 def price_call(model: str, in_tok: int, out_tok: int,
@@ -117,8 +146,10 @@ class CostMeter:
                 raise BudgetExceeded(
                     f"call would cost ${cost:.4f}, cumulative "
                     f"${self.spent_usd + cost:.2f} > cap ${self.budget_usd:.2f}"
-                    f" — stopping before spending. Raise budget_usd or use "
-                    f"a cassette in replay mode.")
+                    f" — refusing to record it. Raise budget_usd or use "
+                    f"a cassette in replay mode. NOTE: this runs AFTER the "
+                    f"provider returned, so that call has already been "
+                    f"billed; it stops the NEXT one.")
             self.spent_usd += cost
             self.n_calls += 1
             self.in_tok += int(in_tok)
@@ -262,19 +293,53 @@ class Cassette:
         with self._locks_guard:
             return self._locks.setdefault(key, threading.Lock())
 
+    @contextlib.contextmanager
+    def _hold(self, key: str):
+        """Hold the per-key lock, honouring `lock_timeout_s`.
+
+        The timeout was previously stored and never used, so a caller that
+        asked for one got an unbounded wait instead. `threading.Lock` is also
+        per-PROCESS: two processes sharing a cassette directory can still
+        record the same key concurrently. That is safe because `_write` is an
+        atomic temp-file rename, so the loser is overwritten rather than the
+        file torn — the lock only avoids duplicated live calls within a run.
+        """
+        lock = self._key_lock(key)
+        if not lock.acquire(timeout=self.lock_timeout_s):
+            raise TimeoutError(
+                f"waited {self.lock_timeout_s:g}s for the cassette lock on "
+                f"{key!r}; another thread is still recording it")
+        try:
+            yield
+        finally:
+            lock.release()
+
     # ------------------------------------------------------------ read/write
     def _read(self, path: Path) -> tuple[bool, Any]:
-        """(hit, response). A corrupt or expired record counts as a miss."""
+        """(hit, response). A corrupt or expired record counts as a miss.
+
+        "Corrupt" has to mean every way the file can fail to be a recording,
+        not only the two that raise from `json.loads`. Valid JSON that is a
+        list, or an object whose `recorded_at` is a string, parses fine and
+        then raises out of this method - violating the contract in the first
+        line and turning a damaged cache into a crash instead of a miss.
+        """
         try:
             payload = json.loads(path.read_text("utf-8"))
-        except (OSError, json.JSONDecodeError):
+        except (OSError, ValueError):
+            return False, None
+        if not isinstance(payload, dict):
             return False, None
         if self.ttl_s is not None:
             # Clamped at zero: a stamp from the future would otherwise make a
             # record look fresh no matter how old the caller says it may be.
             # That can happen without a broken clock - see `_write` - and it
             # can also happen with one, after an NTP step backwards.
-            age = max(0.0, time.time() - float(payload.get("recorded_at", 0.0)))
+            try:
+                recorded_at = float(payload.get("recorded_at", 0.0))
+            except (TypeError, ValueError):
+                return False, None                 # not a usable timestamp
+            age = max(0.0, time.time() - recorded_at)
             # `>=`, not `>`: a TTL of zero means "never replay", and a record
             # read in the same clock tick it was written has an age of exactly
             # 0.0, which `>` calls fresh.
@@ -335,7 +400,7 @@ class Cassette:
 
         # One live call per key per process, so a concurrent miss cannot
         # duplicate a paid request.
-        with self._key_lock(key):
+        with self._hold(key):
             if self.mode == "auto":
                 hit, response = _lookup()
                 if hit:

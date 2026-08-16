@@ -631,12 +631,17 @@ def test_intervention_reports_the_retry_luck_control():
     `resample` is only credited if it beats `resample` — the comparison must
     be present, and paired."""
     from derail.intervene import evaluate_repair_policies as ris
-    from derail.intervene.rollback import RUNGS
+    from derail.intervene.rollback import SCORED_RUNGS
 
-    assert RUNGS[:2] == ("none", "resample")
+    assert SCORED_RUNGS[:2] == ("none", "resample")
     src = inspect.getsource(ris.main)
     assert "vs resample" in src
-    assert "binomtest" in src, "paired McNemar exact test expected"
+    # Clustered permutation over episodes, not a summary of per-repeat
+    # p-values: the repeats re-run the same episodes, so a median of their
+    # p-values has no null distribution and drifts toward 0.5 as repeats are
+    # added regardless of the effect.
+    assert "paired_permutation_test" in src
+    assert "np.median(ps)" not in src
 
 
 def test_intervention_net_effect_counts_broken_runs_against_recovered():

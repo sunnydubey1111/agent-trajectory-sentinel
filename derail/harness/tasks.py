@@ -23,19 +23,39 @@ class RealTask:
         self.success_fn = success_fn
         self.tools = tuple(tools)
 
-    def verify(self, response: str, steps: list[dict]) -> bool:
-        """Verify if the agent run was successful based on response and step history."""
+    def verify(self, response: str, steps: list[dict]) -> bool | None:
+        """Did the run succeed? None means the verifier itself could not say.
+
+        A verifier that raises is a bug in the verifier, not evidence about the
+        agent. Returning False there labels a possibly-correct run a failure
+        and biases every success rate computed from this corpus downwards,
+        invisibly. None is propagated to `accept_episode`, which refuses to
+        record an unverified run as healthy unless explicitly allowed to.
+        """
         try:
-            return self.success_fn(response, steps)
-        except Exception:
-            return False
+            return bool(self.success_fn(response, steps))
+        except Exception as exc:                                # noqa: BLE001
+            print(f"[task] verifier for {self.name!r} raised "
+                  f"{type(exc).__name__}: {exc} — run is UNVERIFIED")
+            return None
 
 
-# Helper: Check if a tool was called in the step list
 def _tool_called(steps: list[dict], tool_name: str) -> bool:
+    """Did a step actually EXECUTE this tool, successfully?
+
+    Read from the structured record where the collector wrote one. A substring
+    test over the rendered text asks whether the model WROTE something shaped
+    like a call, which the model controls: an agent that never called the tool
+    but mentioned `[arxiv_search(` in its prose would satisfy the task. It also
+    could not tell a successful call from one that returned an error, so a run
+    whose every tool failed still verified.
+    """
+    from derail.telemetry.events import parse_step_events
+
     for s in steps:
-        if f"[{tool_name}(" in s.get("text", ""):
-            return True
+        for e in parse_step_events(s)[0]:
+            if e.name == tool_name and not e.is_error:
+                return True
     return False
 
 

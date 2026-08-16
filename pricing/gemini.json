@@ -1,0 +1,29 @@
+{
+  "as_of": "2026-07-01",
+  "currency": "USD",
+  "unit": "per 1M tokens",
+  "tier": "text",
+  "source": "https://ai.google.dev/gemini-api/docs/pricing",
+  "note": "Pro is context-length tiered on PROMPT size; the *_hi rates apply when input tokens exceed pro_context_threshold_tokens. Flash and Flash-Lite are flat.",
+  "pro_context_threshold_tokens": 200000,
+  "models": {
+    "gemini-2.5-flash": {
+      "in": 0.30,
+      "out": 2.50,
+      "cached_in": 0.03
+    },
+    "gemini-2.5-flash-lite": {
+      "in": 0.10,
+      "out": 0.40,
+      "cached_in": 0.01
+    },
+    "gemini-2.5-pro": {
+      "in": 1.25,
+      "in_hi": 2.50,
+      "out": 10.0,
+      "out_hi": 15.0,
+      "cached_in": 0.125,
+      "cached_in_hi": 0.25
+    }
+  }
+}

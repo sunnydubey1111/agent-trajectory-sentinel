@@ -71,7 +71,10 @@ def main(argv: list[str] | None = None) -> None:
         registry, n_healthy=args.healthy,
         n_inject_per_class=args.inject, classes=CLASSES,
         tau=args.tau, max_steps=24, model=args.model,
-        task_fn=_long_task, cassette=cassette)
+        task_fn=_long_task, cassette=cassette,
+        # Long-form research task: no computable ground truth, so nothing can
+        # verify a healthy run at collection time.
+        allow_unverified_healthy=True)
     print(f"[collect_drift_long] wrote {TRACES_DIR / SOURCE}")
 
 

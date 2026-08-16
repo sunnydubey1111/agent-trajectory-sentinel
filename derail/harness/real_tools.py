@@ -57,13 +57,19 @@ from derail.harness.sandbox import (DANGEROUS_TOOLS, UrlRefused, check_url,
                                     guarded_code, is_sensitive_path,
                                     redact_secrets, scrubbed_env)
 
-_UA = "derail-harness/1.0 (research; contact via repo)"
-_MAX_RESULT_CHARS = 600    # keep search outputs small (context cost + relevance)
-_MAX_FILE_CHARS = 4000     # file reads may legitimately be larger (RAG)
+_UA = os.environ.get("AGENTWATCH_USER_AGENT",
+                     "derail-harness/1.0 (research; contact via repo)")
+# Output caps. Every one of these changes what the agent SEES, so a corpus is
+# only comparable with another collected under the same values; they are named
+# and overridable here rather than buried at the call sites so a deployment can
+# state its own and a reader can find them all in one place.
+_MAX_RESULT_CHARS = int(os.environ.get("AGENTWATCH_MAX_RESULT_CHARS", "600"))
+_MAX_FILE_CHARS = int(os.environ.get("AGENTWATCH_MAX_FILE_CHARS", "4000"))
 # Hard ceiling on bytes read from any remote body / subprocess pipe. Applied at
 # the source, before parsing, so a hostile or runaway response cannot be
 # materialised in memory first.
-_MAX_FETCH_BYTES = 2_000_000
+_MAX_FETCH_BYTES = int(os.environ.get("AGENTWATCH_MAX_FETCH_BYTES",
+                                      str(2_000_000)))
 
 
 _TRUSTSTORE_READY = False
@@ -129,18 +135,33 @@ class PythonREPL:
         # a network guard around the model's own source.
         source = guarded_code(code, allow_network=self.allow_network)
         with tempfile.TemporaryDirectory() as cwd:
-            try:
-                proc = subprocess.run(
-                    [sys.executable, "-I", "-c", source],
-                    capture_output=True, text=True, timeout=self.timeout_s,
-                    cwd=cwd, env=scrubbed_env(), stdin=subprocess.DEVNULL,
-                )
-            except subprocess.TimeoutExpired:
-                return f"Error: timed out after {self.timeout_s:g}s"
+            # Spool to temp FILES rather than pipes, and cap by seeking rather
+            # than by slicing what came back. `capture_output=True` buffers the
+            # whole stream in this process first and only then truncates, so a
+            # snippet printing in a loop is bounded by the timeout, not by
+            # `max_output_bytes` — it can exhaust memory here well before the
+            # timeout fires. A file spool bounds the resident cost to what is
+            # read back.
+            with tempfile.TemporaryFile() as out_f, \
+                    tempfile.TemporaryFile() as err_f:
+                try:
+                    proc = subprocess.run(
+                        [sys.executable, "-I", "-c", source],
+                        stdout=out_f, stderr=err_f, timeout=self.timeout_s,
+                        cwd=cwd, env=scrubbed_env(), stdin=subprocess.DEVNULL,
+                    )
+                except subprocess.TimeoutExpired:
+                    return f"Error: timed out after {self.timeout_s:g}s"
+                out_f.seek(0)
+                err_f.seek(0)
+                stdout = out_f.read(self.max_output_bytes).decode(
+                    "utf-8", "replace")
+                stderr = err_f.read(self.max_output_bytes).decode(
+                    "utf-8", "replace")
         if proc.returncode != 0:
-            err = (proc.stderr or "")[:self.max_output_bytes].strip().splitlines()
+            err = stderr.strip().splitlines()
             return redact_secrets("Error: " + (err[-1] if err else "non-zero exit"))
-        out = (proc.stdout or "")[:self.max_output_bytes].strip()
+        out = stdout.strip()
         return (redact_secrets(out)[:_MAX_RESULT_CHARS] if out
                 else "(no output; did you print?)")
 

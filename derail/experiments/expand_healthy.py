@@ -100,7 +100,9 @@ def expand_cohort(out_dir: Path | None = None, budget_usd: float = 0.50):
                 continue
 
             final_text = steps[-1].get("text", "") if steps else ""
-            success = bool(task_def.verify(final_text, steps))
+            # Not coerced with bool(): the verifier returns None when it could
+            # not decide, and bool(None) would record that as a failed task.
+            success = task_def.verify(final_text, steps)
             verdict = accept_episode(steps, success=success)
             if not verdict.accepted:
                 # An unsuccessful run is not an additional healthy seed; it is

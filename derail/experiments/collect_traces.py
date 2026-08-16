@@ -76,6 +76,40 @@ OLLAMA_MODEL_DEFAULT = "qwen2.5:7b"
 MAX_STEPS = 14
 INJECT_CLASSES = ("tool_cascade", "looping", "goal_drift", "context_corruption")
 
+# ------------------------------------------------------- generation settings
+# Collected here rather than inline at the call sites: each one changes what a
+# trace looks like, so a corpus is only comparable with another collected under
+# the same values, and a value buried in a function body cannot be read off or
+# recorded in provenance.
+#: Cap on one response. Episodes are short tool-using turns; the cost estimate
+#: below assumes this bound.
+MAX_OUTPUT_TOKENS = 1024
+#: Backoff schedule for the free tier's ~10 requests/minute limit.
+RETRY_DELAYS_S = (10.0, 20.0, 40.0, 60.0)
+#: Local-model collection sampling. Low but non-zero: zero makes the model
+#: deterministic given the cassette and removes the run-to-run variation the
+#: healthy null needs.
+OLLAMA_TEMPERATURE = 0.2
+OLLAMA_TIMEOUT_S = 300.0
+#: Characters per token, for ESTIMATING spend before a billed call. Crude on
+#: purpose and only ever used to reserve budget, never to report cost: actual
+#: spend is metered from the provider's own token counts. Unusual prompts or
+#: large tool schemas tokenize worse than 4 chars/token, which is what the
+#: headroom below absorbs; an under-estimate costs a refused call, not a
+#: silent overspend, because the meter checks again after the response.
+CHARS_PER_TOKEN = 4
+COST_ESTIMATE_HEADROOM_TOKENS = 512
+#: Safety filters are disabled for collection. The tasks are benign travel
+#: booking and catalog arithmetic, and a mid-episode safety block truncates the
+#: trace: that destroys the episode rather than producing a labelled failure,
+#: and a corpus silently missing its longest runs is worse than one that
+#: collected them. Narrow this for any task where a block is plausible.
+SAFETY_CATEGORIES = ("HARM_CATEGORY_DANGEROUS_CONTENT",
+                     "HARM_CATEGORY_HARASSMENT",
+                     "HARM_CATEGORY_HATE_SPEECH",
+                     "HARM_CATEGORY_SEXUALLY_EXPLICIT")
+SAFETY_THRESHOLD = "BLOCK_NONE"
+
 
 # ---------------------------------------------------------------- mock tools
 def _make_world(seed: int) -> dict:
@@ -245,8 +279,14 @@ class GeminiBackend(AgentBackend):
     rejects logprobs. Retries on 429 rate limits (free tier: ~10 req/min).
     """
 
-    # Shared across episodes: once the tier rejects logprobs, stop asking.
-    _logprobs_disabled = False
+    #: Per-INSTANCE, not per-class. Logprobs feed the `u` uncertainty channel,
+    #: one of the three the monitor scores, so a class-level flag lets the
+    #: first model in a process that rejects logprobs turn them off for every
+    #: later backend too: episodes after that point carry -1 ("not measured")
+    #: where earlier ones carry real uncertainty, in the same corpus, with no
+    #: record of where the switch happened. Set in `__init__` so each backend
+    #: learns its own tier's answer.
+    _logprobs_disabled: bool
 
     _JSON_TO_GENAI = {"string": "STRING", "integer": "INTEGER",
                       "number": "NUMBER", "boolean": "BOOLEAN",
@@ -265,6 +305,7 @@ class GeminiBackend(AgentBackend):
         self.cost_meter = cost_meter   # optional harness.CostMeter (WS0.2)
         self.history: list = []
         self.logprobs_ok: bool | None = None   # unknown until first response
+        self._logprobs_disabled = False        # this backend's own answer
         self.input_tokens = 0
         self.output_tokens = 0
         # Sampling seed and a cassette over the backend call itself, so an
@@ -324,32 +365,21 @@ class GeminiBackend(AgentBackend):
             system_instruction=("Solve the user's task using the tools. Be "
                                 "brief between tool calls; give a one-line "
                                 "final answer."),
-            max_output_tokens=1024,
+            max_output_tokens=MAX_OUTPUT_TOKENS,
             response_logprobs=want_logprobs,
             safety_settings=[
                 t.SafetySetting(
-                    category=t.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                    threshold=t.HarmBlockThreshold.BLOCK_NONE,
-                ),
-                t.SafetySetting(
-                    category=t.HarmCategory.HARM_CATEGORY_HARASSMENT,
-                    threshold=t.HarmBlockThreshold.BLOCK_NONE,
-                ),
-                t.SafetySetting(
-                    category=t.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-                    threshold=t.HarmBlockThreshold.BLOCK_NONE,
-                ),
-                t.SafetySetting(
-                    category=t.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-                    threshold=t.HarmBlockThreshold.BLOCK_NONE,
-                ),
+                    category=getattr(t.HarmCategory, cat),
+                    threshold=getattr(t.HarmBlockThreshold, SAFETY_THRESHOLD),
+                )
+                for cat in SAFETY_CATEGORIES
             ]
         )
 
 
     def _generate(self, want_logprobs: bool):
         """One API call with backoff on 429s (free tier is ~10 req/min)."""
-        delays = (10.0, 20.0, 40.0, 60.0)
+        delays = RETRY_DELAYS_S
         for attempt in range(len(delays) + 1):
             try:
                 return self.client.models.generate_content(
@@ -364,23 +394,26 @@ class GeminiBackend(AgentBackend):
                 raise
 
     def step(self, step_idx: int) -> dict:
-        want_lp = not GeminiBackend._logprobs_disabled
+        want_lp = not self._logprobs_disabled
         # Reserve a conservative maximum charge BEFORE the billed request, so an
         # over-cap call is refused before spending, and an unpriced model can
         # never run un-metered. Input is estimated from the current
         # history (~4 chars/token); output is bounded by max_output_tokens.
         if self.cost_meter is not None:
             est_in = sum(len(getattr(p, "text", "") or "")
-                         for c in self.history for p in (c.parts or [])) // 4
-            self.cost_meter.reserve(self.model, est_in + 512, 1024)
+                         for c in self.history
+                         for p in (c.parts or [])) // CHARS_PER_TOKEN
+            self.cost_meter.reserve(self.model,
+                                    est_in + COST_ESTIMATE_HEADROOM_TOKENS,
+                                    MAX_OUTPUT_TOKENS)
         try:
             response = self._generate(want_lp)
         except Exception as exc:  # noqa: BLE001 — retry once without logprobs
             if want_lp and "logprob" in str(exc).lower():
-                if not GeminiBackend._logprobs_disabled:
+                if not self._logprobs_disabled:
                     print("  [note] this model/tier rejects response_logprobs"
                           " — u channel will be neutral on these traces")
-                    GeminiBackend._logprobs_disabled = True
+                    self._logprobs_disabled = True
                 self.logprobs_ok = False
                 response = self._generate(False)
             else:
@@ -472,11 +505,13 @@ class OllamaBackend(AgentBackend):
     Requires a tool-capable model (e.g. qwen2.5:7b, llama3.1:8b).
     """
 
-    _logprobs_disabled = False
+    #: Per-INSTANCE; see the note on `self._logprobs_disabled`.
+    _logprobs_disabled: bool
 
     def __init__(self, model: str, base_url: str = "http://localhost:11434",
-                 timeout_s: float = 300.0, tool_specs=None,
-                 seed: int | None = None, temperature: float = 0.2,
+                 timeout_s: float = OLLAMA_TIMEOUT_S, tool_specs=None,
+                 seed: int | None = None,
+                 temperature: float = OLLAMA_TEMPERATURE,
                  tool_schemas: dict | None = None,
                  cassette=None) -> None:
         import httpx
@@ -487,6 +522,7 @@ class OllamaBackend(AgentBackend):
         self.timeout_s = timeout_s
         self.history: list[dict] = []
         self.output_tokens_total = 0
+        self._logprobs_disabled = False        # this backend's own answer
         # Sampling seed: without one, replaying an episode was impossible even
         # with every tool call cached.
         self.seed = seed
@@ -554,12 +590,12 @@ class OllamaBackend(AgentBackend):
         return self.cassette.call(key, _live)
 
     def step(self, step_idx: int) -> dict:
-        want_lp = not OllamaBackend._logprobs_disabled
+        want_lp = not self._logprobs_disabled
         try:
             data = self._chat(want_lp)
         except Exception as exc:  # noqa: BLE001 — one retry without logprobs
             if want_lp and "logprob" in str(exc).lower():
-                OllamaBackend._logprobs_disabled = True
+                self._logprobs_disabled = True
                 print("  [note] this Ollama version rejects logprobs — "
                       "u channel will be neutral on these traces")
                 data = self._chat(False)
@@ -587,8 +623,8 @@ class OllamaBackend(AgentBackend):
             lp = entry.get("logprob") if isinstance(entry, dict) else entry
             if isinstance(lp, (int, float)):
                 token_logprobs.append(float(lp))
-        if token_logprobs and OllamaBackend._logprobs_disabled:
-            OllamaBackend._logprobs_disabled = False
+        if token_logprobs and self._logprobs_disabled:
+            self._logprobs_disabled = False
         out_tokens = int(data.get("eval_count") or 0)
         self.output_tokens_total += out_tokens
         return {"stop_reason": "tool_use" if tool_uses else "end_turn",
@@ -715,6 +751,12 @@ def run_episode(backend: AgentBackend, seed: int,
             "token_logprobs": out["token_logprobs"],
             "logprobs_available": bool(out["token_logprobs"]),
             "action": action,
+            # MODEL-REQUEST time only. Tool execution is timed separately and
+            # lands on each event's own `latency_s` inside `tool_events`, so a
+            # step's wall-clock duration is this plus its events', not this
+            # alone. Both are recorded; the split is deliberate, because a
+            # slow tool and a slow model are different failures and the
+            # monitor's latency dims should not have to guess which it saw.
             "latency_s": round(latency, 4),
             "output_tokens": out["output_tokens"],
             "error": step_error,
@@ -829,7 +871,8 @@ def main(argv: list[str] | None = None) -> None:
         tau = None if fc is None else int(rng.integers(2, 4))
         provenance = Provenance(
             collector="collect_traces", backend=args.backend, model=model,
-            temperature=0.2 if args.backend == "ollama" else None,
+            temperature=(OLLAMA_TEMPERATURE if args.backend == "ollama"
+                         else None),
             episode_seed=seed, task_name=f"task-{i}",
             task_sha256=_sha256_text(f"{args.seed}:{i}"),
             tools=tuple(sorted(TOOL_SPECS)),
@@ -863,7 +906,12 @@ def main(argv: list[str] | None = None) -> None:
         elif isinstance(backend, OllamaBackend):
             backend_tokens[1] += backend.output_tokens_total
 
-        verdict = accept_episode(steps, injector=injection, min_steps=4)
+        # The booking task carries no per-run verifier at collection time, so a
+        # healthy run here is unverified by construction. Stated explicitly
+        # rather than defaulted into: the deterministic checks and the objective
+        # labeller grade this corpus afterwards, and both are recorded.
+        verdict = accept_episode(steps, injector=injection, min_steps=4,
+                                 allow_unverified_healthy=True)
         if not verdict.accepted:
             rejected.append({"episode_id": episode_id, "requested_class": fc,
                              "reason": verdict.reason, "facts": verdict.facts})

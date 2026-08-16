@@ -110,6 +110,18 @@ class _HybridBase(OnlineMonitor):
         held-out or cross-fit calibration would remove that optimism; the study
         runners that need it already cross-fit the supervised fusion,
         and the label-free scales are disclosed here as resubstituted.
+
+        What that does and does not affect. The scale is a per-channel divisor
+        that puts the two sub-scores on comparable footing before they are
+        combined; it is monotone in each score, so it does NOT change the
+        within-monitor RANKING an AUROC reads, and the reported AUROCs are
+        unaffected. It does affect anything that reads the score's magnitude —
+        the fused score's absolute scale, and therefore a threshold carried
+        from one deployment to another. Thresholds in this project are always
+        picked on a healthy VALIDATION split rather than from these scales, so
+        no published detection rate rests on the resubstituted number.
+        Fixing it properly means cross-fitting the scale, which moves every
+        fused score and so needs a full regeneration rather than an edit here.
         """
         behav = [self._behav_ep(ep) for ep in healthy_episodes]
         if not self._subs_prefit:
@@ -335,8 +347,19 @@ def recommended_monitor(standardizer: Standardizer,
     from derail.common import D_TOTAL_EXT, D_TOTAL_GRD
 
     labeled = [ep for ep in (labeled_failures or []) if not ep.is_healthy]
-    grounded = bool(healthy_episodes
-                    and healthy_episodes[0].X.shape[1] == D_TOTAL_GRD)
+    # Telemetry width decides the whole branch below, so read it from EVERY
+    # episode rather than from the first one: taking `healthy_episodes[0]`
+    # makes a mixed-width corpus order-dependent, silently choosing a
+    # different monitor when the same episodes arrive in a different order.
+    # A mixed corpus is a collection defect either way, so say so here rather
+    # than fit something to whichever width happened to sort first.
+    widths = {ep.X.shape[1] for ep in healthy_episodes}
+    if len(widths) > 1:
+        raise ValueError(
+            f"healthy episodes have mixed telemetry widths {sorted(widths)}; "
+            f"they cannot share a monitor, and picking one by episode order "
+            f"would make the choice depend on how the corpus was listed")
+    grounded = bool(healthy_episodes and widths == {D_TOTAL_GRD})
 
     # Branch on telemetry width FIRST: on grounded (v4) telemetry the
     # explicit grounding detector must never be dropped just because more

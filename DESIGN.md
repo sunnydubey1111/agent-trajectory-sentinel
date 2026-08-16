@@ -1042,18 +1042,20 @@ retries):
 
 Every cell is the mean over three independent repeats of each retry, with the
 observed range, so a stochastic outcome is not reported as a point estimate
-(n=55 genuinely-wrong episodes; paired exact McNemar within each repeat, median
-p across repeats):
+(n=55 genuinely-wrong episodes; paired sign-flip permutation over episodes,
+with each episode's three repeats averaged before pairing — the repeats re-run
+the same episodes, so the episode is the unit of inference and a p-value per
+repeat would not be one):
 
 | rung | rate | range | vs `none` | vs `resample` | extra model calls |
 |---|---|---|---|---|---|
 | none | 0% | — | — | — | 0.0 |
-| resample | 16% | 15–18% | p=0.0039 | — | 2.4 |
-| generic | 36% | 35–38% | p<0.0001 | p=0.0347 | 2.1 |
-| **located** | **45%** | 44–47% | p<0.0001 | **p=0.0005** | 2.9 |
-| specific | 36% | 29–42% | p<0.0001 | p=0.0192 | 3.0 |
-| recompute | 28% | 25–31% | p=0.0001 | p=0.17 (n.s.) | 2.0 |
-| adaptive | 21% | 16–24% | p=0.0002 | p=0.61 (n.s.) | 2.3 |
+| resample | 16% | 15–18% | p=0.0002 | — | 2.4 |
+| generic | 36% | 35–38% | p<0.0001 | p=0.0093 | 2.1 |
+| **located** | **45%** | 44–47% | p<0.0001 | **p=0.0001** | 2.9 |
+| specific | 36% | 29–42% | p<0.0001 | p=0.0023 | 3.0 |
+| recompute | 28% | 25–31% | p<0.0001 | p=0.13 (n.s.) | 2.0 |
+| adaptive | 21% | 16–24% | p<0.0001 | p=0.48 (n.s.) | 2.3 |
 
 Net over all 120 episodes, charging each policy for any correct run it broke:
 
@@ -1090,11 +1092,11 @@ margin above it is credited to the repair.
 
 **Asking for a re-check is what works, and naming the fault works best.**
 Fault-named `located` (45%) is the strongest rung and the only one that clears
-the control decisively (p=0.0005); undirected (36%) and
+the control decisively (p=0.0001); undirected (36%) and
 fault-named-with-values (36%) are indistinguishable from each other and still
-clearly above it. Two rungs fail to beat retry luck: `recompute` (28%, p=0.17),
+clearly above it. Two rungs fail to beat retry luck: `recompute` (28%, p=0.13),
 which routes the step to a calculator the agent already holds and should have
-fixed the dominant arithmetic failure, and `adaptive` (21%, p=0.61), which
+fixed the dominant arithmetic failure, and `adaptive` (21%, p=0.48), which
 withholds the prompt when just completeness is at fault.
 
 **Supplying the recomputed answer buys nothing.** `total_consistency` derives

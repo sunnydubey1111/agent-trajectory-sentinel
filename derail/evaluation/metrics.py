@@ -32,9 +32,21 @@ def first_alarm(scores: np.ndarray, theta: float) -> int | None:
     """Return the first step index t with scores[t] > theta, or None.
 
     Strict inequality, matching the alarm rule tau_hat = min{t : s_t > theta}.
-    NaN scores never trigger an alarm.
+
+    A non-finite score is REFUSED rather than treated as quiet. `NaN > theta`
+    is False, so a monitor that failed to score a step would otherwise be
+    indistinguishable from one that scored it and saw nothing -- the failure
+    would be counted as evidence of health. The monitors guard finiteness
+    themselves, but those guards are asserts and `python -O` removes them, so
+    the last gate before the alarm decision has to be a real check.
     """
-    idx = np.flatnonzero(np.asarray(scores, dtype=float) > theta)
+    s = np.asarray(scores, dtype=float)
+    if not np.all(np.isfinite(s)):
+        bad = int(np.flatnonzero(~np.isfinite(s))[0])
+        raise FloatingPointError(
+            f"non-finite score at step {bad}; the monitor could not score "
+            f"this episode, which is not the same as scoring it as quiet")
+    idx = np.flatnonzero(s > theta)
     return int(idx[0]) if idx.size else None
 
 
@@ -381,7 +393,14 @@ if __name__ == "__main__":
     # --- first_alarm: strict inequality, None when never crossed ----------
     assert first_alarm(np.array([0.0, 1.0, 2.0]), 1.0) == 2
     assert first_alarm(np.array([1.0, 1.0]), 1.0) is None
-    assert first_alarm(np.array([np.nan, 0.5, 3.0]), 1.0) == 2
+    # A non-finite score is a scoring FAILURE, not a quiet step. Skipping it
+    # would let the later 3.0 alarm and report a delay measured from an
+    # episode the monitor never fully scored.
+    try:
+        first_alarm(np.array([np.nan, 0.5, 3.0]), 1.0)
+        raise AssertionError("non-finite score was not refused")
+    except FloatingPointError:
+        pass
 
     # --- pick_threshold: quantile method="higher", budget honored ---------
     val = [np.array([0.0, float(m)]) for m in range(1, 101)]  # maxima 1..100

@@ -30,9 +30,12 @@ SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
     # `*.sql` covers committed tool fixtures (derail/harness/fixtures): they
     # are code assets, not research data, and an edited fixture changes what a
     # tool returns, so it must fail the integrity check like an edited module.
+    # `pricing/*.json` is dated list-price data the cost meter reads at import.
+    # It decides what a collection is allowed to spend, so an edit to it must
+    # fail the integrity check exactly as an edit to the meter would.
     "code": (".", ("derail/**/*.py", "verification/**/*.py",
                    "experimental/**/*.py", "devtools/**/*.py", "tests/**/*.py",
-                   "derail/**/*.sql")),
+                   "derail/**/*.sql", "pricing/*.json")),
     "results": ("results", ("**/*.json", "**/*.csv", "**/*.md", "**/*.png")),
     "traces": ("traces", ("**/*.jsonl", "**/*.json")),
     # LICENSE and NOTICE are named explicitly because they carry no extension

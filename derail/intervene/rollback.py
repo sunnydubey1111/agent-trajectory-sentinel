@@ -41,11 +41,19 @@ from dataclasses import dataclass
 from derail.experiments.collect_traces import OllamaBackend, _make_world, _run_tool
 from derail.experiments.demo import (DEMO_MAX_STEPS, DEMO_TOOL_SPECS,
                                      _make_demo_task, _step_record, _tool_bit)
-from derail.telemetry.events import parse_tool_bits
+from derail.preconditions import error_shaped
+from derail.telemetry.events import make_tool_event, parse_step_events
 from derail.verify.checks import BOOKING_SPEC, Finding, TaskSpec, verify
 
-RUNGS = ("none", "resample", "generic", "located", "specific",
-         "adaptive", "recompute", "unstick")
+#: Rungs the offline repair comparison scores. `unstick` is deliberately absent
+#: (see `repair_message`): the offline corpus holds answer-level failures on a
+#: working tool layer, so it contains no run that rung applies to, and iterating
+#: it there produces empty groups that read as a measured zero rather than as
+#: "not applicable". Its evidence is the live alarm-repair study.
+SCORED_RUNGS = ("none", "resample", "generic", "located", "specific",
+                "adaptive", "recompute")
+#: Every rung `repair_message` can build, including the live-only one.
+RUNGS = SCORED_RUNGS + ("unstick",)
 
 _GENERIC_HINT = (
     "Before you give the final answer, re-check your work: make sure you have "
@@ -90,7 +98,10 @@ def rollback_step(steps: list[dict], spec: TaskSpec) -> int:
     priced = {li.tool for li in spec.line_items} | set(spec.required_tools)
     last = -1
     for i, s in enumerate(steps):
-        evs, _ = parse_tool_bits(str(s.get("text", "")))
+        # `parse_step_events`, not the text parser: where the collector
+        # recorded what it executed, the checkpoint must be placed from that
+        # record rather than from the rendered display form of it.
+        evs, _ = parse_step_events(s)
         if any(e.name in priced and not e.is_error for e in evs):
             last = i
     return last + 1
@@ -168,10 +179,18 @@ def _specific_hint(findings: list[Finding]) -> str:
 
 def rebuild_history(backend: OllamaBackend, task: str, steps: list[dict],
                     k: int) -> None:
-    """Restore the conversation exactly as it stood after step k-1."""
+    """Restore the conversation exactly as it stood after step k-1.
+
+    Read from `parse_step_events`, so a step that carries structured
+    `tool_events` is replayed from what the collector executed: the real
+    argument objects and the untruncated result. Rebuilding from the rendered
+    text instead hands the retried agent the display form of its own history —
+    arguments re-parsed out of a string, results cut to the display cap — and
+    the retry then answers a slightly different question from the original run.
+    """
     backend.reset(task)
     for s in steps[:k]:
-        evs, reasoning = parse_tool_bits(str(s.get("text", "")))
+        evs, reasoning = parse_step_events(s)
         msg: dict = {"role": "assistant"}
         if reasoning.strip():
             msg["content"] = reasoning.strip()
@@ -224,15 +243,31 @@ def retry_from_checkpoint(steps: list[dict], seed: int, rung: str,
         calls += 1
         lat = time.perf_counter() - t0
         bits = []
+        events = []
+        step_error = False
         if out["tool_uses"]:
             results = []
             for u in out["tool_uses"]:
                 r = _run_tool(u["name"], u["input"], world)
+                # `_run_tool` reports failure as an "Error: ..." string, so a
+                # hardcoded False here records a failed call as a success. The
+                # retried traces are re-graded and re-scored, and the error
+                # flag feeds two live monitor features, so the retry arm would
+                # be measured on telemetry that says nothing ever failed.
+                is_err = error_shaped(r)
+                step_error = step_error or is_err
                 results.append({"id": u["id"], "name": u["name"],
-                                "content": r, "is_error": False})
+                                "content": r, "is_error": is_err})
                 bits.append(_tool_bit(u["name"], u["input"], r))
+                events.append(make_tool_event(u["name"], u["input"], r,
+                                              is_error=is_err,
+                                              call_id=u["id"]))
             backend.add_tool_results(results)
-        out_steps.append(_step_record(out, bits, lat, error=False))
+        record = _step_record(out, bits, lat, error=step_error)
+        # Carry the structured form as well, so a retried trace is read the
+        # same way a collected one is rather than re-parsed from its text.
+        record["tool_events"] = events
+        out_steps.append(record)
         if out["stop_reason"] == "end_turn":
             break
     return Attempt(rung, out_steps, k, calls, before,
