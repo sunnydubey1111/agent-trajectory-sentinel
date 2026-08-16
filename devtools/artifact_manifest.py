@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import pathlib
 import sys
 
@@ -45,8 +46,7 @@ SECTIONS: dict[str, tuple[str, tuple[str, ...]]] = {
     # same way an edited trace does.
     # `paper/` is deliberately absent: the manuscripts are local-only (see
     # .gitignore), so hashing them would report them missing on every checkout
-    # but the author's — the same reason the anonymised submissions were never
-    # hashed. The claim ledger, not this manifest, is what ties the
+    # but the author's. The claim ledger, not this manifest, is what ties the
     # manuscripts' numbers to the artifacts they came from.
     "docs": (".", ("*.md", "LICENSE", "NOTICE", "docs/**/*.md",
                    "requirements*.txt")),
@@ -61,20 +61,7 @@ EXCLUDE_PARTS = {"__pycache__", ".git", ".pytest_cache",
                  # hashing it here would report it missing on every fresh
                  # checkout and would fold another project's episodes into our
                  # integrity record.
-                 "_aftraj", "_atbench",
-                 # The NeurIPS workshop submission, untracked while it is under
-                 # double-blind review (see .gitignore): a public copy in a
-                 # repository under the author's own name defeats the anonymity
-                 # it is written for. It exists on the author's machine and in
-                 # no checkout, so hashing it would fail the integrity check
-                 # for everyone else.
-                 "workshop.tex", "workshop.pdf", "neurips_2026.sty",
-                 # The TMLR submission and its vendored style package, for the
-                 # same two reasons: TMLR rejects non-anonymous submissions
-                 # without review, so the source stays untracked, and the style
-                 # files are the venue's (Apache-2.0) rather than ours.
-                 "tmlr.tex", "tmlr.pdf", "tmlr.sty", "tmlr.bst",
-                 "fancyhdr.sty", "math_commands.tex"}
+                 "_aftraj", "_atbench"}
 # Text artifacts are hashed after CRLF -> LF normalisation, matching the
 # .gitattributes policy, so a manifest is identical on Windows and
 # Linux checkouts and a line-ending flip is never mistaken for a data change.
@@ -240,6 +227,13 @@ def main(argv: list[str] | None = None) -> int:
         for kind in ("changed", "added", "removed"):
             for path in d[kind]:
                 print(f"  {kind:8s} {path}")
+                # On a CI runner the job log is readable only by a repository
+                # admin, so a drift that reproduces nowhere else is invisible
+                # to everyone who could fix it. An annotation is public, and
+                # it carries the path that differs rather than an exit code.
+                if os.environ.get("GITHUB_ACTIONS") == "true":
+                    print(f"::error file={path}::{name} artifact {kind} "
+                          f"against BASELINE_MANIFEST.json")
     return 1 if dirty else 0
 
 

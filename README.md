@@ -570,12 +570,11 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 - [`CHECKSUMS.md`](CHECKSUMS.md) — SHA-256 coverage and the root digest.
 - [`DESIGN.md`](DESIGN.md) — per-module low-level contract, the telemetry
   schema every collector writes, and the numbered amendments.
-- Papers — the manuscripts are **not** in this repository. The preprint is
-  public at [arXiv:2608.02464](https://arxiv.org/abs/2608.02464); the
-  full-length version and the two anonymised conference submissions are held
-  back while they are under review. Every number in them is reproduced here
-  by [`CLAIMS.md`](CLAIMS.md) from the committed tables, which is what makes
-  the results checkable without the manuscripts.
+- Papers — the manuscript sources are **not** in this repository. The preprint
+  is public at [arXiv:2608.02464](https://arxiv.org/abs/2608.02464). Every
+  number the manuscripts state is reproduced here by [`CLAIMS.md`](CLAIMS.md)
+  from the committed tables, which is what makes the results checkable without
+  them.
 - `results/` — every table and figure the claims above cite.
 - [`LICENSE`](LICENSE) (Apache-2.0), [`NOTICE`](NOTICE) and
   [`CITATION.cff`](CITATION.cff).

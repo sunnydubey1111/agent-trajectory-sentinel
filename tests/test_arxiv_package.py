@@ -79,7 +79,7 @@ def test_the_style_file_is_included(package) -> None:
 
 
 def test_the_arxiv_version_is_not_anonymous(package) -> None:
-    """The opposite of the workshop submission, and deliberately so."""
+    """A preprint is attributed; that is the point of a preprint server."""
     tex = (package / f"{arxiv_package.STEM}.tex").read_text("utf-8")
     assert "Sunny Dubey" in tex
     assert "0009-0002-8296-8631" in tex, "ORCID missing from the preprint"
@@ -95,18 +95,16 @@ def test_the_preprint_points_at_the_public_artifacts(package) -> None:
         assert target in tex, f"{target} not cited in the preprint"
 
 
-def test_the_workshop_submission_stays_anonymous() -> None:
-    """Guards the pair: the arXiv edits must not leak into the blind one.
+def test_an_author_blind_manuscript_carries_no_identifier() -> None:
+    """An author-blind manuscript must not name its author or its artifacts.
 
-    The workshop source is deliberately untracked while it is under
-    double-blind review --- a public copy in a repository under the author's
-    own name defeats the anonymity it is written for --- so a fresh checkout
-    will not have it. Skip there rather than fail; the check still runs for
-    whoever is actually editing the submission.
+    Manuscript sources are local to the author (see .gitignore), so a fresh
+    checkout has nothing to check and skips. Where one exists, this is what
+    stops an edit made for the attributed preprint from reaching it.
     """
     source = REPO_ROOT / "paper" / "workshop.tex"
     if not source.exists():
-        pytest.skip("workshop.tex is untracked during blind review")
+        pytest.skip("manuscript sources are local-only; nothing to check here")
     tex = source.read_text("utf-8")
     for probe in ("Sunny", "Dubey", "0009-0002", "github.com", "huggingface"):
-        assert probe not in tex, f"{probe!r} leaked into the blind submission"
+        assert probe not in tex, f"{probe!r} would identify the author"

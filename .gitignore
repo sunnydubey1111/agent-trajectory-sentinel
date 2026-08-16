@@ -1,6 +1,5 @@
-# Project-internal working notes: remediation ledger, review correspondence,
-# phase plans and verification records. Useful while the study was being built,
-# not part of the released research artifact.
+# Project-internal working notes. Useful while the study was being built, not
+# part of the released research artifact.
 _internal/
 
 # Secrets — never commit credentials
@@ -72,19 +71,16 @@ traces/_atbench/
 # the corpus twice and let the copy drift from the record.
 build/
 
-# The manuscripts are kept OUT of the published tree. Two of them are under
-# double-blind review (TMLR states that non-anonymous submissions are rejected
-# without review), and the rest are held back by the same decision, so the
-# whole directory is local-only. Earlier commits still contain the files that
-# used to be tracked; removing them from HEAD does not remove them from
-# history, and arXiv:2608.02464 is public independently of this repository.
+# Manuscript sources are local to the author, and the vendored LaTeX style
+# packages are not ours to redistribute. The preprint is public at
+# arXiv:2608.02464, and every number the manuscripts state is recomputed here
+# from a committed table by `py -m devtools.claims_ledger --check`, so nothing
+# in this repository depends on the directory being present.
 #
-# Everything still builds from a checkout that HAS the directory:
-#   cd paper && latexmk -pdf main.tex        # the preprint
-#   py -m devtools.md_to_latex               # paper.md -> paper.tex
+# Everything still builds from a checkout that HAS it:
+#   cd paper && latexmk -pdf main.tex
+#   py -m devtools.md_to_latex
 #   py -m devtools.arxiv_package --build --check
-# The style files vendored here (tmlr.sty, tmlr.bst, fancyhdr.sty) are the
-# official TMLR package (Apache-2.0) and are not ours to redistribute.
 paper/
 
 # Deck build products: deck/build.py regenerates both from the template in

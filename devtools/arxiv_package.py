@@ -9,10 +9,10 @@ figures side by side - and rewrites the one path that assumed a checkout.
     py -m devtools.arxiv_package --build          # write build/arxiv/
     py -m devtools.arxiv_package --build --check  # ... and compile it there
 
-The submission is NOT anonymous: arXiv is a preprint server, so the author
-block, the ORCID and the artifact links all belong in it. That is the opposite
-of `paper/workshop.tex`, which is anonymised for double-blind review. Both are
-generated from their own source and neither is derived from the other.
+The preprint carries its author block, ORCID and artifact links: arXiv is a
+preprint server and attribution belongs in it. Any author-blind manuscript is
+generated from its own source rather than derived from this one, so an edit
+here can never carry an identifier into it.
 """
 from __future__ import annotations
 

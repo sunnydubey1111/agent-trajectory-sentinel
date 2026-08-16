@@ -850,7 +850,7 @@ def build() -> list[Claim]:
         # the study grew to 874, and DESIGN.md's repair table disagreed with
         # its own CSV on every rung.
 
-        # -- grounding detection table (main.tex, workshop.tex, paper.md)
+        # -- grounding detection table (main.tex, paper.md)
         Claim("grounding.pooled_n", "Pooled injected episodes in the grounding table",
               874, GROUNDING_SRC, GROUNDING_CMD,
               lambda: _grounding_n(True) + _grounding_n(False), "Monitor"),
