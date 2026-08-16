@@ -336,6 +336,20 @@ def render() -> str:
         "trace cannot pass unnoticed. Corpora with a `trace_sha256` field also",
         "carry a per-episode hash in the manifest itself.",
         "",
+        # These runs read a real workspace, and that workspace was this
+        # repository mid-development. The recordings are published unedited,
+        # so they hold file contents and listings that do not match the
+        # released tree. Readers are told that here rather than left to
+        # discover it as an inconsistency.
+        "**What the `workspace_file_qa` runs recorded.** The",
+        "`workspace_file_qa` runs in `traces/real` recorded an agent reading",
+        "files in a real software workspace — this project's own repository at",
+        "an earlier revision. The recorded file contents and directory listings",
+        "are therefore development-time snapshots and may differ from the",
+        "published repository. They are published unedited, as recorded: a",
+        "trace is a record of what the agent actually saw, so it is not",
+        "rewritten to match the current tree.",
+        "",
         "## Licensing",
         "",
         "Apache-2.0 covers what this project wrote: the source, the trace format and",

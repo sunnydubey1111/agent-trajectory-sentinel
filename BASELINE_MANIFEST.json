@@ -90,7 +90,7 @@
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
    "devtools/claims_ledger.py": "8d1b2d0bce58281e40f4f4d98b0776639b6d24e9a1547a8a3064456908907e4a",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
-   "devtools/data_card.py": "a37e1d2d053fde31201302410959b9fb85eb01512622cb12f221849b49cc997a",
+   "devtools/data_card.py": "29ee757b0463b78c063a7ef657b073f8e190a6e7c230e0ac45297cb4b1304564",
    "devtools/hf_dataset.py": "62ec22b83b4b405c109b58b1bead09acada5a4699959b4d3a860d5fa8b16fde4",
    "devtools/hf_space.py": "37f1c48ef1a66e01e9d1a2bb921b353eb5d269f84517b22382f57cb40d38aabf",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
@@ -9442,10 +9442,10 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "a95020bfc9b7307ac1e80587235e370cf552b108cf50ceaccaf39587628135d0",
+   "CHECKSUMS.md": "687d0b158f59dda755fd984d6f87baa1f2b0b4a11bca37a57421b9140b68ac1f",
    "CLAIMS.md": "c888313272668a18991425404df0f6cfdcaa45536db8f184a9ca3edebb2163fc",
    "CONTRIBUTIONS.md": "d71c85fd10b0bba6237e866f8cb7374fd1a96f0dd9b077e36341a63b1901dede",
-   "DATA_CARD.md": "ab8ca199d03007e8b572e17e6d8513f419daa5ea7ecc640c818aed14351ab8d4",
+   "DATA_CARD.md": "38cee6adb2e55d329b9ebf9249f3c783644679c94f78841830d67b85010f73d4",
    "DESIGN.md": "8ee920e4c06d5d2ed6595c3dc4d54c16a89aeb0628db9800b8fb195de043b82a",
    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
    "NOTICE": "4d84505c8ad61c5e2ab879898d2408285ebe3ecaa1a79e8b9f917320811fc0a5",
