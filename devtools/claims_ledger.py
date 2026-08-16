@@ -33,7 +33,27 @@ LEDGER_PATH = REPO_ROOT / "CLAIMS.md"
 #: Values are compared at this absolute tolerance, which is looser than float
 #: noise and tighter than the rounding used in prose (a claim of "45%" must come
 #: from something in [0.445, 0.455], not from 0.42).
-TOL = 5e-3
+#: Relative window a recomputed FLOAT claim may drift within, and the absolute
+#: floor under it. Scale-aware because a single absolute tolerance means a
+#: different thing at every magnitude: at 5e-3 it granted 13% of
+#: `atbench.content_failure_detection` (0.0385) and 0.0005% of
+#: `telemetry.v4_step_p95_us` (1045 us) — far too loose to catch drift in a
+#: small rate, and far tighter than a machine-dependent timing can reproduce.
+#: The floor keeps a near-zero claim from being held to a near-zero window.
+REL_TOL = 5e-3
+ABS_TOL_FLOOR = 5e-4
+
+
+def tolerance_for(expected: float | int) -> float:
+    """Window allowed when comparing a recomputed claim to `expected`.
+
+    An INT claim is exact. A count is right or wrong — 2,823 episodes is not
+    2,824 — and a relative window would be actively dangerous there, granting
+    fourteen episodes of slack on the corpus-size claim.
+    """
+    if isinstance(expected, int):
+        return 0.0
+    return max(REL_TOL * abs(float(expected)), ABS_TOL_FLOOR)
 
 
 @dataclass
@@ -71,7 +91,8 @@ class Claim:
                 return False
         if isinstance(self.expected, str):
             return str(self.actual) == self.expected
-        return abs(float(self.actual) - float(self.expected)) <= TOL
+        return (abs(float(self.actual) - float(self.expected))
+                <= tolerance_for(self.expected))
 
     def render(self) -> str:
         if isinstance(self.expected, float):

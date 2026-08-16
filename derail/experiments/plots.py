@@ -720,20 +720,58 @@ def fig_escalation() -> None:
     plt.close(fig)
 
 
+#: (label, builder). Several builders return early when the corpus or table
+#: they need is absent, so which of them actually ran has to be observed
+#: rather than assumed.
+FIGURE_BUILDERS = [
+    ("score_traces_real", lambda: fig_score_traces_real()),      # PRIMARY
+    ("class_coverage_real", lambda: fig_class_coverage_real()),  # PRIMARY
+    ("judge_complementarity_real",
+     lambda: fig_judge_complementarity_real()),                  # PRIMARY
+    ("monitor_benchmark_real", lambda: fig_monitor_benchmark_real()),  # PRIMARY
+    ("horizon_law", lambda: fig_horizon_law()),                  # PRIMARY
+    ("score_traces", lambda: fig_score_traces()),   # secondary: simulated
+    ("h1_lead", lambda: fig_h1_lead()),
+    ("h2_heatmap", lambda: fig_h2_heatmap()),
+    ("reliability", lambda: fig_reliability()),
+    ("escalation", lambda: fig_escalation()),
+]
+
+
 def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
-    fig_score_traces_real()      # PRIMARY: real end-to-end agent traces
-    fig_class_coverage_real()    # PRIMARY: per-class coverage, real datasets
-    fig_judge_complementarity_real()   # PRIMARY: measured judge vs monitor
-    fig_monitor_benchmark_real()       # PRIMARY: monitors on real corpora
-    fig_horizon_law()            # PRIMARY: the horizon law + its replication
-    fig_score_traces()           # secondary: simulated telemetry, labelled
-    fig_h1_lead()
-    fig_h2_heatmap()
-    fig_reliability()
-    fig_escalation()
-    results = json.loads((RESULTS / "results.json").read_text(encoding="utf-8"))
-    print("wrote 10 figures to", FIGURES)
+
+    def _stamps() -> dict[str, int]:
+        return {p.name: p.stat().st_mtime_ns for p in FIGURES.glob("*.png")}
+
+    written: list[str] = []
+    skipped: list[str] = []
+    for label, build in FIGURE_BUILDERS:
+        before = _stamps()
+        build()
+        after = _stamps()
+        made = sorted(n for n, m in after.items() if before.get(n) != m)
+        if made:
+            written.extend(made)
+        else:
+            skipped.append(label)
+
+    # Counted, not asserted. A fixed "wrote 10 figures" is a claim the code
+    # cannot keep: a builder whose corpus or table is missing returns without
+    # drawing anything, and the message then reports a figure that is absent
+    # or, worse, one left over from a previous run.
+    print(f"wrote {len(written)} figure(s) to {FIGURES}")
+    if skipped:
+        print(f"  SKIPPED {len(skipped)} (inputs missing, nothing written): "
+              + ", ".join(skipped))
+        print("  any packaged figure for these is STALE, not regenerated")
+
+    results_path = RESULTS / "results.json"
+    if not results_path.exists():
+        print(f"  no {results_path.name}: verdicts not available "
+              f"(run run_experiment first)")
+        return
+    results = json.loads(results_path.read_text(encoding="utf-8"))
     for name, verdict in results["verdicts"].items():
         print(f"  {name}: {verdict[:100]}")
 

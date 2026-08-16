@@ -61,6 +61,7 @@ from derail.monitor.esn import _WASHOUT, ESNEnsembleMonitor
 from derail.monitor.grounding import GRD_DIM_NAMES, GroundingMonitor
 from derail.monitor.grounding_verify import NumericGroundingMonitor
 from derail.monitor.hybrid import _robust_stats
+from derail.preconditions import error_shaped
 from derail.telemetry.adapter import (
     ExtFeatureState,
     GrdFeatureState,
@@ -688,15 +689,24 @@ def collect_demo_healthy(n: int, probed: bool = False) -> None:
             out = backend.step(t)
             latency = time.perf_counter() - t0
             tool_bits = []
+            step_error = False
             if out["tool_uses"]:
                 results = []
                 for u in out["tool_uses"]:
                     result = _run_tool(u["name"], u["input"], world)
+                    # `_run_tool` reports failure as an "Error: ..." string, so
+                    # a hardcoded False records a failed call as a success. The
+                    # step-level flag feeds IDX_ERROR_FLAG, so a healthy null
+                    # built this way tells the monitor that nothing ever fails
+                    # during healthy operation. The live loop below already
+                    # derives this; only the collector did not.
+                    is_err = error_shaped(result)
+                    step_error = step_error or is_err
                     results.append({"id": u["id"], "name": u["name"],
-                                    "content": result, "is_error": False})
+                                    "content": result, "is_error": is_err})
                     tool_bits.append(_tool_bit(u["name"], u["input"], result))
                 backend.add_tool_results(results)
-            steps.append(_step_record(out, tool_bits, latency, error=False))
+            steps.append(_step_record(out, tool_bits, latency, error=step_error))
             if out["stop_reason"] == "end_turn":
                 if probes_left > 0:
                     probes_left -= 1
@@ -1510,7 +1520,14 @@ def run_demo_episode(seed: int) -> None:
                                           "sees it.",
                                 "before": clean_result, "after": result}
                 else:
-                    is_err = result.startswith("Error:")
+                    # The one shared definition (derail.preconditions), not a
+                    # fourth local copy: a bare `startswith("Error:")` reads a
+                    # lowercase prefix, an HTTP 500, a `{"error": ...}`
+                    # envelope and a traceback as SUCCESSES. Behaviour is
+                    # unchanged on this task -- the two readers agree on every
+                    # result `_run_tool` can return -- so this is robustness
+                    # for a future tool, not a change to what the demo scores.
+                    is_err = error_shaped(result)
                 # Count consecutive failures per tool: a success clears the
                 # count, so a tool that merely blipped is never opened out.
                 if is_err:

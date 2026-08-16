@@ -16,7 +16,7 @@
    "derail/experiments/collect_real_traces.py": "074f062916adeb4fc6f2166a8921f252cde0fa1de483a47ee528fce3ba46d94c",
    "derail/experiments/collect_research7b_long.py": "512c0903140f23e0e38f466543578cf677417ed259a21b676d8142017f36a246",
    "derail/experiments/collect_traces.py": "9629008e924f28580fbc34c12155f0961ce85a1a14ffb8aa11f33dd5a71caae4",
-   "derail/experiments/demo.py": "cb35425d03d64b79457c944b5ed7b9ac0b0cff869c88d6bec9dde9cf0b5ae371",
+   "derail/experiments/demo.py": "99f76b064ed2312ab8331b28b0f3fa0fe97568b674d6e2d143189f86d24d5805",
    "derail/experiments/esn_ablation.py": "5a2872038a8fab3b1393cfe483497f634f43e526812cc65d42b693160d492a4e",
    "derail/experiments/esn_capacity_scaling.py": "144126dd6908fa947f9a25835d165609b23c7f66315652d42f9a1fa9668e747f",
    "derail/experiments/evaluate_hmte.py": "ba646b6ebc47152570984447713d6e528d160af3fefed23183dd95e9042661d1",
@@ -24,7 +24,7 @@
    "derail/experiments/expand_healthy.py": "9ac2dda9f5d0c80beee891b4a9f76f1f04da03983871a46167e815086dd0ec06",
    "derail/experiments/explain_hybrid.py": "7a4191769dbfb0a749942fcc4072a1ccb9b3b44d6669f6e32f74c40474b7ec60",
    "derail/experiments/import_aftraj.py": "334ae9cbdc6a8c639899c85d9029ee5cd358e2fb093a77dee7e250b4bb903639",
-   "derail/experiments/plots.py": "449c263ecaad72c90cb4896832e6ea08cf736cfd1441af8774bbfd41df727c21",
+   "derail/experiments/plots.py": "be9a7a7ad396c7845f129970f74f441f1c866da2cc3d59a010e7cb4282651811",
    "derail/experiments/run_ablation.py": "900363f96b5db74b2566583387893ec821cf2723c8ba1b0d47c0b5482daddf52",
    "derail/experiments/run_atbench_study.py": "8c3c5c2dcbce8573336b7da52ec933ed0abb238b738a98c529155b4d2ab9c6ce",
    "derail/experiments/run_benchmark.py": "181847c790ccba208c159eb26a8367816b5cbb5eee669c8ed6aabbe2d564b108",
@@ -87,9 +87,9 @@
    "devtools/artifact_manifest.py": "be423d2dbb13391e40a68664b3f88372d284a843d78e2e99df90c9bba92c8a0e",
    "devtools/arxiv_package.py": "18e734c70f7f1cab4ca59a65cfb4683bbbb61bc69b3b4e42b8b6f2dd8572ba18",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
-   "devtools/claims_ledger.py": "c901909b600c030057ad159cf7aed20f379cb187214c746412d57098fb959153",
+   "devtools/claims_ledger.py": "8d1b2d0bce58281e40f4f4d98b0776639b6d24e9a1547a8a3064456908907e4a",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
-   "devtools/data_card.py": "d9ab4d995db90bb6ef29ed3228572634998bfdcfb5bba5f2a830a4f3126619be",
+   "devtools/data_card.py": "a37e1d2d053fde31201302410959b9fb85eb01512622cb12f221849b49cc997a",
    "devtools/hf_dataset.py": "62ec22b83b4b405c109b58b1bead09acada5a4699959b4d3a860d5fa8b16fde4",
    "devtools/hf_space.py": "37f1c48ef1a66e01e9d1a2bb921b353eb5d269f84517b22382f57cb40d38aabf",
    "devtools/md_to_latex.py": "2bc94f7f8cc13a280057b155669558b367d8aa396dc3c4baceb248ee578489fd",
@@ -113,6 +113,7 @@
    "tests/test_atbench_study.py": "cd1fefcdc81f31506f05ae2eb44c0f333ddc6aa75c4f568a33ae94ad86fb2cd2",
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
    "tests/test_claim_denominators.py": "0cc5c49a52cd17cb0f6cfc0ef836c860ccce8676e37118480f4700488620ff24",
+   "tests/test_claim_tolerance.py": "ba7e35fd37d868e90bb7868b6c3f20c9adf40a003dbf0720217af3228d3e3297",
    "tests/test_collection_validity.py": "145869daeeb25c084e3034dd53838f785dd5c3031d7648c35e8adc348d302ffe",
    "tests/test_cross_study_keys.py": "01346ffb9ed825e43752e054275382c9edfea71f1d3967497ec791b61612d4e6",
    "tests/test_evaluation_validity.py": "e43b6ffab7b7b6d6b937f14ef45070ba3a2225f6d1403cd550c43228d7562e43",
@@ -9433,10 +9434,10 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "df9bb745ac4166b0bcd4ea12a29664bbc3cb2e799187d07225d4a905d7367ec3",
+   "CHECKSUMS.md": "b2f23e4f3696d4c61ea80dd64ff1e3ac1bf621ba4e3afa1b7efb5d56ceb9e3f1",
    "CLAIMS.md": "c888313272668a18991425404df0f6cfdcaa45536db8f184a9ca3edebb2163fc",
    "CONTRIBUTIONS.md": "d71c85fd10b0bba6237e866f8cb7374fd1a96f0dd9b077e36341a63b1901dede",
-   "DATA_CARD.md": "760533f6a30a73fe239433a307bc8d454448e1114a0f49ff18e88d23f3b551c2",
+   "DATA_CARD.md": "ab8ca199d03007e8b572e17e6d8513f419daa5ea7ecc640c818aed14351ab8d4",
    "DESIGN.md": "9dcadfe4e57fd8116ee265c2dd587fa0a847afbf8b52ebd697ff17843cf04c97",
    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
    "NOTICE": "4d84505c8ad61c5e2ab879898d2408285ebe3ecaa1a79e8b9f917320811fc0a5",
@@ -9449,5 +9450,5 @@
   }
  },
  "note": "",
- "file_count": 9439
+ "file_count": 9440
 }
