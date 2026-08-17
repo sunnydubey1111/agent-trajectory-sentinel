@@ -133,53 +133,53 @@ def _repair_rate(rung: str) -> float:
     return float(wrong[wrong.rung == rung].groupby("rep").now_correct.mean().mean())
 
 
-#: Corpora collected AFTER the paper fixed its dataset description. They are
-#: real, committed and checksummed like any other corpus, and they ARE counted
-#: by DATA_CARD.md — which describes the repository. They are excluded only
-#: from the three corpus-SIZE claims, which describe the PUBLISHED evidence
-#: base and are quoted verbatim in main.tex, build/arxiv, the HF card, the
-#: deck and the social card. Move a name out of this set when a paper revision
-#: actually adopts it.
-POST_PUBLICATION = frozenset({
+#: Corpora collected after the arXiv v1 snapshot (commit `00c0673`, tag
+#: `v1.4.0`). Naming them lets the ledger report BOTH totals rather than
+#: choosing one: the repository's current size, which is what DATA_CARD.md and
+#: the README describe, and the v1 size, which is what the submitted paper
+#: says and must keep saying. v1 is frozen by its tag, so nothing here needs to
+#: hold the working tree back to it; this set exists only to reconstruct the v1
+#: figure for comparison, and the `*_v1` claims below fail if it drifts.
+ADDED_AFTER_V1 = frozenset({
     "real_research7b_long_drift",   # long-runway real goal_drift, conceptor arm
     "demo_real_varied",             # rebuilt varied healthy null for demo_real
+    "demo_real_varied_ext",         # live arm, sized for the 5% FA budget
 })
 
 
-def _our_manifests() -> list[pathlib.Path]:
-    """Manifests of corpora this project collected AND published.
+def _our_manifests(v1_only: bool = False) -> list[pathlib.Path]:
+    """Manifests of corpora this project collected.
 
     A leading underscore marks a directory that is not ours - scratch output,
     or a corpus imported from another project (traces/_aftraj). Counting those
     would restate someone else's episodes as ours.
 
-    POST_PUBLICATION corpora are excluded for a different reason: they are
-    ours, but they were collected AFTER the paper described its dataset. The
-    corpus-size claims below are statements about the published evidence base
-    ("we validate on 2,823 episodes over 25 corpora"), and that sentence
-    appears in main.tex, the arXiv build, the HF card, the deck and the social
-    card. Silently folding later collections into it would rewrite the paper's
-    stated dataset without anyone deciding to. New corpora are additions to
-    the repository; they become part of a published count only when a paper
-    revision says so.
+    `v1_only` reconstructs the corpus as the submitted paper describes it, by
+    dropping everything in `ADDED_AFTER_V1`. The default is the current tree:
+    a corpus that is committed, checksummed and used by a study is part of the
+    evidence base, and the published v1 figure is preserved by the v1 tag
+    rather than by keeping the working tree pinned to it.
     """
-    return [m for m in sorted(TRACES.glob("*/manifest.json"))
-            if not m.parent.name.startswith("_")
-            and m.parent.name not in POST_PUBLICATION]
+    keep = [m for m in sorted(TRACES.glob("*/manifest.json"))
+            if not m.parent.name.startswith("_")]
+    if v1_only:
+        keep = [m for m in keep if m.parent.name not in ADDED_AFTER_V1]
+    return keep
 
 
-def _episode_total() -> int:
-    return sum(len(json.loads(m.read_text("utf-8"))) for m in _our_manifests())
+def _episode_total(v1_only: bool = False) -> int:
+    return sum(len(json.loads(m.read_text("utf-8")))
+               for m in _our_manifests(v1_only))
 
 
-def _corpus_count() -> int:
-    return len(_our_manifests())
+def _corpus_count(v1_only: bool = False) -> int:
+    return len(_our_manifests(v1_only))
 
 
-def _real_tool_episodes() -> int:
+def _real_tool_episodes(v1_only: bool = False) -> int:
     return sum(len(json.loads(m.read_text("utf-8")))
                for m in sorted(TRACES.glob("real*/manifest.json"))
-               if m.parent.name not in POST_PUBLICATION)
+               if not (v1_only and m.parent.name in ADDED_AFTER_V1))
 
 
 def _real_traces(monitor: str, column: str) -> float:
@@ -274,11 +274,40 @@ def _hybrid_grand_mean(monitor: str) -> float:
     return float(d.loc[d.monitor == monitor, "auroc"].mean())
 
 
-def _horizon_advantage(lo: int, hi: int) -> float:
-    """ESN-minus-Mahalanobis detection gap inside one post-onset horizon band."""
-    d = _table("hybrid_diagnosis.csv")
-    band = d[(d.horizon >= lo) & (d.horizon <= hi)]
-    return float(band.det_esn.mean() - band.det_maha.mean())
+def _horizon_band(arm: str, band: str, column: str = "gap") -> float:
+    """One cell of the horizon study's band table, by provenance arm.
+
+    The arm matters: `sim` and `real` are different populations and the top
+    band is the place they disagree most, so a band figure that does not name
+    its arm is not a statement about either.
+    """
+    d = _table("horizon_pooled.csv")
+    row = d[(d.arm == arm) & (d.band == band)]
+    return float(row[column].iloc[0])
+
+
+def _horizon_band_n(arm: str, band: str) -> int:
+    return int(_horizon_band(arm, band, "n"))
+
+
+def _live_ext(monitor: str, column: str) -> float:
+    """One monitor's value on the corpus the live serving path runs on."""
+    d = _table("live_ext_benchmark.csv")
+    return float(d.loc[d.monitor == monitor, column].iloc[0])
+
+
+def _live_ext_n(healthy_only: bool = False) -> int:
+    """Test episodes the live figures are computed over, healthy ones alone
+    for a false-alarm rate, since that rate has no injected denominator."""
+    d = _table("live_ext_explain.csv")
+    return int(d.is_healthy.astype(bool).sum()) if healthy_only else len(d)
+
+
+def _horizon_within_r(control: str) -> float:
+    """Real-corpus horizon/advantage correlation at one level of control."""
+    d = _table("horizon_within.csv")
+    row = d[(d.arm == "real") & (d.control == control)]
+    return float(row.r.iloc[0])
 
 
 def _aftraj(monitor: str, column: str) -> float:
@@ -300,6 +329,8 @@ GROUNDING_SRC = "results/tables/grounding_diagnosis.csv"
 GROUNDING_CMD = "py -m derail.experiments.run_grounding_study"
 VS_SRC = "results/tables/verification_vs_monitor.csv"
 VS_CMD = "py -m derail.verify.run_verification_study"
+CONTRACT_CMD = ("py -m derail.verify.run_verification_study "
+                "--contract-coverage")
 REPAIR_CMD = "py -m derail.intervene.evaluate_repair_policies --from-csv"
 
 #: The episode-length floor every real-trace study applies before splitting.
@@ -444,10 +475,124 @@ def _every_alarm_attempted() -> str:
             else f"{missed} alarm(s) with no repair attempt")
 
 
+#: The one command that regenerates the live matrix, named once so the five
+#: claims below cannot disagree about how it is produced.
+ALARM_MATRIX_CMD = "py -m derail.experiments.demo --alarm-repair-matrix (live)"
+
+
+ACCOUNTING_CMD = "py -m devtools.episode_accounting --check --write"
+
+
+def _accounting(key: str) -> int:
+    """One total from the single canonical episode accounting.
+
+    Every episode total this project quotes is derived there from manifests and
+    rejected.json, with the identities that hold stated explicitly, so a reader
+    can check the arithmetic instead of trusting a sentence.
+    """
+    from devtools.episode_accounting import build, coverage_rows
+    _, totals, _, _ = build()
+    if key in totals:
+        return totals[key]
+    return next(r["n"] for r in coverage_rows() if r["quantity"].startswith(key))
+
+
+def _live_repair_n() -> int:
+    return int(len(_table("alarm_repair.csv")))
+
+
+def _live_repair(outcome: str) -> int:
+    """How the 25 live episodes actually ended, by outcome.
+
+    The live matrix and the 52->73 net-success figure are different studies on
+    different corpora, and the difference is the point: `repair_policies.csv`
+    re-runs 55 organic failures offline and counts how many come back correct,
+    while this table runs 25 live episodes with an injected fault and records
+    what the whole gate did. Reading one as the mechanism for the other is the
+    error these claims exist to prevent, so the live outcome split is counted
+    here rather than reconstructed in prose.
+    """
+    d = _table("alarm_repair.csv")
+    if outcome == "halted":            # ended without emitting an answer
+        return int(d.answer_check.isna().sum())
+    if outcome == "repaired_correct":  # retried and the answer became correct
+        return int(((d.repair_state == "repaired")
+                    & (d.answer_check == "correct")).sum())
+    if outcome == "answered_wrong":
+        return int((d.answer_check == "wrong").sum())
+    if outcome == "correct_untouched":
+        return int(((d.repair_state == "none")
+                    & (d.answer_check == "correct")).sum())
+    if outcome == "alarms":
+        return int(d.alarm_step.notna().sum())
+    if outcome == "goal_drift_repaired":
+        return int(((d.failure_class == "goal_drift")
+                    & (d.repair_state == "repaired")).sum())
+    raise KeyError(outcome)
+
+
+#: Regenerates the matched-population layer comparison.
+LAYER_CMD = "py -m derail.experiments.run_layer_alignment"
+
+
+def _layer(arm_prefix: str, column: str) -> float:
+    """One cell of the layer-alignment summary, by population arm.
+
+    The arm is the whole point: the behavioural and grounding studies cover
+    different corpora, so a content figure quoted without naming its population
+    cannot be compared with a behavioural one.
+    """
+    d = _table("layer_alignment_summary.csv")
+    row = d[d.arm.str.startswith(arm_prefix)]
+    return float(row[column].iloc[0])
+
+
+def _layer_n(arm_prefix: str) -> int:
+    return int(_layer(arm_prefix, "n"))
+
+
 def _judge(key: str) -> float:
     """A measured judge rate from the calibration summary sidecar."""
     path = TABLES / "judge_calibration_summary.json"
     return float(json.loads(path.read_text("utf-8"))[key])
+
+
+def _contract_denominator(label: str, column: str = "n") -> int:
+    """One row of the contract check's per-label denominators.
+
+    These are written by the sweep rather than printed, because the headline
+    the check carries is a false-POSITIVE rate and a rate whose denominator
+    lives only in a runner's stdout cannot be verified. "0 of 1,825 healthy"
+    was copied from one such run into five documents and stayed there while the
+    corpus grew to 2,080.
+    """
+    d = _table("tool_contract_denominators.csv")
+    return int(d.loc[d.label == label, column].iloc[0])
+
+
+def _recompute_check_healthy(fp: bool = False) -> int:
+    """Healthy episodes the RECOMPUTATION checks were evaluated on, pooled.
+
+    A different and much smaller population than the contract check's: these
+    checks need an answer to recompute, so they are scored on the organic demo
+    corpora only. Keeping the two denominators apart is the point -- one claim
+    covers 2,080 episodes and the other 177, and they are not the same layer.
+    """
+    arms = ("verification_cold.csv", "verification_holdout.csv",
+            "verification_organic_llama8b_cold.csv",
+            "verification_provoked.csv")
+    total = flagged = 0
+    for name in arms:
+        d = _table(name)
+        h = d[d.label == "healthy"]
+        total += len(h)
+        flagged += int((h.total_consistency.astype(bool)
+                        | h.required_coverage.astype(bool)).sum())
+    vs = _table("verification_vs_monitor.csv")
+    ext = vs[(vs.dataset == "organic_demo7b_ext") & (vs.label == "healthy")]
+    total += int(ext.n.iloc[0])
+    flagged += int(ext.with_coverage.iloc[0])
+    return flagged if fp else total
 
 
 def _contract_within_one_step() -> int:
@@ -482,15 +627,52 @@ def build() -> list[Claim]:
     """Every claim the README, DESIGN.md and both papers make in headline form."""
     return [
         # ---------------------------------------------------------- corpus
-        Claim("corpus.episodes", "Committed agent episodes", 2823,
+        # Current tree first, then the v1 snapshot the submitted paper
+        # describes. Both are checked, so neither can drift into the other:
+        # a doc describing the repository quotes the current figure, and a doc
+        # describing the v1 submission quotes the `*_v1` one.
+        Claim("corpus.episodes", "Committed agent episodes (current)", 3226,
               "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
               _episode_total, "Corpus"),
-        Claim("corpus.datasets", "Committed corpora", 25,
+        Claim("corpus.datasets", "Committed corpora (current)", 28,
               "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
               _corpus_count, "Corpus"),
-        Claim("corpus.real_tools", "Episodes using real tools", 770,
+        Claim("corpus.real_tools", "Episodes using real tools (current)", 1010,
               "traces/real*/manifest.json", "py -m devtools.claims_ledger --check",
               _real_tool_episodes, "Corpus"),
+        # The accounting that makes the totals above checkable against each
+        # other. The root corpus is committed but outside the `traces/*/` glob
+        # every published total uses, so it is claimed separately rather than
+        # folded in; the overlap and orphan rows are what stop two study
+        # populations being added together.
+        Claim("accounting.root_corpus",
+              "Committed episodes outside the traces/*/ glob every total uses",
+              187, "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
+              lambda: _accounting("root_corpus_episodes"), "Corpus"),
+        Claim("accounting.committed_all",
+              "Committed episodes of ours including the root corpus", 3413,
+              "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
+              lambda: _accounting("committed_episodes_all"), "Corpus"),
+        Claim("accounting.study_overlap",
+              "Episodes scored by both the behavioural and grounding studies",
+              602, "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
+              lambda: _accounting("scored by BOTH"), "Corpus"),
+        Claim("accounting.orphan_study_rows",
+              "Scored episodes with no committed episode behind them", 0,
+              "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
+              lambda: _accounting("study rows"), "Corpus"),
+        Claim("corpus.episodes_v1",
+              "Committed agent episodes as of arXiv v1 (commit 00c0673)", 2823,
+              "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
+              lambda: _episode_total(v1_only=True), "Corpus"),
+        Claim("corpus.datasets_v1",
+              "Committed corpora as of arXiv v1 (commit 00c0673)", 25,
+              "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
+              lambda: _corpus_count(v1_only=True), "Corpus"),
+        Claim("corpus.real_tools_v1",
+              "Episodes using real tools as of arXiv v1 (commit 00c0673)", 770,
+              "traces/real*/manifest.json", "py -m devtools.claims_ledger --check",
+              lambda: _real_tool_episodes(v1_only=True), "Corpus"),
 
         # ----------------------------------------------- behavioural monitor
         Claim("h1.detection", "esn_cusum_max detection (5 seeds)", 0.7065,
@@ -688,18 +870,78 @@ def build() -> list[Claim]:
                   "provide_inaccurate_misleading_or_unverified_information"),
               expected_denominator=26),
 
-        Claim("horizon.short", "ESN advantage at post-onset horizon <= 3 steps",
-              0.0865, "results/tables/hybrid_diagnosis.csv",
-              "py -m derail.experiments.run_hybrid_study",
-              lambda: _horizon_advantage(0, 3), "Monitor"),
-        Claim("horizon.mid", "ESN advantage at post-onset horizon 4-8 steps",
-              0.1353, "results/tables/hybrid_diagnosis.csv",
-              "py -m derail.experiments.run_hybrid_study",
-              lambda: _horizon_advantage(4, 8), "Monitor"),
-        Claim("horizon.long", "ESN advantage at post-onset horizon >= 9 steps",
-              0.4042, "results/tables/hybrid_diagnosis.csv",
-              "py -m derail.experiments.run_hybrid_study",
-              lambda: _horizon_advantage(9, 10**6), "Monitor"),
+        # Horizon law. The band figures are REAL-corpus only and the top band
+        # is reported with its denominator, because the quantity that used to
+        # be published for it pooled real and simulator episodes into one mean
+        # while the band itself was 97% simulator -- so the pooled number
+        # described the simulator and was read as describing deployments. The
+        # simulator's own value is kept as its own claim rather than deleted:
+        # it is a real measurement of a different population.
+        Claim("horizon.real_short",
+              "ESN advantage at post-onset horizon <= 3 steps, real corpora",
+              0.0166, "results/tables/horizon_pooled.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_band("real", "<=3"), "Monitor",
+              denominator=lambda: _horizon_band_n("real", "<=3"),
+              expected_denominator=1027),
+        Claim("horizon.real_mid",
+              "ESN advantage at post-onset horizon 4-8 steps, real corpora",
+              0.0815, "results/tables/horizon_pooled.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_band("real", "4-8"), "Monitor",
+              denominator=lambda: _horizon_band_n("real", "4-8"),
+              expected_denominator=626),
+        Claim("horizon.real_long",
+              "ESN advantage at post-onset horizon >= 9 steps, real corpora",
+              0.2500, "results/tables/horizon_pooled.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_band("real", ">=9"), "Monitor",
+              denominator=lambda: _horizon_band_n("real", ">=9"),
+              expected_denominator=112),
+        Claim("horizon.sim_long",
+              "ESN advantage at post-onset horizon >= 9 steps, simulator",
+              0.4043, "results/tables/horizon_pooled.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_band("sim", ">=9"), "Monitor",
+              denominator=lambda: _horizon_band_n("sim", ">=9"),
+              expected_denominator=371),
+        Claim("horizon.within_r",
+              "Horizon/advantage correlation within corpus, real corpora",
+              0.2020, "results/tables/horizon_within.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_within_r("dataset"), "Monitor"),
+        # The live serving path, scored under the offline protocol so the two
+        # are comparable. Both arms detect equally here; the difference is the
+        # false-alarm rate each needs to do it, which is why both are claimed.
+        Claim("live.esn_fa",
+              "Healthy false-alarm rate of the ESN on the live corpus, "
+              "5% budget", 0.0476, "results/tables/live_ext_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study "
+              "--datasets demo_real_varied_ext --out-prefix live_ext",
+              lambda: _live_ext("esn_cusum_max", "healthy_fa_rate"), "Monitor",
+              denominator=lambda: _live_ext_n(healthy_only=True),
+              expected_denominator=21, denominator_unit="healthy episodes"),
+        Claim("live.maha_fa",
+              "Healthy false-alarm rate of the memoryless baseline at the "
+              "same detection", 0.1905, "results/tables/live_ext_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study "
+              "--datasets demo_real_varied_ext --out-prefix live_ext",
+              lambda: _live_ext("delta_mahalanobis", "healthy_fa_rate"),
+              "Monitor", denominator=lambda: _live_ext_n(healthy_only=True),
+              expected_denominator=21, denominator_unit="healthy episodes"),
+        Claim("live.esn_auroc",
+              "Episode AUROC of the ESN on the live corpus", 0.9762,
+              "results/tables/live_ext_benchmark.csv",
+              "py -m derail.experiments.run_hybrid_study "
+              "--datasets demo_real_varied_ext --out-prefix live_ext",
+              lambda: _live_ext("esn_cusum_max", "auroc"), "Monitor",
+              denominator=_live_ext_n, expected_denominator=37,
+              denominator_unit="test episodes"),
+        Claim("horizon.within_class_r",
+              "Horizon/advantage correlation within corpus and failure class",
+              0.2261, "results/tables/horizon_within.csv",
+              "py -m derail.experiments.run_horizon_study",
+              lambda: _horizon_within_r("dataset x class"), "Monitor"),
 
         Claim("grounding.content_gain",
               "Content-gate detection gain on the content classes, worst seed",
@@ -772,6 +1014,23 @@ def build() -> list[Claim]:
               lambda: _verifier_healthy("flagged"), "Verification",
               denominator=lambda: _verifier_healthy("n"),
               expected_denominator=55),
+        # The two false-positive claims, each with the population it is about.
+        # They are different checks on different corpora and must never be
+        # quoted as one: the contract check sees every labelled corpus, the
+        # recomputation checks only the organic demo corpora, because they need
+        # an answer to recompute before they can say anything.
+        Claim("contract.healthy_fp",
+              "tool_contract false positives, every labelled corpus of ours", 0,
+              "results/tables/tool_contract_denominators.csv", CONTRACT_CMD,
+              lambda: _contract_denominator("healthy", "flagged"), "Verification",
+              denominator=lambda: _contract_denominator("healthy"),
+              expected_denominator=2080, denominator_unit="healthy episodes"),
+        Claim("verify.recompute_healthy_fp",
+              "Recomputation-check false positives, organic demo corpora", 0,
+              "results/tables/verification_*.csv", VS_CMD,
+              lambda: _recompute_check_healthy(fp=True), "Verification",
+              denominator=_recompute_check_healthy,
+              expected_denominator=177, denominator_unit="healthy episodes"),
         Claim("contract.flagged", "Episodes flagged by tool_contract", 218,
               "results/tables/tool_contract_coverage.csv",
               "py -m derail.verify.run_verification_study --contract-coverage",
@@ -842,6 +1101,38 @@ def build() -> list[Claim]:
               "py -m derail.experiments.demo --alarm-repair-matrix (live)",
               _every_alarm_attempted, "Repair"),
 
+        # How the live matrix actually ends. Registered because DESIGN.md was
+        # found quoting an earlier run of this table (18 alarms, goal_drift
+        # 2 of 5) against a committed one that says 21 and 4 -- prose
+        # reconstructing a table, drifting a cell at a time.
+        Claim("repair.live_alarms", "Behavioural alarms in the live matrix", 21,
+              "results/tables/alarm_repair.csv", ALARM_MATRIX_CMD,
+              lambda: _live_repair("alarms"), "Repair",
+              denominator=_live_repair_n, expected_denominator=25,
+              denominator_unit="live episodes"),
+        Claim("repair.live_halted",
+              "Live episodes ended without emitting an answer", 9,
+              "results/tables/alarm_repair.csv", ALARM_MATRIX_CMD,
+              lambda: _live_repair("halted"), "Repair",
+              denominator=_live_repair_n, expected_denominator=25,
+              denominator_unit="live episodes"),
+        Claim("repair.live_repaired_correct",
+              "Live episodes a retry turned into a correct answer", 3,
+              "results/tables/alarm_repair.csv", ALARM_MATRIX_CMD,
+              lambda: _live_repair("repaired_correct"), "Repair",
+              denominator=_live_repair_n, expected_denominator=25,
+              denominator_unit="live episodes"),
+        Claim("repair.live_answered_wrong",
+              "Live episodes that answered and were still wrong", 10,
+              "results/tables/alarm_repair.csv", ALARM_MATRIX_CMD,
+              lambda: _live_repair("answered_wrong"), "Repair",
+              denominator=_live_repair_n, expected_denominator=25,
+              denominator_unit="live episodes"),
+        Claim("repair.live_goal_drift_repaired",
+              "goal_drift episodes repaired in the live matrix", 4,
+              "results/tables/alarm_repair.csv", ALARM_MATRIX_CMD,
+              lambda: _live_repair("goal_drift_repaired"), "Repair"),
+
         # ---------------------------------------------------- table claims
         # Cells of tables that appear in the papers and DESIGN.md. Registered
         # after two of these tables were found stale: prose reconstructs a
@@ -851,6 +1142,40 @@ def build() -> list[Claim]:
         # its own CSV on every rung.
 
         # -- grounding detection table (main.tex, paper.md)
+        # The behavioural and grounding studies cover different corpora, so the
+        # content gain has to name its population. Both are claimed: the
+        # grounding study's own pooled figure, and the same quantity on the
+        # 602 episodes the behavioural study also scored, which is the only
+        # population on which the two layers can be compared.
+        Claim("layers.shared_n",
+              "Episodes both the behavioural and grounding studies scored", 602,
+              "results/tables/layer_alignment_summary.csv", LAYER_CMD,
+              lambda: _layer_n("shared"), "Monitor"),
+        Claim("layers.content_gain_shared",
+              "Content-gate gain on the matched population", 0.1706,
+              "results/tables/layer_alignment_summary.csv", LAYER_CMD,
+              lambda: _layer("shared", "content_gain"), "Monitor",
+              denominator=lambda: int(_layer("shared", "n_content")),
+              expected_denominator=211, denominator_unit="content episodes"),
+        Claim("layers.content_gain_own",
+              "Content-gate gain on the grounding study's own population",
+              0.2971, "results/tables/layer_alignment_summary.csv", LAYER_CMD,
+              lambda: _layer("own", "content_gain"), "Monitor",
+              denominator=lambda: int(_layer("own", "n_content")),
+              expected_denominator=313, denominator_unit="content episodes"),
+        Claim("layers.content_gain_outside",
+              "Content-gate gain on corpora only the grounding study scores",
+              0.5588, "results/tables/layer_alignment_summary.csv", LAYER_CMD,
+              lambda: _layer("outside", "content_gain"), "Monitor",
+              denominator=lambda: int(_layer("outside", "n_content")),
+              expected_denominator=102, denominator_unit="content episodes"),
+        Claim("layers.behavioural_delta_shared",
+              "Behavioural detection change under the gate, matched population",
+              0.0716, "results/tables/layer_alignment_summary.csv", LAYER_CMD,
+              lambda: _layer("shared", "behavioural_delta"), "Monitor",
+              denominator=lambda: int(_layer("shared", "n_behavioural")),
+              expected_denominator=391, denominator_unit="behavioural episodes"),
+
         Claim("grounding.pooled_n", "Pooled injected episodes in the grounding table",
               874, GROUNDING_SRC, GROUNDING_CMD,
               lambda: _grounding_n(True) + _grounding_n(False), "Monitor"),

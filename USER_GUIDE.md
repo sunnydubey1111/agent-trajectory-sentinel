@@ -102,7 +102,7 @@ This one is different, and the difference is the lesson.
 
 **What to take away.** Two independent detectors, and the cheaper deterministic
 one wins here. Across every labelled corpus the contract check flags **0 of
-1825** healthy episodes and catches 46% of injected corruption, 215 of 218 of
+2080** healthy episodes and catches 46% of injected corruption, 215 of 218 of
 them within one step of onset. If the chart does not cross the line, the demo
 has not failed — the right layer caught it.
 

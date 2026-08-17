@@ -1,0 +1,4 @@
+dataset,monitor,healthy_len_score_spearman,raw_auroc,length_matched_auroc,n_healthy,n_injected,n_matched
+real_research7b_long_drift,esn_cusum_max,0.400378608698105,0.5371527777777778,0.5784499054820416,24,120,46
+real_research7b_long_drift,delta_mahalanobis,0.47000967108038416,0.7201388888888889,0.7391304347826086,24,120,46
+real_research7b_long_drift,hybrid_logistic,0.4526019054848143,0.7090277777777777,0.722117202268431,24,120,46

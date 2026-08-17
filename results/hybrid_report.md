@@ -24,13 +24,19 @@ over all 1,002 injected episodes across the eight benchmark datasets
 | 4–8 steps | 170 | 0.72 | 0.58 | **+0.14** |
 | ≥ 9 steps | 381 | 0.78 | 0.38 | **+0.40** |
 
-corr(horizon, ESN advantage) = **+0.25**. The monotone trend is the finding;
-the sign of the shortest band is not load-bearing and is sensitive to the
-scope and to the degenerate-scale correction (DESIGN.md Amendment 6), which
-moved the Mahalanobis stream. Averaged over episodes the
-ESN does not lose any band — Mahalanobis wins at the *dataset* level, on the
-corpora composed almost entirely of short-horizon episodes. The ESN's CUSUM
-accumulates
+corr(horizon, ESN advantage) = **+0.25** over these pooled episodes.
+
+> **Superseded as evidence for the horizon law; see `results/horizon_report.md`.**
+> This scope's ≥9 band is 97.4% simulator episodes and holds 10 real ones, so
+> band and corpus are nearly the same variable here: controlling for corpus on
+> these same 1,002 episodes drops the correlation from +0.25 to **+0.03**, and
+> the +0.40 above is the simulator's value. Re-estimated over every real corpus
+> (1,765 episodes, 12 corpora, 112 real episodes at ≥9) the law holds at
+> +0.017 / +0.082 / +0.250 with r = +0.202 controlling for corpus. The table
+> above stays because it is what this study's scope computes; it is not the
+> number to quote for the law.
+
+The ESN's CUSUM accumulates
 evidence over steps; with ≤3 post-fault steps there is nothing to
 accumulate, while the memoryless Mahalanobis distance fires on the first
 anomalous step or never. real_research7b episodes are T≈5–6 with τ=2 —
@@ -647,8 +653,8 @@ gate scores exactly what the ESN scores on research7b, and the best
 detector there is the memoryless distance at 0.27.
 `grounding_t6_per_class.csv` and `grounding_per_class.csv` agree with each
 other at 0.045, and agree with the powered drift study (`real_research7b_long_drift`, 120 healthy / 120 injected),
-where the shipped ESN reaches detection 0.054 on real goal drift with
-9–11 post-onset steps. Read the two together: **goal drift is not
+where the shipped ESN reaches detection 0.054 on real goal drift at a median
+post-onset horizon of 8 steps. Read the two together: **goal drift is not
 detected by anything in this stack**, and the corpora agree on that.
 
 **(c) Cross-model transfer: calibration is per-model.**
@@ -685,8 +691,9 @@ Against the regenerated tables, half of that verdict does not hold.
   indistinguishable from healthy variation within episode length.
 
 The two therefore no longer split into "solved" and "hard". The powered
-study on `real_research7b_long_drift` (120 healthy / 120 injected, 9–11
-post-onset steps) puts the shipped ESN at detection **0.054** with AUROC
+study on `real_research7b_long_drift` (120 healthy / 120 injected, median
+post-onset horizon 8, range 1–10) puts the shipped ESN at detection **0.054**
+with AUROC
 0.617, and a purpose-built conceptor arm scoring state geometry rather
 than prediction error came in reliably *worse* (pooled paired dAUC −0.051,
 CI [−0.088, −0.014]). Runway is not the binding constraint and neither is

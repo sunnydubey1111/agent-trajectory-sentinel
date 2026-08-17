@@ -222,6 +222,18 @@ def contract_coverage() -> None:
     This scores every labelled corpus at once — the injected classes it is not
     aimed at are the control, and they should stay near zero as firmly as the
     healthy runs do.
+
+    Two scope rules, both load-bearing for the false-positive claim:
+
+    * Corpora whose directory starts with `_` are skipped. Those are imported
+      from other projects, so counting their episodes would restate someone
+      else's runs as evidence about this check.
+    * The per-label DENOMINATORS are written to
+      `tool_contract_denominators.csv`, not just printed. The headline here is
+      a false-positive rate, and a rate whose denominator exists only in a
+      runner's stdout cannot be checked: the published "0 of 1,825 healthy"
+      was copied from one such run and stayed in five documents while the
+      corpus grew underneath it.
     """
     from derail.verify.checks import tool_contract
 
@@ -230,6 +242,8 @@ def contract_coverage() -> None:
     for directory in sorted((ROOT / "traces").iterdir()):
         manifest = directory / "manifest.json"
         if not directory.is_dir() or not manifest.exists():
+            continue
+        if directory.name.startswith("_"):
             continue
         for entry in json.loads(manifest.read_text("utf-8")):
             path = directory / entry.get("file", f"{entry['episode_id']}.jsonl")
@@ -250,6 +264,10 @@ def contract_coverage() -> None:
     TABLES.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(TABLES / "tool_contract_coverage.csv",
                               index=False)
+    pd.DataFrame([{"label": label, "flagged": int(sum(v)), "n": len(v),
+                   "rate": round(sum(v) / len(v), 4)}
+                  for label, v in sorted(per_label.items())]
+                 ).to_csv(TABLES / "tool_contract_denominators.csv", index=False)
 
     print("\n[contract] episodes with a tool-boundary contract violation\n")
     print(f"{'label':<22}{'flagged':>9}{'n':>8}{'rate':>8}")

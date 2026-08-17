@@ -10,13 +10,23 @@ negative, that is stated rather than omitted.
 
 ## 1. Laws and mechanisms
 
-**The horizon law.** The temporal monitor's advantage over a memoryless
-baseline is governed by post-onset runway, not by detector identity. Over 1,002
-injected episodes the ESN-minus-Mahalanobis detection gap runs **+0.087** at
-horizon ≤3 steps, **+0.135** at 4–8 and **+0.404** at ≥9, with
-r = **+0.251** (p = 7.3e-16). This is a quantitative, falsifiable law, and it
-was stated before the corpus that tested it existed.
-→ `results/tables/hybrid_diagnosis.csv`
+**The horizon law.** Within a deployment, the temporal monitor's advantage over
+a memoryless baseline grows with post-onset runway. Over **1,765 real injected
+episodes from 12 corpora** the ESN-minus-Mahalanobis detection gap runs
+**+0.017** at horizon ≤3 steps, **+0.082** at 4–8 and **+0.250** at ≥9, and the
+horizon/advantage correlation is r = **+0.202** controlling for corpus and
+**+0.226** controlling for corpus and failure class (p < 1e-4, horizon shuffled
+inside each corpus). Leave-one-corpus-out moves it between +0.176 and +0.221.
+The law was stated before the corpus that tested it existed.
+→ `results/horizon_report.md`, `results/tables/horizon_*.csv`
+
+**What the law does not claim.** It governs the *slope*, not the *level*. The
+sign of the advantage is deployment-specific: `langgraph7b` is negative in
+every band, `ollama7b` runs backwards. The slope is positive in 8 of 9 corpora
+for the ≤3→4–8 step, but with 3–9 corpora the deployment-level effect is not
+statistically resolvable (p = 0.14 to 0.50) — a statement about how many
+deployments exist, not evidence against the law.
+→ `results/tables/horizon_by_dataset.csv`, `horizon_contrasts.csv`
 
 **It predicted its own failure region out of sample.** On AFTraj-2K, a corpus
 built by another group, detection is **0.509** on failures with ≥9 steps of
@@ -28,7 +38,10 @@ someone else's data, is stronger evidence than a higher pooled number.
 
 **The mechanism resolves an apparent contradiction.** Mahalanobis wins outright
 on almost-entirely-short-horizon corpora (`real_research7b` 0.848 against
-0.777) while the ESN never loses a *band*. One variable explains both facts.
+0.777), and pooled across corpora the ESN's band means stay positive. Horizon
+explains both facts without needing the ESN to win everywhere — and it does
+not win everywhere, which is why the per-corpus table is published beside the
+pooled one.
 
 **Complementarity, exactly counted.** Of 1,002 injected episodes: **372**
 caught by both parents, **273** by the ESN alone, **57** by Mahalanobis alone,
@@ -97,11 +110,23 @@ the *rate* of change: abrupt goal changes are caught at 0.66–0.86.
 
 ## 3. Deterministic verification
 
-**Precision by construction.** On the same episodes and the same objective
-labels, the checks catch 60% of failures at **0 of 63 false positives** against
-the monitor's 54% at **11 of 63 (17%)**; at temperature 0.9, **0 of 38**
-against 6 of 38.
+**Precision by construction, on one shared healthy population.** On the same
+episodes and the same objective labels, the checks catch 60% of failures at
+**0 of 63 false positives** against the monitor's 54% at **11 of 63 (17%)**.
+The `tool_contract` check scores **0 of those same 63** too, so all three
+layers are comparable here without changing population. At temperature 0.9 —
+a *different* corpus, `organic_demo7b_ext` — it is **0 of 38** against 6 of 38.
+The 63 and the 38 are different healthy arms and are never summed.
 → `results/tables/verification_vs_monitor.csv`
+
+**False-positive denominators, kept apart.** Three zeros are reported and they
+are not one result: the recomputation checks see **0 of 177 healthy** across
+the five organic demo corpora where an answer exists to recompute; the contract
+check sees **0 of 2,080** across every labelled corpus of ours, because it needs
+no answer; and the head-to-head above is **0 of 63** on one corpus. The largest
+denominator belongs to the check with the narrowest job, so quoting it for the
+other layer overstates that layer's evidence roughly twelvefold.
+→ `results/tables/tool_contract_denominators.csv`
 
 **Calibration-free verification transfers where the monitor cannot.** A
 llama3.1:8b arm on the same task seeds, nothing retuned: **110 of 110**
@@ -115,7 +140,7 @@ checks carry no calibration, so they have nothing to transfer.
 → `results/tables/verification_holdout.csv`
 
 **Contract violations are detected at the step the result arrives.** Across
-every labelled corpus `tool_contract` trips on **0 of 1,825 healthy** episodes,
+every labelled corpus of ours `tool_contract` trips on **0 of 2,080 healthy** episodes,
 and of 218 flagged episodes **215 fire within one step of onset** — 198 at the
 onset step itself, 17 one step later.
 → `results/tables/tool_contract_coverage.csv`
@@ -183,6 +208,20 @@ at the *worst* seed rather than the mean: content **+0.307**, behavioural
 0.746→0.791. That `hybrid_logistic_g` *degrades* behaviour (−0.033) is the
 evidence that the gating, not the extra signal, does the work.
 → `results/tables/grounding_multiseed_criterion.csv`
+
+**The content gain is population-dependent, and the figure to compare against
+the behavioural layer is the matched one.** The grounding study covers 874
+episodes over 10 corpora; the behavioural study covers 1,002 over 8, of which
+400 are simulator. They share **602 episodes over 7 corpora**, and on that
+matched population the content gain is **+0.171**, against **+0.297** on the
+grounding study's full population and **+0.559** on the three corpora only it
+covers. The behavioural half moves the other way — **+0.072** matched against
++0.054 pooled — so the no-degradation result is stronger where the layers are
+comparable. The gain requires two corpus properties, both measured: the
+grounding stream must see the corruption (gain tracks it at r = +0.71; the four
+corpora where that stream detects nothing average +0.008) and the behavioural
+monitor must leave headroom (r = +0.50).
+→ `results/layer_alignment_report.md`, `results/tables/layer_alignment_*.csv`
 
 **The fusion-ordering result.** Under a single shared threshold, one
 heavy-tailed healthy episode destroyed **16 of 17** grounding-only detections
@@ -260,7 +299,7 @@ argument for why AUROC alone is insufficient for a verifier permitted to halt.
 
 ## 8. The artifact
 
-- **2,823 episodes across 25 corpora**, 770 using real tools, four agent models
+- **3,226 episodes across 28 corpora**, 1,010 using real tools, four agent models
   and three frameworks — public, loadable, and checksummed.
 - **A self-checking claim ledger**: every headline number carries its source
   artifact and regeneration command, and is recomputed from that file on every

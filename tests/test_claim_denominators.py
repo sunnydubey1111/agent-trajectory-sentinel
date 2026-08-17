@@ -16,6 +16,8 @@ import re
 
 from devtools import claims_ledger
 
+TABLES = pathlib.Path(__file__).resolve().parents[1] / "results" / "tables"
+
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 #: Words that mark a claim as a rate rather than a count or a duration.
@@ -83,3 +85,170 @@ def test_the_ledger_publishes_the_denominator() -> None:
     """A reader of CLAIMS.md should see n beside the value."""
     ledger = (REPO_ROOT / "CLAIMS.md").read_text("utf-8")
     assert "| claim | value | n | source artifact" in ledger
+
+
+# ------------------------------------------- v1 snapshot vs the current tree
+def test_the_ledger_reports_both_the_current_corpus_and_the_v1_snapshot():
+    """A published figure and a growing repository are two different numbers.
+
+    The arXiv v1 submission describes the tree at one commit and must keep
+    saying what it said; the repository keeps collecting. Holding the working
+    tree back to v1's counts would misdescribe the current evidence base, and
+    letting v1's figure follow the tree would rewrite the submitted paper. The
+    ledger therefore carries both, and this pins that they stay distinct.
+    """
+    from devtools import claims_ledger as cl
+
+    by_id = {c.id: c for c in cl.build()}
+    for base in ("episodes", "datasets", "real_tools"):
+        cur, v1 = by_id[f"corpus.{base}"], by_id[f"corpus.{base}_v1"]
+        assert cur.compute() >= v1.compute(), (
+            f"corpus.{base}: the current tree cannot hold fewer than v1 did")
+        assert "v1" in v1.claim and "current" in cur.claim, (
+            "each claim must say which of the two it is")
+
+    # v1 is reconstructed by dropping the corpora collected since. If that set
+    # is wrong the v1 figure moves, and these claims are what catches it.
+    assert cl.ADDED_AFTER_V1, "the set naming post-v1 corpora is empty"
+    names = {m.parent.name for m in cl._our_manifests()}
+    assert cl.ADDED_AFTER_V1 <= names, (
+        f"names a corpus that does not exist: {cl.ADDED_AFTER_V1 - names}")
+    assert by_id["corpus.episodes"].compute() > by_id["corpus.episodes_v1"].compute(), (
+        "corpora have been added since v1, so the two counts must differ")
+
+
+# --------------------------------------- false-positive scope must be explicit
+def test_every_false_positive_claim_carries_its_denominator():
+    """A zero is meaningless without the population it is zero over.
+
+    "0 false positives" was quoted for the recomputation checks with the
+    contract check's 1,825-episode denominator, which is a different check on a
+    different and roughly twelve-times-larger population. Any claim whose value
+    is a false-positive COUNT must therefore state what it counted over.
+    """
+    from devtools import claims_ledger as cl
+
+    fp_ids = {"contract.healthy_fp", "verify.recompute_healthy_fp",
+              "verify.monitor_fp_served"}
+    by_id = {c.id: c for c in cl.build()}
+    missing = sorted(i for i in fp_ids if i not in by_id)
+    assert not missing, f"false-positive claims disappeared: {missing}"
+    for i in sorted(fp_ids):
+        c = by_id[i]
+        assert c.denominator is not None, f"{i}: no denominator"
+        assert c.denominator_unit == "healthy episodes", (
+            f"{i}: a false-positive rate is over healthy episodes, not "
+            f"{c.denominator_unit!r}")
+
+
+def test_the_two_zero_fp_populations_are_not_interchangeable():
+    """The contract check and the recomputation checks do not share a scope.
+
+    The contract check reads tool results, so it runs on every labelled corpus.
+    The recomputation checks need an answer to recompute, so they run only on
+    the organic demo corpora. Pinning the gap means a future edit that quotes
+    one denominator for the other layer fails here.
+    """
+    from devtools import claims_ledger as cl
+
+    by_id = {c.id: c for c in cl.build()}
+    contract = by_id["contract.healthy_fp"].denominator()
+    recompute = by_id["verify.recompute_healthy_fp"].denominator()
+    assert contract > recompute * 5, (
+        "the contract check's population should dwarf the recomputation "
+        f"checks' ({contract} vs {recompute}); if they have converged, the "
+        "scopes changed and the prose separating them needs rechecking")
+    assert by_id["contract.healthy_fp"].compute() == 0
+    assert by_id["verify.recompute_healthy_fp"].compute() == 0
+
+
+def test_the_contract_denominators_are_persisted_not_printed():
+    """The sweep must write its denominators, not only print them.
+
+    "0 of 1,825 healthy" survived in five documents while the corpus grew to
+    2,080 precisely because the denominator was never written to an artifact
+    the ledger could recompute.
+    """
+    import inspect
+
+    import pandas as pd
+
+    from derail.verify import run_verification_study as rvs
+
+    src = inspect.getsource(rvs.contract_coverage)
+    assert "tool_contract_denominators.csv" in src, \
+        "the sweep no longer persists its denominators"
+    assert 'startswith("_")' in src, \
+        "imported corpora must stay out of a false-positive denominator of ours"
+    d = pd.read_csv(TABLES / "tool_contract_denominators.csv")
+    assert {"label", "flagged", "n", "rate"} <= set(d.columns)
+    assert int(d.loc[d.label == "healthy", "flagged"].iloc[0]) == 0
+
+
+# ------------------------------------------------ one canonical accounting
+def test_every_quoted_episode_total_is_reconstructible():
+    """No total may exist that the canonical accounting cannot derive.
+
+    The A13 defect was arithmetic ACROSS incommensurable totals: 1,825 healthy
+    plus a 1,002-episode study population lands at 2,827, four from the 2,823
+    corpus total, which reads like a rounding slip and is a coincidence between
+    a label count, a study population containing 400 generated episodes, and a
+    corpus total. Every figure below is derived from manifests, so the ones
+    that do add up can be checked and the one that does not is documented.
+    """
+    from devtools.episode_accounting import build
+
+    _, t, studies, ids = build()
+    for r in ids:
+        if r["is_identity"]:
+            assert r["holds"], f"identity broke: {r['identity']} " \
+                               f"({r['lhs']} != {r['rhs']})"
+        else:
+            assert not r["holds"], (
+                f"{r['identity']} started balancing at {r['lhs']}; it is "
+                "documented as a coincidence, so if it now holds the "
+                "accounting changed and the explanation needs rewriting")
+    assert t["owned_healthy"] + t["owned_injected"] == t["owned_episodes"]
+    assert t["v1_episodes"] + t["added_after_v1_episodes"] == t["owned_episodes"]
+    hybrid = next(s for s in studies if s["study"].startswith("behavioural"))
+    assert hybrid["generated_episodes"] > 0, (
+        "the behavioural study contains simulator episodes that are not "
+        "committed traces; if that stops being true the summing caveat changes")
+
+
+def test_study_populations_are_never_summed_into_a_corpus_total():
+    """Adding two study populations double-counts, and the overlap says so."""
+    from devtools.episode_accounting import coverage_rows
+
+    rows = {r["quantity"]: r["n"] for r in coverage_rows()}
+    both = rows["scored by BOTH"]
+    union = rows["union of the two studies"]
+    behav = rows["scored by the behavioural study (real half)"]
+    ground = rows["scored by the grounding study"]
+    assert both > 0, "if the studies stopped overlapping, summing would be safe"
+    assert union == behav + ground - both, "inclusion-exclusion must hold"
+    assert union < behav + ground, "summing the two populations double-counts"
+    assert rows["study rows with no committed episode behind them"] == 0, (
+        "a scored episode with no manifest entry means the study population "
+        "and the corpus have diverged")
+
+
+def test_the_ledger_totals_come_from_the_accounting_not_a_second_derivation():
+    """Two derivations of one number drift. The ledger must use this one."""
+    import inspect
+
+    from devtools import claims_ledger as cl
+
+    src = inspect.getsource(cl)
+    assert "episode_accounting" in src, \
+        "the ledger no longer reads the canonical accounting"
+    by_id = {c.id: c for c in cl.build()}
+    for i in ("accounting.root_corpus", "accounting.committed_all",
+              "accounting.study_overlap", "accounting.orphan_study_rows"):
+        assert i in by_id, f"{i} disappeared from the ledger"
+    assert by_id["accounting.orphan_study_rows"].compute() == 0
+    # The root corpus is real, committed, and outside every published total.
+    assert by_id["accounting.root_corpus"].compute() > 0
+    assert (by_id["accounting.committed_all"].compute()
+            == by_id["corpus.episodes"].compute()
+            + by_id["accounting.root_corpus"].compute())

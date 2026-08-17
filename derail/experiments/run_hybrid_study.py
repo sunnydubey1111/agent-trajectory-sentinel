@@ -95,6 +95,24 @@ REAL_DATASETS: dict[str, Path] = {
     # table was computed from. Unlike that pre-v5 corpus, every episode here
     # carries the v5 provenance fingerprint and trace checksum.
     "real_research7b_long_ext": TRACES_DIR / "real_research7b_long_ext",
+    # 120 healthy / 120 real goal_drift on the long research task, collected
+    # for the conceptor study. It is the largest real corpus reaching the
+    # horizons the horizon law is about, so the horizon study scores it; it is
+    # one failure class only, which is why that study reports it per class
+    # rather than folding it into a cross-class mean.
+    "real_research7b_long_drift": TRACES_DIR / "real_research7b_long_drift",
+    # The corpus the live serving path actually runs on (demo_real), with the
+    # injected episodes collected through that same path. Scoring it under
+    # this protocol is what puts a standalone memoryless arm next to the ESN
+    # on the deployment, so the horizon law can be checked against the system
+    # it is supposed to describe rather than only against offline corpora.
+    "demo_real_varied": TRACES_DIR / "demo_real_varied",
+    # ADDITIVE sibling of demo_real_varied, same collector and serving path.
+    # The frozen one has 33 healthy episodes, which leaves 7 in the validation
+    # split and floors the achievable false-alarm budget at 12.5% - so the live
+    # arm could not be scored at the 5% budget every other corpus uses. This
+    # one is sized for that budget; the frozen corpus keeps its numbers.
+    "demo_real_varied_ext": TRACES_DIR / "demo_real_varied_ext",
     # External validation: AFTraj-2K (arXiv:2605.08715), imported by
     # derail.experiments.import_aftraj. Not one of ours and not committed -
     # run the importer first or this dataset is simply absent. Deliberately

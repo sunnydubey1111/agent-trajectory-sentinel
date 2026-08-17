@@ -41,8 +41,10 @@ def test_serving_paths_cannot_write_into_the_committed_corpus():
     src = inspect.getsource(demo_real)
     assert "_cassette(serving=True)" in src, \
         "the demo_real serving path no longer marks its cassette as serving"
-    assert "cassette=_cassette()" in src, \
+    assert "cassette=_cassette(corpus=target)" in src, \
         "the collector should keep writing its recordings into the dataset"
+    assert "serving" not in inspect.getsource(demo_real.collect_healthy), \
+        "the collector must not redirect its recordings away from the dataset"
     assert "serving=True" in inspect.getsource(agent_loop._run_live)
 
 

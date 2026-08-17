@@ -7,13 +7,19 @@ about the CORPUS and not the method: across every committed corpus, only
 **three** real `goal_drift` episodes have the >= 9 post-onset steps that the
 horizon law identifies as where temporal detection pays, and all three sit in
 `real_research3b` (5 goal_drift episodes total). The long-form corpora
-(`real_research7b_long`, `..._long_ext`) reach horizons of 8-20 steps but
+(`real_research7b_long`, `..._long_ext`) reach further than the short ones but
 their class list omits `goal_drift` entirely.
 
 This collector closes exactly that gap: the SAME long-form 10-tool-call task,
 model, tool suite, tau and max_steps as `collect_research7b_long`, with
-`classes=("goal_drift",)`. Post-onset horizons land in the same 8-20 range,
-so a drift has room to accumulate before the episode ends.
+`classes=("goal_drift",)`.
+
+What it actually yielded, measured on the collected manifest with the
+definition the studies use (`H = T - 1 - tau`): median 8, range 1-10, with
+**19 of 120** injected episodes reaching `H >= 9`. That is one step short of
+the band this collection was aimed at, and it is a property of the task -
+`real_research7b_long` and `..._long_ext` also sit at median 8. Read a `>= 9`
+figure from any of the three as resting on tens of episodes, not hundreds.
 
 It writes a SEPARATE corpus, `traces/real_research7b_long_drift`, rather than
 extending `real_research7b_long`. That corpus feeds published hybrid-study

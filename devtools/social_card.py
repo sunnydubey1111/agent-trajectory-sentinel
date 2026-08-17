@@ -54,12 +54,12 @@ FOOTER = "arXiv:2608.02464     Apache-2.0 licence     Python 3.13+"
 #: (figure, caption). Each figure is asserted to still appear in the README.
 STATS = (
     ("52% → 73%", "task success, with rollback-and-retry"),
-    ("0", "false positives across 1,825 healthy episodes"),
-    ("2,823", "committed agent episodes, 25 corpora"),
+    ("0", "contract-check false positives, 2,080 healthy episodes"),
+    ("3,226", "committed agent episodes, 28 corpora"),
 )
 
 #: Substrings of the figures above that must survive in the README verbatim.
-STAT_ASSERTIONS = ("52%", "73%", "1,825", "2,823")
+STAT_ASSERTIONS = ("52%", "73%", "2,080", "3,226")
 
 _FONTS = {
     "bold": ("arialbd.ttf", "DejaVuSans-Bold.ttf", "LiberationSans-Bold.ttf"),

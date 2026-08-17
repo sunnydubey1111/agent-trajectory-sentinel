@@ -1,0 +1,7 @@
+dataset,monitor,auroc,auprc,detection_rate,healthy_fa_rate,early_alarm_rate,mean_lead_all,median_delay,fit_seconds,step_latency_us,footprint_mb
+real_research7b_long_drift,esn_cusum_max,0.5371527777777778,0.8106726384839662,0.0,0.041666666666666664,0.0,0.0,,0.771,320.4,5.14
+real_research7b_long_drift,delta_mahalanobis,0.7201388888888889,0.8574902757334777,0.0,0.041666666666666664,0.0,0.0,,0.012,5.6,0.09
+real_research7b_long_drift,hybrid_weighted50,0.5871527777777779,0.8248789302530066,0.0,0.041666666666666664,0.0,0.0,,0.977,332.3,5.23
+real_research7b_long_drift,hybrid_max,0.5378472222222223,0.8107824338122939,0.0,0.041666666666666664,0.0,0.0,,1.009,334.0,5.23
+real_research7b_long_drift,hybrid_gated,0.5878472222222222,0.8371783122241618,0.0,0.041666666666666664,0.0,0.0,,1.011,243.8,5.23
+real_research7b_long_drift,hybrid_logistic,0.7090277777777777,0.8585157915588585,0.0,0.041666666666666664,0.0,0.0,,0.972,,5.23

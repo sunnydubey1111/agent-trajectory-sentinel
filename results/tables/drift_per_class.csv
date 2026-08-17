@@ -1,0 +1,7 @@
+dataset,monitor,failure_class,detection_rate,median_delay,mean_lead_all
+real_research7b_long_drift,esn_cusum_max,goal_drift,0.0,,0.0
+real_research7b_long_drift,delta_mahalanobis,goal_drift,0.0,,0.0
+real_research7b_long_drift,hybrid_weighted50,goal_drift,0.0,,0.0
+real_research7b_long_drift,hybrid_max,goal_drift,0.0,,0.0
+real_research7b_long_drift,hybrid_gated,goal_drift,0.0,,0.0
+real_research7b_long_drift,hybrid_logistic,goal_drift,0.0,,0.0

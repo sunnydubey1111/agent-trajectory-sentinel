@@ -121,3 +121,62 @@ def test_the_verification_arms_are_distinguishable():
     for a, b in itertools.combinations(names, 2):
         assert not keys[a] & keys[b], (
             f"{a} and {b} still share {len(keys[a] & keys[b])} keys")
+
+
+# ------------------------------------- the two layers must share a population
+def test_the_two_layer_studies_agree_on_every_episode_they_both_score():
+    """A shared population is only shared if both studies say the same thing.
+
+    The behavioural and grounding studies are separate scoring runs over
+    overlapping corpora. If they disagreed about an episode they both scored,
+    the intersection would not be a matched population and every cross-layer
+    comparison built on it would be comparing two answers to one question.
+    """
+    from derail.experiments.run_layer_alignment import load_aligned
+
+    g, shared = load_aligned()          # raises on any disagreement
+    assert shared, "the two studies no longer overlap at all"
+    assert len(shared) >= 7, f"shared corpora shrank to {sorted(shared)}"
+
+
+def test_a_cross_layer_content_claim_names_its_population():
+    """The content gain differs by population, so a bare figure is ambiguous.
+
+    Measured: +0.17 on the episodes both studies cover and +0.56 on the corpora
+    only the grounding study covers. A claim quoting one number without saying
+    which population it came from invites exactly the comparison this test
+    exists to prevent, so every `layers.*` gain claim must carry a denominator
+    and the three arms must stay distinguishable.
+    """
+    from devtools import claims_ledger as cl
+
+    gains = {c.id: c for c in cl.build() if c.id.startswith("layers.content_gain")}
+    assert len(gains) == 3, f"expected own/shared/outside, got {sorted(gains)}"
+    for c in gains.values():
+        assert c.denominator is not None and c.denominator_unit.endswith("episodes"), (
+            f"{c.id}: a content gain without its denominator cannot be checked")
+    shared = gains["layers.content_gain_shared"].compute()
+    outside = gains["layers.content_gain_outside"].compute()
+    own = gains["layers.content_gain_own"].compute()
+    assert shared < own < outside, (
+        "the pooled figure must sit between the matched and unmatched arms; if "
+        "it no longer does, the composition effect has changed and the prose "
+        "quoting these numbers needs rechecking")
+
+
+def test_the_behavioural_study_population_is_not_quoted_as_the_grounding_one():
+    """1,002 and 874 are different populations and neither is the other.
+
+    The behavioural table carries the simulator and the grounding table does
+    not; the grounding table carries three real corpora the behavioural one
+    never scored. Pinning both totals and their intersection means a future
+    regeneration that quietly merges them fails here rather than in prose.
+    """
+    import pandas as pd
+
+    h = pd.read_csv(TABLES / "hybrid_diagnosis.csv")
+    g = pd.read_csv(TABLES / "grounding_diagnosis.csv")
+    assert "sim" in set(h.dataset) and "sim" not in set(g.dataset)
+    assert len(h) == 1002 and len(g) == 874
+    both = set(zip(h.dataset, h.episode_id)) & set(zip(g.dataset, g.episode_id))
+    assert len(both) == 602, f"intersection moved to {len(both)}"

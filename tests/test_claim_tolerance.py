@@ -34,20 +34,58 @@ def test_a_near_zero_claim_keeps_a_usable_floor():
     assert cl.tolerance_for(1e-6) == cl.ABS_TOL_FLOOR
 
 
-def test_no_claim_gets_a_window_wider_than_two_percent_of_itself():
-    """The defect this file exists for: an absolute window is a different
-    fraction of every claim, and on the smallest ones it was 13%."""
+#: The widest window any claim may carry, as one expression rather than a rule
+#: plus exceptions: 2% of the claim, or the fixed absolute floor, whichever is
+#: larger. Both halves are needed and neither is a carve-out. A pure relative
+#: bound sends the window to zero as the claim does, so a near-zero claim would
+#: be held to recomputation noise; a pure absolute bound is the original defect,
+#: where 5e-3 was 13% of a 0.0385 rate. The floor is a fixed, small, declared
+#: quantity, so a claim it covers has a TIGHT window in absolute terms even
+#: when that window is a large fraction of a near-zero value.
+def _widest_allowed(expected: float) -> float:
+    return max(0.02 * abs(float(expected)), cl.ABS_TOL_FLOOR)
+
+
+def test_no_claim_gets_a_window_wider_than_the_policy_allows():
+    """No claim may carry a window wider than `_widest_allowed` of itself."""
     wide = []
     for c in _numeric_claims():
-        exp = float(c.expected)
-        if exp == 0 or isinstance(c.expected, int):
+        if c.expected == 0 or isinstance(c.expected, int):
             continue
-        frac = cl.tolerance_for(c.expected) / abs(exp)
-        if frac > 0.02:
-            wide.append((c.id, exp, frac))
+        window = cl.tolerance_for(c.expected)
+        if window > _widest_allowed(c.expected):
+            wide.append((c.id, float(c.expected), window))
     assert not wide, (
-        "claims whose acceptance window exceeds 2% of their own value:\n"
-        + "\n".join(f"  {i}: {e:g} -> {f:.2%}" for i, e, f in wide))
+        "claims whose acceptance window exceeds max(2% of value, floor):\n"
+        + "\n".join(f"  {i}: {e:g} -> window {w:g}" for i, e, w in wide))
+
+
+def test_the_tolerance_function_has_the_shape_the_policy_describes():
+    """Pin `tolerance_for` itself, since the claim-level bound cannot.
+
+    With REL_TOL below 2% the bound above passes for every possible claim, so
+    on its own it would guard nothing about the current constants -- it only
+    catches REL_TOL being loosened past 2% later. The real protection is the
+    shape of the function: relative above the knee, a fixed floor below it,
+    never decreasing, and a knee where the two rules meet. The original defect
+    was a function with no relative half at all.
+    """
+    knee = cl.ABS_TOL_FLOOR / cl.REL_TOL          # where floor and relative meet
+    assert cl.tolerance_for(knee * 10) == pytest.approx(cl.REL_TOL * knee * 10)
+    assert cl.tolerance_for(knee / 10) == cl.ABS_TOL_FLOOR
+    assert cl.tolerance_for(knee) == pytest.approx(cl.ABS_TOL_FLOOR)
+
+    # Monotone non-decreasing: a bigger claim never gets a tighter window.
+    xs = [1e-6, 1e-4, 1e-3, 0.01, 0.05, 0.1, 0.5, 1.0, 100.0, 1045.0]
+    tols = [cl.tolerance_for(x) for x in xs]
+    assert tols == sorted(tols)
+
+    # The relative half must actually exist and be the binding rule at scale,
+    # which is what a single absolute tolerance got wrong.
+    assert cl.tolerance_for(1045.0) > cl.ABS_TOL_FLOOR * 100
+    assert cl.REL_TOL <= 0.02, (
+        "REL_TOL above the 2% policy would let every claim carry a window "
+        "wider than the ledger promises")
 
 
 def test_every_committed_claim_clears_the_tighter_window_comfortably():

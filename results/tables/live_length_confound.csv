@@ -1,0 +1,4 @@
+dataset,monitor,healthy_len_score_spearman,raw_auroc,length_matched_auroc,n_healthy,n_injected,n_matched
+demo_real_varied,esn_cusum_max,-0.08827348295047496,0.9583333333333333,1.0,6,12,12
+demo_real_varied,delta_mahalanobis,-0.44136741475237473,0.9722222222222223,1.0,6,12,12
+demo_real_varied,hybrid_logistic,-0.6179143806533246,0.9444444444444444,1.0,6,12,12

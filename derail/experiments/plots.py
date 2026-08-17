@@ -495,16 +495,24 @@ def _horizon_panel(ax, df, title: str) -> None:
 def fig_horizon_law() -> None:
     """The horizon law, and its replication on a corpus we did not build.
 
-    Left: our 1,002 injected episodes. Right: AFTraj-2K, imported unchanged.
+    Left: our real injected episodes. Right: AFTraj-2K, imported unchanged.
     The same monotone gap appears in both, which is what makes it a law rather
     than a property of our injector -- and the n annotations explain the
     external result, where ranking transfers but the operating point does not.
+
+    The left panel is REAL corpora only, and excludes AFTraj so the right panel
+    stays an independent replication. Drawing it from the simulator-inclusive
+    pool would put a band that is 97% simulator next to a real one and invite
+    exactly the reading `results/horizon_report.md` exists to correct.
     """
-    ours = pd.read_csv(RESULTS / "tables" / "hybrid_diagnosis.csv")
+    from derail.experiments.run_horizon_study import load_records
+
+    rec = load_records()
+    ours = rec[(rec.provenance == "real") & (rec.dataset != "aftraj")]
     ext = pd.read_csv(RESULTS / "tables" / "aftraj_diagnosis.csv")
     fig, axes = plt.subplots(1, 2, figsize=(9.4, 3.5), sharey=True)
     _horizon_panel(axes[0], ours,
-                   f"ours: {len(ours)} injected episodes")
+                   f"ours: {len(ours)} real injected episodes")
     _horizon_panel(axes[1], ext,
                    f"AFTraj-2K (external): {len(ext)} failures")
     axes[0].set_ylabel("detection rate at the 5% budget")

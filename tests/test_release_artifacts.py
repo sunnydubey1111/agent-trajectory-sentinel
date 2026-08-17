@@ -150,6 +150,27 @@ def test_markdown_to_latex_converts_the_manuscript_without_loss() -> None:
     assert md_tables == tex.count(r"\begin{longtable}")
 
 
+def test_the_generated_manuscript_matches_its_markdown_source() -> None:
+    """`paper.tex` is generated, so hand-editing it splits the source of truth.
+
+    That split is not hypothetical: a round of number corrections was applied
+    to the `.tex` alone, leaving the `.md` still carrying superseded band
+    figures and a false-positive denominator. Both files then read as current,
+    and the next regeneration would have silently reinstated the stale ones.
+    Numbers belong in the `.md`; this keeps the `.tex` a pure function of it.
+    """
+    from devtools import md_to_latex
+
+    if not md_to_latex.SOURCE.exists() or not md_to_latex.TEX_OUT.exists():
+        pytest.skip("manuscripts are local-only; nothing to compare here")
+
+    expected = md_to_latex.convert(md_to_latex.SOURCE.read_text("utf-8"))
+    actual = md_to_latex.TEX_OUT.read_text("utf-8")
+    assert actual.splitlines() == expected.splitlines(), (
+        "paper/paper.tex is out of sync with paper/paper.md — edit the "
+        "Markdown and rerun `py -m devtools.md_to_latex`, never the .tex")
+
+
 def test_markdown_to_latex_raises_on_an_unmapped_character() -> None:
     with pytest.raises(Exception):
         from devtools import md_to_latex

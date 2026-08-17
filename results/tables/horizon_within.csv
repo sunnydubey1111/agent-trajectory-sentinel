@@ -1,0 +1,7 @@
+arm,control,r,p_value,n,n_strata
+all,none (pooled),0.308,5e-05,2165,1
+all,dataset,0.1365,5e-05,2165,13
+all,dataset x class,0.1928,5e-05,2165,62
+real,none (pooled),0.163,5e-05,1765,1
+real,dataset,0.202,5e-05,1765,12
+real,dataset x class,0.2261,5e-05,1765,57

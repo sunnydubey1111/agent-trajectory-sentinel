@@ -1,0 +1,178 @@
+[
+  {
+    "episode_id": "real-healthy-003",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-005",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-016",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-030",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-032",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-037",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-039",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-045",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-050",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-066",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-071",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-072",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-085",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-086",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-090",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-101",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-109",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-healthy-116",
+    "requested_class": null,
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-looping-003",
+    "requested_class": "looping",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-rate_limit-003",
+    "requested_class": "rate_limit",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-wrong_document-003",
+    "requested_class": "wrong_document",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  },
+  {
+    "episode_id": "real-malformed_json-003",
+    "requested_class": "malformed_json",
+    "reason": "too short: T=2 < 4",
+    "facts": {
+      "T": 2
+    }
+  }
+]

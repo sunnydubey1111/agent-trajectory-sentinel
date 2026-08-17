@@ -932,13 +932,23 @@ Measured across every labelled corpus
 
 | label | flagged | n | rate |
 |---|---|---|---|
-| healthy | **0** | 1825 | **0.0%** |
+| healthy | **0** | 2080 | **0.0%** |
 | context_corruption | 113 | 244 | 46.3% |
-| looping | 105 | 240 | 43.8% |
-| goal_drift, tool_cascade, timeout, rate_limit, wrong_document, malformed_json | 0 | 514 | 0.0% |
+| looping | 105 | 247 | 42.5% |
+| goal_drift, tool_cascade, timeout, rate_limit, wrong_document, malformed_json | 0 | 655 | 0.0% |
 
-Zero false positives on 1825 healthy episodes is what lets it ship without a
-null. The classes it is not aimed at stay at zero as firmly as the healthy
+Denominators come from `tool_contract_denominators.csv`, written by the same
+sweep, because a false-positive rate whose denominator is only printed cannot
+be checked — this table read 1,825 healthy for as long as it took the corpus to
+reach 2,080. Corpora imported from other projects are excluded: counting
+someone else's runs would restate their episodes as evidence about this check.
+
+Zero false positives on 2080 healthy episodes is what lets it ship without a
+null. That population is **every labelled corpus of ours**, which is a
+different and much larger population than the 177 healthy episodes the
+answer-recomputation checks are scored on — those need an answer to recompute,
+so they only run on the organic demo corpora. The two zeros are separate
+results about separate checks. The classes it is not aimed at stay at zero as firmly as the healthy
 runs do, so it is a contract check and not a general-purpose alarm. Where it
 does fire it is immediate: **215 of 218** flagged episodes are caught within
 one step of injection onset. The `looping` catch is a real violation rather
@@ -1087,13 +1097,31 @@ retry is spent and the breaker is still open, the episode ends as
 and never consult the injection.
 
 Measured over five classes x five seeds with halting off
-(`results/tables/alarm_repair.csv`, n=25 live episodes): all 18 behavioural
+(`results/tables/alarm_repair.csv`, n=25 live episodes): all **21** behavioural
 alarms were followed by a repair attempt and no non-alarming run was touched.
 A loop trap now escalates in **5 of 5** runs at exactly **10 steps** with a
 peak of **2.95–3.08**, against 30 steps and a peak of 97 beforehand. Goal
 drift, the class where the evidence is sound and only the reasoning failed, is
-repaired in **2 of 5**. `grounding_loss` never alarms behaviourally (0/5),
-which is correct — it belongs to the grounding check.
+repaired in **4 of 5**. `grounding_loss` alarms behaviourally in only 2 of 5,
+which is expected — it belongs to the grounding check.
+
+**What the intervention actually buys here, counted.** Of the 25 episodes:
+**9 end without emitting an answer** (the loop trap and most tool cascades —
+the breaker opens and the episode is escalated), **3 are retried into a correct
+answer**, **10 answer and are still wrong**, and **3 were already correct and
+were never touched**. So on this matrix the dominant effect is *halting a run
+that was going to be wrong*, not *fixing* it: refusing to answer outnumbers
+repairing to correct three to one. That is a useful outcome — a run that stops
+is cheaper than one that answers wrongly, and none of the 9 emitted a wrong
+answer — but it is a different claim from recovery and is stated separately
+for that reason.
+
+**This matrix is not the source of the 52% -> 73% figure**, and the two must
+not be read as one result. That figure comes from `repair_policies.csv`: 55
+*organic* failures on the demo booking task, re-run offline, of which `located`
+turns a mean of 25 correct, over a 120-episode arm. This table is 25 *live*
+episodes with an *injected* fault, and it measures what the whole gate does
+end to end. Different corpus, different failure source, different quantity.
 
 The honest boundary: for a tool layer that never recovers the score does not
 return below the alarm line (0 of 5 on both `looping` and `tool_cascade`).

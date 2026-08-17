@@ -1,0 +1,13 @@
+dataset,episode_id,failure_class,T,tau,horizon,det_esn,det_maha,det_logistic
+demo_real_varied,real-looping-000,looping,11,2,8,True,False,False
+demo_real_varied,real-looping-002,looping,7,2,4,True,False,False
+demo_real_varied,real-looping-003,looping,8,2,5,True,False,False
+demo_real_varied,real-rate_limit-000,rate_limit,10,4,5,False,False,False
+demo_real_varied,real-rate_limit-002,rate_limit,7,2,4,True,False,False
+demo_real_varied,real-rate_limit-003,rate_limit,8,3,4,True,False,False
+demo_real_varied,real-wrong_document-000,wrong_document,8,2,5,True,False,False
+demo_real_varied,real-wrong_document-002,wrong_document,7,2,4,True,False,False
+demo_real_varied,real-wrong_document-003,wrong_document,8,2,5,True,False,False
+demo_real_varied,real-malformed_json-000,malformed_json,10,2,7,True,False,False
+demo_real_varied,real-malformed_json-002,malformed_json,7,2,4,True,False,False
+demo_real_varied,real-malformed_json-003,malformed_json,8,2,5,False,False,False

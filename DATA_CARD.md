@@ -5,7 +5,7 @@ manifests, so it cannot drift from what is committed.
 
 ## What is here
 
-- **3,108 agent episodes** across **27 corpora**, every
+- **3,226 agent episodes** across **28 corpora**, every
   trace committed as JSONL under `traces/`.
 - **1,010** of those episodes use *real* tools (arXiv, Wikipedia,
   web fetch, SQL, Python); the rest use a deterministic mock-tool suite.
@@ -13,7 +13,7 @@ manifests, so it cannot drift from what is committed.
 
 | model | episodes |
 |---|---:|
-| `qwen2.5:7b` | 2,175 |
+| `qwen2.5:7b` | 2,293 |
 | `llama3.1:8b` | 433 |
 | `qwen2.5:3b` | 357 |
 | `gemini-2.5-flash` | 143 |
@@ -63,6 +63,7 @@ uncertainty channel.
 | `demo7b_scoped` | 120 | `qwen2.5:7b` | 120 | 0 | 0 | 120 | 9/12/15 | Live-demo healthy null under the task-scoped toolset |
 | `demo_real` | 48 | `qwen2.5:7b` | 48 | 0 | 0 | 48 | 7/7/7 | Demo agent, real-tool suite -- FIXED task shape (all T=7); superseded as a healthy null by demo_real_varied |
 | `demo_real_varied` | 45 | `qwen2.5:7b` | 33 | 12 | 12 | 45 | 7/8/11 | Demo-agent healthy null with VARIED task shape and length (T=7-10); the fixed-shape corpus collapsed the healthy spread and made the demo false-alarm |
+| `demo_real_varied_ext` | 118 | `qwen2.5:7b` | 102 | 16 | 16 | 118 | 6/9/11 | Additive sibling of demo_real_varied, same collector and serving path, sized so the validation split can support the 5% false-alarm budget the offline corpora are scored at |
 | `langgraph` | 75 | `qwen2.5:3b` | 34 | 41 | 41 | 0 | 4/5/7 | LangGraph StateGraph agent, qwen2.5:3b |
 | `langgraph7b` | 196 | `qwen2.5:7b` | 105 | 91 | 91 | 0 | 4/6/12 | LangGraph StateGraph agent at 7b |
 | `ollama` | 98 | `qwen2.5:3b` | 48 | 50 | 50 | 98 | 4/5/7 | Native loop on Ollama, qwen2.5:3b |
@@ -82,7 +83,7 @@ uncertainty channel.
 | `real_research3b` | 82 | `qwen2.5:3b` | 36 | 46 | 46 | 82 | 3/7/12 | Real-tool research task at 3b -- model-transfer arm |
 | `real_research7b` | 291 | `qwen2.5:7b` | 120 | 171 | 171 | 291 | 5/6/8 | Primary real-tool research corpus |
 | `real_research7b_long` | 72 | `qwen2.5:7b` | 30 | 42 | 42 | 72 | 5/11/14 | Lengthened research corpus for horizon analysis |
-| `real_research7b_long_drift` | 240 | `qwen2.5:7b` | 120 | 120 | 120 | 240 | 4/11/15 | Long-runway real goal_drift: the only corpus where drift has >=9 post-onset steps (24/24), collected to test the conceptor mechanism |
+| `real_research7b_long_drift` | 240 | `qwen2.5:7b` | 120 | 120 | 120 | 240 | 4/11/15 | Long-runway real goal_drift, collected to test the conceptor mechanism; post-onset horizon (T-1-tau) is median 8, range 1-10, with 19 of 120 reaching >=9 |
 | `real_research7b_long_ext` | 121 | `qwen2.5:7b` | 30 | 91 | 91 | 121 | 11/11/16 | Extension of the lengthened research corpus |
 
 ## Collection settings
@@ -103,7 +104,7 @@ uncertainty channel.
 
 ## What the acceptance gate discarded
 
-Twelve corpora record rejections. The discard rate is not uniform and
+14 corpora record rejections. The discard rate is not uniform and
 the reader should not assume it is:
 
 | corpus | attempted | rejected | discard |
@@ -115,13 +116,14 @@ the reader should not assume it is:
 | `langgraph7b` | 218 | 22 | 10.1% |
 | `autogen7b` | 170 | 22 | 12.9% |
 | `demo_real_varied` | 52 | 7 | 13.5% |
+| `demo_real_varied_ext` | 140 | 22 | 15.7% |
 | `autogen` | 140 | 38 | 27.1% |
 | `real_gemini_long` | 178 | 53 | 29.8% |
 | `ollama` | 156 | 58 | 37.2% |
 | `ollama_llama8b` | 380 | 187 | 49.2% |
 | `real` | 39 | 21 | 53.8% |
 | `langgraph` | 168 | 93 | 55.4% |
-| **total** | **2108** | **519** | **24.6%** |
+| **total** | **2248** | **541** | **24.1%** |
 
 The range is 1.2% (`real_research3b`) to 55.4% (`langgraph`), so a per-corpus N in
 the table above is not a fixed fraction of what was attempted.
@@ -134,7 +136,7 @@ never tested against:
 
 | rejection rule | healthy | injected |
 |---|---|---|
-| too short: T=N < N | 139 | 230 |
+| too short: T=N < N | 157 | 234 |
 | injection never applied | 0 | 128 |
 | mutation landed at step N with no following step | 0 | 15 |
 | retroactive gate: no_op_positive | 0 | 7 |

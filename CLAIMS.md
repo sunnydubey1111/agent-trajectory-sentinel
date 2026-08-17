@@ -16,15 +16,22 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (72 claims checked).
+ (97 claims checked).
 
 ## Corpus
 
 | claim | value | n | source artifact | regenerate with |
 |---|---|---|---|---|
-| Committed agent episodes | `2823` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
-| Committed corpora | `25` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
-| Episodes using real tools | `770` | — | `traces/real*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed agent episodes (current) | `3226` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed corpora (current) | `28` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Episodes using real tools (current) | `1010` | — | `traces/real*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed episodes outside the traces/*/ glob every total uses | `187` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
+| Committed episodes of ours including the root corpus | `3413` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
+| Episodes scored by both the behavioural and grounding studies | `602` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
+| Scored episodes with no committed episode behind them | `0` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
+| Committed agent episodes as of arXiv v1 (commit 00c0673) | `2823` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed corpora as of arXiv v1 (commit 00c0673) | `25` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Episodes using real tools as of arXiv v1 (commit 00c0673) | `770` | — | `traces/real*/manifest.json` | `py -m devtools.claims_ledger --check` |
 
 ## Monitor
 
@@ -56,14 +63,25 @@ Status at generation: **all claims verified**
 | hybrid_weighted50 episode AUROC on ATBench (fusion collapses to chance when a parent does) | `0.463` | `381` episodes | `results/tables/atbench_benchmark.csv` | `py -m derail.experiments.run_atbench_study` |
 | esn_cusum_max detection on unconfirmed/over-privileged actions (ATBench) | `0.508` | — | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
 | esn_cusum_max detection on inaccurate/misleading information (ATBench, the known content blind spot) | `0.038` | `26` episodes | `results/tables/atbench_per_mode.csv` | `py -m derail.experiments.run_atbench_study` |
-| ESN advantage at post-onset horizon <= 3 steps | `0.086` | — | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
-| ESN advantage at post-onset horizon 4-8 steps | `0.135` | — | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
-| ESN advantage at post-onset horizon >= 9 steps | `0.404` | — | `results/tables/hybrid_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study` |
+| ESN advantage at post-onset horizon <= 3 steps, real corpora | `0.017` | `1027` episodes | `results/tables/horizon_pooled.csv` | `py -m derail.experiments.run_horizon_study` |
+| ESN advantage at post-onset horizon 4-8 steps, real corpora | `0.082` | `626` episodes | `results/tables/horizon_pooled.csv` | `py -m derail.experiments.run_horizon_study` |
+| ESN advantage at post-onset horizon >= 9 steps, real corpora | `0.25` | `112` episodes | `results/tables/horizon_pooled.csv` | `py -m derail.experiments.run_horizon_study` |
+| ESN advantage at post-onset horizon >= 9 steps, simulator | `0.404` | `371` episodes | `results/tables/horizon_pooled.csv` | `py -m derail.experiments.run_horizon_study` |
+| Horizon/advantage correlation within corpus, real corpora | `0.202` | — | `results/tables/horizon_within.csv` | `py -m derail.experiments.run_horizon_study` |
+| Healthy false-alarm rate of the ESN on the live corpus, 5% budget | `0.048` | `21` healthy episodes | `results/tables/live_ext_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets demo_real_varied_ext --out-prefix live_ext` |
+| Healthy false-alarm rate of the memoryless baseline at the same detection | `0.191` | `21` healthy episodes | `results/tables/live_ext_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets demo_real_varied_ext --out-prefix live_ext` |
+| Episode AUROC of the ESN on the live corpus | `0.976` | `37` test episodes | `results/tables/live_ext_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets demo_real_varied_ext --out-prefix live_ext` |
+| Horizon/advantage correlation within corpus and failure class | `0.226` | — | `results/tables/horizon_within.csv` | `py -m derail.experiments.run_horizon_study` |
 | Content-gate detection gain on the content classes, worst seed | `0.307` | — | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
 | Content gate does not degrade behavioural detection, worst seed | `0.039` | — | `results/tables/grounding_multiseed_criterion.csv` | `py -m derail.experiments.run_grounding_multiseed` |
 | Best within-family transfer AUROC (qwen2.5:7b -> 3b), uncalibrated | `0.522` | `53` episodes | `results/tables/model_transfer.csv` | `py -m derail.experiments.run_model_transfer` |
 | Measured gemini-2.5-flash judge detection rate | `0.548` | `84` positives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
 | Measured gemini-2.5-flash judge false-alarm rate | `0.052` | `77` negatives | `results/tables/judge_calibration_summary.json` | `py -m derail.experiments.run_judge_calibration --replay --n-per-stratum 120` |
+| Episodes both the behavioural and grounding studies scored | `602` | — | `results/tables/layer_alignment_summary.csv` | `py -m derail.experiments.run_layer_alignment` |
+| Content-gate gain on the matched population | `0.171` | `211` content episodes | `results/tables/layer_alignment_summary.csv` | `py -m derail.experiments.run_layer_alignment` |
+| Content-gate gain on the grounding study's own population | `0.297` | `313` content episodes | `results/tables/layer_alignment_summary.csv` | `py -m derail.experiments.run_layer_alignment` |
+| Content-gate gain on corpora only the grounding study scores | `0.559` | `102` content episodes | `results/tables/layer_alignment_summary.csv` | `py -m derail.experiments.run_layer_alignment` |
+| Behavioural detection change under the gate, matched population | `0.072` | `391` behavioural episodes | `results/tables/layer_alignment_summary.csv` | `py -m derail.experiments.run_layer_alignment` |
 | Pooled injected episodes in the grounding table | `874` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
 | Content-class episodes in the grounding table | `313` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
 | Behavioural-class episodes in the grounding table | `561` | — | `results/tables/grounding_diagnosis.csv` | `py -m derail.experiments.run_grounding_study` |
@@ -84,6 +102,8 @@ Status at generation: **all claims verified**
 | llama3.1:8b false positives | `0` | — | `results/tables/verification_organic_llama8b_cold.csv` | `py -m derail.verify.run_verification_study --holdout organic_llama8b_cold` |
 | Provoked fabrications caught | `26` | — | `results/tables/verification_provoked.csv` | `py -m derail.verify.run_verification_study --holdout organic_demo7b_provoked` |
 | Grounding-verifier false positives on label-healthy runs | `0` | `55` episodes | `results/tables/fabrication_organic_demo7b.csv` | `AGENTWATCH_ORGANIC_DIR=traces/organic_demo7b py -m verification.score_provoked_fabrication` |
+| tool_contract false positives, every labelled corpus of ours | `0` | `2080` healthy episodes | `results/tables/tool_contract_denominators.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
+| Recomputation-check false positives, organic demo corpora | `0` | `177` healthy episodes | `results/tables/verification_*.csv` | `py -m derail.verify.run_verification_study` |
 | Episodes flagged by tool_contract | `218` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
 | Flagged episodes caught within one step of onset | `215` | — | `results/tables/tool_contract_coverage.csv` | `py -m derail.verify.run_verification_study --contract-coverage` |
 | Checks: failures caught at T=0.2 (totals only) | `0.597` | `57` failures | `results/tables/verification_vs_monitor.csv` | `py -m derail.verify.run_verification_study` |
@@ -106,6 +126,11 @@ Status at generation: **all claims verified**
 | Correct runs broken by any repair policy | `0` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Genuinely-wrong episodes in the repair study | `55` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Every behavioural alarm is followed by a repair attempt | `all alarms attempted` | — | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| Behavioural alarms in the live matrix | `21` | `25` live episodes | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| Live episodes ended without emitting an answer | `9` | `25` live episodes | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| Live episodes a retry turned into a correct answer | `3` | `25` live episodes | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| Live episodes that answered and were still wrong | `10` | `25` live episodes | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
+| goal_drift episodes repaired in the live matrix | `4` | — | `results/tables/alarm_repair.csv` | `py -m derail.experiments.demo --alarm-repair-matrix (live)` |
 | Net task success with no intervention | `0.525` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Net task success under `located` | `0.733` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Failures `located` recovers, mean of 3 repeats | `25` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |

@@ -37,9 +37,14 @@ PURPOSE: dict[str, str] = {
     "demo_real_varied": "Demo-agent healthy null with VARIED task shape and "
                         "length (T=7-10); the fixed-shape corpus collapsed the "
                         "healthy spread and made the demo false-alarm",
-    "real_research7b_long_drift": "Long-runway real goal_drift: the only corpus "
-                                  "where drift has >=9 post-onset steps (24/24), "
-                                  "collected to test the conceptor mechanism",
+    "demo_real_varied_ext": "Additive sibling of demo_real_varied, same "
+                            "collector and serving path, sized so the "
+                            "validation split can support the 5% false-alarm "
+                            "budget the offline corpora are scored at",
+    "real_research7b_long_drift": "Long-runway real goal_drift, collected to "
+                                  "test the conceptor mechanism; post-onset "
+                                  "horizon (T-1-tau) is median 8, range 1-10, "
+                                  "with 19 of 120 reaching >=9",
     "langgraph": "LangGraph StateGraph agent, qwen2.5:3b",
     "langgraph7b": "LangGraph StateGraph agent at 7b",
     "ollama": "Native loop on Ollama, qwen2.5:3b",
@@ -276,7 +281,7 @@ def render() -> str:
         "",
         "## What the acceptance gate discarded",
         "",
-        "Twelve corpora record rejections. The discard rate is not uniform and",
+        f"{len(rejections)} corpora record rejections. The discard rate is not uniform and",
         "the reader should not assume it is:",
         "",
         "| corpus | attempted | rejected | discard |",

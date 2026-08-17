@@ -9,6 +9,7 @@ numeric tests on the shared primitives.
 from __future__ import annotations
 
 import inspect
+import pathlib
 
 import numpy as np
 import pytest
@@ -16,6 +17,9 @@ import pytest
 from derail.common import D_TOTAL, Episode
 from derail.evaluation import protocol
 from derail.evaluation.metrics import length_confound_report
+
+
+TABLES = pathlib.Path(__file__).resolve().parents[1] / "results" / "tables"
 
 
 def _ep(eid, healthy, width=D_TOTAL, T=6):
@@ -517,7 +521,8 @@ def test_published_table_scope_is_pinned_not_implicit():
     assert PUBLISHED_DATASETS < set(REAL_DATASETS), "pin no longer a subset"
     assert set(REAL_DATASETS) - PUBLISHED_DATASETS == {
         "ollama_llama8b", "real_gemini_long", "real_research7b_long_ext",
-        "aftraj"}
+        "real_research7b_long_drift", "demo_real_varied",
+        "demo_real_varied_ext", "aftraj"}
     src = inspect.getsource(main)
     assert "PUBLISHED_DATASETS" in src, "default run no longer honours the pin"
     assert "--all-datasets" in src, "no explicit way to sweep everything"
@@ -538,7 +543,9 @@ def test_the_grounding_study_pins_its_published_scope_too():
 
     pinned = set(GROUNDING_PUBLISHED_DATASETS)
     assert pinned < set(REAL_DATASETS), "pin no longer a subset"
-    assert set(REAL_DATASETS) - pinned == {"aftraj"}, (
+    assert set(REAL_DATASETS) - pinned == {
+        "aftraj", "real_research7b_long_drift", "demo_real_varied",
+        "demo_real_varied_ext"}, (
         "a corpus entered REAL_DATASETS without a decision about whether the "
         "published grounding tables should cover it")
     assert "GROUNDING_PUBLISHED_DATASETS" in inspect.getsource(main), \
@@ -680,3 +687,66 @@ def test_intervention_repeats_give_a_variance_estimate():
     src = inspect.getsource(ris.main)
     assert "for rep in range(1, args.repeats + 1)" in src
     assert "independent repeats" in src, "the spread must be reported"
+
+
+# ------------------------------------------------ horizon law, de-confounded
+def test_horizon_sources_agree_where_they_overlap():
+    """Two runs of the same code must not give one episode two answers.
+
+    The horizon study pools episode-level rows from several diagnosis tables,
+    and several of those tables score the same corpus. `load_records` raises on
+    a disagreement rather than silently keeping whichever it read first, so a
+    regeneration that moved one table and not another is caught here.
+    """
+    from derail.experiments.run_horizon_study import load_records
+
+    d = load_records()
+    assert not d.duplicated(["dataset", "episode_id"]).any()
+    assert len(d) > 1500, "the widened scope is what makes the top band usable"
+
+
+def test_the_horizon_law_is_estimated_within_corpus_not_pooled():
+    """Corpus and horizon are confounded, so the pooled estimate is not the law.
+
+    Each corpus occupies a different part of the horizon range, so a pooled
+    correlation cannot tell "longer episodes are easier" from "the corpora that
+    happen to be long are easier". The published seven-corpus scope is the
+    demonstration: its top band is almost entirely simulator, and controlling
+    for corpus there removes most of the correlation. The study must therefore
+    report a within-corpus estimate, and the real-corpus band means must not be
+    computed from a band the simulator dominates.
+    """
+    import pandas as pd
+
+    from derail.evaluation.stats import within_stratum_corr
+
+    d = pd.read_csv(TABLES / "hybrid_diagnosis.csv")
+    gap = (d.det_esn.astype(float) - d.det_maha.astype(float)).to_numpy()
+    pooled = float(np.corrcoef(d.horizon.to_numpy(float), gap)[0, 1])
+    within = within_stratum_corr(d.horizon.to_numpy(float), gap,
+                                 d.dataset.to_numpy())
+    assert pooled > 0.2, "published scope's pooled correlation"
+    assert within < 0.1, (
+        "if this rises, the confound has gone and the pooled figure could be "
+        "quoted again -- check why before changing the claim")
+
+    pool = pd.read_csv(TABLES / "horizon_pooled.csv")
+    real = pool[pool.arm == "real"]
+    assert set(real.band) == {"<=3", "4-8", ">=9"}
+    assert (real.sim_share == 0.0).all(), "real arm must contain no simulator"
+    top = real[real.band == ">=9"]
+    assert int(top.n.iloc[0]) >= 100, (
+        "the real top band is the whole point of widening the scope")
+    gaps = [float(real[real.band == b].gap.iloc[0])
+            for b in ("<=3", "4-8", ">=9")]
+    assert gaps[0] < gaps[1] < gaps[2], "the law is that the gap grows"
+
+
+def test_horizon_within_estimate_survives_dropping_any_one_corpus():
+    """A within-corpus law that one corpus carries is that corpus's property."""
+    import pandas as pd
+
+    r = pd.read_csv(TABLES / "horizon_robustness.csv")
+    assert len(r) >= 10, "one row per corpus dropped, plus the full estimate"
+    assert (r.r_within_dataset > 0.1).all(), (
+        "dropping a corpus must not remove the effect")

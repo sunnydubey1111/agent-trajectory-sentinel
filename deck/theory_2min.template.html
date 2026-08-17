@@ -118,7 +118,7 @@
   <div class="stats">
     <div class="stat good"><span class="n">52% → 73%</span><span class="l">task success, zero correct runs broken</span></div>
     <div class="stat accent"><span class="n">219 µs</span><span class="l">per step · no GPU, no model call</span></div>
-    <div class="stat"><span class="n">2,823</span><span class="l">episodes · 25 corpora · 4 models · 3 frameworks</span></div>
+    <div class="stat"><span class="n">3,226</span><span class="l">episodes · 28 corpora · 4 models · 3 frameworks</span></div>
   </div>
   <div class="footer"><span>Sunny Dubey</span><span>Apache-2.0 · open data · self-checking claim ledger</span></div>
 </section>
@@ -256,7 +256,7 @@
   data-cue="12s · Do not apologise. Framing: we know exactly when it works, and we said so first.">
   <p class="kicker">Limits &amp; future work</p>
   <h2>The horizon law predicts its own failure region</h2>
-  <div class="fill"><img src="{{IMG_HORIZON}}" alt="Detection advantage over the memoryless baseline grows with post-onset horizon: +0.086 at three steps or fewer, +0.135 at four to eight, +0.404 at nine or more — reproduced on the external AFTraj-2K corpus."></div>
+  <div class="fill"><img src="{{IMG_HORIZON}}" alt="Detection advantage over the memoryless baseline grows with post-onset horizon on real agent traces: +0.017 at three steps or fewer, +0.082 at four to eight, +0.250 at nine or more — reproduced on the external AFTraj-2K corpus."></div>
   <div class="band" style="margin-top:14px">
     <b>Next:</b> repair recovers <b>45%</b> — the other 55% is open · monitors <b>do not transfer across deployments</b> (0.527 cold, 0.885 recalibrated) · <b>context corruption</b> is the weak class at 0.29 and needs an external reference · grounding catches <b>0.55</b> of provoked fabrications.
   </div>
@@ -404,7 +404,7 @@
       <ul class="tight">
         <li>Every headline claim recomputed from its artifact in CI — <b>71 of 71</b>, value <i>and</i> denominator, failing on drift.</li>
         <li>SHA-256 manifest over every file, a behavioural tripwire that re-runs the study and diffs each value, one master seed reproducing bit-for-bit.</li>
-        <li><b>2,823 episodes · 25 corpora · 4 models · 3 frameworks</b>, public and checksummed.</li>
+        <li><b>3,226 episodes · 28 corpora · 4 models · 3 frameworks</b>, public and checksummed.</li>
         <li>Two external benchmarks, no retraining: <b>ATBench 0.779</b>, <b>AFTraj 0.745</b>.</li>
       </ul>
     </div>

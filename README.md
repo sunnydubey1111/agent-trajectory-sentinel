@@ -32,9 +32,13 @@ AgentTrajectorySentinel answers that with two layers that compose into a single 
    healthy episodes only, scoring every step causally. It sees trajectory
    failures live, while the run is still going.
 2. **Deterministic verification.** Checks that recompute a run's answer from
-   the tool results that run actually received. No healthy null, no
-   threshold, no calibration — and **0 observed false positives across the
-   1,825 healthy episodes evaluated**.
+   the tool results that run actually received, plus a contract check on the
+   results themselves. No healthy null, no threshold, no calibration, and no
+   observed false positive in either — **0 of 177 healthy episodes** for the
+   recomputation checks, on the organic demo corpora where an answer exists to
+   recompute, and **0 of 2,080** for the contract check, which needs no answer
+   and so runs on every labelled corpus. The two denominators are different
+   populations and different checks; neither covers the other.
 
 On a real qwen2.5:7b booking agent, the two layers plus rollback-and-retry
 take **task success from 52% to 73%** for about one extra model call per run.
@@ -198,14 +202,16 @@ seeds and not supported at seed 7; **H2** (channel complementarity) and
 
 The horizon law and H1 are **different kinds of evidence, and neither rescues
 the other**. H1 is a per-seed test of whether the ESN beats the memoryless
-baseline overall, and it fails at seed 7. The horizon law is a pooled
-cross-dataset analysis — 1,002 injected episodes over 8 datasets — and it has
-**never been computed per seed**: `hybrid_diagnosis.csv` carries no seed
-column, so no per-seed claim is available for it in either direction. What
-supports the law instead is that it holds out of sample, on AFTraj-2K, a corpus
-built by another group (see below). Read H1's seed-7 failure as what it is: on
-one seed the pooled advantage is not there, which is consistent with a law
-saying the advantage depends on how much runway the failures happen to have.
+baseline overall, and it fails at seed 7. The horizon law is a within-corpus
+analysis over 1,765 real injected episodes from 12 corpora, and it has **never
+been computed per seed**: the diagnosis tables carry no seed column, so no
+per-seed claim is available for it in either direction. What supports the law
+instead is that it survives controlling for corpus and failure class, holds
+under leave-one-corpus-out, and replicates on AFTraj-2K, a corpus built by
+another group (see below). Read H1's seed-7 failure as what it is: on one seed
+the overall advantage is not there, which is consistent with a law saying the
+advantage depends on how much runway the failures happen to have — and with
+the per-corpus tables, where the advantage is negative on some deployments.
 
 **Cost.** ~219 µs median per step (p95 266 µs), 1.7 s to fit on 240 healthy
 episodes, 4.0 MB of state — roughly three orders of magnitude below one agent
@@ -237,13 +243,14 @@ recollected whenever the null is, because nothing here transfers across
 deployments. Take the label-free default unless labelled failures are already
 falling out of an injection harness you run anyway.
 
-The mechanism is post-onset horizon. Over 1,002 injected episodes the ESN's
-detection advantage over the memoryless distance grows monotonically with the
-number of steps available after onset: **+0.09** at ≤3 steps, **+0.14** at 4–8,
-**+0.40** at ≥9. Averaged over episodes the ESN never *loses* a band — its
-margin just collapses when there is nothing to accumulate. Where the distance
-wins is at the dataset level, on corpora that are almost entirely short-horizon
-(`real_research7b` 0.848 vs 0.777). Full analysis: `results/hybrid_report.md`.
+The mechanism is post-onset horizon. Over 1,765 real injected episodes from 12
+corpora the ESN's detection advantage over the memoryless distance grows with
+the number of steps available after onset: **+0.02** at ≤3 steps, **+0.08** at
+4–8, **+0.25** at ≥9, with r = **+0.20** controlling for corpus. The law
+governs the slope, not the level: the advantage is negative on some
+deployments (`langgraph7b` in every band) and shrinks with horizon on one
+(`ollama7b`), so the per-corpus table is published beside the pooled one.
+Full analysis: `results/horizon_report.md`.
 
 ### Deterministic checks vs the behavioural monitor — real traces
 
@@ -271,7 +278,7 @@ arm on the same 120 task seeds, nothing retuned: **110/110** failures caught,
 Three complementary checks, none subsuming the others — `total_consistency`
 (wrong combination of what was looked up), `required_coverage` (work never
 done), and `tool_contract`, which asks whether a tool result was ever valid
-and therefore reports at the step the result *arrives*: **0 of 1825 healthy
+and therefore reports at the step the result *arrives*: **0 of 2080 healthy
 episodes** trip it, and 215 of 218 flagged episodes are caught within one step
 of onset.
 
@@ -432,6 +439,14 @@ cannot win, and the value of the intervention is ending the episode fast: a
 loop trap exits at exactly 10 steps in 5 of 5 runs, against 30 before the
 circuit breaker existed.
 
+Counted by outcome, the dominant effect on this matrix is **halting, not
+fixing**: 9 of 25 episodes end without emitting an answer, 3 are retried into a
+correct one, 10 answer and are still wrong, and 3 were already correct. None of
+the 9 halted runs emitted a wrong answer, which is the point of halting — but
+it is a different claim from recovery. **The 52% → 73% figure above does not
+come from this table**: that is 55 organic failures re-run offline over a
+120-episode arm, while this is 25 live episodes with an injected fault.
+
 Because this is a live study, per-class alarm rates move between runs — the two
 samples above differ on `grounding_loss` (0/5 vs 2/5) and `context_corruption`
 (3/5 vs 4/5). Read those per-class figures as a sample, not a constant. Runs
@@ -515,9 +530,12 @@ monitor with real traces.
 Each item below is a measured gap with a number attached, and the next thing
 worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
 
-- **Repair coverage is partial.** `located` recovers 45%, leaving 55%
-  unrecovered. `goal_drift` is the only class a retry fixes (2 of 5); broken
-  tool layers escalate instead, and a contract violation is never repaired.
+- **Repair coverage is partial, and mostly halts rather than fixes.**
+  `located` recovers 45% of organic failures offline, leaving 55% unrecovered.
+  Live, `goal_drift` is the only class a retry fixes (4 of 5); broken tool
+  layers escalate instead, and a contract violation is never repaired — so on
+  the live matrix 9 of 25 episodes end without an answer against 3 retried into
+  a correct one.
 - **Hallucination detection is specific but only half sensitive.** The
   grounding verifier catches 0.55 of provoked fabrications — 6 of the 11
   ungrounded-input fabrications the provocation produced — at 0 false positives
@@ -562,7 +580,7 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   and what does not work yet.
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
   settings, and the exact command behind each result.
-- [`DATA_CARD.md`](DATA_CARD.md) — all 2,823 episodes across 25 corpora: sizes,
+- [`DATA_CARD.md`](DATA_CARD.md) — all 3,226 episodes across 28 corpora: sizes,
   models, injected vs organic, episode lengths, channel availability. The same corpus is published
   on Hugging Face as
   [`sunnydubey1111/agent-trajectory-sentinel`](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel),

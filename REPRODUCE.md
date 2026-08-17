@@ -83,7 +83,34 @@ sentence-transformers — installing that package must never change a result.
 ## 3. Data
 
 `DATA_CARD.md` is the full per-corpus card, generated from the manifests.
-Summary: **2,823 episodes across 25 corpora**, of which 770 use real tools.
+Summary: **3,226 episodes across 28 corpora**, of which 1,010 use real tools.
+The arXiv v1 submission describes the tree at commit `00c0673`, which held
+**2,823 episodes across 25 corpora** (770 real-tool); that state is preserved
+by its tag, and the ledger carries both figures as `corpus.*` and `corpus.*_v1`.
+
+**Totals that look like they should add up, and why they do not.** Several
+counts circulate and only some may be summed. `py -m devtools.episode_accounting`
+derives all of them from the manifests and prints the identities that hold:
+
+| identity | holds |
+|---|---|
+| committed = healthy + injected (3,226 = 2,080 + 1,146) | yes |
+| v1 = v1 healthy + v1 injected (2,823 = 1,825 + 998) | yes |
+| committed = v1 + added since (3,226 = 2,823 + 403) | yes |
+| all committed = glob scope + root corpus (3,413 = 3,226 + 187) | yes |
+| attempted = accepted + rejected, where recorded (2,248 = 1,707 + 541) | yes |
+| v1 healthy + behavioural study = v1 total (1,825 + 1,002 = 2,823) | **no** |
+
+The last one is the trap: it lands at 2,827, four away from 2,823, and looks
+like a rounding slip. It is not. It adds a *label* count to a *study
+population* that contains 400 generated simulator episodes which are not
+committed traces at all, and whose 602 real episodes are a subset of the 998
+committed injected ones. Three incommensurable quantities that happen to land
+near a fourth.
+
+Study populations are never summed for the same reason: the behavioural
+study's real half is a strict subset of the grounding study's, so adding
+602 + 874 double-counts every one of the 602.
 
 Splits and calibration follow one discipline throughout: monitors fit on
 healthy-train only, thresholds come from healthy-validation only, the labelled
@@ -193,6 +220,30 @@ py -m experimental.power_analysis --diagnosis l7b_diagnosis --out power_analysis
 # The three corpora the dataset-reinforcement section reports on.
 py -m derail.experiments.run_grounding_study --out-prefix grounding_t6 \
     --datasets langgraph7b real_research7b real_research3b
+
+# The two real corpora the horizon study needs that no other study scores:
+# the long-form goal_drift corpus and the corpus the live demo serves.
+py -m derail.experiments.run_hybrid_study \
+    --datasets real_research7b_long_drift --out-prefix drift
+py -m derail.experiments.run_hybrid_study \
+    --datasets demo_real_varied --out-prefix live
+```
+
+**The horizon law** is estimated by its own study, which reads the
+episode-level diagnosis tables above rather than the traces, so run it after
+them. It pools every corpus it finds, so a missing `aftraj_diagnosis.csv` or
+`drift_diagnosis.csv` narrows the scope silently rather than failing:
+
+```bash
+py -m derail.experiments.run_horizon_study               # horizon_*.csv
+```
+
+**The layer comparison** reads the behavioural and grounding diagnosis tables
+and reports each quantity on both studies' own populations and on the 602
+episodes they share, so run it after both:
+
+```bash
+py -m derail.experiments.run_layer_alignment             # layer_alignment_*.csv
 ```
 
 `power_analysis` reads a diagnosis table rather than the traces, so run it

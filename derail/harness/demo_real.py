@@ -133,7 +133,7 @@ def _backend():
 DEMO_CLASSES = ("looping", "rate_limit", "wrong_document", "malformed_json")
 
 
-def _cassette(serving: bool = False) -> Cassette:
+def _cassette(serving: bool = False, corpus: Path | None = None) -> Cassette:
     """Cassette named after the corpus it records, so a repointed TRACES
     cannot quietly keep replaying the previous corpus's recordings.
 
@@ -141,23 +141,33 @@ def _cassette(serving: bool = False) -> Cassette:
     records any new one under `runs/`, so watching the demo cannot append to
     the dataset the published numbers are computed from.
     """
-    return Cassette(f"traces/_cassettes/{TRACES.name}", mode="auto",
-                    serving=serving)
+    return Cassette(f"traces/_cassettes/{(corpus or TRACES).name}",
+                    mode="auto", serving=serving)
 
 
-def collect_healthy(n: int, n_inject: int = 0) -> None:
-    """Collect n healthy (and optionally n_inject per class) demo episodes."""
+def collect_healthy(n: int, n_inject: int = 0,
+                    out: Path | None = None) -> None:
+    """Collect n healthy (and optionally n_inject per class) demo episodes.
+
+    `out` writes to a sibling corpus instead of TRACES. Growing a corpus that
+    published numbers are already computed from would move those numbers, so a
+    corpus that needs more episodes gets a sibling and the frozen one is left
+    alone; the cassette follows the corpus for the reason `_cassette` records.
+    """
     from derail.harness.collect_real import collect_dataset
+
+    target = out or TRACES
 
     # This task has no computable ground-truth answer, so nothing can verify a
     # run at collection time. The null is filtered instead at fit time, where
     # `fit_monitor` drops any run that skipped a call `RESEARCH_SPEC` requires
     # (DESIGN.md Amendment 7). Stated here so "unverified" is a recorded
     # decision rather than a default nobody chose.
-    collect_dataset(TRACES, lambda s: _backend(), _registry(),
+    collect_dataset(target, lambda s: _backend(), _registry(),
                     n_healthy=n, n_inject_per_class=n_inject,
                     classes=DEMO_CLASSES if n_inject else (), tau=2,
-                    task_fn=demo_task, model=MODEL, cassette=_cassette(),
+                    task_fn=demo_task, model=MODEL,
+                    cassette=_cassette(corpus=target),
                     allow_unverified_healthy=True)
 
 
@@ -318,13 +328,18 @@ if __name__ == "__main__":
     parser.add_argument("--collect-healthy", type=int, default=0)
     parser.add_argument("--collect-injected", type=int, default=0,
                         help="episodes per failure class")
+    parser.add_argument("--out", type=Path, default=None,
+                        help="collect into this corpus directory instead of "
+                             f"{TRACES.name} (use for a sibling corpus so the "
+                             "frozen one keeps its published numbers)")
     parser.add_argument("--demo", action="store_true",
                         help="fit on collected healthy + run healthy and each "
                              "injected class, print detection")
     args = parser.parse_args()
 
     if args.collect_healthy or args.collect_injected:
-        collect_healthy(args.collect_healthy, args.collect_injected)
+        collect_healthy(args.collect_healthy, args.collect_injected,
+                        out=args.out)
     elif args.demo:
         registry = _registry()
         mon, theta, theta5 = fit_monitor()

@@ -1,0 +1,10 @@
+label,flagged,n,rate
+context_corruption,113,244,0.4631
+goal_drift,0,217,0.0
+healthy,0,2080,0.0
+looping,105,247,0.4251
+malformed_json,0,70,0.0
+rate_limit,0,64,0.0
+timeout,0,60,0.0
+tool_cascade,0,176,0.0
+wrong_document,0,68,0.0

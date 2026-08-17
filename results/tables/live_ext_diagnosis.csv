@@ -1,0 +1,17 @@
+dataset,episode_id,failure_class,T,tau,horizon,det_esn,det_maha,det_logistic
+demo_real_varied_ext,real-looping-000,looping,11,2,8,True,True,True
+demo_real_varied_ext,real-looping-001,looping,8,2,5,True,True,True
+demo_real_varied_ext,real-looping-002,looping,7,2,4,True,True,True
+demo_real_varied_ext,real-looping-004,looping,8,2,5,True,True,True
+demo_real_varied_ext,real-rate_limit-000,rate_limit,8,4,3,True,True,False
+demo_real_varied_ext,real-rate_limit-001,rate_limit,8,4,3,True,True,True
+demo_real_varied_ext,real-rate_limit-002,rate_limit,7,2,4,True,True,True
+demo_real_varied_ext,real-rate_limit-004,rate_limit,7,2,4,True,True,True
+demo_real_varied_ext,real-wrong_document-000,wrong_document,8,2,5,True,True,True
+demo_real_varied_ext,real-wrong_document-001,wrong_document,9,2,6,True,True,True
+demo_real_varied_ext,real-wrong_document-002,wrong_document,7,2,4,True,True,True
+demo_real_varied_ext,real-wrong_document-004,wrong_document,8,2,5,False,True,True
+demo_real_varied_ext,real-malformed_json-000,malformed_json,10,2,7,True,False,False
+demo_real_varied_ext,real-malformed_json-001,malformed_json,8,2,5,False,False,False
+demo_real_varied_ext,real-malformed_json-002,malformed_json,7,2,4,False,True,True
+demo_real_varied_ext,real-malformed_json-004,malformed_json,8,2,5,True,False,False

@@ -84,6 +84,72 @@ def mcnemar_test(detected_a: np.ndarray, detected_b: np.ndarray) -> dict:
     return {"n10": n10, "n01": n01, "p_value": p}
 
 
+def within_stratum_corr(x: np.ndarray, y: np.ndarray,
+                        stratum: np.ndarray) -> float:
+    """Pearson correlation of x and y after centring both inside each stratum.
+
+    This is the fixed-effects ("within") estimator: every stratum contributes
+    only its internal covariation, so a correlation produced purely by strata
+    differing in their x and y levels comes out at 0. Strata with fewer than
+    two rows carry no internal variation and are dropped. Returns nan when
+    nothing varies within any stratum.
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    stratum = np.asarray(stratum)
+    assert x.shape == y.shape == stratum.shape and x.ndim == 1
+    xc, yc, keep = np.empty_like(x), np.empty_like(y), np.zeros(x.size, bool)
+    for s in np.unique(stratum):
+        m = stratum == s
+        if int(m.sum()) < 2:
+            continue
+        xc[m] = x[m] - x[m].mean()
+        yc[m] = y[m] - y[m].mean()
+        keep |= m
+    if not keep.any():
+        return float("nan")
+    xc, yc = xc[keep], yc[keep]
+    if xc.std() == 0.0 or yc.std() == 0.0:
+        return float("nan")
+    return float(np.corrcoef(xc, yc)[0, 1])
+
+
+def stratified_permutation_test(x: np.ndarray, y: np.ndarray,
+                                stratum: np.ndarray, n_perm: int = 20000,
+                                seed: int = 0) -> dict:
+    """Two-sided test that x and y covary WITHIN strata, not merely across them.
+
+    The statistic is `within_stratum_corr`. The null shuffles x inside each
+    stratum, which destroys any x-y link while preserving both marginal
+    distributions and each stratum's size and composition. Use this wherever
+    rows are clustered — pooling clustered rows into one correlation treats
+    between-cluster differences as if they were evidence about the
+    within-cluster relationship, and inflates significance accordingly.
+
+    Returns {"r_within", "p_value", "n_strata", "n"}; the p-value uses the
+    same add-one estimator as `paired_permutation_test`.
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    stratum = np.asarray(stratum)
+    obs = within_stratum_corr(x, y, stratum)
+    if not np.isfinite(obs):
+        return {"r_within": float("nan"), "p_value": 1.0,
+                "n_strata": int(np.unique(stratum).size), "n": int(x.size)}
+    rng = rng_for(seed, "stratified-perm")
+    idx = [np.flatnonzero(stratum == s) for s in np.unique(stratum)]
+    xp = x.copy()
+    hits = 0
+    for _ in range(n_perm):
+        for m in idx:
+            xp[m] = x[rng.permutation(m)]
+        r = within_stratum_corr(xp, y, stratum)
+        if np.isfinite(r) and abs(r) >= abs(obs):
+            hits += 1
+    return {"r_within": obs, "p_value": float((hits + 1) / (n_perm + 1)),
+            "n_strata": int(np.unique(stratum).size), "n": int(x.size)}
+
+
 if __name__ == "__main__":
     rng = rng_for(0, "stats-smoke")
 
@@ -102,6 +168,28 @@ if __name__ == "__main__":
     w = wilcoxon_signed_rank(shifted, base)
     assert w["p_value"] < 0.001, w
     assert wilcoxon_signed_rank(base, base)["p_value"] == 1.0
+
+    # Within-stratum correlation: strata that differ in their x and y LEVELS
+    # but carry no internal x-y link must read as 0, however strong the
+    # pooled correlation looks. This is the Simpson case the pooled estimator
+    # gets wrong.
+    strata = np.repeat(np.arange(6), 50)
+    x_between = strata * 10.0 + rng.normal(size=300)
+    y_between = strata * 10.0 + rng.normal(size=300)
+    pooled = float(np.corrcoef(x_between, y_between)[0, 1])
+    assert pooled > 0.9, pooled
+    assert abs(within_stratum_corr(x_between, y_between, strata)) < 0.2
+    t_between = stratified_permutation_test(x_between, y_between, strata,
+                                            n_perm=2000, seed=3)
+    assert t_between["p_value"] > 0.05, t_between
+
+    # A real within-stratum link is still found, and is deterministic.
+    y_within = x_between + rng.normal(scale=0.5, size=300)
+    t_within = stratified_permutation_test(x_between, y_within, strata,
+                                           n_perm=2000, seed=4)
+    assert t_within["r_within"] > 0.8 and t_within["p_value"] < 0.01, t_within
+    assert stratified_permutation_test(x_between, y_within, strata,
+                                       n_perm=2000, seed=4) == t_within
 
     # McNemar: strongly one-sided discordance -> significant.
     det_a = np.concatenate([np.ones(60, bool), np.zeros(40, bool)])
