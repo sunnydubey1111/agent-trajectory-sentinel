@@ -750,3 +750,53 @@ def test_horizon_within_estimate_survives_dropping_any_one_corpus():
     assert len(r) >= 10, "one row per corpus dropped, plus the full estimate"
     assert (r.r_within_dataset > 0.1).all(), (
         "dropping a corpus must not remove the effect")
+
+
+def _grand_means(table: str) -> tuple[dict[str, float], dict[str, float]]:
+    """Raw and length-matched grand-mean AUROC per monitor, from one study table."""
+    import pandas as pd
+
+    d = pd.read_csv(TABLES / table)
+    g = d.groupby("monitor")[["raw_auroc", "length_matched_auroc"]].mean()
+    return g["raw_auroc"].to_dict(), g["length_matched_auroc"].to_dict()
+
+
+def test_episode_auc_never_appears_without_its_length_matched_arm() -> None:
+    """The README's monitor table ranks corpora that differ in episode length.
+
+    `episode_auc` maximises over the whole episode, so it pays for exposure;
+    ranking eight datasets of different lengths on it alone compares monitors
+    partly on how long their episodes ran. The raw column may stay — it is the
+    number the study reports — but it may not stand there by itself.
+    """
+    readme = (TABLES.parents[1] / "README.md").read_text("utf-8")
+    table = readme[readme.index("| monitor | grand-mean AUROC"):]
+    table = table[:table.index("\n\n")]
+    assert "length-matched" in table, (
+        "README's grand-mean AUROC table lost its length-matched column")
+
+    _, matched = _grand_means("hybrid_length_confound.csv")
+    for monitor, value in (("esn_cusum_max", matched["esn_cusum_max"]),
+                           ("delta_mahalanobis", matched["delta_mahalanobis"]),
+                           ("hybrid_logistic", matched["hybrid_logistic"])):
+        assert f"{value:.3f}" in table, (
+            f"{monitor}'s length-matched AUROC {value:.3f} is not in the table")
+
+
+def test_the_two_parents_swap_places_once_length_is_controlled() -> None:
+    """The reversal the docs report must keep holding, at every seed.
+
+    Raw `episode_auc` puts delta-Mahalanobis above the ESN; matching healthy
+    and injected episodes on length puts the ESN above it instead. README,
+    CONTRIBUTIONS and the hybrid report all state this, so if a rerun ever
+    made the two orderings agree, those passages would be silently wrong.
+    """
+    seeds = sorted(p.name for p in TABLES.glob("hybrid_seed*_length_confound.csv"))
+    assert len(seeds) >= 5, f"expected the five-seed sweep, found {seeds}"
+
+    for table in seeds:
+        raw, matched = _grand_means(table)
+        assert raw["delta_mahalanobis"] > raw["esn_cusum_max"], (
+            f"{table}: raw ordering no longer favours delta-Mahalanobis")
+        assert matched["esn_cusum_max"] > matched["delta_mahalanobis"], (
+            f"{table}: length-matched ordering no longer favours the ESN")

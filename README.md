@@ -142,6 +142,19 @@ permutation and exact McNemar tests against every memoryless baseline are
 significant (vs delta-Mahalanobis: 130-vs-4 discordant detections,
 McNemar p ≈ 1e-33).
 
+**The two kinds of number in this table are not interchangeable.** Detection,
+steps saved and false-alarm rate are *causal*: they come from an alarm raised
+at a step, using only what was observable by then. AUC is `episode_auc`, the
+offline ranking of an episode's maximum score against the healthy population —
+it needs the whole episode, so it cannot be earned online, and it rises with
+episode length because a longer episode gives its maximum more chances to
+exceed a healthy one. Here that inflation is large: matching healthy and
+injected episodes on length takes the ESN's 0.890 on `sim` down to 0.751
+(`results/tables/*_length_confound.csv`, produced by `length_confound_report`).
+Use AUC to compare monitors on a fixed population, never to claim detection,
+and never across corpora of different episode lengths without the matched
+column.
+
 Two findings worth the space. **Linear vector-autoregression is a strong
 baseline** — it saves the most budget and actually leads the ESN by ~1.9 steps
 — but it is far behind on detection. Much of the temporal signal is linear;
@@ -229,12 +242,37 @@ dropped; otherwise a 50/50 weighted ESN + delta-Mahalanobis fusion, upgraded to
 the supervised logistic once ~20 labelled failures exist. Grand-mean AUROC over
 the eight benchmark datasets (`results/tables/hybrid_benchmark.csv`):
 
-| monitor | grand-mean AUROC | needs labels |
-|---|---|---|
-| `esn_cusum_max` alone | 0.802 | no |
-| delta-Mahalanobis alone | 0.808 | no |
-| **`hybrid_weighted50`** (label-free default) | **0.812** | no |
-| **`hybrid_logistic`** (with ≥20 labelled failures) | **0.826** | yes |
+| monitor | grand-mean AUROC | length-matched | needs labels |
+|---|---|---|---|
+| `esn_cusum_max` alone | 0.802 | 0.887 | no |
+| delta-Mahalanobis alone | 0.808 | 0.866 | no |
+| **`hybrid_weighted50`** (label-free default) | **0.812** | — | no |
+| **`hybrid_logistic`** (with ≥20 labelled failures) | **0.826** | **0.891** | yes |
+
+**Read the first column as ranking, not detection.** `episode_auc` takes the
+maximum score over the *whole* episode, so it is an offline ranking statistic,
+not a causal detection metric, and a longer episode gives its maximum more
+chances to exceed a healthy one. The eight datasets differ sharply in episode
+length, so the raw column compares monitors partly on exposure. The
+length-matched column repeats the comparison inside overlapping length bins
+(`hybrid_length_confound.csv`), and two things move:
+
+- **delta-Mahalanobis' edge over the ESN is an artifact of length.** Raw, it
+  leads by 0.006 at every one of five seeds; length-matched, the ESN leads by
+  0.027 at every one of five. The reversal is systematic, not seed noise, and
+  it comes from the short-episode research corpora, where the Mahalanobis
+  advantage disappears once length is controlled (`real_research7b` −0.072 →
+  −0.000). This is the same confound the horizon law describes.
+- **The learned hybrid's edge over the ESN does not survive it.** Raw +0.025
+  at every seed; length-matched +0.002, and negative at two of five. Its edge
+  over Mahalanobis does survive and grows (+0.021 → +0.029).
+
+Length matching is the stricter test but the smaller one — it keeps a median
+of 29 episodes per dataset and three datasets saturate at 1.000 — so treat it
+as a check on whether a margin is exposure-driven, not as a better point
+estimate. What it supports is the ordering claim below, not a new headline
+number: against Mahalanobis the fusion and the ESN both hold up; between the
+fusion and the ESN, the grand mean cannot separate them once length is fixed.
 
 **What labels buy: +0.014 AUROC.** That is the whole difference between the
 best label-free fusion (0.812) and the supervised one (0.826), and it costs a

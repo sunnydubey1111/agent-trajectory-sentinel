@@ -16,7 +16,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (97 claims checked).
+ (100 claims checked).
 
 ## Corpus
 
@@ -54,6 +54,9 @@ Status at generation: **all claims verified**
 | hybrid_weighted50 grand-mean AUROC (label-free default) | `0.812` | `8` datasets | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
 | hybrid_logistic grand-mean AUROC (with labels) | `0.826` | `8` datasets | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
 | esn_cusum_max grand-mean AUROC on the same eight datasets | `0.802` | `8` datasets | `results/tables/hybrid_benchmark.csv` | `py -m derail.experiments.run_hybrid_study` |
+| esn_cusum_max grand-mean AUROC, healthy/injected matched on length | `0.887` | `8` datasets | `results/tables/hybrid_length_confound.csv` | `py -m derail.experiments.run_hybrid_study` |
+| delta_mahalanobis grand-mean AUROC, matched on length | `0.866` | `8` datasets | `results/tables/hybrid_length_confound.csv` | `py -m derail.experiments.run_hybrid_study` |
+| hybrid_logistic grand-mean AUROC, matched on length | `0.891` | `8` datasets | `results/tables/hybrid_length_confound.csv` | `py -m derail.experiments.run_hybrid_study` |
 | esn_cusum_max episode AUROC on AFTraj-2K (external) | `0.745` | `771` episodes | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.import_aftraj && py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | esn_cusum_max detection on AFTraj-2K at the 5% budget | `0.048` | — | `results/tables/aftraj_benchmark.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |
 | esn_cusum_max detection on AFTraj-2K failures with >= 9 steps of post-onset horizon | `0.509` | — | `results/tables/aftraj_diagnosis.csv` | `py -m derail.experiments.run_hybrid_study --datasets aftraj --out-prefix aftraj` |

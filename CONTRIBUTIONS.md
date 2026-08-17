@@ -294,6 +294,12 @@ healthy reference becomes undetectable by construction.
 
 **Detection at realized false-alarm rate as the reporting standard**, with the
 argument for why AUROC alone is insufficient for a verifier permitted to halt.
+`episode_auc` is an offline ranking statistic over the whole episode, so it is
+not causal and it grows with episode length; every AUROC above compares
+monitors on one fixed population, which is the use it supports. Comparing it
+*across* corpora of different lengths needs the length-matched arm
+(`length_confound_report`), and where the repo does that, one published
+ordering reverses — see the README monitor table.
 
 ---
 

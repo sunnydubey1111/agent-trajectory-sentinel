@@ -155,7 +155,11 @@ under 5 s). All remain orders of magnitude below a judge-LLM call.
 
 1. **Default (label-free deployments): `hybrid_weighted50`** — no labels
    needed, grand-mean AUROC 0.812 > Maha 0.808 > ESN 0.802 over eight
-   datasets, never far from the local winner, +9% latency over ESN.
+   datasets, never far from the local winner, +9% latency over ESN. Those
+   are raw `episode_auc` values and the ESN/Maha half of that ordering does
+   not survive length control (§8); what carries the recommendation is
+   "never far from the local winner", which is a per-dataset floor and is
+   unaffected.
 2. **When ≥ ~20 labeled failure episodes exist: `hybrid_logistic`** — best
    grand mean (0.826), statistically at-or-above the better standalone on
    every development dataset (on the small, noisy held-out set its edge
@@ -277,10 +281,26 @@ ESN 0.800 ± 0.003. Two conclusions:
    per seed:** logistic − ESN = +0.025 ± 0.004 (positive at every seed,
    worst +0.019); logistic − Maha = +0.021 ± 0.006 (worst +0.011); the
    label-free weighted − ESN = +0.010 ± 0.002
-   (worst +0.007). Note that Δ-Mahalanobis now grand-means *above* the ESN
-   and above the weighted/gated hybrids — it is a strong baseline, and only
-   the *learned* logistic fusion clears it. Differences among the
-   label-free hybrid variants are within seed noise.
+   (worst +0.007). Differences among the label-free hybrid variants are
+   within seed noise.
+
+   **All of the above is raw `episode_auc`, and length control moves two of
+   these conclusions.** Δ-Mahalanobis grand-means *above* the ESN on raw
+   AUROC at every seed (by 0.002–0.008), which reads as "a strong baseline
+   only the learned fusion clears". Repeat the comparison inside overlapping
+   length bins and the ordering reverses at every seed, the ESN leading by
+   0.021–0.031: the Mahalanobis edge was episode exposure, concentrated in
+   the short-episode research corpora. The logistic's margin over Δ-Maha
+   survives and grows (+0.021 → +0.029); its margin over the *ESN* does not
+   (+0.025 → +0.002, negative at two of five seeds). The robustness floor
+   moves the same way — worst-dataset AUROC raw Δ-Maha 0.668 > logistic
+   0.646 > ESN 0.573, length-matched ESN 0.719 > logistic 0.705 > Δ-Maha
+   0.625. Matched samples are small (median 29 per dataset, three saturating
+   at 1.000), so this is evidence that a margin is exposure-driven, not a
+   replacement point estimate. It does not change the label-free
+   recommendation, which rests on per-dataset floors rather than the grand
+   mean, but the "Δ-Mahalanobis is the baseline to beat" reading does not
+   survive it.
 2. **Fusion does NOT uniformly stabilize variance** (corrected finding).
    On the ESN's noisiest real set the logistic tightens the cross-seed
    spread several-fold (research7b 0.009 → 0.002), but on the short 3b and

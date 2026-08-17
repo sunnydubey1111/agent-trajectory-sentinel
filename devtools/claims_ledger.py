@@ -274,6 +274,19 @@ def _hybrid_grand_mean(monitor: str) -> float:
     return float(d.loc[d.monitor == monitor, "auroc"].mean())
 
 
+def _hybrid_grand_mean_matched(monitor: str) -> float:
+    """Grand-mean AUROC with healthy and injected matched on episode length.
+
+    `episode_auc` maximises over the whole episode, so it rewards exposure:
+    the eight datasets differ in episode length and the raw grand mean partly
+    ranks them on that. This is the same quantity computed inside overlapping
+    length bins, and it is carried as its own claim because the two disagree —
+    raw puts delta-Mahalanobis above the ESN, matched reverses it.
+    """
+    d = _table("hybrid_length_confound.csv")
+    return float(d.loc[d.monitor == monitor, "length_matched_auroc"].mean())
+
+
 def _horizon_band(arm: str, band: str, column: str = "gap") -> float:
     """One cell of the horizon study's band table, by provenance arm.
 
@@ -795,6 +808,30 @@ def build() -> list[Claim]:
               0.8020, "results/tables/hybrid_benchmark.csv",
               "py -m derail.experiments.run_hybrid_study",
               lambda: _hybrid_grand_mean("esn_cusum_max"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
+        # The length-matched arm of the same three monitors. Published beside
+        # the raw values because the ESN/Mahalanobis ordering reverses once
+        # episode length is controlled, so quoting either alone misleads.
+        Claim("hybrid.esn_length_matched",
+              "esn_cusum_max grand-mean AUROC, healthy/injected matched on length",
+              0.8869, "results/tables/hybrid_length_confound.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean_matched("esn_cusum_max"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
+        Claim("hybrid.maha_length_matched",
+              "delta_mahalanobis grand-mean AUROC, matched on length",
+              0.8663, "results/tables/hybrid_length_confound.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean_matched("delta_mahalanobis"), "Monitor",
+              denominator=_hybrid_datasets, expected_denominator=8,
+              denominator_unit="datasets"),
+        Claim("hybrid.logistic_length_matched",
+              "hybrid_logistic grand-mean AUROC, matched on length",
+              0.8910, "results/tables/hybrid_length_confound.csv",
+              "py -m derail.experiments.run_hybrid_study",
+              lambda: _hybrid_grand_mean_matched("hybrid_logistic"), "Monitor",
               denominator=_hybrid_datasets, expected_denominator=8,
               denominator_unit="datasets"),
         # ------------------------------------------- external validation
