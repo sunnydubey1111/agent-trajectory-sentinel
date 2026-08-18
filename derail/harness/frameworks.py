@@ -20,6 +20,7 @@ import time
 
 from derail.harness.record_replay import Cassette
 from derail.harness.tools import ToolRegistry, format_tool_bit
+from derail.preconditions import error_shaped
 from derail.telemetry.events import SCHEMA_VERSION, make_tool_event
 
 _SYSTEM = ("Solve the user's task using the tools. Call at most ONE tool per "
@@ -166,7 +167,7 @@ def run_langgraph_episode(registry: ToolRegistry, task: str, *,
             for i, ((name, args), res) in enumerate(
                     zip(steps[-1].get("_calls", []), results)):
                 bits.append(format_tool_bit(name, args, res))
-                is_error = res.startswith("Error:")
+                is_error = error_shaped(res)
                 err = err or is_error
                 latency = (executed[i].latency_s if i < len(executed) else None)
                 steps[-1]["tool_events"].append(make_tool_event(
@@ -294,7 +295,7 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
                             zip(steps[-1]["_calls"], event.content)):
                         res_str = str(r.content)
                         bits.append(format_tool_bit(name, args, res_str))
-                        is_error = res_str.startswith("Error:")
+                        is_error = error_shaped(res_str)
                         err = err or is_error
                         latency = (executed[i].latency_s
                                    if i < len(executed) else None)

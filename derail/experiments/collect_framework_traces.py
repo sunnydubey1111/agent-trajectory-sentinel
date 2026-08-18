@@ -42,6 +42,7 @@ from derail.harness.collection import (ModelUnavailable, Provenance,
                                        write_episode, write_manifest)
 from derail.harness.frameworks import reached_step_limit
 from derail.harness.tools import format_tool_bit
+from derail.preconditions import error_shaped
 from derail.telemetry.events import SCHEMA_VERSION, make_tool_event
 from derail.experiments.collect_traces import (
     MAX_STEPS,
@@ -92,7 +93,7 @@ class ToolLayerInjection:
         self.applied_tools.append(name)
 
     def transform(self, name: str, result: str) -> str:
-        is_error = result.startswith("Error:")
+        is_error = error_shaped(result)
         if (self.failure_class is not None and self.tau is not None
                 and self.t >= self.tau):
             if self.failure_class == "tool_cascade":
@@ -173,7 +174,7 @@ def _attach_results(step: dict, results: list[str],
     for i, ((name, args), result) in enumerate(zip(step.get("_calls", []),
                                                    results)):
         is_error = (bool(errors[i]) if errors and i < len(errors)
-                    else str(result).lstrip().lower().startswith("error"))
+                    else error_shaped(str(result)))
         step["tool_events"].append(
             make_tool_event(name, args, result, is_error=is_error))
         bits.append(format_tool_bit(name, args, result))

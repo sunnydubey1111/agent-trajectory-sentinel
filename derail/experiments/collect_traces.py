@@ -49,6 +49,7 @@ from derail.harness.collection import (ModelUnavailable, Provenance,
                                        write_episode, write_manifest)
 from derail.harness.record_replay import Cassette, request_key
 from derail.harness.tools import format_tool_bit
+from derail.preconditions import error_shaped
 from derail.telemetry.events import SCHEMA_VERSION, make_tool_event
 
 
@@ -729,7 +730,7 @@ def run_episode(backend: AgentBackend, seed: int,
                 tool_latency = time.perf_counter() - t_tool
                 result, is_err = injection.corrupt_tool_result(
                     use["name"], result, t)
-                is_err = is_err or result.startswith("Error:")
+                is_err = is_err or error_shaped(result)
                 step_error = step_error or is_err
                 results.append({"id": use["id"], "name": use["name"],
                                 "content": result, "is_error": is_err})

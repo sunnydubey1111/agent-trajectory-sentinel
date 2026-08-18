@@ -10,13 +10,13 @@
    "derail/evaluation/protocol.py": "c4cec4f88c0f29e56dac2f25677b74ce272cd42e652808f7bea4f26169378dea",
    "derail/evaluation/stats.py": "375f8282df4f7b2ec11cb335eb23a714776dbec2e45c738f593612d057e6e499",
    "derail/experiments/__init__.py": "b42f2099187886def637d6aa840022266e05cb6c987a9394e708e23cd505eb46",
-   "derail/experiments/collect_framework_traces.py": "5f2ee7905c6c30703d92047178b5b55766170823396a92585384c88fe1201f31",
+   "derail/experiments/collect_framework_traces.py": "2d0269a77786adef3d94076eaff46615fa3b151101994535858e80a47e510746",
    "derail/experiments/collect_gemini_long.py": "bcbaf10d6f8f27ab305483d88e42c6cb0f097b7a3b1ddcd937aaded251476f99",
    "derail/experiments/collect_goal_drift_long.py": "ed0e64412da8420aa8807a9ac69b702ea38d7a9cdc28bb0906c4067e8d97db6a",
    "derail/experiments/collect_organic.py": "19d579db5eaa3d14f46caeea2dd249d2a1f2ca381606f257f02cce3e24e7bf48",
    "derail/experiments/collect_real_traces.py": "654b6833410ad7063d419b15a08860994c28ee7c15a281f05c182f3dac5e51ce",
    "derail/experiments/collect_research7b_long.py": "512c0903140f23e0e38f466543578cf677417ed259a21b676d8142017f36a246",
-   "derail/experiments/collect_traces.py": "577a3785e6f2384798463bbe886768074a647a8758a8f1312df3804260f74207",
+   "derail/experiments/collect_traces.py": "0afe51c2addf610762223b9a5c0f7d726a84f7a0c0acc6ea976482c409e7edd6",
    "derail/experiments/demo.py": "96baaded0b0141b42d39b340c2dcad5f3e4f373cd2df413357ac8ee84d1e2c71",
    "derail/experiments/esn_ablation.py": "5a2872038a8fab3b1393cfe483497f634f43e526812cc65d42b693160d492a4e",
    "derail/experiments/esn_capacity_scaling.py": "144126dd6908fa947f9a25835d165609b23c7f66315652d42f9a1fa9668e747f",
@@ -55,13 +55,13 @@
    "derail/harness/collection.py": "2586bb6da89f7145267a7c61f3cd7a727196d32171467d452946b2cb7fe18f9f",
    "derail/harness/demo_real.py": "da7670460ba718a0f0f097d6ee9a2c7a135d82a69ef5c7f612ffc61c3aa62e55",
    "derail/harness/fixtures/ecommerce_seed.sql": "374e6ca3f47bf25c93231db6341b2086afe3e237cb91080bfbedbbd999e56db2",
-   "derail/harness/frameworks.py": "7df34877f05dfe70d863319f2e0b14fb932945df35f9cd8bc8e06907b77a1d37",
+   "derail/harness/frameworks.py": "890f2180af75a8202635bbca3f102fb79fea76b0e638e4ddfe7d5edee39f41ad",
    "derail/harness/inject.py": "acbc371ba66fe2a0b8c57586202dbdce72a06bad8536ad42651dd53c41c64d0d",
    "derail/harness/real_tools.py": "69ea86ed2148371e164818ee409c6bafe9e4adfc9e25537bf2907e961b918214",
    "derail/harness/record_replay.py": "08d1b53a998dbcf8cd2957c739e994ab0860c0ffacccb99425ca1c7a601f4630",
    "derail/harness/sandbox.py": "ae7100bc62b99cb384b5d8e8cf4cea8307990ed48eb1d33f2295959065ca9d8f",
    "derail/harness/tasks.py": "7117f09044ff9d67cfa7218c8a83284ce5a8fcb551f71f5c4d7fb9ba9e8f2fea",
-   "derail/harness/tools.py": "c6f8f89bd3f2e452857f7d3e4d43c3c1ca4cafc0f4d115ce8ea5b5e6931a9d2d",
+   "derail/harness/tools.py": "43d062df3b556605eeb38bdb6552bbbc77091fa70d9d425ffa91a2c665d9fe7e",
    "derail/intervene/__init__.py": "c11b872f056caf74482df155a4ba031476ee94990250215163f69af01b221d41",
    "derail/intervene/evaluate_repair_policies.py": "ac671f52ecb28cd9d705599b580df7ccfb2bd712400165d37291ba7976a36e4d",
    "derail/intervene/rollback.py": "c23150bc9154cec8706071387ce21a1a79897678d5e278701270b25f438e03f5",
@@ -127,7 +127,7 @@
    "tests/test_language_and_cost_units.py": "0c6dc0cf2f41f11f2ef8fc65764c5a0c71f793003d976a2ec32f892d9e15f8ee",
    "tests/test_module_selftests.py": "0c8c899b49ef613d6ee419e3df8e2ad8a340e3b17ed13205d0d4b98634e0e9d6",
    "tests/test_monitor_internals.py": "5a726f15b6389a1550ef575de92240828c387e62427ae2211d9202be254d5399",
-   "tests/test_reader_preconditions.py": "a89fe2062c66ec1fed67d56765cf1dbd789c0310386d0b05bcc196eef0709293",
+   "tests/test_reader_preconditions.py": "4e87a189f4bb52da9edc189c5869db83f552393b32adff64d25414ae26f19fa5",
    "tests/test_real_tool_functionality.py": "b562d496ed0e1188710e81f0142dfbee5edcce731978e2790f690894efc9292b",
    "tests/test_release_artifacts.py": "dd585f59236ae0d2c7f59f1deedcbb1528096a7417d3976f87563a4ae1654973",
    "tests/test_security_containment.py": "19e369f082cb04c524fc5a18dfa1f35fc778f7b9c576b6349ce74f2bbac60912",
@@ -9811,7 +9811,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "f6b8842972a7a3c1f7229486885c78861bdcdba37f35a8da8e066a7e3372d8b3",
+   "CHECKSUMS.md": "46efe8e8dc3d69f7d70a3b377144c7b685e734ec6ee727688785baa177fa30a6",
    "CLAIMS.md": "92a325249a6a87ce2ce7bab6f50f9e701e10148df7dccdd232bdb2b1b2527b32",
    "CONTRIBUTIONS.md": "db3b5043340b538d50b908813e710a6e3f8a0524a0058f28900754908b5c4814",
    "DATA_CARD.md": "934f34539f538004ab56b04a0128114e8fce33ab2731b44e68b1d7c77c034395",
@@ -9826,6 +9826,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Fix tool_fingerprint() cross-machine portability: exclude root/db_path (absolute paths) from the cassette key; re-key the 18 real-corpus entries this orphaned",
+ "note": "Consolidate tool-result error classification onto preconditions.error_shaped() in tools.py, frameworks.py, collect_traces.py and collect_framework_traces.py",
  "file_count": 9817
 }

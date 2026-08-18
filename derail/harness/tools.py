@@ -11,10 +11,11 @@ already understands:
   * transparent cassette record/replay + cost-free repeat runs (WS0.3).
 
 A Tool is just: a name, a description, a {param: description} schema, and a
-run(**args) -> str. Raising from run() (or returning a string that starts
-with "Error:") marks the call as an error, matching the existing collectors.
-This module owns NO live integrations — those are WS1; it owns the contract
-they satisfy so the adapter and monitors never change.
+run(**args) -> str. Raising from run() (or returning an error-shaped string —
+see derail.preconditions.error_shaped) marks the call as an error, matching
+the existing collectors. This module owns NO live integrations — those are
+WS1; it owns the contract they satisfy so the adapter and monitors never
+change.
 """
 
 from __future__ import annotations
@@ -28,6 +29,7 @@ from typing import Any, Callable, Protocol, runtime_checkable
 
 from derail.harness.record_replay import Cassette, request_key
 from derail.harness.sandbox import redact_secrets
+from derail.preconditions import error_shaped
 
 _RESULT_TRUNCATE = 100   # chars kept in the step-text bit (matches collectors)
 
@@ -238,7 +240,7 @@ class ToolRegistry:
             t0 = time.perf_counter()
             try:
                 out = str(self._tools[name].run(**args))
-                is_err = out.startswith("Error:")
+                is_err = error_shaped(out)
             except Exception as exc:  # noqa: BLE001 — surfaced to the agent
                 out, is_err = f"Error: {type(exc).__name__}: {exc}", True
             # Central redaction: applied before the result can reach a model,

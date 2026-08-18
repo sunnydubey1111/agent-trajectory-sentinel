@@ -243,6 +243,49 @@ def test_both_readers_share_one_definition():
     assert ad.error_shaped is error_shaped
 
 
+def test_the_runtime_dispatch_paths_share_the_same_definition_too():
+    """`tools.py`/`frameworks.py` (live dispatch) and `collect_traces.py`/
+    `collect_framework_traces.py` (the booking-demo collectors) each carried
+    their own `.startswith("Error:")` copy of this rule. A JSON envelope, an
+    HTTP status line or a non-English error from a new tool was silently
+    recorded as a SUCCESS on these paths. Pin identity, not just behaviour,
+    so a future edit cannot quietly reintroduce a local copy."""
+    import derail.experiments.collect_framework_traces as cft
+    import derail.experiments.collect_traces as ct
+    import derail.harness.frameworks as fw
+    import derail.harness.tools as tl
+    assert tl.error_shaped is error_shaped
+    assert fw.error_shaped is error_shaped
+    assert ct.error_shaped is error_shaped
+    assert cft.error_shaped is error_shaped
+
+
+def test_tool_registry_call_recognizes_non_prefix_error_shapes():
+    """End-to-end through the real dispatch path (`ToolRegistry.call`'s
+    `_live()`) -- the canonical route every real tool call takes. A tool
+    reporting failure as anything other than an "Error:" prefix must still
+    be read as a failure, not a successful call."""
+    from derail.harness.tools import SimpleTool, ToolRegistry
+
+    cases = {
+        "json_envelope": '{"error": "rate limited"}',
+        "http_status": "HTTP 503 Service Unavailable",
+        "traceback": "Traceback (most recent call last):\n  File x, line 1",
+        "non_english_json": '{"error": "límite de velocidad excedido"}',
+    }
+    for tool_name, payload in cases.items():
+        reg = ToolRegistry([SimpleTool(tool_name, "test", {},
+                                       lambda **_: payload)])
+        res = reg.call(tool_name, {})
+        assert res.is_error, f"{tool_name} should be read as a failure"
+        assert res.content == payload
+
+    reg = ToolRegistry([SimpleTool("ok", "test", {},
+                                   lambda **_: "No route found")])
+    assert not reg.call("ok", {}).is_error, \
+        "a DECLARED result must not be misread as a failure"
+
+
 def test_a_json_error_envelope_no_longer_counts_as_a_successful_call():
     step = {"text": '[search({"q": "x"}) -> {"error": "quota exceeded"}]',
             "token_logprobs": [-0.1] * 12, "action": "tool_call",
