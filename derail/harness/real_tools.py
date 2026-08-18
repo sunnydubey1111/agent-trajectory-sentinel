@@ -71,6 +71,15 @@ _MAX_FILE_CHARS = int(os.environ.get("AGENTWATCH_MAX_FILE_CHARS", "4000"))
 _MAX_FETCH_BYTES = int(os.environ.get("AGENTWATCH_MAX_FETCH_BYTES",
                                       str(2_000_000)))
 
+# Third-party endpoints. Centralized here rather than inline in each tool's
+# run() so every live dependency this harness has is visible in one place.
+_WIKIPEDIA_SEARCH_URL = "https://en.wikipedia.org/w/api.php"
+_ARXIV_SEARCH_URL = "https://export.arxiv.org/api/query"
+_DUCKDUCKGO_SEARCH_URL = "https://api.duckduckgo.com/"
+_TAVILY_SEARCH_URL = "https://api.tavily.com/search"
+_OPEN_METEO_GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
+_OPEN_METEO_FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
+
 
 _TRUSTSTORE_READY = False
 
@@ -183,7 +192,7 @@ class WikipediaSearch:
     def run(self, query: str) -> str:
         if not str(query).strip():
             return "Error: empty query"
-        url = ("https://en.wikipedia.org/w/api.php?action=query&list=search"
+        url = (_WIKIPEDIA_SEARCH_URL + "?action=query&list=search"
                "&format=json&srlimit=" + str(self.max_results)
                + "&srsearch=" + urllib.parse.quote(str(query)))
         data = json.loads(self.get(url))
@@ -218,7 +227,7 @@ class ArxivSearch:
             return "Error: empty query"
         # HTTPS: plaintext transport let a network attacker rewrite retrieved
         # content, which is then fed straight to the model.
-        url = ("https://export.arxiv.org/api/query?sortBy=relevance"
+        url = (_ARXIV_SEARCH_URL + "?sortBy=relevance"
                "&sortOrder=descending&max_results=" + str(self.max_results)
                + "&search_query=all:" + urllib.parse.quote(str(query)))
         root = ET.fromstring(self.get(url))
@@ -251,7 +260,7 @@ class DuckDuckGoSearch:
     def run(self, query: str) -> str:
         if not str(query).strip():
             return "Error: empty query"
-        url = ("https://api.duckduckgo.com/?no_html=1&skip_disambig=1"
+        url = (_DUCKDUCKGO_SEARCH_URL + "?no_html=1&skip_disambig=1"
                "&format=json&q=" + urllib.parse.quote(str(query)))
         data = json.loads(self.get(url))
         parts = []
@@ -348,7 +357,7 @@ class TavilySearch:
             "max_results": self.max_results
         }
         try:
-            url = "https://api.tavily.com/search"
+            url = _TAVILY_SEARCH_URL
             data = json.loads(_http_post(url, payload).decode("utf-8"))
             results = data.get("results", [])
             if not results:
@@ -374,7 +383,7 @@ class OpenMeteoWeather:
             return "Error: empty city name"
         try:
             # Geocode city
-            geo_url = ("https://geocoding-api.open-meteo.com/v1/search?name="
+            geo_url = (_OPEN_METEO_GEOCODING_URL + "?name="
                        + urllib.parse.quote(str(city)) + "&count=1&format=json")
             geo_data = json.loads(_http_get(geo_url).decode("utf-8"))
             results = geo_data.get("results", [])
@@ -386,7 +395,8 @@ class OpenMeteoWeather:
             country = results[0].get("country", "")
 
             # Fetch weather
-            weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            weather_url = (_OPEN_METEO_FORECAST_URL +
+                          f"?latitude={lat}&longitude={lon}&current_weather=true")
             w_data = json.loads(_http_get(weather_url).decode("utf-8"))
             curr = w_data.get("current_weather", {})
             temp = curr.get("temperature", "?")

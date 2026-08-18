@@ -8,6 +8,7 @@ would change its output changes.
 from __future__ import annotations
 
 import inspect
+import json
 
 import pytest
 
@@ -30,6 +31,107 @@ def test_vector_search_has_no_silent_init_failure_branch():
     src = inspect.getsource(VectorSearchTool)
     assert "Qdrant client not initialized" not in src
     assert "_embed" not in src            # the random hashing embedding is gone
+
+
+# -------------------------------------------------------------------
+def test_real_tool_endpoints_are_centralized():
+    """URLs pinned so a future edit cannot drift an endpoint unnoticed."""
+    from derail.harness import real_tools as rt
+
+    assert rt._WIKIPEDIA_SEARCH_URL == "https://en.wikipedia.org/w/api.php"
+    assert rt._ARXIV_SEARCH_URL == "https://export.arxiv.org/api/query"
+    assert rt._DUCKDUCKGO_SEARCH_URL == "https://api.duckduckgo.com/"
+    assert rt._TAVILY_SEARCH_URL == "https://api.tavily.com/search"
+    assert (rt._OPEN_METEO_GEOCODING_URL ==
+            "https://geocoding-api.open-meteo.com/v1/search")
+    assert rt._OPEN_METEO_FORECAST_URL == "https://api.open-meteo.com/v1/forecast"
+
+
+def test_real_tool_run_reads_the_live_endpoint_constant(monkeypatch):
+    """Each tool must read its module-level URL constant at call time, not a
+    value captured once elsewhere -- otherwise the "centralized" constant
+    would be cosmetic and an override would not actually change behaviour."""
+    from derail.harness import real_tools as rt
+
+    seen = {}
+
+    def record(label, payload):
+        def get(u, *a, **kw):
+            seen[label] = u
+            return payload
+        return get
+
+    monkeypatch.setattr(rt, "_WIKIPEDIA_SEARCH_URL", "https://example.invalid/wiki")
+    rt.WikipediaSearch(get=record("wiki", b'{"query": {"search": []}}')).run("x")
+    assert seen["wiki"].startswith("https://example.invalid/wiki?")
+
+    monkeypatch.setattr(rt, "_ARXIV_SEARCH_URL", "https://example.invalid/arxiv")
+    rt.ArxivSearch(get=record(
+        "arxiv", b'<feed xmlns="http://www.w3.org/2005/Atom"></feed>')).run("x")
+    assert seen["arxiv"].startswith("https://example.invalid/arxiv?")
+
+    monkeypatch.setattr(rt, "_DUCKDUCKGO_SEARCH_URL", "https://example.invalid/ddg")
+    rt.DuckDuckGoSearch(get=record("ddg", b"{}")).run("x")
+    assert seen["ddg"].startswith("https://example.invalid/ddg?")
+
+    def fake_post(u, payload, *a, **kw):
+        seen["tavily"] = u
+        return b'{"results": []}'
+
+    monkeypatch.setattr(rt, "_TAVILY_SEARCH_URL", "https://example.invalid/tavily")
+    monkeypatch.setattr("derail.config.get_api_key", lambda name, required=False: "k")
+    monkeypatch.setattr(rt, "_http_post", fake_post)
+    rt.TavilySearch().run("x")
+    assert seen["tavily"] == "https://example.invalid/tavily"
+
+    monkeypatch.setattr(rt, "_OPEN_METEO_GEOCODING_URL", "https://example.invalid/geo")
+    monkeypatch.setattr(rt, "_OPEN_METEO_FORECAST_URL", "https://example.invalid/fc")
+    urls = []
+
+    def fake_get(u, *a, **kw):
+        urls.append(u)
+        if len(urls) == 1:
+            return json.dumps({"results": [{"latitude": 1, "longitude": 2,
+                                            "name": "X", "country": "Y"}]}).encode()
+        return json.dumps({"current_weather": {"temperature": 1, "windspeed": 1,
+                                                "weathercode": 0}}).encode()
+
+    monkeypatch.setattr(rt, "_http_get", fake_get)
+    rt.OpenMeteoWeather().run("X")
+    assert urls[0].startswith("https://example.invalid/geo?")
+    assert urls[1].startswith("https://example.invalid/fc?")
+
+
+def test_committed_cassettes_replay_after_endpoint_centralization():
+    """Moving the endpoint URLs into module constants changed
+    `tool_fingerprint()`'s source digest for every affected tool class, and
+    therefore the cassette key every one of their recordings lived under.
+    127 already-recorded calls (arXiv, Wikipedia, DuckDuckGo) in the
+    `demo_real_varied_ext` corpus were re-keyed (same content, new filename)
+    so replay keeps working without a live call. This pins one committed
+    example per re-keyed tool so a future regression (e.g. reverting the
+    re-key, or breaking source-based fingerprinting) fails loudly here
+    instead of silently forcing a live re-record."""
+    from pathlib import Path
+
+    from derail.harness.record_replay import Cassette
+    from derail.harness.real_tools import ArxivSearch, DuckDuckGoSearch, WikipediaSearch
+    from derail.harness.tools import ToolRegistry
+
+    cassette_dir = (Path(__file__).resolve().parents[1] / "traces" /
+                    "_cassettes" / "demo_real_varied_ext")
+    cases = [
+        (ArxivSearch, "arxiv_search", {"query": "ECG anomaly detection survey"}),
+        (WikipediaSearch, "wikipedia_search", {"query": "ECG anomaly detection"}),
+        (DuckDuckGoSearch, "web_search",
+         {"query": "Gaussian processes convolutional networks ECG anomaly detection"}),
+    ]
+    for ctor, name, args in cases:
+        reg = ToolRegistry([ctor()])
+        cas = Cassette(str(cassette_dir), mode="replay")
+        res = reg.call(name, args, cassette=cas)          # KeyError = regression
+        assert not res.is_error and res.content
+        assert cas.n_replayed == 1 and cas.n_recorded == 0
 
 
 # -------------------------------------------------------------------
