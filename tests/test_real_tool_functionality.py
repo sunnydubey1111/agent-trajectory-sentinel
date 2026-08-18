@@ -134,6 +134,128 @@ def test_committed_cassettes_replay_after_endpoint_centralization():
         assert cas.n_replayed == 1 and cas.n_recorded == 0
 
 
+#: Corpora whose collectors route real tool calls through
+#: derail.harness.tools.ToolRegistry.call() + a Cassette. `autogen`/`langgraph`
+#: are deliberately excluded: their `collect_framework_traces` collector uses a
+#: same-named but entirely simulator-driven `get_weather` etc. that never
+#: touches a cassette, so treating their calls as cassette-backed produces
+#: false failures. `slice` is excluded too -- it backs the live demo's serving
+#: cache, not a committed episode corpus (no manifest.json).
+_REAL_TOOL_CASSETTE_CORPORA = (
+    "real", "real_gemini_long", "demo_real_varied", "demo_real_varied_ext",
+    "real_research7b_long_drift", "real_research7b_long_ext",
+    "demo_real", "organic7b", "real_ollama7b", "real_research3b",
+    "real_research7b", "real_research7b_long",
+)
+
+
+def test_every_committed_real_tool_call_is_replay_resolvable():
+    """Every real-tool (name, args) pair in every committed episode across
+    `_REAL_TOOL_CASSETTE_CORPORA` must resolve to a cassette file under the
+    current `tool_fingerprint()` key or the one legacy (pre-fingerprint) key
+    -- the two lookups `ToolRegistry.call()` actually tries.
+
+    This is the repo-wide regression guard for the 2026-08-18
+    cassette-fingerprint investigation: `tool_fingerprint()` gained a source
+    digest in `5556356` without bumping `CASSETTE_SCHEMA_VERSION`, silently
+    orphaning ~45% of the real-tool corpus's calls (found via replay
+    KeyErrors nothing in CI exercised). Intentionally-uncached error calls
+    (`cache_errors=False`) are excluded -- they never had a recording and are
+    not a regression.
+    """
+    import json as _json
+    from pathlib import Path
+
+    from derail.harness.real_tools import build_registry
+    from derail.harness.record_replay import request_key
+    from derail.harness.tools import CASSETTE_SCHEMA_VERSION, tool_fingerprint
+    from derail.telemetry.events import parse_step_events
+    ROOT = Path(__file__).resolve().parents[1]
+    TRACES = ROOT / "traces"
+    REAL_TOOL_NAMES = {"python", "wikipedia_search", "arxiv_search", "web_search",
+                       "get_weather", "tavily_search", "github_tool",
+                       "browser_browse", "sql_query", "vector_search", "mcp_call",
+                       "read_file", "list_dir"}
+
+    def cassette_dirs_for(corpus, episode_id):
+        if corpus == "real":
+            return [TRACES / "real" / "_cassettes" / episode_id]
+        if corpus == "real_research7b_long_ext":
+            return [TRACES / "_cassettes" / corpus,
+                    TRACES / "_cassettes" / "real_research7b_long"]
+        return [TRACES / "_cassettes" / corpus]
+
+    reg = build_registry(sorted(REAL_TOOL_NAMES), fs_root=ROOT)
+    fps = {n: tool_fingerprint(reg.get(n)) for n in REAL_TOOL_NAMES}
+
+    unresolved = []
+    checked = 0
+    for corpus in _REAL_TOOL_CASSETTE_CORPORA:
+        mf = TRACES / corpus / "manifest.json"
+        if not mf.exists():
+            continue
+        for ep in _json.loads(mf.read_text("utf-8")):
+            eid, fname = ep.get("episode_id"), ep.get("file")
+            if not eid or not fname:
+                continue
+            trace_path = TRACES / corpus / fname
+            if not trace_path.exists():
+                continue
+            cdirs = [d for d in cassette_dirs_for(corpus, eid) if d.exists()]
+            if not cdirs:
+                continue
+            existing = set()
+            for d in cdirs:
+                existing |= {f.stem for f in d.glob("*.json")}
+            for line in trace_path.read_text("utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                step = _json.loads(line)
+                if not isinstance(step, dict):
+                    continue
+                events, _reason = parse_step_events(step)
+                for ev in events:
+                    if ev.name not in REAL_TOOL_NAMES or ev.args is None:
+                        continue
+                    if ev.is_error:
+                        continue
+                    checked += 1
+                    cur = request_key("tool", ev.name, ev.args, fps[ev.name],
+                                      namespace=CASSETTE_SCHEMA_VERSION)
+                    leg = request_key("tool", ev.name, ev.args)
+                    if cur not in existing and leg not in existing:
+                        unresolved.append((corpus, eid, ev.name, ev.args))
+
+    assert checked > 5000, f"expected thousands of real-tool calls, saw {checked}"
+    assert not unresolved, (
+        f"{len(unresolved)} committed real-tool calls have no replayable "
+        f"cassette (first 5): {unresolved[:5]}")
+
+
+def test_tool_fingerprint_shape_is_pinned_to_the_schema_version():
+    """`tool_fingerprint()`'s payload shape and `CASSETTE_SCHEMA_VERSION` must
+    change together. `5556356` added the "source" key and `max_output_bytes`
+    to `_FINGERPRINT_ATTRS` without bumping `CASSETTE_SCHEMA_VERSION`, which
+    silently orphaned every cassette recorded under the old shape (see
+    `test_every_committed_real_tool_call_is_replay_resolvable`). If this test
+    fails, the fingerprint's shape changed: decide explicitly whether that
+    needs a `CASSETTE_SCHEMA_VERSION` bump and a corpus-wide re-key (like the
+    2026-08-18 Option B migration) before updating the pinned values below."""
+    import json as _json
+
+    from derail.harness.real_tools import ArxivSearch
+    from derail.harness.tools import (CASSETTE_SCHEMA_VERSION, _FINGERPRINT_ATTRS,
+                                      tool_fingerprint)
+
+    assert CASSETTE_SCHEMA_VERSION == "tool/v2"
+    assert _FINGERPRINT_ATTRS == ("root", "db_path", "max_results", "max_rows",
+                                  "max_file_chars", "max_output_bytes", "timeout_s",
+                                  "allow_network", "allow_hosts", "servers")
+    payload = _json.loads(tool_fingerprint(ArxivSearch()))
+    assert set(payload) == {"class", "source", "params", "config"}
+
+
 # -------------------------------------------------------------------
 def test_cost_meter_reserves_before_spending():
     from derail.harness.record_replay import CostMeter, BudgetExceeded
