@@ -241,7 +241,16 @@ def test_tool_fingerprint_shape_is_pinned_to_the_schema_version():
     `test_every_committed_real_tool_call_is_replay_resolvable`). If this test
     fails, the fingerprint's shape changed: decide explicitly whether that
     needs a `CASSETTE_SCHEMA_VERSION` bump and a corpus-wide re-key (like the
-    2026-08-18 Option B migration) before updating the pinned values below."""
+    2026-08-18 Option B migration) before updating the pinned values below.
+
+    `root` and `db_path` were removed 2026-08-18: both resolve to absolute
+    filesystem paths (the checkout root, the runtime fixture path), so hashing
+    them made the key checkout-dependent -- a cassette recorded on one machine
+    could never replay on another, which is exactly the class of bug this
+    test exists to catch. Handled the same way as the source-digest addition:
+    a targeted re-key of the 18 affected `real`-corpus entries, no schema
+    bump (bumping would orphan every other corpus's already-correct keys for
+    no benefit)."""
     import json as _json
 
     from derail.harness.real_tools import ArxivSearch
@@ -249,11 +258,30 @@ def test_tool_fingerprint_shape_is_pinned_to_the_schema_version():
                                       tool_fingerprint)
 
     assert CASSETTE_SCHEMA_VERSION == "tool/v2"
-    assert _FINGERPRINT_ATTRS == ("root", "db_path", "max_results", "max_rows",
+    assert _FINGERPRINT_ATTRS == ("max_results", "max_rows",
                                   "max_file_chars", "max_output_bytes", "timeout_s",
                                   "allow_network", "allow_hosts", "servers")
     payload = _json.loads(tool_fingerprint(ArxivSearch()))
     assert set(payload) == {"class", "source", "params", "config"}
+
+
+def test_tool_fingerprint_does_not_depend_on_the_absolute_checkout_path():
+    """The exact regression this file's other fingerprint tests exist to
+    prevent: `ReadFile`/`ListDir`/`SQLDatabaseTool` must fingerprint
+    identically regardless of where the workspace or fixture happens to be
+    mounted, or a cassette recorded on one machine can never replay on
+    another (found 2026-08-18 via a CI failure on a fresh checkout that
+    passed on the recording machine)."""
+    import tempfile
+
+    from derail.harness.real_tools import ReadFile, ListDir, SQLDatabaseTool
+    from derail.harness.tools import tool_fingerprint
+
+    with tempfile.TemporaryDirectory() as a, tempfile.TemporaryDirectory() as b:
+        assert tool_fingerprint(ReadFile(a)) == tool_fingerprint(ReadFile(b))
+        assert tool_fingerprint(ListDir(a)) == tool_fingerprint(ListDir(b))
+        assert (tool_fingerprint(SQLDatabaseTool(db_path=f"{a}/x.db"))
+               == tool_fingerprint(SQLDatabaseTool(db_path=f"{b}/x.db")))
 
 
 # -------------------------------------------------------------------

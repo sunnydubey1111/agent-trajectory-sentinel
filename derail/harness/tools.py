@@ -85,7 +85,16 @@ CASSETTE_SCHEMA_VERSION = "tool/v2"
 #: Constructor-time settings that change what a tool returns. They belong in
 #: the cassette key, otherwise a reconfigured tool replays a recording made by
 #: a different implementation.
-_FINGERPRINT_ATTRS = ("root", "db_path", "max_results", "max_rows",
+#:
+#: "root" and "db_path" are deliberately excluded even though they are
+#: constructor arguments: _Sandboxed.root and SQLDatabaseTool.db_path resolve
+#: to absolute filesystem paths, and both are always either the checkout's own
+#: root (ReadFile/ListDir, always given repo_root) or a fixture rebuilt
+#: byte-identically from committed SQL (SQLDatabaseTool._default_db). Neither
+#: varies the tool's answer, only where it happens to be mounted, so hashing
+#: the absolute string made the cassette key checkout-dependent: a recording
+#: made on one machine could never replay on another.
+_FINGERPRINT_ATTRS = ("max_results", "max_rows",
                       "max_file_chars", "max_output_bytes", "timeout_s",
                       "allow_network", "allow_hosts", "servers")
 
