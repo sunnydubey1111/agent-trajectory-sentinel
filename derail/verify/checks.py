@@ -65,10 +65,13 @@ def _readers(currency: str, total_labels: tuple[str, ...]
     code = re.escape(_symbol_code(currency))
     labels = "|".join(re.escape(w).replace(r"\ ", r"\s+")
                       for w in total_labels)
-    #: A money-ish figure in a tool result, e.g. "$502" or "$165/night".
-    price = re.compile(rf"{sym}\s?{_AMOUNT}")
-    #: The agent's stated figure: "$4,935" or "4935 USD".
-    stated = re.compile(rf"{sym}\s?{_AMOUNT}|{_AMOUNT}\s*{code}", re.I)
+    #: A money-ish figure, prefix symbol ("$502") or postfix ISO code
+    #: ("502 USD"). A line-item price and the agent's stated total are the
+    #: same concept read by two call sites; there is no reason for one to
+    #: accept a written form the other refuses.
+    money = re.compile(rf"{sym}\s?{_AMOUNT}|{_AMOUNT}\s*{code}", re.I)
+    price = money
+    stated = money
     #: A figure the answer explicitly calls the total (see stated_total's
     #: docstring for why this beats "the last monetary figure"). Observed
     #: live: a repaired run replied "Total flight cost: $2755, hotel cost:
@@ -104,7 +107,9 @@ def first_price(result: str, strict: bool = True,
         require_readable_money(result or "", "first_price", currency)
     price, _, _ = _readers(currency, DEFAULT_TOTAL_LABELS)
     m = price.search(result or "")
-    return _to_float(m.group(1)) if m else None
+    if m is None:
+        return None
+    return _to_float(m.group(1) or m.group(2))
 
 
 def stated_total(text: str, strict: bool = True,

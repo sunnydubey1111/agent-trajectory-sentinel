@@ -84,7 +84,7 @@
    "derail/telemetry/events.py": "40f32eda8ac159506c738e9851810bcdce5a69a703880acbd185c7f23177a18d",
    "derail/telemetry/generator.py": "da191cb1058fdf2f71dc7e03291b885630fb7a5b4c18d7fb461ee4a1a298121a",
    "derail/verify/__init__.py": "20448f3778f6a5d9abda216e16bd58211c1dc63d7534daa259ca16eb489c4244",
-   "derail/verify/checks.py": "5dcceb8b3a57fd4c9291f24cf8d4f0e7ab2334fd8b5a9de03631b1f012d4bfd9",
+   "derail/verify/checks.py": "e7ec051fbd685e70e8f08299ac67d8e115e7dffacaa2a53b9dec1f02198fa537",
    "derail/verify/run_verification_study.py": "5d57151dce89befbbd6967906aced48f08e69172a4eb4b91f3270cdb506560c9",
    "devtools/__init__.py": "7546f153e7482286da7350c05dc402c39956405db90472ece6f3c050a0ce68d5",
    "devtools/artifact_manifest.py": "abc18f774e8ba37e821531872e951b678a7c9ca85b3ea289bac887ee0ab9f316",
@@ -127,7 +127,7 @@
    "tests/test_language_and_cost_units.py": "0c6dc0cf2f41f11f2ef8fc65764c5a0c71f793003d976a2ec32f892d9e15f8ee",
    "tests/test_module_selftests.py": "0c8c899b49ef613d6ee419e3df8e2ad8a340e3b17ed13205d0d4b98634e0e9d6",
    "tests/test_monitor_internals.py": "5a726f15b6389a1550ef575de92240828c387e62427ae2211d9202be254d5399",
-   "tests/test_reader_preconditions.py": "4e87a189f4bb52da9edc189c5869db83f552393b32adff64d25414ae26f19fa5",
+   "tests/test_reader_preconditions.py": "79d5e5be2f68379285c6b58ca5b12edab01706e7794f4a4183ce949ca48fcc16",
    "tests/test_real_tool_functionality.py": "b562d496ed0e1188710e81f0142dfbee5edcce731978e2790f690894efc9292b",
    "tests/test_release_artifacts.py": "dd585f59236ae0d2c7f59f1deedcbb1528096a7417d3976f87563a4ae1654973",
    "tests/test_security_containment.py": "19e369f082cb04c524fc5a18dfa1f35fc778f7b9c576b6349ce74f2bbac60912",
@@ -9811,7 +9811,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "46efe8e8dc3d69f7d70a3b377144c7b685e734ec6ee727688785baa177fa30a6",
+   "CHECKSUMS.md": "e074d7235453c8650c461e9cffd993a20504f281af0e493d90dafdb42745d74f",
    "CLAIMS.md": "92a325249a6a87ce2ce7bab6f50f9e701e10148df7dccdd232bdb2b1b2527b32",
    "CONTRIBUTIONS.md": "db3b5043340b538d50b908813e710a6e3f8a0524a0058f28900754908b5c4814",
    "DATA_CARD.md": "934f34539f538004ab56b04a0128114e8fce33ab2731b44e68b1d7c77c034395",
@@ -9826,6 +9826,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Consolidate tool-result error classification onto preconditions.error_shaped() in tools.py, frameworks.py, collect_traces.py and collect_framework_traces.py",
+ "note": "Give first_price the same postfix ISO-code capability stated_total already had, so both readers of a money figure accept the same written forms",
  "file_count": 9817
 }

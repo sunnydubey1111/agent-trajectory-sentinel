@@ -168,6 +168,53 @@ def test_blind_the_reader_takes_a_euro_total_for_a_dollar_one():
     assert not res.findings, "and therefore reconciled against the dollars"
 
 
+def test_first_price_and_stated_total_accept_the_same_written_forms():
+    """`first_price` used to be prefix-symbol only while `stated_total` also
+    read a postfix ISO code ("100 USD") -- an inconsistency between two
+    readers of the same concept. Both now accept either form.
+
+    Postfix SYMBOL ("100$") was tried and reverted: scanned across every
+    committed trace, it collided with two real written forms already in this
+    project's own corpora -- context_corruption's fault-injection format
+    ("<true value> $<injected value>", no space required by the guard that
+    would keep them apart) and LaTeX math delimiters in arXiv paper titles
+    ("M$^2$VAE"), both misread as a trailing price. Postfix CODE has no such
+    collision: no committed text puts a bare number directly before "USD"/
+    "EUR" by coincidence."""
+    assert first_price("costs $100") == 100.0
+    assert first_price("costs 100 USD") == 100.0
+    assert first_price("costs 100USD") == 100.0
+    assert stated_total("Total: $1,120.") == 1120.0
+    assert stated_total("Total: 1120 USD.") == 1120.0
+
+
+def test_a_bare_postfix_symbol_is_not_read_as_a_price():
+    """Postfix currency symbol ("100$") was considered and reverted: it
+    collides with real written forms already in this project's own corpora.
+    Pinned so it is not silently reintroduced."""
+    # the fault injector's own format: "<true value> $<injected value>" --
+    # with postfix symbol accepted, the true value would be misread as a
+    # price of itself instead of the run seeing the injected figure.
+    assert first_price("266.4074 $347", strict=False) == 347.0
+    # a LaTeX math delimiter in an arXiv paper title, not a price at all.
+    assert first_price("M$^2$VAE", strict=False) is None
+
+
+def test_a_postfix_code_price_reconciles_end_to_end():
+    steps = [{"text": '[lookup_flight({"a": 1}) -> 100 USD]'},
+             {"text": '[lookup_flight({"a": 2}) -> 200 USD]'},
+             {"text": '[lookup_flight({"a": 3}) -> 300 USD]'},
+             {"text": '[lookup_flight({"a": 4}) -> 400 USD]'},
+             {"text": '[lookup_hotel({"c": "x"}) -> 10 USD/night]'},
+             {"text": '[lookup_hotel({"c": "y"}) -> 20 USD/night]'},
+             {"text": '[lookup_hotel({"c": "z"}) -> 30 USD/night]'},
+             {"text": '[get_weather({"c": "x"}) -> sunny]'},
+             {"text": "The grand total is 1120 USD."}]
+    res = total_consistency(steps, BOOKING_SPEC)
+    assert res.checked and not res.failed, res.findings
+    assert res.recomputed_total == 1120.0 and res.stated == 1120.0
+
+
 def test_the_readers_take_strict_off_only_when_told():
     with pytest.raises(UnsupportedInputError):
         first_price("costs 250 EUR")
