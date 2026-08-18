@@ -324,8 +324,7 @@ class GeminiBackend(AgentBackend):
         # the mock booking suite; a harness ToolRegistry passes real tools via
         # registry.specs() so this backend drives real tools unchanged.
         # tool_schemas (registry.schemas()) carries the true required set and
-        # parameter types; without it everything is a required string
-        #.
+        # parameter types; without it everything is a required string.
         specs = tool_specs if tool_specs is not None else TOOL_SPECS
         declarations = []
         for name, (desc, params) in specs.items():
@@ -534,8 +533,7 @@ class OllamaBackend(AgentBackend):
         # tool_specs {name: (description, params)} — a harness ToolRegistry
         # passes real tools via registry.specs(); default is the mock suite.
         # tool_schemas (registry.schemas()) carries real types/defaults and the
-        # true required set; without it every parameter is a required string
-        #.
+        # true required set; without it every parameter is a required string.
         specs = tool_specs if tool_specs is not None else TOOL_SPECS
         self._tools = []
         for name, (desc, params) in specs.items():

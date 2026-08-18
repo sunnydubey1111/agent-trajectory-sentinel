@@ -87,8 +87,8 @@ def run_scaling_experiment():
 
     df = pd.DataFrame(results)
     # Average only the AUC metrics across seeds. `df.groupby("N_train").mean()`
-    # also averaged the Seed column, producing a meaningless "mean seed"
-    #; restrict to the metric columns explicitly.
+    # also averaged the Seed column, producing a meaningless "mean seed";
+    # restrict to the metric columns explicitly.
     metric_cols = [c for c in df.columns if c.endswith("_AUC")]
     summary = df.groupby("N_train")[metric_cols].mean().reset_index()
 

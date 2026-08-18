@@ -208,10 +208,8 @@ class RollingBaseline:
     def drift_fa(self) -> float | None:
         """Prequential alarm rate: each run judged before it joined the null.
 
-        Out-of-sample by construction, which is the whole point. `realized_fa`
-        compares a threshold to the scores it was fitted on, and
-        `pick_threshold` guarantees that rate is at most the budget, so a
-        drift state defined on it is unreachable rather than merely rare.
+        Out-of-sample by construction, unlike `realized_fa` (see its
+        docstring for why that one can never show drift).
 
         This also sees what `realized_fa` structurally cannot: guarded
         admission refuses a healthy run that alarms, so the runs that most

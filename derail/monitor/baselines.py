@@ -14,11 +14,8 @@ ensemble (Module 2) is compared for H1:
   - RollingSurprisalMonitor EWMA of |z| of the mean token-uncertainty dim
   - MahalanobisMonitor      Ledoit-Wolf Mahalanobis distance of x_t
   - DeltaMahalanobisMonitor same on [x_t ; x_t - x_{t-1}] (1-lag). A STRONG
-                            memoryless baseline, ~51x cheaper than the primary
-                            ESN monitor and ahead of it on at least one real
-                            tool-cascade metric; H1 asks only whether the added
-                            temporal state buys detection/AUROC, not whether it
-                            dominates everywhere.
+                            memoryless baseline that makes H1 falsifiable
+                            (see class docstring).
   - IsolationForestMonitor  isolation forest on pooled healthy steps (also a
                             NEGATIVE CONTROL here, ~0.07 detection: no temporal
                             model, reported to bound the static-outlier floor)

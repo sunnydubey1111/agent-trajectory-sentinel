@@ -191,11 +191,10 @@ _TOTAL_RE = re.compile(r"\$\s?([\d,]+(?:\.\d+)?)|([\d,]+(?:\.\d+)?)\s*usd",
                        re.I)
 
 
-#: A figure the answer explicitly calls the total. Preferred over "the last
-#: monetary figure", which mis-reads an answer that ends on a line item —
-#: observed live when a repaired run replied "Total flight cost: $2755, hotel
-#: cost: $1836, ...". Verified to change no verdict on the 480 committed
-#: demo-task episodes, so it is a strictly safer reading of the same rule.
+#: A figure the answer explicitly calls the total (see _stated_total's
+#: docstring for why this beats "the last monetary figure"). Observed live:
+#: a repaired run replied "Total flight cost: $2755, hotel cost: $1836, ...".
+#: Verified to change no verdict on the 480 committed demo-task episodes.
 _LABELLED_TOTAL_RE = re.compile(
     r"(?:grand\s+total|overall\s+total|total)(?!\s+\w+\s+cost)"
     r"\D{0,40}?\$?\s?([\d,]+(?:\.\d+)?)", re.I)
@@ -909,9 +908,8 @@ def fit_monitor() -> tuple[OnlineMonitor, dict]:
             "strict_ratio": round(theta_b5 / max(theta_b10, 1e-9), 2),
             "g_trip": round(mon._g_trip, 2), "lex_clean": mon._lex_clean,
             "norm": theta_b10, "band": band,
-            # Out-of-fold healthy episode peaks in display units (1.0 = alarm).
-            # These seed the rolling baseline so the demo starts trusted rather
-            # than blind, and every later run extends the same window.
+            # Out-of-fold healthy episode peaks in display units (1.0 = alarm),
+            # consumed by _install_baseline to seed the rolling baseline.
             "healthy_peaks": [round(float(np.max(f)), 4)
                               for f in fused_disp if len(f)]}
     print(f"[demo] gate calibrated on {len(healthy)} eps: "

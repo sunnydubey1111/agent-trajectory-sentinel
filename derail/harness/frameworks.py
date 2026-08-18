@@ -317,8 +317,7 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
                     "error": False, "task": task, "tool_events": [],
                     "schema": SCHEMA_VERSION})
                 t_prev = now
-            # Finish the pending agent->tool cycle before enforcing the limit
-            #.
+            # Finish the pending agent->tool cycle before enforcing the limit.
             if reached_step_limit(steps, max_steps):
                 break
         await client.close()

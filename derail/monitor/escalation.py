@@ -377,10 +377,8 @@ if __name__ == "__main__":
     assert not forced.detected and forced.wrongful_halt
     assert summarize_policy([forced])["wrongful_halt_rate"] == 1.0
 
-    # an INJECTED episode halted BEFORE tau is a wrongful early halt -
-    # it carries the redo penalty, is detected=False, and IS counted as
-    # wrongful. Scoring it any other way rewards halting before the fault
-    # exists: no penalty, and invisible in the summary.
+    # early wrongful halt on an INJECTED episode (see _outcome's docstring
+    # for why this must carry the redo penalty and count as wrongful):
     early = run_policy("halt_on_alarm", [injected_ep],
                        {"smoke-f0": np.where(np.arange(T) >= 5, 5.0, 0.1)},
                        None, theta_soft, judge, seed)[0]
@@ -390,11 +388,7 @@ if __name__ == "__main__":
     assert summ_early["wrongful_halt_rate"] == 1.0
     assert summ_early["early_injected_halt_rate"] == 1.0
 
-    # the modeled judge verdict at a given (episode, step) does not
-    # depend on how many times the judge was called earlier - it is keyed by
-    # (seed, episode_id, t). judge_every_step calls the judge at every step,
-    # escalate_on_alarm only on triggered steps; at any step they both judge,
-    # the verdict must agree.
+    # order-independence of judge_verdict (see its docstring for why):
     for t in range(T):
         assert (judge_verdict(injected_ep, t, judge, seed)
                 == judge_verdict(injected_ep, t, judge, seed)), \

@@ -21,7 +21,7 @@ from typing import Optional
 import numpy as np
 
 # --------------------------------------------------------------------------
-# Channel layout of the step signal x_t  (total dimension D_TOTAL = 43)
+# Channel layout of the step signal x_t
 # --------------------------------------------------------------------------
 # semantic channel e_t: dims [0, 32) -- synthetic "embedding" of step output,
 #   approximately unit-norm.

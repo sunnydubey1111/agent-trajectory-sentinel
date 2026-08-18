@@ -69,11 +69,11 @@ def _readers(currency: str, total_labels: tuple[str, ...]
     price = re.compile(rf"{sym}\s?{_AMOUNT}")
     #: The agent's stated figure: "$4,935" or "4935 USD".
     stated = re.compile(rf"{sym}\s?{_AMOUNT}|{_AMOUNT}\s*{code}", re.I)
-    #: A figure the answer explicitly calls the total. Preferred over "the last
-    #: monetary figure", which mis-reads an answer that ends on a line item —
-    #: observed live when a repaired run replied "Total flight cost: $2755,
-    #: hotel cost: $1836, ...". Verified to change no verdict on the 480
-    #: committed demo-task episodes, so it is a strictly safer reading.
+    #: A figure the answer explicitly calls the total (see stated_total's
+    #: docstring for why this beats "the last monetary figure"). Observed
+    #: live: a repaired run replied "Total flight cost: $2755, hotel cost:
+    #: $1836, ...". Verified to change no verdict on the 480 committed
+    #: demo-task episodes.
     labelled = re.compile(
         rf"(?:{labels})(?!\s+\w+\s+cost)\D{{0,40}}?{sym}?\s?"
         rf"([\d,]+(?:\.\d+)?)", re.I)
@@ -193,10 +193,8 @@ class TaskSpec:
     #: Set False only for a corpus known to contain such text, where a blind
     #: reading is a decision rather than an oversight.
     strict_currency: bool = True
-    #: The currency the task is priced in, and the words its answers use to
-    #: name a total. The mechanism is task-independent; these two are not, so
-    #: they are declared here beside the line items rather than fixed in the
-    #: parser. A euro task in French passes its own.
+    #: The task's currency and total-wording (see module docstring, "The
+    #: NUMBER READER underneath"). A euro task in French passes its own.
     currency: str = DEFAULT_CURRENCY
     total_labels: tuple[str, ...] = DEFAULT_TOTAL_LABELS
 
@@ -280,13 +278,10 @@ def required_coverage(steps: list[dict], spec: TaskSpec) -> list[Finding]:
             counts[e.name] = counts.get(e.name, 0) + 1
     findings = []
     last = len(steps) - 1
-    # Earliest step at which an outstanding requirement is already certain:
-    # the agent has begun combining, so it is no longer gathering. Falls back
-    # to the final step when the run never reaches that point.
-    # Counts below are whole-episode, and dating a shortfall to `onset` is
-    # sound because they only ever grow: a requirement unmet at the end was
-    # unmet at the combining step too. The converse is what would need a
-    # running tally, and it cannot happen.
+    # Dating a shortfall to `onset` (see docstring) is sound because the
+    # counts below are whole-episode and only ever grow: a requirement unmet
+    # at the end was unmet at the combining step too. The converse would need
+    # a running tally, and it cannot happen.
     onset = last
     if spec.combining_tools:
         for i, evs in enumerate(per_step):

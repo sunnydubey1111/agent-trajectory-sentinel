@@ -45,11 +45,10 @@ from derail.preconditions import error_shaped
 from derail.telemetry.events import make_tool_event, parse_step_events
 from derail.verify.checks import BOOKING_SPEC, Finding, TaskSpec, verify
 
-#: Rungs the offline repair comparison scores. `unstick` is deliberately absent
-#: (see `repair_message`): the offline corpus holds answer-level failures on a
-#: working tool layer, so it contains no run that rung applies to, and iterating
-#: it there produces empty groups that read as a measured zero rather than as
-#: "not applicable". Its evidence is the live alarm-repair study.
+#: Rungs the offline repair comparison scores. `unstick` is deliberately
+#: absent -- iterating it here would produce empty groups that read as a
+#: measured zero rather than "not applicable" (see `repair_message` for why
+#: it doesn't apply to this corpus).
 SCORED_RUNGS = ("none", "resample", "generic", "located", "specific",
                 "adaptive", "recompute")
 #: Every rung `repair_message` can build, including the live-only one.
@@ -110,21 +109,19 @@ def rollback_step(steps: list[dict], spec: TaskSpec) -> int:
 def repair_message(rung: str, findings: list[Finding]) -> str | None:
     """The user-turn nudge appended at the checkpoint, or None.
 
-    A function of the FINDINGS only — that is the leak guarantee, and it is
-    structural rather than a string test. A Finding is computed from tool
-    results the run itself received, so quoting one back tells the agent
-    nothing its own context did not already hold; there is no parameter here
-    through which the task's ground-truth answer could reach the prompt.
-    (A string test is not usable: the check's recomputed total legitimately
-    equals the true total whenever the agent looked everything up correctly
-    and merely mis-added it, which is the dominant failure.)
+    The leak guarantee is structural (see module docstring): there is no
+    parameter here through which the task's ground truth could reach the
+    prompt. A string test is not usable instead, because the check's
+    recomputed total legitimately equals the true total whenever the agent
+    looked everything up correctly and merely mis-added it, the dominant
+    failure.
     """
     if rung in ("none", "resample"):
         return None
     if rung == "generic":
         return _GENERIC_HINT
     if rung == "located":
-        # Names the fault and nothing else. Measured: 23 of 37 `specific`
+        # Names the fault and nothing else. Measured: 26 of 55 `specific`
         # hints contain the run's true total, because the check recomputes it
         # from the agent's own figures; this rung removes that so the two
         # effects can be told apart.

@@ -7,17 +7,21 @@ property of the step's data, not of temporal dynamics — and it is the
 missing third information source next to the ESN (behavior) and
 DeltaMahalanobis (state statistics).
 
-Grounded hybrids extend the merged 2-way fusion (derail.monitor.hybrid):
-  - HybridWeightedG  s_t = max(0.5*z_esn + 0.5*z_maha, z_grd) — the
-                     label-free variant: the weighted behavioral/statistical
-                     score, overridden by grounding evidence when content
-                     breaks. Max (union) semantics on the grounding side is
-                     deliberate: an earlier prototype showed that
-                     AVERAGING a content signal into behavioral channels
-                     dilutes its wins on exactly the classes it exists for.
-  - HybridLogisticG  logit over [z_esn, z_maha, z_grd] (clip +-50), trained
-                     like HybridLogistic (cal split / cross-fit; the runner
-                     keeps supervision disjoint from scoring).
+Grounded hybrids extend the merged 2-way fusion (derail.monitor.hybrid), all
+via `_GroundedBase` (quantile-equalized z_esn/z_maha/z_grd streams; see its
+`fit()` for the equalization and lex-flag machinery each one shares):
+  - HybridWeightedG   label-free max-union, quantile-equalized (see class
+                      docstring). Max, not average: an earlier prototype
+                      showed averaging a content signal into behavioral
+                      channels dilutes its wins on exactly the classes it
+                      exists for.
+  - HybridContentGate content-first gating with a grounding override boost
+                      (see class docstring) — the grounded default
+                      `recommended_monitor` returns.
+  - HybridAdaptive    soft sigmoid gate between behavioral and grounding
+                      (see class docstring).
+  - HybridLogisticG   learned 4-feature fusion (z_esn, z_maha, z_grd, lex),
+                      quantile-equalized then clipped (see class docstring).
 
 All causal `OnlineMonitor`s; g dims are 0 on v1 traces, so every monitor
 here degrades to the ungrounded behavior when results are not recorded.

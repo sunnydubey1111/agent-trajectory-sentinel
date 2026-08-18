@@ -132,8 +132,8 @@ def evaluate_dataset(name: str, data, channels, seed: int = 0) -> dict:
     # -- grounded monitors: behavioural submodels on the 51-dim view --------
     # The behavioural ESN/Mahalanobis must NOT see the grounding dims, which
     # the explicit grounding stream already covers; fitting them on the full
-    # 60-dim telemetry double-counted grounding inside the behavioural distance
-    #. They are fit on the 51-dim view and the grounded hybrids mask
+    # 60-dim telemetry double-counted grounding inside the behavioural distance.
+    # They are fit on the 51-dim view and the grounded hybrids mask
     # scoring to 51 via behav_slice.
     std56 = Standardizer().fit(train51)
     esn56, maha56, _ = make_hybrids(std56, channels=channels,

@@ -84,8 +84,8 @@ def score() -> None:
     train, val = data["train"], data["val"]
 
     # Behavioural monitors see the published 51-dim view; the grounded gate
-    # masks its behavioural submodels to the same 51 dims via behav_slice
-    #, so their pre-fit submodels and standardizers must be fit on
+    # masks its behavioural submodels to the same 51 dims via behav_slice,
+    # so their pre-fit submodels and standardizers must be fit on
     # the 51-dim view too — fitting them on the full 60-dim telemetry both
     # double-counts grounding and breaks the 51-vs-60 scoring shape.
     train51, val51 = _view51(train), _view51(val)

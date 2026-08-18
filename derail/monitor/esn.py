@@ -539,8 +539,8 @@ class HMTE_ESN_M_Monitor(OnlineMonitor):
 
             diff = feat - self._mu
             dist = float(np.sqrt(np.clip(diff.T @ self._inv_cov @ diff, 0.0, None)))
-            # Standardise on the healthy-distance distribution before the CUSUM
-            #, so the null does not drift upward.
+            # Standardise on the healthy-distance distribution before the
+            # CUSUM, so the null does not drift upward.
             z = (dist - self._dist_loc) / self._dist_scale
             self._cusum = max(0.0, self._cusum + z - self.cusum_k)
             out = self._cusum

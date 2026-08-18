@@ -11,17 +11,11 @@ labels are frozen before any monitor sees them:
   py -m verification.organic_hallucination --label         # objective labels
   py -m verification.score_organic_halluc                  # score (separate)
 
-Collection throughput (both OFF by default, so no existing corpus changes):
+Collection throughput (both OFF by default, so no existing corpus changes) --
+see `collect()` for the full contract:
 
-  --parallel 4          run 4 episodes concurrently. ~4x faster; makes the two
-                        latency telemetry dims contention-inflated, so the
-                        corpus records n_parallel per episode and flags
-                        latency_dims_valid in collection_meta.json.
-  --min-failures 12     stop as soon as 12 objectively-labelled FAILED episodes
-                        exist (and >= 15 healthy, so a null is still buildable).
-                        Reads labels only, never monitor scores. Declare it
-                        before collecting; it biases the base RATE upward, so
-                        an early-stopped corpus must report the rule alongside.
+  --parallel 4          run N episodes concurrently (throughput only).
+  --min-failures 12     pre-registered early stop on the objective label.
 
 Environment overrides: AGENTWATCH_ORGANIC_DIR / _SEED_BASE / _TEMPERATURE /
 _MODEL / _WITHHOLD, and AGENTWATCH_TOOL_NUDGE.
@@ -180,8 +174,7 @@ def _run_one(seed: int, eid: str) -> tuple[dict, list[dict]] | None:
         try:
             out = backend.step(t)
         except Exception as exc:            # noqa: BLE001
-            # Collection-level failure -> REJECT the whole episode, keep
-            # nothing, retry with a fresh seed. Never write a partial trace.
+            # success-only discipline (see collect()'s docstring):
             print(f"  [reject] {eid}: {exc} (episode discarded, retrying)")
             return None
         lat = time.perf_counter() - t0
@@ -292,9 +285,8 @@ def collect(n: int, max_attempts: int | None = None, n_parallel: int = 1,
     def _commit(entry: dict, steps: list[dict]) -> None:
         nonlocal manifest
         path = OUT / entry["file"]
-        # Concurrency is a collection CONDITION, recorded per episode like
-        # temperature and seed: it decides whether the latency dims mean
-        # anything, so a consumer must never have to guess it.
+        # recorded per episode, like temperature and seed (see collect()'s
+        # docstring for why n_parallel matters downstream):
         entry["n_parallel"] = n_parallel
         # Commit atomically: write the trace, THEN record it in the manifest.
         path.write_text("\n".join(json.dumps(s) for s in steps), "utf-8")

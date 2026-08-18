@@ -393,9 +393,7 @@ if __name__ == "__main__":
     # --- first_alarm: strict inequality, None when never crossed ----------
     assert first_alarm(np.array([0.0, 1.0, 2.0]), 1.0) == 2
     assert first_alarm(np.array([1.0, 1.0]), 1.0) is None
-    # A non-finite score is a scoring FAILURE, not a quiet step. Skipping it
-    # would let the later 3.0 alarm and report a delay measured from an
-    # episode the monitor never fully scored.
+    # must raise, not skip past to the later 3.0 (see first_alarm's docstring):
     try:
         first_alarm(np.array([np.nan, 0.5, 3.0]), 1.0)
         raise AssertionError("non-finite score was not refused")

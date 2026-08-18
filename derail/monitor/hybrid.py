@@ -18,11 +18,8 @@ label-free, so the one-class discipline of DESIGN.md is preserved.
 Fusion variants (all causal `OnlineMonitor`s):
   - HybridWeighted   s_t = w * z_esn + (1 - w) * z_maha   (default w = 0.5)
   - HybridMax        s_t = max(z_esn, z_maha)
-  - HybridGated      s_t = g_t * z_maha + (1 - g_t) * z_esn, where the gate
-                     g_t = sigmoid((d_t - d_med) / d_scale) is the calibrated
-                     abruptness of the step (d_t = ||z(x_t) - z(x_{t-1})|| /
-                     sqrt(D)): abrupt state jumps route weight to the
-                     memoryless distance, smooth drift to the reservoir.
+  - HybridGated      s_t = g_t * z_maha + (1 - g_t) * z_esn, an abruptness
+                     gate between the two (see class docstring).
   - HybridLogistic   s_t = a * z_esn + b * z_maha + c with (a, b, c) from a
                      logistic regression on labeled steps. Training labels
                      require injected episodes, so `fit()` alone leaves it
@@ -372,8 +369,8 @@ def recommended_monitor(standardizer: Standardizer,
                                               HybridContentGate,
                                               HybridLogisticG)
         # Behavioural submodels on the 51-dim view; the grounding dims reach
-        # the score only through `grd`, never the behavioural distance
-        #. The grounded hybrids mask scoring to 51 via behav_slice.
+        # the score only through `grd`, never the behavioural distance.
+        # The grounded hybrids mask scoring to 51 via behav_slice.
         behav = [Episode(X=ep.X[:, :D_TOTAL_EXT].copy(),
                          episode_id=ep.episode_id, is_healthy=ep.is_healthy,
                          failure_class=ep.failure_class, tau=ep.tau,

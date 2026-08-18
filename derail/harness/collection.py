@@ -150,10 +150,9 @@ def guard_output_dir(out_dir: Path, *, allow_existing: bool,
         entries = json.loads(manifest.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         # An unreadable manifest is the case this guard exists for, not an
-        # exemption from it. The directory demonstrably holds a manifest, so
-        # something collected here; refusing to parse it is the least safe
-        # moment to decide there is nothing to protect. Failing open here is
-        # how 70 committed Gemini traces were overwritten.
+        # exemption from it (see docstring): the directory demonstrably holds
+        # a manifest, so something collected here, and refusing to parse it
+        # is the least safe moment to decide there is nothing to protect.
         raise CorpusInUse(
             f"{out_dir} holds a manifest.json that cannot be read "
             f"({type(exc).__name__}: {exc}).\n"

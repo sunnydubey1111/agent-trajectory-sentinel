@@ -58,9 +58,7 @@ import re
 
 from derail.preconditions import DEFAULT_CURRENCY, require_readable_money
 
-#: Task parameters, not constants of the method. Each is the demo booking
-#: task's value and each is an argument to `NumericGroundingMonitor`; a task
-#: with different nights, taxes or currency passes its own.
+#: Demo-task values, not constants of the method (see module docstring).
 DEFAULT_NIGHTS_CAP = 4               # hotel nights per city in the demo task
 DEFAULT_TAX_RATES = (0.08, 0.085, 0.10)      # US sales-tax rates it may apply
 DEFAULT_SUBSET_MULTIPLES = (1, 2)    # a line item may enter a sum once or per
@@ -235,13 +233,10 @@ if __name__ == "__main__":
     assert m.check_step("Flights $200 and $300, hotel 2 nights $200, "
                         "total $700.") == [], "grounded answer must not flag"
 
-    # (b) arithmetic error: parts grounded, total wrong -> NOT a hallucination
-    #     ($699 is a subset-sum? 200+300+... no; but it is a wrong SUM of
-    #     grounded parts. The check flags the *unsourced number* 699.)
-    #     To model a pure arithmetic slip we restate grounded parts and a
-    #     wrong total; 699 is not any combination -> it *will* be flagged.
-    #     That is acceptable: a wrong total is an unsourced figure. The point
-    #     the check guarantees is the converse below.
+    # (b) Arithmetic error (parts grounded, total wrong) isn't modeled here:
+    #     a wrong total matches no combination of the grounded parts, so it
+    #     WOULD be flagged too -- correctly, since it's an unsourced figure.
+    #     The check's actual guarantee is the converse, tested in (c)/(d).
 
     # (c) FABRICATION: asserts a hotel price the tool never gave
     flags = m.check_step("Hotel in Prague is $150/night.")
@@ -254,8 +249,7 @@ if __name__ == "__main__":
     # (e) grounded multiple: 3 nights * 100 = 300 is allowed
     assert m.check_step("3 nights $300.") == []
 
-    # signs are preserved, so a fabricated positive CHARGE is not
-    # validated by a grounded refund of the same magnitude.
+    # sign preservation (rationale in the module docstring):
     assert _nums("a charge of $200") == [200.0]
     assert _nums("a refund of -$200") == [-200.0]
     assert _nums("shown as $-200") == [-200.0]
@@ -279,8 +273,7 @@ if __name__ == "__main__":
     assert m3.check_step(f"Total ${total:g}.") == [], \
         "a previously grounded total became ungrounded after a new value"
 
-    # a fabricated figure in a currency the regex cannot see is invisible to
-    # it, so refuse the input rather than report the run clean.
+    # unsupported currency must be refused, not cleared (module docstring):
     from derail.preconditions import UnsupportedInputError
     m4 = NumericGroundingMonitor()
     m4.start_episode()
@@ -297,8 +290,7 @@ if __name__ == "__main__":
     assert lenient.check_step("Hotel in Prague is €150/night.") == [], \
         "strict=False must restore the documented blind behaviour"
 
-    # The four task parameters are arguments, not constants of the method:
-    # a euro task with three-night stays and 21% VAT reads its own figures.
+    # task parameters are arguments, not constants of the method (see above):
     eur = NumericGroundingMonitor(currency="€", nights_cap=3,
                                   tax_rates=(0.21,), subset_multiples=(1, 3))
     eur.start_episode()

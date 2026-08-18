@@ -82,11 +82,7 @@ def content_logging_enabled() -> bool:
 
 
 def digest(text: str | None) -> dict:
-    """Identity of a string without the string.
-
-    Enough to prove two runs saw the same bytes, or to match a record against
-    a committed trace, and not enough to reconstruct a prompt or a payload.
-    """
+    """Identity of a string without the string (see module docstring, "Privacy")."""
     if text is None:
         return {"chars": 0, "sha256": None}
     s = str(text)

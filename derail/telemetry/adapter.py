@@ -329,8 +329,7 @@ def step_signal_ext(step: dict, state: ExtFeatureState,
     x[IDX_TOOL_SUCCESS] = 1.0 - (n_err / n_tools if n_tools else 0.0)
     x[IDX_RETRY_COUNT] = float(n_retry)
     # Measured tool time when the collector recorded it; otherwise the old
-    # approximation from model-step time, which is all a legacy trace has
-    #.
+    # approximation from model-step time, which is all a legacy trace has.
     measured = [ev.latency_s for ev in tools if ev.latency_s is not None]
     if measured:
         x[IDX_TOOL_LATENCY] = math.log(max(sum(measured) / len(measured), 1e-3))
@@ -545,10 +544,7 @@ def step_signal_grd(step: dict, ext_state: ExtFeatureState,
                                       use_sentence_transformers)
     events, reasoning = parse_step_events(step)
     if grd_state.task_text is None:
-        # The task anchor is the task, never this step's tool results - a
-        # first-step wrong document must not be compared against itself
-        #.
-        grd_state.task_text = task_anchor_text(step, reasoning)
+        grd_state.task_text = task_anchor_text(step, reasoning)  # see its docstring
 
     res_events = [ev for ev in events if ev.has_result and ev.result]
     tools = [(ev.name, ev.args_key, ev.result) for ev in res_events]

@@ -61,12 +61,8 @@ def _fisher(a_hit: int, a_n: int, b_hit: int, b_n: int) -> float:
 
 
 def holdout(corpus: str) -> None:
-    """Score the frozen checks on a corpus they were never designed against.
-
-    The checks were written by inspecting failures in the serving arm, so that
-    arm cannot also serve as their test set. This scores them, unchanged, on a
-    corpus collected afterwards at disjoint task seeds.
-    """
+    """Score the frozen checks, unchanged, on a corpus they were never
+    designed against (see module docstring for why this arm is needed)."""
     labelled = _labels_for(corpus)
     src = ROOT / "traces" / corpus
     by_label: dict[str, list[tuple[bool, bool]]] = {}
