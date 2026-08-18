@@ -9811,7 +9811,7 @@
    "traces/real_research7b_long_ext/real-wrong_document-012.jsonl": "6ad29476dfabc9d99dbb0b5168374ae85ecba7d920dbcb4defc445ecb606ca84"
   },
   "docs": {
-   "CHECKSUMS.md": "96349594abda5fee33d66ab48b777892f3e32c0451d1e35c7f353006fb81f188",
+   "CHECKSUMS.md": "8f2af54e7dd11f6308a233e2f127304a472b690e8f554db5e490b568769c91db",
    "CLAIMS.md": "92a325249a6a87ce2ce7bab6f50f9e701e10148df7dccdd232bdb2b1b2527b32",
    "CONTRIBUTIONS.md": "db3b5043340b538d50b908813e710a6e3f8a0524a0058f28900754908b5c4814",
    "DATA_CARD.md": "934f34539f538004ab56b04a0128114e8fce33ab2731b44e68b1d7c77c034395",
@@ -9819,13 +9819,13 @@
    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
    "NOTICE": "4d84505c8ad61c5e2ab879898d2408285ebe3ecaa1a79e8b9f917320811fc0a5",
    "README.md": "d7501a0f9485444ff22950e016025f37655ae7e9b3d3824b1b92c3821b212ba3",
-   "REPRODUCE.md": "f583a29aa47a7b6b1ce1049f274c061b396b568786b0eff0df991f72a9b3f072",
+   "REPRODUCE.md": "a3722ee5ed0657b23eee73d1434626216c552389aff834eabe221e6646598e0a",
    "USER_GUIDE.md": "d05935732e554d104375ba3142f44c2c9e29fdad9d1f748c6da8c84e2b5798e2",
    "requirements-core.lock.txt": "3955fb616b7dffbb0f5b2de35ab2f229e362274187a86d5e4e5dc33eb13ee9bb",
    "requirements.lock.txt": "3bf6b8cc39209fff488e03a3ba1864f21ac7fa5130030caf63b0ad6e7a5223aa",
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Cassette-fingerprint reproducibility fix: re-key 1,051 era-2/unrecoverable-formula cassettes to the current tool_fingerprint key, write 51 reconstructed entries from committed trace data; 2 new regression tests",
+ "note": "Remove stale hardcoded test count from REPRODUCE.md gate line",
  "file_count": 9817
 }

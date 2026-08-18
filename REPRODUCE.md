@@ -304,7 +304,7 @@ then a gitignored `.env`.
 ### Verification gates
 
 ```
-py -m pytest -m "not network and not ollama"     # 388 tests, the default gate
+py -m pytest -m "not network and not ollama"     # Run the default test gate
 py -m devtools.behavior_snapshot --check          # end-to-end behavioural tripwire
 py -m devtools.artifact_manifest --check          # SHA-256 over every committed file
 py -m devtools.claims_ledger --check              # every headline number vs its artifact
