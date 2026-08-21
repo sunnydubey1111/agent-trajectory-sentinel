@@ -1,0 +1,26 @@
+[
+  {
+    "episode_id": "langgraph-real-tool_cascade-002",
+    "kind": "tool_cascade",
+    "failure_class": "tool_cascade",
+    "landing_attempt": 0,
+    "reason": "injection never applied (no-op positive)",
+    "T": 5,
+    "requested_tau": 3,
+    "applied_count": 0,
+    "first_applied_t": null,
+    "applied_tools": []
+  },
+  {
+    "episode_id": "langgraph-real-tool_cascade-002",
+    "kind": "tool_cascade",
+    "failure_class": "tool_cascade",
+    "landing_attempt": 1,
+    "reason": "injection never applied (no-op positive)",
+    "T": 4,
+    "requested_tau": 3,
+    "applied_count": 0,
+    "first_applied_t": null,
+    "applied_tools": []
+  }
+]

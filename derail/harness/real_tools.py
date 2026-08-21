@@ -47,6 +47,8 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -98,13 +100,31 @@ def _ensure_tls() -> None:
     _TRUSTSTORE_READY = True
 
 
+#: HTTP statuses worth a short backoff-and-retry: rate limiting and
+#: transient server trouble, not a real 4xx client error.
+_RETRYABLE_HTTP_STATUS = frozenset({429, 502, 503, 504})
+
+
 def _http_get(url: str, timeout: float = 15.0,
-              max_bytes: int = _MAX_FETCH_BYTES) -> bytes:
-    """GET a vetted URL, reading at most `max_bytes`."""
+              max_bytes: int = _MAX_FETCH_BYTES, max_retries: int = 3,
+              backoff_s: float = 1.0) -> bytes:
+    """GET a vetted URL, reading at most `max_bytes`.
+
+    Retries a rate-limit/transient-server response with exponential backoff
+    before surfacing it as a tool error -- without this, a burst of calls to
+    the same host reads as agent/tool misbehaviour it never was.
+    """
     _ensure_tls()
     req = urllib.request.Request(check_url(url), headers={"User-Agent": _UA})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosec B310
-        return resp.read(max_bytes)
+    for attempt in range(max_retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosec B310
+                return resp.read(max_bytes)
+        except urllib.error.HTTPError as exc:
+            if exc.code not in _RETRYABLE_HTTP_STATUS or attempt == max_retries:
+                raise
+            time.sleep(backoff_s * (2 ** attempt))
+    raise AssertionError("unreachable")
 
 
 def _http_post(url: str, json_data: dict, timeout: float = 15.0,

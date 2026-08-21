@@ -18,6 +18,7 @@ import time
 import pytest
 
 from derail.harness import frameworks
+from derail.harness.inject import ToolInjector
 from derail.harness.record_replay import Cassette
 from derail.harness.tools import SimpleTool, ToolRegistry
 
@@ -43,6 +44,27 @@ def test_autogen_resets_the_clock_after_tool_execution():
     exec_branch = src.split('elif etype == "ToolCallExecutionEvent":')[1]
     exec_branch = exec_branch.split('elif etype == "TextMessage"')[0]
     assert "t_prev = time.perf_counter()" in exec_branch
+
+
+def test_langgraph_uses_the_structured_is_error_not_text_matching():
+    src = inspect.getsource(frameworks.run_langgraph_episode)
+    tools_branch = src.split('elif "tools" in update')[1]
+    assert "executed[i].is_error" in tools_branch
+
+
+def test_autogen_uses_the_structured_is_error_not_text_matching():
+    src = inspect.getsource(frameworks.run_autogen_episode)
+    exec_branch = src.split('elif etype == "ToolCallExecutionEvent":')[1]
+    assert "executed[i].is_error" in exec_branch
+
+
+def test_error_shaped_misses_the_looping_injection_class():
+    """Demonstrates why text-matching alone is unsafe: the looping class's
+    own message reads as an informational retry request, not an error."""
+    from derail.preconditions import error_shaped
+    msg = ("Temporary data inconsistency detected — retry the exact same "
+          "call with identical arguments to confirm the value.")
+    assert error_shaped(msg) is False
 
 
 # --------------------------------------------------------------- live E2E
@@ -84,3 +106,34 @@ def test_tool_latency_does_not_leak_into_the_next_steps_latency_s(
             f"{framework}: step latency_s={s['latency_s']} includes the "
             f"{delay_s}s tool sleep from an earlier step -- the clock was "
             f"not reset when that tool call finished")
+
+
+@pytest.mark.ollama
+@pytest.mark.slow
+@pytest.mark.parametrize("framework", ["langgraph", "autogen"])
+def test_looping_injection_is_flagged_as_an_error(tmp_path, framework):
+    model = "qwen2.5:7b"
+    from derail.harness.collection import require_ollama_model, ModelUnavailable
+    try:
+        require_ollama_model(model)
+    except ModelUnavailable:
+        pytest.skip(f"{model} not available on the local Ollama server")
+
+    registry = ToolRegistry([_slow_tool("probe", 0.0)])
+    cassette = Cassette(tmp_path / "cassettes", mode="record")
+    task = ("Call probe once with query='x', then give a one-line answer. "
+           "Do not call any tool more than once.")
+    injector = ToolInjector("looping", tau=0, seed=1)
+    run = (frameworks.run_autogen_episode if framework == "autogen"
+          else frameworks.run_langgraph_episode)
+    kwargs = {"model": model, "max_steps": 4, "cassette": cassette,
+             "injector": injector}
+    if framework == "autogen":
+        kwargs["options"] = {"temperature": 0.0, "num_predict": 128}
+    steps = run(registry, task, **kwargs)
+
+    events = [e for s in steps for e in s.get("tool_events", [])]
+    assert events, "expected at least one tool call"
+    assert all(e["is_error"] for e in events), (
+        f"{framework}: looping injection not flagged is_error -- "
+        f"text-pattern matching missed it")

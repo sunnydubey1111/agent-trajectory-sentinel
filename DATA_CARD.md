@@ -5,15 +5,15 @@ manifests, so it cannot drift from what is committed.
 
 ## What is here
 
-- **3,294 agent episodes** across **31 corpora**, every
+- **3,581 agent episodes** across **33 corpora**, every
   trace committed as JSONL under `traces/`.
-- **1,319** of those episodes use *real* tools (arXiv, Wikipedia,
+- **1,606** of those episodes use *real* tools (arXiv, Wikipedia,
   web fetch, SQL, Python); the rest use a deterministic mock-tool suite.
 - Episodes per agent model:
 
 | model | episodes |
 |---|---:|
-| `qwen2.5:7b` | 2,361 |
+| `qwen2.5:7b` | 2,648 |
 | `llama3.1:8b` | 433 |
 | `qwen2.5:3b` | 357 |
 | `gemini-2.5-flash` | 143 |
@@ -60,6 +60,7 @@ uncertainty channel.
 | `autogen` | 102 | `qwen2.5:3b` | 30 | 72 | 72 | 0 | 4/5/12 | AutoGen loop, qwen2.5:3b -- small-model operating-envelope evidence |
 | `autogen7b` | 148 | `qwen2.5:7b` | 60 | 88 | 88 | 0 | 4/5/8 | AutoGen loop at 7b -- the envelope finding confirmed causally |
 | `autogen7b_real` | 24 | `qwen2.5:7b` | 12 | 12 | 12 | 0 | 4/7/12 | Framework validation: AutoGen AssistantAgent x real tools (arXiv, Wikipedia, Open-Meteo) -- frozen esn_cusum_max[e,m] scored zero-shot, no retraining |
+| `autogen7b_real2` | 143 | `qwen2.5:7b` | 120 | 23 | 23 | 0 | 2/6/12 | AutoGen AssistantAgent x real tools, disjoint from autogen7b_real -- per-deployment healthy-only calibration, sized for a usable healthy fit |
 | `demo7b` | 113 | `qwen2.5:7b` | 113 | 0 | 0 | 113 | 11/12/16 | Live-demo calibration corpus, superseded by the task-scoped rebuild |
 | `demo7b_scoped` | 120 | `qwen2.5:7b` | 120 | 0 | 0 | 120 | 9/12/15 | Live-demo healthy null under the task-scoped toolset |
 | `demo_real` | 48 | `qwen2.5:7b` | 48 | 0 | 0 | 48 | 7/7/7 | Demo agent, real-tool suite -- FIXED task shape (all T=7); superseded as a healthy null by demo_real_varied |
@@ -68,6 +69,7 @@ uncertainty channel.
 | `langgraph` | 75 | `qwen2.5:3b` | 34 | 41 | 41 | 0 | 4/5/7 | LangGraph StateGraph agent, qwen2.5:3b |
 | `langgraph7b` | 196 | `qwen2.5:7b` | 105 | 91 | 91 | 0 | 4/6/12 | LangGraph StateGraph agent at 7b |
 | `langgraph7b_real` | 24 | `qwen2.5:7b` | 12 | 12 | 12 | 0 | 4/7/12 | Framework validation: LangGraph StateGraph agent x real tools (arXiv, Wikipedia, Open-Meteo) -- frozen esn_cusum_max[e,m] scored zero-shot, no retraining |
+| `langgraph7b_real2` | 144 | `qwen2.5:7b` | 120 | 24 | 24 | 0 | 4/7/12 | LangGraph StateGraph agent x real tools, disjoint from langgraph7b_real -- per-deployment healthy-only calibration, sized for a usable healthy fit |
 | `ollama` | 98 | `qwen2.5:3b` | 48 | 50 | 50 | 98 | 4/5/7 | Native loop on Ollama, qwen2.5:3b |
 | `ollama7b` | 155 | `qwen2.5:7b` | 70 | 85 | 85 | 155 | 4/6/9 | Native loop on Ollama at 7b |
 | `ollama_llama8b` | 193 | `llama3.1:8b` | 77 | 116 | 116 | 193 | 4/5/14 | Cross-family transfer arm: llama3.1:8b on the 7b task plan |

@@ -9,8 +9,43 @@ from __future__ import annotations
 
 import inspect
 import json
+import urllib.error
 
 import pytest
+
+
+def test_http_get_retries_a_rate_limit_then_succeeds(monkeypatch):
+    from derail.harness import real_tools as rt
+
+    calls = {"n": 0}
+
+    class _Resp:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self, n): return b"ok"
+
+    def fake_urlopen(req, timeout=None):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise urllib.error.HTTPError(req.full_url, 429, "rate limited",
+                                         {}, None)
+        return _Resp()
+
+    monkeypatch.setattr(rt.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(rt.time, "sleep", lambda s: None)
+    out = rt._http_get("https://en.wikipedia.org/w/api.php")
+    assert out == b"ok" and calls["n"] == 3
+
+
+def test_http_get_does_not_retry_a_real_client_error(monkeypatch):
+    from derail.harness import real_tools as rt
+
+    def fake_urlopen(req, timeout=None):
+        raise urllib.error.HTTPError(req.full_url, 404, "not found", {}, None)
+
+    monkeypatch.setattr(rt.urllib.request, "urlopen", fake_urlopen)
+    with pytest.raises(urllib.error.HTTPError):
+        rt._http_get("https://en.wikipedia.org/w/api.php")
 
 
 # -------------------------------------------------------------------

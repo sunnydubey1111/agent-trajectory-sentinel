@@ -74,6 +74,12 @@ PURPOSE: dict[str, str] = {
     "real_task_rollback": "REAL_TASKS corpus (objective success_fn) for "
                           "live rollback/retry recovery scoring -- not "
                           "pooled with the booking-domain repair study",
+    "langgraph7b_real2": "LangGraph StateGraph agent x real tools, disjoint "
+                         "from langgraph7b_real -- per-deployment healthy-only "
+                         "calibration, sized for a usable healthy fit",
+    "autogen7b_real2": "AutoGen AssistantAgent x real tools, disjoint from "
+                       "autogen7b_real -- per-deployment healthy-only "
+                       "calibration, sized for a usable healthy fit",
 }
 
 

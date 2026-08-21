@@ -64,11 +64,22 @@ def _task_for(kind_index: int) -> "RealTask":            # noqa: F821
     return TASK1 if kind_index % 2 == 0 else TASK2
 
 
-def _plan(framework: str) -> list[tuple[str, str | None, int]]:
-    """[(kind, failure_class_or_None, index)] -- 12 healthy + 4x3 injected."""
+def _plan(framework: str, shuffle_seed: int | None = None
+          ) -> list[tuple[str, str | None, int]]:
+    """[(kind, failure_class_or_None, index)] -- 12 healthy + 4x3 injected.
+
+    `shuffle_seed` permutes the ORDER episodes are collected in, leaving every
+    episode's id and seed untouched. Collecting all healthy episodes before any
+    injected one aligns collection time with the label, so any drift in host
+    load lands in `latency_s` as a healthy-vs-injected difference that no agent
+    produced. Interleaving spreads that drift across both labels instead.
+    """
     plan = [("healthy", None, i) for i in range(N_HEALTHY)]
     for fc in INJECTED_CLASSES:
         plan += [(fc, fc, i) for i in range(N_PER_CLASS)]
+    if shuffle_seed is not None:
+        rng = rng_for(shuffle_seed, "collect-order", framework)
+        plan = [plan[i] for i in rng.permutation(len(plan))]
     return plan
 
 
@@ -238,13 +249,34 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--framework", choices=tuple(ADAPTERS), required=True)
     ap.add_argument("--model", default=MODEL)
     ap.add_argument("--out-dir", default=None)
+    ap.add_argument("--seed-base", type=int, default=None,
+                    help="override SEED_BASE, for a disjoint collection "
+                         "into a different --out-dir (default: unchanged)")
     ap.add_argument("--limit", type=int, default=None,
                     help="collect at most this many NEW episodes this "
                          "invocation, then stop (already-collected plan "
                          "entries are still skipped on resume)")
     ap.add_argument("--max-attempts", type=int, default=3,
                     help="infrastructure-failure retry cap per episode")
+    ap.add_argument("--n-healthy", type=int, default=None,
+                    help="override N_HEALTHY (default: unchanged)")
+    ap.add_argument("--n-per-class", type=int, default=None,
+                    help="override N_PER_CLASS (default: unchanged)")
+    ap.add_argument("--shuffle-order", type=int, default=None,
+                    help="interleave healthy and injected collection under "
+                         "this seed, so host-load drift cannot align with the "
+                         "label (episode ids and seeds are unchanged)")
     args = ap.parse_args(argv)
+
+    if args.seed_base is not None:
+        global SEED_BASE
+        SEED_BASE = args.seed_base
+    if args.n_healthy is not None:
+        global N_HEALTHY
+        N_HEALTHY = args.n_healthy
+    if args.n_per_class is not None:
+        global N_PER_CLASS
+        N_PER_CLASS = args.n_per_class
 
     try:
         require_ollama_model(args.model)
@@ -254,7 +286,7 @@ def main(argv: list[str] | None = None) -> None:
     out_dir = (Path(args.out_dir) if args.out_dir
               else TRACES_ROOT / f"{args.framework}7b_real")
     out_dir.mkdir(parents=True, exist_ok=True)
-    plan = _plan(args.framework)
+    plan = _plan(args.framework, shuffle_seed=args.shuffle_order)
     print(f"[collect-real:{args.framework}] {len(plan)} episodes planned "
          f"({N_HEALTHY} healthy + {len(INJECTED_CLASSES)}x{N_PER_CLASS} injected)")
 

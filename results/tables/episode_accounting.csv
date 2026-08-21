@@ -2,6 +2,7 @@ corpus,owned,in_glob_scope,in_v1,healthy,injected,accepted,rejected,attempted
 autogen,True,True,True,30,72,102,38,140
 autogen7b,True,True,True,60,88,148,22,170
 autogen7b_real,True,True,False,12,12,24,0,24
+autogen7b_real2,True,True,False,120,23,143,0,143
 demo7b,True,True,True,113,0,113,0,113
 demo7b_scoped,True,True,True,120,0,120,0,120
 demo_real,True,True,True,48,0,48,0,48
@@ -10,6 +11,7 @@ demo_real_varied_ext,True,True,False,102,16,118,22,140
 langgraph,True,True,True,34,41,75,93,168
 langgraph7b,True,True,True,105,91,196,22,218
 langgraph7b_real,True,True,False,12,12,24,0,24
+langgraph7b_real2,True,True,False,120,24,144,0,144
 ollama,True,True,True,48,50,98,58,156
 ollama7b,True,True,True,70,85,155,11,166
 ollama_llama8b,True,True,True,77,116,193,187,380

@@ -222,7 +222,8 @@ def run_langgraph_episode(registry: ToolRegistry, task: str, *,
             for i, ((name, args), res) in enumerate(
                     zip(steps[-1].get("_calls", []), results)):
                 bits.append(format_tool_bit(name, args, res))
-                is_error = error_shaped(res)
+                is_error = (executed[i].is_error if i < len(executed)
+                           else error_shaped(res))
                 err = err or is_error
                 latency = (executed[i].latency_s if i < len(executed) else None)
                 source = (executed[i].source if i < len(executed) else None)
@@ -394,7 +395,8 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
                             zip(steps[-1]["_calls"], event.content)):
                         res_str = str(r.content)
                         bits.append(format_tool_bit(name, args, res_str))
-                        is_error = error_shaped(res_str)
+                        is_error = (executed[i].is_error if i < len(executed)
+                                   else error_shaped(res_str))
                         err = err or is_error
                         latency = (executed[i].latency_s
                                    if i < len(executed) else None)

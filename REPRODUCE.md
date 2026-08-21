@@ -293,6 +293,18 @@ py -m derail.experiments.collect_framework_real_traces \
 py -m derail.experiments.collect_framework_real_traces \
     --framework autogen                                           # -> traces/autogen7b_real
 py -m derail.experiments.run_framework_real_tool_analysis         # -> results/framework_real_tool_report.md
+
+# Per-deployment healthy-only calibration, on a corpus disjoint from the above.
+# --shuffle-order interleaves healthy and injected so host-load drift cannot
+# align with the label; --seed-base keeps the episodes disjoint.
+py -m derail.experiments.collect_framework_real_traces \
+    --framework langgraph --out-dir traces/langgraph7b_real2 \
+    --seed-base 91177 --n-healthy 120 --n-per-class 6 --shuffle-order 7
+py -m derail.experiments.collect_framework_real_traces \
+    --framework autogen --out-dir traces/autogen7b_real2 \
+    --seed-base 91177 --n-healthy 120 --n-per-class 6 --shuffle-order 7
+py -m derail.experiments.run_framework_generalized_monitor_eval   # -> results/framework_generalized_monitor_report.md
+
 py -m derail.experiments.collect_real_task_rollback_source         # -> traces/real_task_rollback
 py -m derail.experiments.run_real_task_rollback                   # -> results/real_task_rollback_report.md
 ```

@@ -429,20 +429,44 @@ Both harnesses are confirmed (structurally and via a live cross-harness
 contract test) to measure `latency_s` identically — LLM-call time only, tool
 execution excluded — yet false alarms are still driven overwhelmingly by the
 **meta channel** (`m`: action type, log-latency, log-token-count, error
-flag), not the semantic (`e`) channel: per-step LLM-call latency in these
-frameworks averages 0.53s (LangGraph) / 0.47s (AutoGen), against the frozen
-monitor's native-harness training mean of 4.22s — roughly an 8x gap.
-Confirming this is about calibration, not architecture: scored on its OWN population
-(fit and thresholded on mock-tool LangGraph/AutoGen traces, the same
-procedure `hybrid_benchmark.csv` uses for every other corpus), `esn_cusum_max`'s
-healthy false-alarm rate on these same two frameworks is **0.000**
-(LangGraph) and **0.083** (AutoGen) — the architecture instruments both
-frameworks fine; a threshold frozen on a third, different harness just does
-not transfer to them. Framework **compatibility** ("ATS can instrument
-LangGraph/AutoGen") and calibration **generalization** ("one frozen threshold
-transfers across orchestrators") are separate claims, and only the first
-holds here. Full per-class breakdown, the excluded-episode accounting and the
-channel-level diagnosis are in `results/framework_real_tool_report.md`.
+flag), not the semantic (`e`) channel. Full per-class breakdown, the
+excluded-episode accounting and the channel-level diagnosis are in
+`results/framework_real_tool_report.md`.
+
+**What that latency gap actually measured.** The zero-shot diagnosis
+originally attributed those false alarms to an ~8x per-step latency gap
+between the frameworks and the frozen monitor's native-harness training mean.
+Re-collecting the same episodes showed that gap is not a property of either
+orchestrator: 30 steps that are byte-identical in generated text,
+output-token count and action still differ **8.6x** in measured `latency_s`,
+with host load the only thing that changed. Absolute log-latency tracks the
+machine, not the agent — ablating the feature outright moves episode AUC by
+0.001 (LangGraph) and 0.008 (AutoGen).
+
+**The fix — per-deployment healthy-only calibration.** `esn_cusum_max[e,m]`
+is already a one-class detector, so the same class, procedure and
+hyperparameters refit on a target deployment's own verified healthy runs: no
+failure labels, no framework-specific branch
+(`derail/monitor/deployment_calibration.py`). On a corpus disjoint from the
+48 episodes above (120 healthy + 24 injected per framework, healthy and
+injected interleaved so host-load drift cannot align with the label):
+
+| framework | monitor | detection | healthy FA | episode AUC |
+|---|---|---|---|---|
+| LangGraph | frozen, zero-shot | 0.917 | 0.958 | 0.639 |
+| LangGraph | per-deployment calibrated | 0.625 | **0.000** | **0.878** |
+| AutoGen | frozen, zero-shot | 0.696 | 0.792 | 0.576 |
+| AutoGen | per-deployment calibrated | 0.913 | 0.125 | **0.899** |
+
+The frozen row is the control: same held-out episodes, same corrected
+telemetry, only the calibration differs — which isolates the gain to
+calibration rather than to the newer corpus. So framework **compatibility**
+and calibration **generalization** both hold, the second only once the
+deployment is calibrated on its own healthy traffic. That needs enough
+healthy episodes to be identifiable: below ~30 the picked threshold moves two
+orders of magnitude across seeds, and `calibrate()` refuses rather than
+return a monitor that alarms on everything
+(`results/framework_generalized_monitor_report.md`).
 
 ## Live demo
 
