@@ -83,7 +83,7 @@ sentence-transformers — installing that package must never change a result.
 ## 3. Data
 
 `DATA_CARD.md` is the full per-corpus card, generated from the manifests.
-Summary: **3,226 episodes across 28 corpora**, of which 1,010 use real tools.
+Summary: **3,294 episodes across 31 corpora**, of which 1,319 use real tools.
 The arXiv v1 submission describes the tree at commit `00c0673`, which held
 **2,823 episodes across 25 corpora** (770 real-tool); that state is preserved
 by its tag, and the ledger carries both figures as `corpus.*` and `corpus.*_v1`.
@@ -94,10 +94,10 @@ derives all of them from the manifests and prints the identities that hold:
 
 | identity | holds |
 |---|---|
-| committed = healthy + injected (3,226 = 2,080 + 1,146) | yes |
+| committed = healthy + injected (3,294 = 2,108 + 1,186) | yes |
 | v1 = v1 healthy + v1 injected (2,823 = 1,825 + 998) | yes |
-| committed = v1 + added since (3,226 = 2,823 + 403) | yes |
-| all committed = glob scope + root corpus (3,413 = 3,226 + 187) | yes |
+| committed = v1 + added since (3,294 = 2,823 + 471) | yes |
+| all committed = glob scope + root corpus (3,481 = 3,294 + 187) | yes |
 | attempted = accepted + rejected, where recorded (2,248 = 1,707 + 541) | yes |
 | v1 healthy + behavioural study = v1 total (1,825 + 1,002 = 2,823) | **no** |
 
@@ -285,6 +285,16 @@ py -m derail.intervene.evaluate_repair_policies --parallel 4   # re-runs real mo
 py -m derail.experiments.collect_framework_traces        # LangGraph / AutoGen corpora
 py -m verification.organic_hallucination                 # collect organic episodes
 py -m verification.score_provoked_fabrication            # score the provoked corpus
+
+# Framework x real-tool validation and live rollback/retry
+py -m derail.experiments.framework_monitor_freeze                 # ONE TIME before any episode is scored; refuses to overwrite
+py -m derail.experiments.collect_framework_real_traces \
+    --framework langgraph                                         # -> traces/langgraph7b_real
+py -m derail.experiments.collect_framework_real_traces \
+    --framework autogen                                           # -> traces/autogen7b_real
+py -m derail.experiments.run_framework_real_tool_analysis         # -> results/framework_real_tool_report.md
+py -m derail.experiments.collect_real_task_rollback_source         # -> traces/real_task_rollback
+py -m derail.experiments.run_real_task_rollback                   # -> results/real_task_rollback_report.md
 ```
 
 ### Costs money (Gemini API)

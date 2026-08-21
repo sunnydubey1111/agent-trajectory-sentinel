@@ -16,17 +16,17 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (100 claims checked).
+ (109 claims checked).
 
 ## Corpus
 
 | claim | value | n | source artifact | regenerate with |
 |---|---|---|---|---|
-| Committed agent episodes (current) | `3226` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
-| Committed corpora (current) | `28` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
-| Episodes using real tools (current) | `1010` | — | `traces/real*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed agent episodes (current) | `3294` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Committed corpora (current) | `31` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
+| Episodes using real tools (current) | `1319` | — | `traces/*/manifest.json (content-derived: see real_tools.episode_used_real_tools)` | `py -m devtools.claims_ledger --check` |
 | Committed episodes outside the traces/*/ glob every total uses | `187` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
-| Committed episodes of ours including the root corpus | `3413` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
+| Committed episodes of ours including the root corpus | `3481` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
 | Episodes scored by both the behavioural and grounding studies | `602` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
 | Scored episodes with no committed episode behind them | `0` | — | `results/tables/episode_accounting.csv` | `py -m devtools.episode_accounting --check --write` |
 | Committed agent episodes as of arXiv v1 (commit 00c0673) | `2823` | — | `traces/*/manifest.json` | `py -m devtools.claims_ledger --check` |
@@ -137,6 +137,20 @@ Status at generation: **all claims verified**
 | Net task success with no intervention | `0.525` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Net task success under `located` | `0.733` | `120` episodes | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
 | Failures `located` recovers, mean of 3 repeats | `25` | — | `results/tables/repair_policies.csv` | `py -m derail.intervene.evaluate_repair_policies --from-csv` |
+
+## Real-tool validation
+
+| claim | value | n | source artifact | regenerate with |
+|---|---|---|---|---|
+| LangGraph x real-tool healthy false-alarm rate | `1` | `12` healthy episodes | `results/tables/framework_real_tool_alarms.csv` | `py -m derail.experiments.collect_framework_real_traces --framework {langgraph,autogen} && py -m derail.experiments.run_framework_real_tool_analysis (live)` |
+| LangGraph x real-tool detection rate (uninformative alongside a 1.00 false-alarm rate) | `0.833` | `12` injected episodes | `results/tables/framework_real_tool_alarms.csv` | `py -m derail.experiments.collect_framework_real_traces --framework {langgraph,autogen} && py -m derail.experiments.run_framework_real_tool_analysis (live)` |
+| AutoGen x real-tool healthy false-alarm rate | `0.667` | `12` healthy episodes | `results/tables/framework_real_tool_alarms.csv` | `py -m derail.experiments.collect_framework_real_traces --framework {langgraph,autogen} && py -m derail.experiments.run_framework_real_tool_analysis (live)` |
+| AutoGen x real-tool detection rate | `0.833` | `12` injected episodes | `results/tables/framework_real_tool_alarms.csv` | `py -m derail.experiments.collect_framework_real_traces --framework {langgraph,autogen} && py -m derail.experiments.run_framework_real_tool_analysis (live)` |
+| Episodes collected but excluded from monitor scoring (the injector never applied, or applied with no following step -- see inject.replay_against_trace); the collector enforces this at admission time, so none reach the corpus | `0` | — | `results/tables/framework_real_tool_alarms.csv` | `py -m derail.experiments.collect_framework_real_traces --framework {langgraph,autogen} && py -m derail.experiments.run_framework_real_tool_analysis (live)` |
+| Primary-arm (causal) trigger rate | `0.625` | `16` injected episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
+| Primary-arm recovery given a triggered, reconstructable checkpoint | `0.8` | `10` triggered episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
+| Primary-arm end-to-end recovery | `0.5` | `16` injected episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
+| Oracle-tau upper bound end-to-end recovery (NOT the deployable result) | `0.875` | `16` injected episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
 
 ## What this ledger does not cover
 

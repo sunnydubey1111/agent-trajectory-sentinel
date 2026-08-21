@@ -26,6 +26,7 @@ SUB_KEYS = {
     "repair_policies.csv": ("rung", "rep"),
     "organic_validation.csv": ("monitor",),
     "judge_calibration.csv": ("t",),
+    "real_task_rollback_outcomes.csv": ("arm",),
 }
 
 #: Tables that predate the dataset column and are not episode-level despite

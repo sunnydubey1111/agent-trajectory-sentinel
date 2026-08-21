@@ -1,6 +1,7 @@
 corpus,owned,in_glob_scope,in_v1,healthy,injected,accepted,rejected,attempted
 autogen,True,True,True,30,72,102,38,140
 autogen7b,True,True,True,60,88,148,22,170
+autogen7b_real,True,True,False,12,12,24,0,24
 demo7b,True,True,True,113,0,113,0,113
 demo7b_scoped,True,True,True,120,0,120,0,120
 demo_real,True,True,True,48,0,48,0,48
@@ -8,6 +9,7 @@ demo_real_varied,True,True,False,33,12,45,7,52
 demo_real_varied_ext,True,True,False,102,16,118,22,140
 langgraph,True,True,True,34,41,75,93,168
 langgraph7b,True,True,True,105,91,196,22,218
+langgraph7b_real,True,True,False,12,12,24,0,24
 ollama,True,True,True,48,50,98,58,156
 ollama7b,True,True,True,70,85,155,11,166
 ollama_llama8b,True,True,True,77,116,193,187,380
@@ -27,5 +29,6 @@ real_research7b,True,True,True,120,171,291,5,296
 real_research7b_long,True,True,True,30,42,72,0,72
 real_research7b_long_drift,True,True,False,120,120,240,0,240
 real_research7b_long_ext,True,True,True,30,91,121,0,121
+real_task_rollback,True,True,False,4,16,20,0,20
 _aftraj,False,True,False,1111,771,1882,0,1882
 gemini (traces root),True,False,False,100,87,187,0,187

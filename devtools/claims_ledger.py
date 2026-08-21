@@ -144,6 +144,9 @@ ADDED_AFTER_V1 = frozenset({
     "real_research7b_long_drift",   # long-runway real goal_drift, conceptor arm
     "demo_real_varied",             # rebuilt varied healthy null for demo_real
     "demo_real_varied_ext",         # live arm, sized for the 5% FA budget
+    "langgraph7b_real",              # framework validation: LangGraph x real tools
+    "autogen7b_real",                # framework validation: AutoGen x real tools
+    "real_task_rollback",            # rollback/retry recovery source corpus
 })
 
 
@@ -176,10 +179,43 @@ def _corpus_count(v1_only: bool = False) -> int:
     return len(_our_manifests(v1_only))
 
 
-def _real_tool_episodes(v1_only: bool = False) -> int:
+def _real_tool_episodes() -> int:
+    """Content-derived count: an episode counts iff at least one of its own
+    tool calls actually hit a real external tool (`real_tools.episode_used_
+    real_tools`, reading each trace's tool events) -- never by matching the
+    corpus DIRECTORY it lives in. A `real*`-named corpus proves nothing by
+    itself (`organic7b`, `demo_real*`, `autogen7b_real` and `langgraph7b_real`
+    are 100% real-tool corpora whose names don't start with "real"), and
+    nothing else about a corpus's name is trusted either.
+    """
+    from derail.harness.real_tools import episode_used_real_tools
+
+    total = 0
+    for m in _our_manifests():
+        manifest = json.loads(m.read_text("utf-8"))
+        for entry in manifest:
+            trace_path = m.parent / entry["file"]
+            steps = [json.loads(line) for line in
+                    trace_path.read_text("utf-8").splitlines() if line.strip()]
+            if episode_used_real_tools(steps):
+                total += 1
+    return total
+
+
+def _real_tool_episodes_v1() -> int:
+    """The count as the arXiv v1 submission (commit 00c0673) itself printed
+    it: by `traces/real*/manifest.json` directory-name matching, which is
+    how that already-published, tagged PDF computed its own "770" figure.
+
+    Deliberately NOT content-derived, unlike `_real_tool_episodes` above:
+    v1 is frozen and public, so this claim's job is to reconstruct what it
+    prints, bug and all, not to correct it with hindsight a content audit
+    could not have had at submission time. See `corpus.real_tools` for the
+    current, content-derived count.
+    """
     return sum(len(json.loads(m.read_text("utf-8")))
                for m in sorted(TRACES.glob("real*/manifest.json"))
-               if not (v1_only and m.parent.name in ADDED_AFTER_V1))
+               if m.parent.name not in ADDED_AFTER_V1)
 
 
 def _real_traces(monitor: str, column: str) -> float:
@@ -544,6 +580,77 @@ def _live_repair(outcome: str) -> int:
     raise KeyError(outcome)
 
 
+#: Framework validation: frozen esn_cusum_max[e,m] scored zero-shot on live
+#: LangGraph/AutoGen x real-tool episodes. "(live)" per the ALARM_MATRIX_CMD
+#: convention above -- a fresh run collects a new live sample, not a
+#: byte-identical rerun.
+FRAMEWORK_MONITOR_CMD = ("py -m derail.experiments.framework_monitor_freeze "
+                         "(one-time, before any episode is scored)")
+FRAMEWORK_REAL_TOOL_CMD = ("py -m derail.experiments.collect_framework_real_traces "
+                          "--framework {langgraph,autogen} && "
+                          "py -m derail.experiments.run_framework_real_tool_analysis (live)")
+ROLLBACK_RECOVERY_CMD = ("py -m derail.experiments.collect_real_task_rollback_source && "
+                        "py -m derail.experiments.run_real_task_rollback (live)")
+
+
+def _framework_alarms(dataset: str | None = None) -> pd.DataFrame:
+    d = _table("framework_real_tool_alarms.csv")
+    return d if dataset is None else d[d.dataset == dataset]
+
+
+def _framework_fa(dataset: str) -> float:
+    d = _framework_alarms(dataset)
+    healthy = d[d.is_healthy]
+    return float((healthy.outcome == "false_alarm").mean())
+
+
+def _framework_fa_n(dataset: str) -> int:
+    return int(_framework_alarms(dataset).is_healthy.sum())
+
+
+def _framework_detection(dataset: str) -> float:
+    d = _framework_alarms(dataset)
+    injected = d[~d.is_healthy]
+    return float((injected.outcome == "true_alarm").mean())
+
+
+def _framework_detection_n(dataset: str) -> int:
+    return int((~_framework_alarms(dataset).is_healthy).sum())
+
+
+def _framework_excluded() -> int:
+    """Collected framework-validation episodes not scorable: the injector
+    never actually applied, or applied with no following step -- see
+    run_framework_real_tool_analysis.py's `_load_episodes`."""
+    total_collected = 48                              # 24 LangGraph + 24 AutoGen
+    return total_collected - int(len(_table("framework_real_tool_alarms.csv")))
+
+
+def _rollback_rate(arm: str, kind: str) -> float:
+    d = _table("real_task_rollback_outcomes.csv")
+    sub = d[d.arm == arm]
+    n = len(sub)
+    if kind == "trigger":
+        return float((sub.outcome != "not_triggered").mean())
+    if kind == "end_to_end":
+        return float((sub.outcome == "recovered").mean())
+    if kind == "conditional":
+        attempted = sub[~sub.outcome.isin(("not_triggered", "reconstruction_failed"))]
+        return (float((attempted.outcome == "recovered").mean())
+               if len(attempted) else float("nan"))
+    raise KeyError(kind)
+
+
+def _rollback_n(arm: str) -> int:
+    return int((_table("real_task_rollback_outcomes.csv").arm == arm).sum())
+
+
+def _rollback_conditional_n(arm: str) -> int:
+    d = _table("real_task_rollback_outcomes.csv")
+    sub = d[d.arm == arm]
+    return int((~sub.outcome.isin(("not_triggered", "reconstruction_failed"))).sum())
+
+
 #: Regenerates the matched-population layer comparison.
 LAYER_CMD = "py -m derail.experiments.run_layer_alignment"
 
@@ -644,14 +751,15 @@ def build() -> list[Claim]:
         # describes. Both are checked, so neither can drift into the other:
         # a doc describing the repository quotes the current figure, and a doc
         # describing the v1 submission quotes the `*_v1` one.
-        Claim("corpus.episodes", "Committed agent episodes (current)", 3226,
+        Claim("corpus.episodes", "Committed agent episodes (current)", 3294,
               "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
               _episode_total, "Corpus"),
-        Claim("corpus.datasets", "Committed corpora (current)", 28,
+        Claim("corpus.datasets", "Committed corpora (current)", 31,
               "traces/*/manifest.json", "py -m devtools.claims_ledger --check",
               _corpus_count, "Corpus"),
-        Claim("corpus.real_tools", "Episodes using real tools (current)", 1010,
-              "traces/real*/manifest.json", "py -m devtools.claims_ledger --check",
+        Claim("corpus.real_tools", "Episodes using real tools (current)", 1319,
+              "traces/*/manifest.json (content-derived: see real_tools."
+              "episode_used_real_tools)", "py -m devtools.claims_ledger --check",
               _real_tool_episodes, "Corpus"),
         # The accounting that makes the totals above checkable against each
         # other. The root corpus is committed but outside the `traces/*/` glob
@@ -663,7 +771,7 @@ def build() -> list[Claim]:
               187, "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
               lambda: _accounting("root_corpus_episodes"), "Corpus"),
         Claim("accounting.committed_all",
-              "Committed episodes of ours including the root corpus", 3413,
+              "Committed episodes of ours including the root corpus", 3481,
               "results/tables/episode_accounting.csv", ACCOUNTING_CMD,
               lambda: _accounting("committed_episodes_all"), "Corpus"),
         Claim("accounting.study_overlap",
@@ -685,7 +793,7 @@ def build() -> list[Claim]:
         Claim("corpus.real_tools_v1",
               "Episodes using real tools as of arXiv v1 (commit 00c0673)", 770,
               "traces/real*/manifest.json", "py -m devtools.claims_ledger --check",
-              lambda: _real_tool_episodes(v1_only=True), "Corpus"),
+              _real_tool_episodes_v1, "Corpus"),
 
         # ----------------------------------------------- behavioural monitor
         Claim("h1.detection", "esn_cusum_max detection (5 seeds)", 0.7065,
@@ -1297,6 +1405,86 @@ def build() -> list[Claim]:
         Claim("repair.recovered_located", "Failures `located` recovers, mean of 3 repeats",
               25.0, "results/tables/repair_policies.csv", REPAIR_CMD,
               lambda: _repair_recovered("located"), "Repair"),
+
+        # ------------------------------- Real-tool validation: framework x
+        # real tools, and live rollback/retry. Frozen esn_cusum_max[e,m]
+        # (results/framework_monitor_freeze.json), scored zero-shot, never
+        # recalibrated per framework -- see
+        # run_framework_real_tool_analysis.py's own note on why the two
+        # frameworks' rates are not meant to agree.
+        Claim("framework_real_tool.langgraph_fa",
+              "LangGraph x real-tool healthy false-alarm rate",
+              1.0, "results/tables/framework_real_tool_alarms.csv",
+              FRAMEWORK_REAL_TOOL_CMD,
+              lambda: _framework_fa("langgraph7b_real"), "Real-tool validation",
+              denominator=lambda: _framework_fa_n("langgraph7b_real"),
+              expected_denominator=12, denominator_unit="healthy episodes"),
+        Claim("framework_real_tool.langgraph_detection",
+              "LangGraph x real-tool detection rate "
+              "(uninformative alongside a 1.00 false-alarm rate)", 0.8333,
+              "results/tables/framework_real_tool_alarms.csv",
+              FRAMEWORK_REAL_TOOL_CMD,
+              lambda: _framework_detection("langgraph7b_real"),
+              "Real-tool validation",
+              denominator=lambda: _framework_detection_n("langgraph7b_real"),
+              expected_denominator=12, denominator_unit="injected episodes"),
+        Claim("framework_real_tool.autogen_fa",
+              "AutoGen x real-tool healthy false-alarm rate",
+              0.6667, "results/tables/framework_real_tool_alarms.csv",
+              FRAMEWORK_REAL_TOOL_CMD,
+              lambda: _framework_fa("autogen7b_real"), "Real-tool validation",
+              denominator=lambda: _framework_fa_n("autogen7b_real"),
+              expected_denominator=12, denominator_unit="healthy episodes"),
+        Claim("framework_real_tool.autogen_detection",
+              "AutoGen x real-tool detection rate", 0.8333,
+              "results/tables/framework_real_tool_alarms.csv",
+              FRAMEWORK_REAL_TOOL_CMD,
+              lambda: _framework_detection("autogen7b_real"),
+              "Real-tool validation",
+              denominator=lambda: _framework_detection_n("autogen7b_real"),
+              expected_denominator=12, denominator_unit="injected episodes"),
+        Claim("framework_real_tool.excluded",
+              "Episodes collected but excluded from monitor scoring "
+              "(the injector never applied, or applied with no following "
+              "step -- see inject.replay_against_trace); the collector "
+              "enforces this at admission time, so none reach the corpus", 0,
+              "results/tables/framework_real_tool_alarms.csv",
+              FRAMEWORK_REAL_TOOL_CMD, _framework_excluded,
+              "Real-tool validation", denominator_unit="episodes"),
+        Claim("rollback_recovery.primary_trigger_rate",
+              "Primary-arm (causal) trigger rate", 0.625,
+              "results/tables/real_task_rollback_outcomes.csv",
+              ROLLBACK_RECOVERY_CMD,
+              lambda: _rollback_rate("primary", "trigger"),
+              "Real-tool validation",
+              denominator=lambda: _rollback_n("primary"),
+              expected_denominator=16, denominator_unit="injected episodes"),
+        Claim("rollback_recovery.primary_conditional_recovery",
+              "Primary-arm recovery given a triggered, reconstructable "
+              "checkpoint", 0.8,
+              "results/tables/real_task_rollback_outcomes.csv",
+              ROLLBACK_RECOVERY_CMD,
+              lambda: _rollback_rate("primary", "conditional"),
+              "Real-tool validation",
+              denominator=lambda: _rollback_conditional_n("primary"),
+              expected_denominator=10, denominator_unit="triggered episodes"),
+        Claim("rollback_recovery.primary_end_to_end_recovery",
+              "Primary-arm end-to-end recovery", 0.5,
+              "results/tables/real_task_rollback_outcomes.csv",
+              ROLLBACK_RECOVERY_CMD,
+              lambda: _rollback_rate("primary", "end_to_end"),
+              "Real-tool validation",
+              denominator=lambda: _rollback_n("primary"),
+              expected_denominator=16, denominator_unit="injected episodes"),
+        Claim("rollback_recovery.oracle_end_to_end_recovery",
+              "Oracle-tau upper bound end-to-end recovery "
+              "(NOT the deployable result)", 0.875,
+              "results/tables/real_task_rollback_outcomes.csv",
+              ROLLBACK_RECOVERY_CMD,
+              lambda: _rollback_rate("oracle_upper_bound", "end_to_end"),
+              "Real-tool validation",
+              denominator=lambda: _rollback_n("oracle_upper_bound"),
+              expected_denominator=16, denominator_unit="injected episodes"),
     ]
 
 
@@ -1323,7 +1511,8 @@ def _render(claims: list[Claim], ok: bool) -> str:
         f" ({len(claims)} claims checked).",
         "",
     ]
-    for section in ("Corpus", "Monitor", "Verification", "Repair"):
+    for section in ("Corpus", "Monitor", "Verification", "Repair",
+                    "Real-tool validation"):
         group = [c for c in claims if c.section == section]
         if not group:
             continue

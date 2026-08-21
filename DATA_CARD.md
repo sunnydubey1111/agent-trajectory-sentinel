@@ -5,15 +5,15 @@ manifests, so it cannot drift from what is committed.
 
 ## What is here
 
-- **3,226 agent episodes** across **28 corpora**, every
+- **3,294 agent episodes** across **31 corpora**, every
   trace committed as JSONL under `traces/`.
-- **1,010** of those episodes use *real* tools (arXiv, Wikipedia,
+- **1,319** of those episodes use *real* tools (arXiv, Wikipedia,
   web fetch, SQL, Python); the rest use a deterministic mock-tool suite.
 - Episodes per agent model:
 
 | model | episodes |
 |---|---:|
-| `qwen2.5:7b` | 2,293 |
+| `qwen2.5:7b` | 2,361 |
 | `llama3.1:8b` | 433 |
 | `qwen2.5:3b` | 357 |
 | `gemini-2.5-flash` | 143 |
@@ -59,6 +59,7 @@ uncertainty channel.
 |---|---:|---|---:|---:|---:|---:|---|---|
 | `autogen` | 102 | `qwen2.5:3b` | 30 | 72 | 72 | 0 | 4/5/12 | AutoGen loop, qwen2.5:3b -- small-model operating-envelope evidence |
 | `autogen7b` | 148 | `qwen2.5:7b` | 60 | 88 | 88 | 0 | 4/5/8 | AutoGen loop at 7b -- the envelope finding confirmed causally |
+| `autogen7b_real` | 24 | `qwen2.5:7b` | 12 | 12 | 12 | 0 | 4/7/12 | Framework validation: AutoGen AssistantAgent x real tools (arXiv, Wikipedia, Open-Meteo) -- frozen esn_cusum_max[e,m] scored zero-shot, no retraining |
 | `demo7b` | 113 | `qwen2.5:7b` | 113 | 0 | 0 | 113 | 11/12/16 | Live-demo calibration corpus, superseded by the task-scoped rebuild |
 | `demo7b_scoped` | 120 | `qwen2.5:7b` | 120 | 0 | 0 | 120 | 9/12/15 | Live-demo healthy null under the task-scoped toolset |
 | `demo_real` | 48 | `qwen2.5:7b` | 48 | 0 | 0 | 48 | 7/7/7 | Demo agent, real-tool suite -- FIXED task shape (all T=7); superseded as a healthy null by demo_real_varied |
@@ -66,6 +67,7 @@ uncertainty channel.
 | `demo_real_varied_ext` | 118 | `qwen2.5:7b` | 102 | 16 | 16 | 118 | 6/9/11 | Additive sibling of demo_real_varied, same collector and serving path, sized so the validation split can support the 5% false-alarm budget the offline corpora are scored at |
 | `langgraph` | 75 | `qwen2.5:3b` | 34 | 41 | 41 | 0 | 4/5/7 | LangGraph StateGraph agent, qwen2.5:3b |
 | `langgraph7b` | 196 | `qwen2.5:7b` | 105 | 91 | 91 | 0 | 4/6/12 | LangGraph StateGraph agent at 7b |
+| `langgraph7b_real` | 24 | `qwen2.5:7b` | 12 | 12 | 12 | 0 | 4/7/12 | Framework validation: LangGraph StateGraph agent x real tools (arXiv, Wikipedia, Open-Meteo) -- frozen esn_cusum_max[e,m] scored zero-shot, no retraining |
 | `ollama` | 98 | `qwen2.5:3b` | 48 | 50 | 50 | 98 | 4/5/7 | Native loop on Ollama, qwen2.5:3b |
 | `ollama7b` | 155 | `qwen2.5:7b` | 70 | 85 | 85 | 155 | 4/6/9 | Native loop on Ollama at 7b |
 | `ollama_llama8b` | 193 | `llama3.1:8b` | 77 | 116 | 116 | 193 | 4/5/14 | Cross-family transfer arm: llama3.1:8b on the 7b task plan |
@@ -85,6 +87,7 @@ uncertainty channel.
 | `real_research7b_long` | 72 | `qwen2.5:7b` | 30 | 42 | 42 | 72 | 5/11/14 | Lengthened research corpus for horizon analysis |
 | `real_research7b_long_drift` | 240 | `qwen2.5:7b` | 120 | 120 | 120 | 240 | 4/11/15 | Long-runway real goal_drift, collected to test the conceptor mechanism; post-onset horizon (T-1-tau) is median 8, range 1-10, with 19 of 120 reaching >=9 |
 | `real_research7b_long_ext` | 121 | `qwen2.5:7b` | 30 | 91 | 91 | 121 | 11/11/16 | Extension of the lengthened research corpus |
+| `real_task_rollback` | 20 | `qwen2.5:7b` | 4 | 16 | 16 | 20 | 4/7/12 | REAL_TASKS corpus (objective success_fn) for live rollback/retry recovery scoring -- not pooled with the booking-domain repair study |
 
 ## Collection settings
 

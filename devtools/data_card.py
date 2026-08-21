@@ -65,6 +65,15 @@ PURPOSE: dict[str, str] = {
     "real_research7b": "Primary real-tool research corpus",
     "real_research7b_long": "Lengthened research corpus for horizon analysis",
     "real_research7b_long_ext": "Extension of the lengthened research corpus",
+    "langgraph7b_real": "Framework validation: LangGraph StateGraph agent x "
+                        "real tools (arXiv, Wikipedia, Open-Meteo) -- frozen "
+                        "esn_cusum_max[e,m] scored zero-shot, no retraining",
+    "autogen7b_real": "Framework validation: AutoGen AssistantAgent x real "
+                      "tools (arXiv, Wikipedia, Open-Meteo) -- frozen "
+                      "esn_cusum_max[e,m] scored zero-shot, no retraining",
+    "real_task_rollback": "REAL_TASKS corpus (objective success_fn) for "
+                          "live rollback/retry recovery scoring -- not "
+                          "pooled with the booking-domain repair study",
 }
 
 
@@ -158,6 +167,25 @@ def _rejections() -> tuple[list[tuple[str, int, int, float]], dict[str, dict[str
     return per_corpus, dict(per_rule)
 
 
+def _real_tool_count(corpora: list[tuple[str, list[dict]]]) -> int:
+    """Content-derived: an episode counts iff one of its own tool calls hit
+    a real external tool (`real_tools.episode_used_real_tools`), never by
+    matching the corpus directory's name -- see `claims_ledger._real_tool_
+    episodes` for the full rationale and the filename-glob defect this
+    replaced."""
+    from derail.harness.real_tools import episode_used_real_tools
+
+    total = 0
+    for name, entries in corpora:
+        for entry in entries:
+            trace_path = TRACES / name / entry["file"]
+            steps = [json.loads(l) for l in
+                    trace_path.read_text("utf-8").splitlines() if l.strip()]
+            if episode_used_real_tools(steps):
+                total += 1
+    return total
+
+
 def _summarise(entries: list[dict]) -> dict[str, object]:
     lengths = [e.get("T") for e in entries if isinstance(e.get("T"), int)]
     classes = collections.Counter(e.get("failure_class") for e in entries)
@@ -184,7 +212,7 @@ def render() -> str:
     rej_attempted = sum(row[1] for row in rejections)
     rej_total = sum(row[2] for row in rejections)
     total = sum(len(e) for _, e in corpora)
-    real_tool = sum(len(e) for name, e in corpora if name.startswith("real"))
+    real_tool = _real_tool_count(corpora)
     models = collections.Counter()
     for _, entries in corpora:
         for e in entries:

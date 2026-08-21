@@ -413,6 +413,37 @@ detection sits near chance; re-collecting with the requirements met
 (qwen2.5:7b, 60 healthy episodes per source, T=5–8) lifted every source by
 +0.15–0.24 AUC with nothing else changed.
 
+**Framework x real tools, a monitor fit once and never retrained per
+framework:** the mock-tool envelope above trains and tests within one
+framework. Freezing `esn_cusum_max[e,m]` on this project's own harness, then
+scoring it zero-shot on 48 live LangGraph/AutoGen episodes over real
+arXiv/Wikipedia/Open-Meteo calls, shows that fit does not automatically
+transfer to a different agent orchestrator: AutoGen scores detection 0.833 at
+a 0.667 false-alarm rate (`results/framework_real_tool_report.md`), while
+LangGraph's episodes all cross the alarm line past washout regardless of
+health (false-alarm rate 1.00), making its 0.833 detection rate uninformative
+rather than a win.
+
+This is genuine calibration/generalization failure, not a scoring defect.
+Both harnesses are confirmed (structurally and via a live cross-harness
+contract test) to measure `latency_s` identically — LLM-call time only, tool
+execution excluded — yet false alarms are still driven overwhelmingly by the
+**meta channel** (`m`: action type, log-latency, log-token-count, error
+flag), not the semantic (`e`) channel: per-step LLM-call latency in these
+frameworks averages 0.53s (LangGraph) / 0.47s (AutoGen), against the frozen
+monitor's native-harness training mean of 4.22s — roughly an 8x gap.
+Confirming this is about calibration, not architecture: scored on its OWN population
+(fit and thresholded on mock-tool LangGraph/AutoGen traces, the same
+procedure `hybrid_benchmark.csv` uses for every other corpus), `esn_cusum_max`'s
+healthy false-alarm rate on these same two frameworks is **0.000**
+(LangGraph) and **0.083** (AutoGen) — the architecture instruments both
+frameworks fine; a threshold frozen on a third, different harness just does
+not transfer to them. Framework **compatibility** ("ATS can instrument
+LangGraph/AutoGen") and calibration **generalization** ("one frozen threshold
+transfers across orchestrators") are separate claims, and only the first
+holds here. Full per-class breakdown, the excluded-episode accounting and the
+channel-level diagnosis are in `results/framework_real_tool_report.md`.
+
 ## Live demo
 
 The clip at the top of this page is one such run: the agent works its task, a
@@ -491,6 +522,22 @@ samples above differ on `grounding_loss` (0/5 vs 2/5) and `context_corruption`
 that never alarm behaviourally can still be repaired, driven by the answer or
 contract checks rather than by the monitor; that is the design, not a
 spurious interruption.
+
+**Real-tool live rollback/retry, a separate corpus from the two studies
+above.** The booking-domain repair figures need `Finding`/`checks.verify()`
+hints this project's real-tool tasks don't have, so this arm scores recovery
+against `RealTask.success_fn` instead — objective, unmodified, no invented
+heuristic — on 16 live injected episodes across four failure classes
+(`results/real_task_rollback_report.md`). The frozen monitor's own causal alarm
+(**primary**, the deployable result) triggers on 10/16 = 0.625; of those,
+8/10 = 0.800 recover under a plain rollback-and-retry with no repair hint, for
+0.500 end-to-end. A ground-truth-tau **oracle** upper bound (never the
+deployable result) triggers on all 16 and recovers 14/16 = 0.875 — so the gap
+between the deployable arm and the ceiling is explained almost entirely by
+*whether the monitor catches the fault at all*, not by recovery quality once
+it does (0.800 vs 0.875 conditional). Not pooled with `alarm_repair.csv` or
+`repair_policies.csv` above: different task domain, different verifier,
+different corpus.
 
 ## Layout
 
@@ -618,7 +665,7 @@ worth building. Sources in [`CLAIMS.md`](CLAIMS.md).
   and what does not work yet.
 - [`REPRODUCE.md`](REPRODUCE.md) — models, seeds, hardware, package versions,
   settings, and the exact command behind each result.
-- [`DATA_CARD.md`](DATA_CARD.md) — all 3,226 episodes across 28 corpora: sizes,
+- [`DATA_CARD.md`](DATA_CARD.md) — all 3,294 episodes across 31 corpora: sizes,
   models, injected vs organic, episode lengths, channel availability. The same corpus is published
   on Hugging Face as
   [`sunnydubey1111/agent-trajectory-sentinel`](https://huggingface.co/datasets/sunnydubey1111/agent-trajectory-sentinel),

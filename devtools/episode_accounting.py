@@ -1,6 +1,6 @@
 """One derivation of every episode total this project quotes.
 
-Several totals circulate and they do not add up to each other: 3,226 committed
+Several totals circulate and they do not add up to each other: 3,294 committed
 episodes, 2,823 as of arXiv v1, 2,080 healthy, 2,248 collection attempts with
 541 discarded, 1,002 in the behavioural study, 874 in the grounding study,
 1,825 healthy in the false-positive claim. Each is correct for what it counts.
