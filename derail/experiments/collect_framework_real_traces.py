@@ -32,8 +32,7 @@ from pathlib import Path
 from derail.common import rng_for
 from derail.harness.collection import (ModelUnavailable, Provenance, Verdict,
                                        _sha256_text, registry_roster_sha256,
-                                       require_ollama_model, reusable,
-                                       write_episode, write_manifest)
+                                       require_ollama_model, write_episode, write_manifest)
 from derail.harness.frameworks import run_autogen_episode, run_langgraph_episode
 from derail.harness.inject import ToolInjector, replay_against_trace
 from derail.harness.real_tools import build_registry

@@ -9,11 +9,10 @@ import json
 from pathlib import Path
 
 import numpy as np
-import pytest
 
 from derail.intervene.real_tool_rollback import (
     CheckpointResult, ORACLE_UPPER_BOUND, PRIMARY, RECONSTRUCTION_FAILED,
-    RECOVERED, RetryOutcome, compute_checkpoint_oracle,
+    compute_checkpoint_oracle,
     compute_checkpoint_primary, retry_real_task_from_checkpoint)
 from derail.intervene.rollback import rebuild_history
 

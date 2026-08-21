@@ -27,11 +27,9 @@ import time
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-from derail.harness.record_replay import Cassette
-from derail.harness.tools import ToolRegistry, format_tool_bit
+from derail.harness.tools import ToolRegistry
 from derail.intervene.rollback import rebuild_history
 from derail.telemetry.events import SCHEMA_VERSION, make_tool_event, parse_step_events
-from derail.preconditions import error_shaped
 
 PRIMARY = "primary"
 ORACLE_UPPER_BOUND = "oracle_upper_bound"

@@ -52,7 +52,7 @@ import numpy as np
 from derail.common import D_META, D_SEM, D_TOTAL, D_UNC, DEGENERATE_EPS, rng_for
 from derail.evaluation.metrics import pick_threshold
 from derail.monitor.esn import (_MONITOR_SPLIT_SEED, ChannelMaxESNMonitor,
-                                ESNEnsembleMonitor, _robust_loc_scale)
+                                ESNEnsembleMonitor)
 from derail.telemetry.adapter import episode_from_trace
 from derail.telemetry.events import SCHEMA_VERSION
 
