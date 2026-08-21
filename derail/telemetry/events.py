@@ -77,15 +77,25 @@ def canonical_args(args: object) -> str:
 
 def make_tool_event(name: str, args: dict, result: str, *, is_error: bool,
                     latency_s: float | None = None, call_id: str | None = None,
-                    max_result_chars: int | None = None) -> dict:
-    """Build one structured tool event for a step record."""
+                    max_result_chars: int | None = None,
+                    source: str | None = None) -> dict:
+    """Build one structured tool event for a step record.
+
+    `source` ("live_external" | "live_local" | "cassette_replay" | "mock"),
+    opt-in: only added as a key when a caller passes one, so every existing
+    call site's event dict is byte-identical to before -- an event with no
+    `source` key means "not recorded", never inferred after the fact.
+    """
     text = str(result)
     truncated = (max_result_chars is not None and len(text) > max_result_chars)
-    return {"id": call_id or "", "name": str(name), "args": dict(args or {}),
+    event = {"id": call_id or "", "name": str(name), "args": dict(args or {}),
             "result": text[:max_result_chars] if truncated else text,
             "result_chars": len(text), "result_truncated": truncated,
             "is_error": bool(is_error),
             "latency_s": None if latency_s is None else float(latency_s)}
+    if source is not None:
+        event["source"] = source
+    return event
 
 
 # ------------------------------------------------------------ text fallback

@@ -58,6 +58,24 @@ class SimpleTool:
         return self.fn(**kwargs)
 
 
+#: Static classification for provenance tagging: does this tool make a real
+#: network round-trip, or run locally? Opt-in and additive -- unrelated to
+#: dispatch. Tools absent from both sets (a future addition, or a mock
+#: implementation) fall back to "external" in `_call_locality`, the more
+#: conservative default for an unclassified name.
+_EXTERNAL_TOOL_NAMES = frozenset({
+    "wikipedia_search", "arxiv_search", "web_search", "tavily_search",
+    "get_weather", "github_tool", "browser_browse", "mcp_call",
+})
+_LOCAL_TOOL_NAMES = frozenset({
+    "python", "read_file", "list_dir", "sql_query", "vector_search",
+})
+
+
+def _call_locality(name: str) -> str:
+    return "local" if name in _LOCAL_TOOL_NAMES else "external"
+
+
 @dataclass
 class ToolResult:
     """Outcome of one tool call, in telemetry-ready form."""
@@ -67,6 +85,12 @@ class ToolResult:
     content: str          # the result string (already error-normalized)
     is_error: bool
     latency_s: float
+    #: "live_external" | "live_local" | "cassette_replay" | None. Set only
+    #: when the caller opts in via `ToolRegistry.call(record_provenance=True)`
+    #: -- default None everywhere else, including every pre-existing caller,
+    #: so old traces/callers are unaffected and a missing value must be read
+    #: as "not recorded", never inferred.
+    source: str | None = None
 
     def step_bit(self) -> str:
         """The "[name({args}) -> result]" fragment for the step text."""
@@ -211,7 +235,9 @@ class ToolRegistry:
 
     def call(self, name: str, args: dict[str, Any],
              cassette: Cassette | None = None,
-             injector: Any | None = None) -> ToolResult:
+             injector: Any | None = None,
+             key_suffix: str | None = None,
+             record_provenance: bool = False) -> ToolResult:
         """Run one tool call: time it, normalize errors, record/replay.
 
         With a cassette the (name, args) result is replayed if seen before,
@@ -223,6 +249,13 @@ class ToolRegistry:
         cassette, so the same clean recording serves a healthy run and any
         injected variant; the transformed result is what the agent sees and
         what telemetry records.
+
+        `key_suffix`, opt-in, forwarded to `cassette.call` -- disambiguates a
+        repeated identical call within one cassette so it does not overwrite
+        its own earlier recording. `record_provenance`, opt-in: populates
+        `ToolResult.source` from the actual branch taken (never inferred
+        afterward). Both default to their no-op values, so every existing
+        caller's behavior and return shape are unchanged.
         """
         if name not in self._tools:
             res = ToolResult(name, args, f"Error: unknown tool {name}",
@@ -250,14 +283,25 @@ class ToolRegistry:
                     "latency_s": round(time.perf_counter() - t0, 4)}
 
         t0 = time.perf_counter()
-        rec = (cassette.call(key, _live, legacy_keys=legacy_keys,
-                             is_error=lambda r: bool(r.get("is_error")))
-               if cassette is not None else _live())
+        source = None
+        if cassette is not None:
+            rec, branch = cassette.call(
+                key, _live, legacy_keys=legacy_keys,
+                is_error=lambda r: bool(r.get("is_error")),
+                key_suffix=key_suffix, return_provenance=True)
+            if record_provenance:
+                source = ("cassette_replay" if branch == "replayed"
+                          else f"live_{_call_locality(name)}")
+        else:
+            rec = _live()
+            if record_provenance:
+                source = f"live_{_call_locality(name)}"
         # On a replay the recorded latency is stale; report the real elapsed
         # (tiny) time so downstream latency features reflect what happened.
         latency = (rec["latency_s"] if cassette is None
                    else round(time.perf_counter() - t0, 4))
-        res = ToolResult(name, args, rec["content"], rec["is_error"], latency)
+        res = ToolResult(name, args, rec["content"], rec["is_error"], latency,
+                         source=source)
         return injector.apply(res) if injector is not None else res
 
 

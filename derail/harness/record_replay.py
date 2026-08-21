@@ -362,7 +362,9 @@ class Cassette:
 
     def call(self, key: str, fn: Callable[[], Any],
              legacy_keys: "tuple[str, ...]" = (),
-             is_error: Callable[[Any], bool] | None = None) -> Any:
+             is_error: Callable[[Any], bool] | None = None,
+             key_suffix: str | None = None,
+             return_provenance: bool = False) -> Any:
         """Return fn()'s (JSON-able) result, replaying/recording per mode.
 
         `legacy_keys` are older key derivations for the same request: a hit on
@@ -371,9 +373,28 @@ class Cassette:
 
         `is_error` marks a result as a failure; failures are not recorded
         unless the cassette was built with `cache_errors=True`.
+
+        `key_suffix` disambiguates repeated identical requests within one
+        cassette (e.g. the same tool called twice with the same args in one
+        episode), which would otherwise collide on one key and silently
+        overwrite each other. Applied before any lookup, so a suffixed key is
+        its own independent slot; `legacy_keys` are never suffixed, since no
+        legacy recording predates this parameter.
+
+        `return_provenance`, opt-in: returns `(result, "live" | "replayed")`
+        instead of a bare result, decided at the exact branch taken here --
+        never inferred afterward from `n_replayed`/`n_recorded`. Default
+        False keeps every existing caller's return shape unchanged.
         """
+        def _out(value: Any, tag: str) -> Any:
+            return (value, tag) if return_provenance else value
+
+        if key_suffix is not None:
+            key = f"{key}__{key_suffix}"
+            self._check_key(key)
+
         if self.mode == "live":
-            return fn()
+            return _out(fn(), "live")
         wpath = self._wfile(key)
 
         def _lookup() -> tuple[bool, Any]:
@@ -393,7 +414,7 @@ class Cassette:
         if self.mode in ("auto", "replay"):
             hit, response = _lookup()
             if hit:
-                return response
+                return _out(response, "replayed")
         if self.mode == "replay":
             raise KeyError(f"no recording for key {key} in {self.dir} "
                            f"(replay mode won't call the live function)")
@@ -404,14 +425,14 @@ class Cassette:
             if self.mode == "auto":
                 hit, response = _lookup()
                 if hit:
-                    return response
+                    return _out(response, "replayed")
             result = fn()
             failed = bool(is_error(result)) if is_error is not None else False
             if failed and not self.cache_errors:
-                return result             # transient failures are not cached
+                return _out(result, "live")             # transient failures are not cached
             self._write(wpath, key, result)
             self.n_recorded += 1
-            return result
+            return _out(result, "live")
 
     def summary(self) -> str:
         extra = ""

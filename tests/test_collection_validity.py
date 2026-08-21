@@ -12,7 +12,8 @@ import pytest
 from derail.harness.collection import (accept_episode, make_provenance,
                                        reusable, write_episode, write_manifest)
 from derail.harness.inject import (APPLICABLE_TOOLS, FAILURE_CLASSES,
-                                   ToolInjector, UnknownFailureClass)
+                                   ToolInjector, UnknownFailureClass,
+                                   replay_against_trace)
 from derail.harness.tools import SimpleTool, ToolRegistry, ToolResult
 
 
@@ -50,6 +51,61 @@ def test_a_mutation_on_the_last_step_is_refused():
     injector.apply(ToolResult("web_search", {}, "clean", False, 0.1))
     verdict = accept_episode(_steps(6), injector=injector)
     assert not verdict.accepted and "no following" in verdict.reason
+
+
+# ---------------------------------------------------------------------
+def _trace_with_tool_events(n_steps: int, tool_names_by_step: dict[int, str]
+                            ) -> list[dict]:
+    steps = []
+    for t in range(n_steps):
+        step = {"text": f"step {t}", "latency_s": 1.0, "tool_events": []}
+        if t in tool_names_by_step:
+            step["tool_events"].append(
+                {"name": tool_names_by_step[t], "args": {"q": "x"},
+                 "result": "clean", "is_error": False, "latency_s": 0.1})
+        steps.append(step)
+    return steps
+
+
+def test_replay_against_trace_recovers_a_genuine_onset():
+    """A collector that skipped `accept_episode` (e.g. for outcome-independent
+    admission) can still recover applied_count/first_applied_t afterwards,
+    purely from the trace's own recorded tool calls -- no live re-run."""
+    steps = _trace_with_tool_events(6, {0: "web_search", 3: "web_search",
+                                        4: "web_search"})
+    replayed = replay_against_trace(steps, "looping", tau=2, seed=1)
+    assert replayed.applied_count == 2          # steps 3 and 4, not step 0
+    assert replayed.first_applied_t == 3
+
+
+def test_replay_against_trace_finds_a_genuine_no_op():
+    """Every tool call happens before tau: the injector never had a chance
+    to fire, exactly the case a structural tau-vs-T check alone would miss
+    if the episode still happens to satisfy 0 < tau < T."""
+    steps = _trace_with_tool_events(4, {0: "web_search", 1: "web_search"})
+    replayed = replay_against_trace(steps, "goal_drift", tau=2, seed=1)
+    assert replayed.applied_count == 0
+    assert replayed.first_applied_t is None
+    # 0 < tau(2) < T(4) holds structurally, yet nothing actually applied --
+    # the exact silent-miss case this helper exists to catch.
+    assert 0 < 2 < len(steps)
+
+
+def test_replay_against_trace_matches_a_live_run_exactly_for_a_ramped_class():
+    """tool_cascade is probabilistic; replay must reproduce the SAME draws
+    the original run consumed, not merely a plausible re-simulation."""
+    live = ToolInjector("tool_cascade", tau=2, seed=7)
+    steps = []
+    for t in range(8):
+        live.t = t
+        res = live.apply(ToolResult("web_search", {"q": "x"}, "clean", False, 0.1))
+        steps.append({"text": f"step {t}", "latency_s": 1.0, "tool_events": [
+            {"name": "web_search", "args": {"q": "x"}, "result": res.content,
+             "is_error": res.is_error, "latency_s": res.latency_s}]})
+    assert live.applied_count > 0, "fixture draw must actually fire at least once"
+    replayed = replay_against_trace(steps, "tool_cascade", tau=2, seed=7)
+    assert replayed.applied_count == live.applied_count
+    assert replayed.first_applied_t == live.first_applied_t
 
 
 # ---------------------------------------------------------------------

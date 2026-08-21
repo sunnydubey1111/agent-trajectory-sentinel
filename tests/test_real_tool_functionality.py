@@ -376,3 +376,65 @@ def test_pmi_score_does_not_mutate_vocabulary():
     before = (len(m.unigrams), len(m.bigrams))
     m.score("completely unseen novel tokens here")   # must not grow the vocab
     assert (len(m.unigrams), len(m.bigrams)) == before
+
+
+# ------------------------------------------------ real-tool episode detection
+def _step(tool_events):
+    return {"text": "", "action": "tool_call", "tool_events": tool_events}
+
+
+def _te(name, result, is_error=False, source=None):
+    return {"id": "", "name": name, "args": {}, "result": result,
+            "result_chars": len(result), "result_truncated": False,
+            "is_error": is_error, "latency_s": 0.1, "source": source}
+
+
+def test_episode_used_real_tools_is_true_for_an_unambiguous_real_tool():
+    from derail.harness.real_tools import episode_used_real_tools
+    steps = [_step([_te("arxiv_search", "Some Paper Title (A. Author, 2601.00001v1)")])]
+    assert episode_used_real_tools(steps)
+
+
+def test_episode_used_real_tools_is_false_for_the_mock_booking_tools():
+    """These share no name with anything real_tools.py implements."""
+    from derail.harness.real_tools import episode_used_real_tools
+    steps = [_step([_te("search_catalog", "$71.7"),
+                    _te("lookup_flight", "AA123 departs 09:00"),
+                    _te("calculator", "42")])]
+    assert not episode_used_real_tools(steps)
+
+
+def test_episode_used_real_tools_disambiguates_get_weather_by_content():
+    """get_weather is the one name the mock booking simulator also uses
+    (a bare word like "rainy"); only OpenMeteoWeather's own sentence shape
+    counts as real."""
+    from derail.harness.real_tools import episode_used_real_tools
+    mock = [_step([_te("get_weather", "rainy")])]
+    real = [_step([_te("get_weather",
+                       "Weather in Prague, Czechia: 24.7°C, slight rain, "
+                       "wind speed 8.7 km/h.")])]
+    assert not episode_used_real_tools(mock)
+    assert episode_used_real_tools(real)
+
+
+def test_episode_used_real_tools_prefers_execution_provenance_for_get_weather():
+    """When `source` was recorded, it decides -- content is only a fallback
+    for traces collected before that field existed."""
+    from derail.harness.real_tools import episode_used_real_tools
+    provenanced_real = [_step([_te("get_weather", "rainy",
+                                   source="live_external")])]
+    assert episode_used_real_tools(provenanced_real)
+    provenanced_mock_shaped_like_real = [_step([_te(
+        "get_weather", "Weather in Nowhere: 20C, clear, wind speed 1 km/h.",
+        source=None)])]
+    assert episode_used_real_tools(provenanced_mock_shaped_like_real), (
+        "content fallback must still work when source is genuinely absent")
+
+
+def test_real_tool_names_come_from_the_tool_factories_not_a_second_list():
+    """A tool added to real_tools.py must be recognised here without a
+    hand-maintained duplicate list drifting out of sync."""
+    from derail.harness.real_tools import _tool_factories, real_tool_names
+    assert real_tool_names() == frozenset(_tool_factories(fs_root="."))
+    assert {"arxiv_search", "wikipedia_search", "web_search", "python",
+           "get_weather"} <= real_tool_names()

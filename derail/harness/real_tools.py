@@ -868,6 +868,68 @@ def default_registry(fs_root: str | Path | None = None,
     return build_registry(names, fs_root=fs_root)
 
 
+# ------------------------------------------------------ real-tool detection
+def real_tool_names() -> frozenset[str]:
+    """Every tool name this module implements against a real external service
+    or subprocess -- the single source of truth for "is this name a real
+    tool", derived from `_tool_factories` rather than duplicated by hand."""
+    return frozenset(_tool_factories(fs_root="."))
+
+
+#: Execution-time provenance values that mean "this call actually ran (or
+#: replayed a prior real run) against the real implementation" -- see
+#: `tools.ToolRegistry.call`'s `source=`. Only present when the collector
+#: passed `record_provenance=True`; most committed corpora predate that.
+_REAL_EXECUTION_SOURCES = frozenset({"live_external", "live_local", "cassette_replay"})
+
+
+def is_real_weather_result(content: str) -> bool:
+    """FALLBACK ONLY, for a `get_weather` call with no execution provenance
+    recorded. `get_weather` is the one name this module shares with the
+    simulator's mock booking tasks (canned single-word result, e.g.
+    "rainy"); the real `OpenMeteoWeather.run()` always renders "Weather in
+    {city}, {country}: {temp}C, {desc}, wind speed {wind} km/h.". Prefer
+    `tool_events[].source` (checked first in `episode_used_real_tools`)
+    wherever it was recorded; this content check only fires for traces
+    collected before that field existed.
+    """
+    return "Weather in " in content and "wind speed" in content
+
+
+def episode_used_real_tools(steps: list[dict]) -> bool:
+    """True iff at least one tool call in this trace hit a real external tool.
+
+    Never derived from the corpus/directory name -- a corpus named `real*`
+    proves nothing on its own, and one that isn't can still be 100%
+    real-tool (e.g. `traces/organic7b`). Per call: the tool NAME already
+    disambiguates every real tool except `get_weather`, which the mock
+    booking simulator also implements (with unmistakably different canned
+    output). For that one name, prefer the call's own recorded execution
+    provenance (`tool_events[].source`, set only when the collector passed
+    `record_provenance=True`); only when that field is absent -- most
+    committed corpora predate it -- fall back to the content check.
+    """
+    from derail.telemetry.events import parse_step_events
+
+    names = real_tool_names()
+    for step in steps:
+        raw = step.get("tool_events")
+        raw_list = raw if isinstance(raw, list) else []
+        tools, _reasoning = parse_step_events(step)
+        sources = ([r.get("source") if isinstance(r, dict) else None
+                   for r in raw_list] if len(raw_list) == len(tools)
+                  else [None] * len(tools))
+        for ev, prov_source in zip(tools, sources):
+            if ev.name not in names:
+                continue
+            if ev.name != "get_weather":
+                return True
+            if prov_source in _REAL_EXECUTION_SOURCES:
+                return True
+            if prov_source is None and is_real_weather_result(str(ev.result)):
+                return True
+    return False
+
 
 # --------------------------------------------------------------- smoke test
 if __name__ == "__main__":

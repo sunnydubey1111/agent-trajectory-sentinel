@@ -117,6 +117,69 @@ def test_the_ledger_reports_both_the_current_corpus_and_the_v1_snapshot():
         "corpora have been added since v1, so the two counts must differ")
 
 
+# -------------------------------- real-tool count must be content-derived
+def test_corpus_real_tools_is_not_computed_from_directory_names():
+    """The regression this guards: `corpus.real_tools` used to be `sum(len(m)
+    for m in TRACES.glob("real*/manifest.json"))` -- a filename-glob artifact
+    that both missed real corpora named otherwise and would silently count a
+    `real*`-named corpus that turned out to hold no real-tool episodes.
+
+    `organic7b`, `demo_real`, `demo_real_varied`, `demo_real_varied_ext`,
+    `autogen7b_real` and `langgraph7b_real` are 100% real-tool corpora whose
+    directory names do not start with "real" (the last two don't even START
+    that way); the glob formula misses every one of them. Recomputing must
+    find them anyway, and must disagree with what the old glob formula would
+    have produced.
+    """
+    import json
+
+    from devtools import claims_ledger as cl
+
+    old_glob_count = sum(
+        len(json.loads(m.read_text("utf-8")))
+        for m in sorted(cl.TRACES.glob("real*/manifest.json")))
+    content_count = cl._real_tool_episodes()
+    assert content_count != old_glob_count, (
+        "the content-derived count coincides with the glob formula -- "
+        "make sure a real fix, not a re-derivation of the same number, "
+        "landed here")
+
+    non_real_named = {"organic7b", "demo_real", "demo_real_varied",
+                      "demo_real_varied_ext", "autogen7b_real",
+                      "langgraph7b_real"}
+    names = {m.parent.name for m in cl._our_manifests()}
+    assert non_real_named <= names, (
+        f"a corpus this test depends on is gone: {non_real_named - names}")
+    from derail.harness.real_tools import episode_used_real_tools
+    for corpus in sorted(non_real_named):
+        manifest = json.loads((cl.TRACES / corpus / "manifest.json")
+                              .read_text("utf-8"))
+        assert not corpus.startswith("real"), corpus  # the glob would miss it
+        n_real = sum(
+            1 for e in manifest
+            if episode_used_real_tools(
+                [json.loads(l) for l in
+                 (cl.TRACES / corpus / e["file"]).read_text("utf-8").splitlines()
+                 if l.strip()]))
+        assert n_real == len(manifest), (
+            f"{corpus}: expected every episode to be content-real, got "
+            f"{n_real}/{len(manifest)}")
+
+
+def test_the_v1_real_tools_snapshot_stays_glob_based():
+    """Unlike the current-tree claim, `corpus.real_tools_v1` reconstructs
+    what the already-published, tagged v1 PDF printed (770), computed the
+    same (glob) way that PDF computed it -- content-deriving it now would
+    make the ledger disagree with the paper it is supposed to reproduce."""
+    from devtools import claims_ledger as cl
+    import inspect
+
+    src = inspect.getsource(cl._real_tool_episodes_v1)
+    assert 'glob("real*' in src, (
+        "the v1 snapshot must keep reconstructing the v1 PDF's own glob "
+        "formula, not the current content-derived one")
+
+
 # --------------------------------------- false-positive scope must be explicit
 def test_every_false_positive_claim_carries_its_denominator():
     """A zero is meaningless without the population it is zero over.

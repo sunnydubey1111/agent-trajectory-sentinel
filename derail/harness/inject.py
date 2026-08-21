@@ -201,6 +201,38 @@ class ToolInjector:
         raise UnknownFailureClass(f"no transform implemented for {fc!r}")
 
 
+def replay_against_trace(steps: list[dict], failure_class: str, tau: int,
+                         seed: int) -> "ToolInjector":
+    """Reconstruct whether/when this injector actually fired against an
+    ALREADY-COLLECTED trace, from the trace's own recorded tool calls.
+
+    For a collector that (by design, for outcome-independent admission) never
+    routed its injector's `applied_count`/`first_applied_t` through
+    `collection.accept_episode`, this is the only way to recover them
+    afterwards without re-running anything live: reconstruct the same
+    injector (same class/tau/seed the collector used) and feed it the
+    trace's own tool events, in step order -- `apply()`'s ramp draws consume
+    `self.rng` in exactly the order calls happen, so a ramped class (e.g.
+    `tool_cascade`) replays its ORIGINAL draws exactly, not just a
+    plausible re-simulation, as long as `steps` still has EVERY tool call
+    the injector saw the first time (skipping any drops the replayed
+    `applied_count` and cannot be trusted).
+
+    Returns the injector after replay; read `.applied_count` and
+    `.first_applied_t` off it. Never touches `steps` or any file.
+    """
+    injector = ToolInjector(failure_class, tau=tau, seed=seed)
+    for t, step in enumerate(steps):
+        injector.t = t
+        for ev in step.get("tool_events", []):
+            fake = ToolResult(name=ev.get("name", ""), args=ev.get("args") or {},
+                              content=ev.get("result", ""),
+                              is_error=bool(ev.get("is_error")),
+                              latency_s=ev.get("latency_s", 0.0))
+            injector.apply(fake)
+    return injector
+
+
 # --------------------------------------------------------------- smoke test
 if __name__ == "__main__":
     def clean(content="Echo state networks detect anomalies well.", err=False):

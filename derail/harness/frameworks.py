@@ -11,12 +11,24 @@ token logprobs, so framework cells are e+m (no live u channel) — the same
 limitation the earlier mock-tool framework traces documented. The u channel
 lives on the native Ollama loop (agent_loop.py), which is its own source.
 That is a finding, not a gap: orchestration frameworks abstract logprobs away.
+
+Telemetry contract -- `latency_s`: every step's `latency_s` measures ONLY
+that step's own LLM call, the same quantity `agent_loop.run_real_episode`
+measures (`t0 = time.perf_counter(); out = backend.step(t)`, nothing else
+around it). Tool-execution time is never folded in here; it is already
+captured per call in `tool_events[].latency_s`. Both loops below restart
+their `t_prev` clock the instant a step's tool calls finish executing, not
+when the previous agent step ended -- otherwise a step's `latency_s` would
+also include the PRECEDING step's tool-execution time, silently measuring a
+different quantity than the native harness under the same feature name (this
+was exactly wrong before it was fixed; see `test_telemetry_contracts.py`).
 """
 
 from __future__ import annotations
 
 import inspect
 import time
+from typing import Any
 
 from derail.harness.record_replay import Cassette
 from derail.harness.tools import ToolRegistry, format_tool_bit
@@ -64,24 +76,53 @@ def _pydantic_args_model(name: str, schema: dict):
     return create_model(f"{name}_args", **fields)
 
 
+def _occurrence_suffix(occurrence: dict, tool_name: str, args: dict) -> str:
+    """Per-episode occurrence count for `(tool_name, args)`, as a cassette
+    key suffix ("occ0", "occ1", ...) -- disambiguates a repeated identical
+    call within one episode's cassette. `occurrence` is the caller's own
+    dict, so counting is scoped to one episode's closures, never shared."""
+    import json as _json
+    ident = (tool_name, _json.dumps(args, sort_keys=True, default=str))
+    occurrence[ident] = occurrence.get(ident, 0) + 1
+    return f"occ{occurrence[ident] - 1}"
+
+
 def _langchain_tools(registry: ToolRegistry, cassette: Cassette | None,
-                     record: dict | None = None):
+                     record: dict | None = None,
+                     record_provenance: bool = False,
+                     injector: Any | None = None):
     """Wrap each registry tool as a LangChain StructuredTool whose execution
     routes back through registry.call (cassette + error normalization).
 
     `record` (optional) collects the executed ToolResults keyed by call, so the
     caller can emit structured telemetry instead of re-parsing rendered text.
+
+    `record_provenance`, opt-in: also requests execution-time provenance
+    tagging and per-episode occurrence-suffixed cassette keys from
+    `ToolRegistry.call`. Default False keeps every existing caller (incl.
+    `_run_live`'s persistent self-test cassette) on its current key scheme.
+
+    `injector` (optional, WS4 harness.inject.ToolInjector): forwarded to
+    `registry.call`, applied after the cassette exactly as `run_real_episode`
+    already does for the native loop. Caller is responsible for advancing
+    `injector.t` once per agent turn before tool execution runs.
     """
     from langchain_core.tools import StructuredTool
 
     tools = []
+    occurrence: dict = {}
     schemas = registry.schemas()
     for name, (desc, _params) in registry.specs().items():
         args_model = _pydantic_args_model(name, schemas[name])
 
         def _make(tool_name: str):
             def _call(**kwargs) -> str:
-                res = registry.call(tool_name, kwargs, cassette=cassette)
+                suffix = (_occurrence_suffix(occurrence, tool_name, kwargs)
+                          if record_provenance else None)
+                res = registry.call(tool_name, kwargs, cassette=cassette,
+                                    key_suffix=suffix,
+                                    record_provenance=record_provenance,
+                                    injector=injector)
                 if record is not None:
                     record.setdefault("results", []).append(res)
                 return res.content
@@ -96,14 +137,23 @@ def _langchain_tools(registry: ToolRegistry, cassette: Cassette | None,
 def run_langgraph_episode(registry: ToolRegistry, task: str, *,
                           model: str = "qwen2.5:7b", max_steps: int = 12,
                           cassette: Cassette | None = None,
-                          system: str = _SYSTEM) -> list[dict]:
-    """Run one episode under a LangGraph StateGraph; return v2/v3 step dicts."""
+                          system: str = _SYSTEM,
+                          record_provenance: bool = False,
+                          injector: Any | None = None) -> list[dict]:
+    """Run one episode under a LangGraph StateGraph; return v2/v3 step dicts.
+
+    `injector`, optional: advanced to the current step index once per agent
+    turn, right before that turn's tool calls execute -- the same "runner
+    advances t once per step" contract `run_real_episode` already documents.
+    """
     from langchain_core.messages import SystemMessage, ToolMessage
     from langchain_ollama import ChatOllama
     from langgraph.graph import END, START, MessagesState, StateGraph
 
     record: dict = {}
-    tools = _langchain_tools(registry, cassette, record=record)
+    tools = _langchain_tools(registry, cassette, record=record,
+                             record_provenance=record_provenance,
+                             injector=injector)
     by_name = {t.name: t for t in tools}
     llm = ChatOllama(model=model, num_predict=512,
                      temperature=0.2).bind_tools(tools)
@@ -115,6 +165,11 @@ def run_langgraph_episode(registry: ToolRegistry, task: str, *,
         return {"messages": [ai]}
 
     def tool_node(state: MessagesState) -> dict:
+        # `steps` is assigned below, in this same function scope, before the
+        # stream loop that calls this node runs -- closure resolves at call
+        # time, so this sees the live list, not an empty one.
+        if injector is not None and steps:
+            injector.t = len(steps) - 1
         outs = []
         for tc in state["messages"][-1].tool_calls:
             res = by_name[tc["name"]].invoke(tc.get("args") or {})
@@ -170,11 +225,23 @@ def run_langgraph_episode(registry: ToolRegistry, task: str, *,
                 is_error = error_shaped(res)
                 err = err or is_error
                 latency = (executed[i].latency_s if i < len(executed) else None)
+                source = (executed[i].source if i < len(executed) else None)
                 steps[-1]["tool_events"].append(make_tool_event(
-                    name, args, res, is_error=is_error, latency_s=latency))
+                    name, args, res, is_error=is_error, latency_s=latency,
+                    source=source))
             steps[-1]["text"] = (steps[-1]["text"] + " " + " ".join(bits)).strip()
             steps[-1]["error"] = steps[-1]["error"] or err
             steps[-1]["_pending"] = False
+            # `latency_s` measures ONLY the next LLM call, matching the
+            # native harness (`agent_loop.py` times `backend.step()` alone,
+            # nothing else) -- tool execution time is already captured per
+            # call in `tool_events[].latency_s`. Restarting the clock the
+            # instant tool execution ends (not when the PRIOR agent step
+            # ended) keeps it that way; without this, a step's `latency_s`
+            # would also include the previous step's tool-execution time,
+            # which is a different quantity than what the native harness
+            # measures under the same feature name.
+            t_prev = time.perf_counter()
         # Stop only once the pending agent->tool cycle has completed, else the
         # requested call is executed but never recorded.
         if reached_step_limit(steps, max_steps):
@@ -186,7 +253,9 @@ def run_langgraph_episode(registry: ToolRegistry, task: str, *,
 
 
 def _autogen_tools(registry: ToolRegistry, cassette: Cassette | None,
-                   record: dict | None = None):
+                   record: dict | None = None,
+                   record_provenance: bool = False,
+                   injector: Any | None = None):
     """Wrap each registry tool as an AutoGen FunctionTool whose execution
     routes back through registry.call (cassette + error normalization).
 
@@ -196,10 +265,15 @@ def _autogen_tools(registry: ToolRegistry, cassette: Cassette | None,
     call received `{"text": "text"}` instead of the text, which a
     one-line echo test now catches.  Generating code from tool-supplied names
     was also an injection path.
+
+    `record_provenance`, opt-in: see `_langchain_tools` -- same contract,
+    same default-False backward compatibility. `injector`: see
+    `_langchain_tools` -- forwarded to `registry.call`.
     """
     from autogen_core.tools import FunctionTool
 
     tools = []
+    occurrence: dict = {}
     schemas = registry.schemas()
     for name, (desc, _params) in registry.specs().items():
         schema = schemas[name]
@@ -208,7 +282,12 @@ def _autogen_tools(registry: ToolRegistry, cassette: Cassette | None,
 
         def _make(tool_name: str, props: dict, req: set):
             def _call(**kwargs) -> str:
-                res = registry.call(tool_name, dict(kwargs), cassette=cassette)
+                suffix = (_occurrence_suffix(occurrence, tool_name, dict(kwargs))
+                          if record_provenance else None)
+                res = registry.call(tool_name, dict(kwargs), cassette=cassette,
+                                    key_suffix=suffix,
+                                    record_provenance=record_provenance,
+                                    injector=injector)
                 if record is not None:
                     record.setdefault("results", []).append(res)
                 return res.content
@@ -242,15 +321,30 @@ def _autogen_tools(registry: ToolRegistry, cassette: Cassette | None,
 def run_autogen_episode(registry: ToolRegistry, task: str, *,
                         model: str = "qwen2.5:7b", max_steps: int = 12,
                         cassette: Cassette | None = None,
-                        system: str = _SYSTEM) -> list[dict]:
-    """Run one episode under AutoGen AssistantAgent; return v2/v3 step dicts."""
+                        system: str = _SYSTEM,
+                        record_provenance: bool = False,
+                        options: dict | None = None,
+                        injector: Any | None = None) -> list[dict]:
+    """Run one episode under AutoGen AssistantAgent; return v2/v3 step dicts.
+
+    `options`, opt-in: Ollama generation options (e.g. temperature,
+    num_predict) forwarded to `OllamaChatCompletionClient`. Default None
+    keeps every existing caller on the client's own defaults, unchanged.
+
+    `injector`, optional: advanced to the current step index right after
+    that step's pending entry is appended, before AutoGen executes its
+    tool calls -- same "runner advances t once per step" contract as the
+    native loop and the LangGraph runner above.
+    """
     import asyncio
     import json
     from autogen_agentchat.agents import AssistantAgent
     from autogen_ext.models.ollama import OllamaChatCompletionClient
 
     record: dict = {}
-    tools = _autogen_tools(registry, cassette, record=record)
+    tools = _autogen_tools(registry, cassette, record=record,
+                           record_provenance=record_provenance,
+                           injector=injector)
 
     class SerializedToolsClient(OllamaChatCompletionClient):
         """Truncate batched tool calls so episodes stay sequential."""
@@ -262,7 +356,10 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
             return result
 
     async def _run() -> list[dict]:
-        client = SerializedToolsClient(model=model)
+        client_kwargs = {"model": model}
+        if options is not None:
+            client_kwargs["options"] = options
+        client = SerializedToolsClient(**client_kwargs)
         agent = AssistantAgent(
             "worker", model_client=client, tools=tools,
             system_message=system, max_tool_iterations=max_steps)
@@ -286,6 +383,8 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
                     "error": False, "task": task, "tool_events": [],
                     "schema": SCHEMA_VERSION,
                     "_calls": calls, "_pending": bool(calls)})
+                if injector is not None:
+                    injector.t = len(steps) - 1
                 t_prev = now
             elif etype == "ToolCallExecutionEvent":
                 if steps and "_calls" in steps[-1]:
@@ -299,12 +398,20 @@ def run_autogen_episode(registry: ToolRegistry, task: str, *,
                         err = err or is_error
                         latency = (executed[i].latency_s
                                    if i < len(executed) else None)
+                        tool_source = (executed[i].source
+                                      if i < len(executed) else None)
                         steps[-1]["tool_events"].append(make_tool_event(
                             name, args, res_str, is_error=is_error,
-                            latency_s=latency))
+                            latency_s=latency, source=tool_source))
                     steps[-1]["text"] = (steps[-1]["text"] + " " + " ".join(bits)).strip()
                     steps[-1]["error"] = steps[-1]["error"] or err
                     steps[-1]["_pending"] = False
+                # See the matching comment in run_langgraph_episode: restart
+                # the clock the instant tool execution ends, so the next
+                # step's `latency_s` measures only its own LLM call, the
+                # same quantity the native harness measures under this
+                # feature name (tool time lives in tool_events[].latency_s).
+                t_prev = time.perf_counter()
             elif etype == "TextMessage" and getattr(event, "source", "") == "worker":
                 now = time.perf_counter()
                 usage = getattr(event, "models_usage", None)
