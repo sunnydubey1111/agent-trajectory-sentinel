@@ -1,0 +1,901 @@
+[
+  {
+    "episode_id": "rollback-arxiv_paper_search-healthy-00",
+    "file": "rollback-arxiv_paper_search-healthy-00.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 4,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026000,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "b85e8f0ba810742130de0d9668274180e74b9ea4ec1af2f2e3e11b368235448f",
+    "trace_sha256": "187b3baf6c8f74dcab64b084d712b71b1de952db6a8dda6e6235f580d0b36cdb",
+    "collected_at": "2026-08-19T21:57:44+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-healthy-01",
+    "file": "rollback-arxiv_paper_search-healthy-01.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026001,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f84ffd3ace7171aefc03c9ff21798ce07ecafd3bbcb81c883f303192d12c399d",
+    "trace_sha256": "4990038bdc1f722eb8cddc09ba8db8cf42b195362e9baca190e7699dd137ed17",
+    "collected_at": "2026-08-19T21:58:02+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-healthy-00",
+    "file": "rollback-multi_city_weather-healthy-00.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026002,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "05f2354d8bb044dd6f36527ab1e39511d249550199f6fe6ed3cc814a4aacef08",
+    "trace_sha256": "e919151553bb9c86b9bc1cb36cb639d6ffe0c6909b670a5267838a784f6a0a14",
+    "collected_at": "2026-08-19T21:58:22+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-healthy-01",
+    "file": "rollback-multi_city_weather-healthy-01.jsonl",
+    "failure_class": null,
+    "tau": null,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": true,
+    "accepted_because": "healthy run accepted",
+    "injection": {},
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026003,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": null,
+      "requested_tau": null,
+      "injector_seed": null,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e7cf12a1b84c63487dc3f3a934e4c70e579ab7cca0373c910d4b0f92314d2eb9",
+    "trace_sha256": "f78e7c4d1e50719794ab69eaff5102801c2c3232896b768f900e4a49b6d52687",
+    "collected_at": "2026-08-19T21:58:47+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-tool_cascade-00",
+    "file": "rollback-arxiv_paper_search-tool_cascade-00.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 4,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026004,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 52026004,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "e7c797901bd95438d7c053b2c5e7af3a695b9e48a6921f33c620f0c719847d87",
+    "trace_sha256": "caeb3ccaac614a180d5cb086e50e1e098957c8cd95353d08d3a9470d56790407",
+    "collected_at": "2026-08-19T21:59:12+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-tool_cascade-01",
+    "file": "rollback-arxiv_paper_search-tool_cascade-01.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026005,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 52026005,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "d4d7cab60853f7867504669d10919809a81aac01d7e4a21c1c1a43c054f6c965",
+    "trace_sha256": "a9454e21da5f86f62fc4df38941584791db255d60d6eb1d4feba6279f51e534d",
+    "collected_at": "2026-08-19T21:59:28+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-tool_cascade-00",
+    "file": "rollback-multi_city_weather-tool_cascade-00.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 4,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 4,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026006,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "tool_cascade",
+      "requested_tau": 3,
+      "injector_seed": 52026006,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "10b4c471b9052eb5d755bf09c49c0a5978f57958e60798106f1179f731027e49",
+    "trace_sha256": "464debad34fb9ca0972c06f9c7fd9dd766b2b690f12a5bb426775dcd6b90e2cb",
+    "collected_at": "2026-08-19T21:59:57+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-tool_cascade-01",
+    "file": "rollback-multi_city_weather-tool_cascade-01.jsonl",
+    "failure_class": "tool_cascade",
+    "tau": 2,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 2,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026007,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "tool_cascade",
+      "requested_tau": 2,
+      "injector_seed": 52026007,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "cea29c45ac433b1aaa82c40e759e840092f57cf835ca36ed93c378794e42b7ba",
+    "trace_sha256": "420ba11305f2f3412b32ff448bed0326ac3dc95e856bca38d56d921ba986d74c",
+    "collected_at": "2026-08-19T22:00:17+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-looping-00",
+    "file": "rollback-arxiv_paper_search-looping-00.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 10,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026008,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 52026008,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4cec199f5b1ad41306d5f9f46de793a2cd341abeed9eea3f8b7bd436bd2f0c8f",
+    "trace_sha256": "e55b15796700ef397deeb9624b731fa848a4a57e49a659719a81435fb539c651",
+    "collected_at": "2026-08-19T22:00:58+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-looping-01",
+    "file": "rollback-arxiv_paper_search-looping-01.jsonl",
+    "failure_class": "looping",
+    "tau": 3,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "arxiv_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026009,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "looping",
+      "requested_tau": 3,
+      "injector_seed": 52026009,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "a16842719031c4c54909430822390d39af3cb824a1c212d53569fca1baa54b90",
+    "trace_sha256": "390e414037e1cbd75b3bca84e5c8598b8af02bd7c730a7d4d135afee49bed3b7",
+    "collected_at": "2026-08-19T22:01:36+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-looping-00",
+    "file": "rollback-multi_city_weather-looping-00.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 5,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026010,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 52026010,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "543f0bfecfed0de81a2a8a41c70a57cb06a3b97133401d799be944fccc83af91",
+    "trace_sha256": "a878013bcba52a552bcfbbc82785feee86087f6be2b863fdadf978ca21939dfa",
+    "collected_at": "2026-08-19T22:02:07+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-looping-01",
+    "file": "rollback-multi_city_weather-looping-01.jsonl",
+    "failure_class": "looping",
+    "tau": 2,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 10,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "get_weather",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026011,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "looping",
+      "requested_tau": 2,
+      "injector_seed": 52026011,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "83ab0a7e0bb61662a2838e0de63040b48e6112478f4172519474099c3b8b695c",
+    "trace_sha256": "f09718c02017d6616a444d99c81b77f4c5456e21c6f9f33e2e090c7a4cd5b205",
+    "collected_at": "2026-08-19T22:02:51+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-context_corruption-00",
+    "file": "rollback-arxiv_paper_search-context_corruption-00.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 4,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026012,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 52026012,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4a1975aebaf291ed60eb90e47283be24ec2263ef246db58f4940b1c9f77c3567",
+    "trace_sha256": "490d1ce01fefd1993731b61efa6b7c3ea89867e7bfc923c1dd20d95ade81e5b8",
+    "collected_at": "2026-08-19T22:03:06+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-context_corruption-01",
+    "file": "rollback-arxiv_paper_search-context_corruption-01.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 2,
+    "T": 10,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 2,
+      "requested_tau": 2,
+      "applied_tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026013,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "context_corruption",
+      "requested_tau": 2,
+      "injector_seed": 52026013,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "c458c2f5cdd970de352818dd79791b450e33da8fc9984333545917e43fe53e81",
+    "trace_sha256": "6e8f5d44e95a3e51cb9ac2a24e496bfc0d2598fbbe72a33793a4377f9a65bb68",
+    "collected_at": "2026-08-19T22:03:39+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-context_corruption-00",
+    "file": "rollback-multi_city_weather-context_corruption-00.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 7,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 3,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026014,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 52026014,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "529ee69d433d4a4a91a7bc0bd5c9d1c94d2b2703d3fba644c3d7ac4dbdb239ad",
+    "trace_sha256": "7ecffd7c6ac87f3f28518f9e7e4227c952ed06d4c493408a4695962124dd2c1c",
+    "collected_at": "2026-08-19T22:04:06+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-context_corruption-01",
+    "file": "rollback-multi_city_weather-context_corruption-01.jsonl",
+    "failure_class": "context_corruption",
+    "tau": 3,
+    "T": 5,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 1,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026015,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "context_corruption",
+      "requested_tau": 3,
+      "injector_seed": 52026015,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "4ea8f69ac7773b8836d6c1066dd6ee7b6f3c6e5a5c53fb792df99be17f3a04a2",
+    "trace_sha256": "b9d5dc0a1b13d8d33fb7e34ec0f553e930edef2f668e46079ef93f904875e9e9",
+    "collected_at": "2026-08-19T22:04:26+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-wrong_document-00",
+    "file": "rollback-arxiv_paper_search-wrong_document-00.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 3,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026016,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "wrong_document",
+      "requested_tau": 3,
+      "injector_seed": 52026016,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8474b24e85b4a946db3086a01152545a25bbb9ac7ad13c7b222392a9e670a3b6",
+    "trace_sha256": "632cad1ffb5b440c52fe8a59bc63cb880f3764870ad96d89b0a04121008a5f73",
+    "collected_at": "2026-08-19T22:05:05+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-arxiv_paper_search-wrong_document-01",
+    "file": "rollback-arxiv_paper_search-wrong_document-01.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 3,
+    "T": 12,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 9,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026017,
+      "task_name": "arxiv_paper_search",
+      "task_sha256": "6174e3fe9d81a30f4cca55be9bdd3c7d6dde36807801bb713c0bdad3eb4de737",
+      "tools": [
+        "arxiv_search",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "6881707d407737fa9f4f4446e2c07dcf62d9d9a9da56408ae3efa87093b3ec20",
+      "requested_class": "wrong_document",
+      "requested_tau": 3,
+      "injector_seed": 52026017,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "f035fae34533376009380b0a47a3aaf481165d3a7ca29d9c3a27f880515f7614",
+    "trace_sha256": "ab3fcb0424d228499009be3a2d871a9e727f836695db63dac1186b1b47400d9c",
+    "collected_at": "2026-08-19T22:05:47+0530",
+    "task_name": "arxiv_paper_search"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-wrong_document-00",
+    "file": "rollback-multi_city_weather-wrong_document-00.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 3,
+    "T": 8,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 4,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026018,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "wrong_document",
+      "requested_tau": 3,
+      "injector_seed": 52026018,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "5a8733f5042a4454aacec007322fc082936008bebb9eb12d61ae7027dc65c570",
+    "trace_sha256": "bb392e776785c549bcb4affa5898f6c7c972aff4de9ba3b0f8ea903a829e528b",
+    "collected_at": "2026-08-19T22:06:18+0530",
+    "task_name": "multi_city_weather"
+  },
+  {
+    "episode_id": "rollback-multi_city_weather-wrong_document-01",
+    "file": "rollback-multi_city_weather-wrong_document-01.jsonl",
+    "failure_class": "wrong_document",
+    "tau": 3,
+    "T": 11,
+    "has_logprobs": true,
+    "model": "qwen2.5:7b",
+    "success": null,
+    "accepted_because": "injection applied and observable",
+    "injection": {
+      "applied_count": 7,
+      "first_applied_t": 3,
+      "requested_tau": 3,
+      "applied_tools": [
+        "wikipedia_search"
+      ]
+    },
+    "provenance": {
+      "collector": "collect_real_task_rollback_source",
+      "backend": "ollama",
+      "model": "qwen2.5:7b",
+      "temperature": 0.2,
+      "episode_seed": 52026019,
+      "task_name": "multi_city_weather",
+      "task_sha256": "dd8154edb4c4ec888564780449802f432641badc666063ae73dfebca4ed0f8c2",
+      "tools": [
+        "get_weather",
+        "wikipedia_search"
+      ],
+      "tool_roster_sha256": "1f6ae52cd11996510edc4633fda922f880fdbb29e68da4e6b07888dc85f3ac27",
+      "requested_class": "wrong_document",
+      "requested_tau": 3,
+      "injector_seed": 52026019,
+      "system_instruction_sha256": "",
+      "max_output_tokens": null,
+      "reasoning_budget": null,
+      "sdk_revision": "",
+      "schema": 5,
+      "contract": 2
+    },
+    "provenance_fingerprint": "8e03d4cac2ce0351484632cd6ab66d558c7b451b6b1cab8de1385583158911bb",
+    "trace_sha256": "016e3d96970e619d7bbefed76acb91915d549c6467d270f1a29be1c02159f401",
+    "collected_at": "2026-08-19T22:06:59+0530",
+    "task_name": "multi_city_weather"
+  }
+]
