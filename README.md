@@ -448,8 +448,14 @@ is already a one-class detector, so the same class, procedure and
 hyperparameters refit on a target deployment's own verified healthy runs: no
 failure labels, no framework-specific branch
 (`derail/monitor/deployment_calibration.py`). On a corpus disjoint from the
-48 episodes above (120 healthy + 24 injected per framework, healthy and
-injected interleaved so host-load drift cannot align with the label):
+48 episodes above — 120 healthy episodes per framework, plus 24 injected for
+LangGraph and 23 for AutoGen, healthy and injected interleaved so host-load
+drift cannot align with the label. Each framework's 120 healthy episodes split
+**72 fit / 24 calibration / 24 held-out test**: the 72 fit the standardizer and
+the reservoir, the 24 calibration episodes pick `theta` at the 5% budget, and
+the 24 held-out test episodes are scored once. They are the only healthy
+episodes behind the FA and AUC columns, and nothing about them — no feature
+choice, no threshold, no seed — was decided after seeing them:
 
 | framework | monitor | detection | healthy FA | episode AUC |
 |---|---|---|---|---|
@@ -457,6 +463,20 @@ injected interleaved so host-load drift cannot align with the label):
 | LangGraph | per-deployment calibrated | 0.625 | **0.000** | **0.878** |
 | AutoGen | frozen, zero-shot | 0.696 | 0.792 | 0.576 |
 | AutoGen | per-deployment calibrated | 0.913 | 0.125 | **0.899** |
+
+False alarms are over the 24 held-out healthy episodes, detection over the 24
+(LangGraph) and 23 (AutoGen) injected ones; episode AUC uses those two groups
+and nothing else. Clopper–Pearson 95% intervals for every cell are in
+`results/framework_generalized_monitor_report.md`.
+
+**AutoGen's 0.125 is a missed budget, not a resolution limit.** Threshold
+resolution is not what binds here: 24 calibration episodes put the empirical
+order statistic's floor at 1/25 = 4%, under the 5% budget, so 5% was reachable
+on that sample. The threshold simply did not hold the budget out of sample —
+3 of 24 held-out healthy AutoGen episodes alarmed, 12.5% (95% CI 2.7–32.4%).
+That interval still covers 5%, so 24 held-out episodes cannot separate an
+on-budget threshold from an over-firing one; the number reported is the
+realized rate, not evidence the budget was met.
 
 The frozen row is the control: same held-out episodes, same corrected
 telemetry, only the calibration differs — which isolates the gain to

@@ -2,9 +2,13 @@
 
 Per-deployment healthy-only calibration (`derail.monitor.deployment_calibration.calibrate`), scored on a NEW disjoint corpus collected with a different seed base than the zero-shot baseline -- no episode is shared between the two. FA budget: 0.05.
 
+`calibrate` splits each deployment's healthy episodes 60/20/20: the fit fold sets the standardizer and the reservoir, the calibration fold picks `theta` at the FA budget, and the test fold is scored once and is the ONLY healthy population in the FA and AUC columns below. No held-out episode reaches any fitting, scaling or threshold path. Detection is over the injected episodes, which are scoring-only throughout. Episode AUC ranks exactly those two groups -- held-out healthy against injected -- and nothing else. Intervals are Clopper-Pearson at 95%.
+
+`healthy FA` is the REALIZED held-out rate. `theta` targets the 5% budget on the calibration fold; that is an in-sample guarantee and does not transfer, so a realized rate above the budget means the threshold missed it out of sample, not that the budget was unreachable. Reachability is a separate question, answered by the calibration fold's order-statistic floor of 1/(n+1) (`derail.evaluation.metrics.pick_threshold`).
+
 Both arms score the SAME held-out episodes, so the only difference between them is the monitor: `frozen` is the native-harness `esn_cusum_max[e,m]` at its published `theta_b5`, `calibrated` is refit on this deployment's own healthy episodes. The frozen arm is the control that separates the calibration change from the telemetry-contract fixes this corpus was collected under.
 
-| framework | monitor | calib train/val | n healthy (test) | n injected | theta | detection (95% CI) | healthy FA (95% CI) | AUC | zero-shot baseline det/fa/auc |
+| framework | monitor | calib fit/cal | n healthy (held-out test) | n injected | theta | detection (95% CI) | healthy FA (95% CI) | AUC | zero-shot baseline det/fa/auc |
 |---|---|---|---|---|---|---|---|---|---|
 | langgraph | frozen | -- | 24 | 24 | 40.082 | 0.917 (0.730-0.990) | 0.958 (0.789-0.999) | 0.639 | 0.833/1.000/0.549 |
 | langgraph | calibrated | 72/24 | 24 | 24 | 191.860 | 0.625 (0.406-0.812) | 0.000 (0.000-0.142) | 0.878 | 0.833/1.000/0.549 |

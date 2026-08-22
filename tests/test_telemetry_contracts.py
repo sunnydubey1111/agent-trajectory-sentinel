@@ -73,9 +73,22 @@ def test_error_shaped_misses_the_looping_injection_class():
 @pytest.mark.parametrize("framework", ["langgraph", "autogen"])
 def test_tool_latency_does_not_leak_into_the_next_steps_latency_s(
         tmp_path, framework):
-    """A tool that deliberately sleeps must not inflate the FOLLOWING step's
-    `latency_s` -- the live version of the contract-shape tests above,
-    against the real streaming event order each framework actually emits."""
+    """A tool that deliberately sleeps must be timed into `tool_events`, never
+    into the FOLLOWING step's `latency_s` -- the live version of the
+    contract-shape tests above, against the real streaming event order each
+    framework emits.
+
+    Measured as a PAIRED difference across two tool delays rather than by
+    comparing one step's latency to one delay. Absolute latency here is the
+    host's, not the harness's: a real qwen2.5:7b step on this machine runs
+    1.7-3.3 s, so `latency_s < delay_s` at delay_s=3.0 fails on a loaded
+    machine with the clock correctly reset, and passes on an idle one with the
+    clock broken. What the contract actually asserts is INDEPENDENCE -- the
+    following step's latency must not grow with the tool delay. Leaking the
+    clock makes it grow by the full delay increase; measured drift with the
+    clock reset is 0.06-0.59 s against a 2.9 s increase, so half the increase
+    separates the two by a wide margin either way.
+    """
     from derail.harness.collection import require_ollama_model, ModelUnavailable
     model = "qwen2.5:7b"
     try:
@@ -83,29 +96,44 @@ def test_tool_latency_does_not_leak_into_the_next_steps_latency_s(
     except ModelUnavailable:
         pytest.skip(f"{model} not available on the local Ollama server")
 
-    delay_s = 3.0
-    registry = ToolRegistry([_slow_tool("slow_search", delay_s)])
-    cassette = Cassette(tmp_path / "cassettes", mode="record")
+    fast_s, slow_s = 0.1, 3.0
     task = ("Call slow_search once with query='reservoir computing', then "
             "give a one-line answer summarizing the result. Do not call any "
             "tool more than once.")
     run = (frameworks.run_autogen_episode if framework == "autogen"
           else frameworks.run_langgraph_episode)
-    kwargs = {"model": model, "max_steps": 4, "cassette": cassette}
-    if framework == "autogen":
-        kwargs["options"] = {"temperature": 0.0, "num_predict": 128}
-    steps = run(registry, task, **kwargs)
 
-    assert len(steps) >= 2, "need a tool-call step followed by another step"
-    tool_step_idx = next(
-        i for i, s in enumerate(steps) if s.get("tool_events"))
-    following = steps[tool_step_idx + 1:]
-    assert following, "the slow tool call must not be the episode's last step"
-    for s in following:
-        assert s["latency_s"] < delay_s, (
-            f"{framework}: step latency_s={s['latency_s']} includes the "
-            f"{delay_s}s tool sleep from an earlier step -- the clock was "
-            f"not reset when that tool call finished")
+    def following_latency(delay_s: float, tag: str) -> float:
+        registry = ToolRegistry([_slow_tool("slow_search", delay_s)])
+        kwargs = {"model": model, "max_steps": 4,
+                  "cassette": Cassette(tmp_path / f"cassettes-{tag}",
+                                       mode="record")}
+        if framework == "autogen":
+            kwargs["options"] = {"temperature": 0.0, "num_predict": 128}
+        steps = run(registry, task, **kwargs)
+
+        assert len(steps) >= 2, "need a tool-call step followed by another step"
+        tool_step_idx = next(
+            i for i, s in enumerate(steps) if s.get("tool_events"))
+        following = steps[tool_step_idx + 1:]
+        assert following,             "the slow tool call must not be the episode's last step"
+        for event in (steps[tool_step_idx].get("tool_events") or []):
+            assert (event.get("latency_s") is not None
+                    and event["latency_s"] >= delay_s), (
+                f"{framework}: tool_events latency_s={event.get('latency_s')} "
+                f"does not contain the {delay_s}s sleep -- tool time was not "
+                f"measured where the contract puts it")
+        return max(s["latency_s"] for s in following)
+
+    fast = following_latency(fast_s, "fast")
+    slow = following_latency(slow_s, "slow")
+    grew_by, delay_grew_by = slow - fast, slow_s - fast_s
+    assert grew_by < delay_grew_by / 2, (
+        f"{framework}: the step after a tool call took {fast:.3f}s at a "
+        f"{fast_s}s tool delay and {slow:.3f}s at a {slow_s}s one -- it grew "
+        f"{grew_by:.3f}s tracking a {delay_grew_by:.1f}s increase in tool "
+        f"time, so the tool sleep is leaking into the step's latency_s "
+        f"because the clock was not reset when that tool call finished")
 
 
 @pytest.mark.ollama
