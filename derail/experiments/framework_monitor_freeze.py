@@ -100,7 +100,18 @@ def _blob_hashes(paths: tuple[str, ...]) -> dict:
 
 
 def _sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """Content hash of a trace file, over its LF-normalised bytes.
+
+    Raw bytes make this a property of the CHECKOUT, not the corpus: git
+    stores these files with LF and hands a Windows working tree CRLF, so a
+    freeze taken on one platform rejects the identical corpus on the other
+    -- all 257 frozen files read as drifted on Linux CI. Line endings are
+    stripped by splitlines() before a step is parsed, so they cannot change
+    an episode; normalising anchors the check to the committed content, as
+    devtools/artifact_manifest._sha256 already does.
+    """
+    return hashlib.sha256(
+        path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _load_healthy_episodes(corpora: tuple[str, ...]):

@@ -27,7 +27,7 @@
    "derail/experiments/evaluate_hmte_synthetic.py": "507b650ba29b248366f9e10f176920805eaa0bddf3e9223dccaca3afb95acb5d",
    "derail/experiments/expand_healthy.py": "6259828d69280e11c779b84c31f3e272a28172b94b3e5b0c5b7b943fd30d9b0d",
    "derail/experiments/explain_hybrid.py": "20db1c21755f0a732c99475f45e59ce2478844f9c4d8e17fa5451e71a04a1eb7",
-   "derail/experiments/framework_monitor_freeze.py": "f0217a5671b9235c74a833cd12ca0ab4f0a55f0d792f791d641ac1cedb091040",
+   "derail/experiments/framework_monitor_freeze.py": "31e8872bf1b7f1d6b8d12ec0dfc1536fc7eb6281535aaf86719498c98b1402cc",
    "derail/experiments/import_aftraj.py": "334ae9cbdc6a8c639899c85d9029ee5cd358e2fb093a77dee7e250b4bb903639",
    "derail/experiments/plots.py": "b0b871e27bd9eec4c12468d3ca02d268c4f65affdc5e0e8f63b04fe54f12da65",
    "derail/experiments/run_ablation.py": "bcf66022f05ee6a1c377c8e978f4762c0fdd46aba749812d6f1b2d08fa45b3ac",
@@ -124,7 +124,7 @@
    "tests/test_aftraj_import.py": "d01382b590e2cf24af7f597fefee86c4a9167b789627b70737be542d18e9d409",
    "tests/test_arxiv_package.py": "eaeb2163c13a4a06363fb9bf3196a8af8258a014fa39cfdac20b49dffd4e624a",
    "tests/test_atbench_study.py": "cd1fefcdc81f31506f05ae2eb44c0f333ddc6aa75c4f568a33ae94ad86fb2cd2",
-   "tests/test_audit_log.py": "c5c0413148372c8ca4177cfd58ba51247c82f0fe88a9fe48c998ebb19e71b018",
+   "tests/test_audit_log.py": "74ed09e233354c48f2001f3dea5283f6163b166f9e2138e6b08949860710d80f",
    "tests/test_behavior_regression.py": "1dda90e57203d25ec37eee1ed664ea3d3edfefd7f7ff91ad786032ef59935114",
    "tests/test_claim_denominators.py": "bc42cacc3f6de3cc43a7e78eaa1c45237b8c63950bafca9cee6562cdf2b66158",
    "tests/test_claim_tolerance.py": "9da1172a127dbcbb4b2255904d4134c8865044f52054c967529a1539fa014bfe",
@@ -174,7 +174,7 @@
    "results/figures/fig6_horizon_law.png": "7404cb55f3b4d80cccc3a9834132c2474d63a4b12d62723bd713c8bd410d8173",
    "results/figures/hybrid_explain.png": "d040079b097fc319566ca6681a6312d56dda5d6f79d6332894c04372d469460e",
    "results/framework_generalized_monitor_report.md": "fb80779eb7389e6a97689d95183b98b16371f08ff25f460310cdce0bf2c4db34",
-   "results/framework_monitor_freeze.json": "c23b0225df787af67eba18caf4cf50d61f3da474ffd4e835231d3e0731bf98e9",
+   "results/framework_monitor_freeze.json": "e861cd3c75312d6b7edbd8e1294b25acd2047feda0dbca7538029827c8fa8aaf",
    "results/framework_real_tool_report.md": "6049d9fb7caebe86ea534944a6c48d8f8bebc48eee3b4f0332657b1cfbd9aab1",
    "results/horizon_report.md": "2cccaa3648cdc8ecbf640b4b24d7612b630ec3742a5a206d4b69f3791b07bf9e",
    "results/hybrid_report.md": "74693e8476db074704c978c5ac4356a7ae2e6cbb5e57031026159cebc0493f0c",
@@ -12239,7 +12239,7 @@
    "traces/real_task_rollback/rollback-multi_city_weather-wrong_document-01.jsonl": "016e3d96970e619d7bbefed76acb91915d549c6467d270f1a29be1c02159f401"
   },
   "docs": {
-   "CHECKSUMS.md": "957ea110e482506d39545ba3197040210844a3ac860f0ab1a4830e69ba1fae36",
+   "CHECKSUMS.md": "9b4391f90a5846d805584317f591b7299e4c4b6c84e792e4285f6356808bd8da",
    "CLAIMS.md": "b8f7f2705f0fa82c9449b14eac5fd16766dbc6076c2c4ff39b2b30994c93884f",
    "CONTRIBUTIONS.md": "f1ace0e4b61b0626265f17671da8bb64f664e6dce29c0fb9e86b7e575428e144",
    "DATA_CARD.md": "20006a547dd2fe6e3d1d58a669e1b2a03c357f134eae089fffd0f49d79c4543f",
@@ -12254,6 +12254,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Bind the per-deployment calibration results to a ledger-checked summary table",
+ "note": "Freeze source hashes re-recorded LF-normalised; audit-sink test no longer compares wall clocks",
  "file_count": 12245
 }

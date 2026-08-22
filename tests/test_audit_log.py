@@ -262,7 +262,30 @@ def test_the_serving_loop_treats_the_sink_as_optional(tmp_path):
     logged = run_real_episode(_backend(), reg, "task", max_steps=5,
                               audit=log, episode_id="e")
 
-    assert plain == logged, "the audit sink changed the telemetry"
+    # Compare everything EXCEPT the measured durations. `latency_s` is a wall
+    # clock rounded to 4dp (harness/tools.py), and this tool is a lambda that
+    # returns a string: two runs of it land either side of 0.00005 depending on
+    # nothing but machine state, so an equality over the raw telemetry is a
+    # coin flip, not a check on the sink. It failed on CI for exactly that -
+    # 0.0001 against 0.0. The durations are still asserted to be present and
+    # sane, which is what the sink could actually break.
+    def _timings(steps):
+        return [(s["latency_s"], [e["latency_s"] for e in s.get("tool_events") or []])
+                for s in steps]
+
+    def _untimed(steps):
+        out = []
+        for s in steps:
+            s = {k: v for k, v in s.items() if k != "latency_s"}
+            s["tool_events"] = [{k: v for k, v in e.items() if k != "latency_s"}
+                                for e in s.get("tool_events") or []]
+            out.append(s)
+        return out
+
+    assert _untimed(plain) == _untimed(logged), "the audit sink changed the telemetry"
+    for step_latency, tool_latencies in _timings(plain) + _timings(logged):
+        assert isinstance(step_latency, float) and step_latency >= 0.0
+        assert all(isinstance(x, float) and x >= 0.0 for x in tool_latencies)
     events = [r["event"] for r in log.records()]
     assert events[0] == "run_start" and events[-1] == "run_end"
     assert "tool" in events and "step" in events
