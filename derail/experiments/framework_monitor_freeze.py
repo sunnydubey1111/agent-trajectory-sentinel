@@ -146,14 +146,37 @@ def _hash_file_hashes(file_hashes: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+#: Decimal places the feature hash is quantised to. Wide enough to swallow
+#: last-bit arithmetic noise (float64 ULP at these magnitudes is ~9e-16, nine
+#: orders below), narrow enough that any real change to a feature moves it.
+#: Measured on the frozen population: of 115,872 values, the only ones sitting
+#: within 1e-12 of a rounding boundary are 1/128, 9/128 and 15/128 -- exact
+#: binary fractions from exact arithmetic, identical on every platform. Every
+#: other value clears a boundary by >1e-12, ~1000x the largest ULP present.
+FEATURE_HASH_DP = 6
+
+
 def _hash_feature_arrays(episodes: list) -> str:
-    """SHA-256 over the exact bytes of the concatenated, ORDERED feature
-    matrices actually handed to fit()/scoring -- catches a feature-
-    construction change even when episode IDs and their source files are
-    unchanged (e.g. a channel-slicing or adapter bug)."""
+    """SHA-256 over the concatenated, ORDERED feature matrices actually handed
+    to fit()/scoring, quantised to `FEATURE_HASH_DP` decimals -- catches a
+    feature-construction change even when episode IDs and their source files
+    are unchanged (e.g. a channel-slicing or adapter bug).
+
+    Hashing the raw float64 bits made this a property of the machine. These
+    features run through log/log1p, whose last place platform libm
+    implementations are free to disagree on, so a freeze taken on Windows
+    reported "feature construction has changed" against identical code and
+    corpora on Linux CI. Quantising first keeps the check meaningful -- 1e-6
+    is far coarser than the noise and far finer than any real feature change
+    -- while making it reproducible off the machine that froze it. `+ 0.0`
+    normalises -0.0, which rounds out of values hovering at zero and carries
+    different bits from +0.0 despite comparing equal.
+    """
     h = hashlib.sha256()
     for ep in episodes:                     # already in deterministic order
-        h.update(np.ascontiguousarray(ep.X).tobytes())
+        x = np.ascontiguousarray(ep.X, dtype=np.float64)
+        h.update(np.ascontiguousarray(np.round(x, FEATURE_HASH_DP) + 0.0)
+                 .tobytes())
     return h.hexdigest()
 
 

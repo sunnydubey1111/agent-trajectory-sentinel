@@ -27,7 +27,7 @@
    "derail/experiments/evaluate_hmte_synthetic.py": "507b650ba29b248366f9e10f176920805eaa0bddf3e9223dccaca3afb95acb5d",
    "derail/experiments/expand_healthy.py": "6259828d69280e11c779b84c31f3e272a28172b94b3e5b0c5b7b943fd30d9b0d",
    "derail/experiments/explain_hybrid.py": "20db1c21755f0a732c99475f45e59ce2478844f9c4d8e17fa5451e71a04a1eb7",
-   "derail/experiments/framework_monitor_freeze.py": "31e8872bf1b7f1d6b8d12ec0dfc1536fc7eb6281535aaf86719498c98b1402cc",
+   "derail/experiments/framework_monitor_freeze.py": "a9dfff277c64f079804077e36e8ac8d7ab6e96c86f0f9c775b53541ffb78d1a8",
    "derail/experiments/import_aftraj.py": "334ae9cbdc6a8c639899c85d9029ee5cd358e2fb093a77dee7e250b4bb903639",
    "derail/experiments/plots.py": "b0b871e27bd9eec4c12468d3ca02d268c4f65affdc5e0e8f63b04fe54f12da65",
    "derail/experiments/run_ablation.py": "bcf66022f05ee6a1c377c8e978f4762c0fdd46aba749812d6f1b2d08fa45b3ac",
@@ -133,6 +133,7 @@
    "tests/test_deployment_calibration.py": "7eb3acc2567de0a8f3d6f869280bb0886975933f07afb58fb1dd4823f32f55ad",
    "tests/test_evaluation_validity.py": "cd6ff1e5c6342ff771a64fc9234ffa5aad7355cc4011781b5bb7666e524b942b",
    "tests/test_framework_generalized_monitor_eval.py": "199c6dc0b62fc648738f2941425c72e1650bc674854b1bcb40fb0eaf682c990e",
+   "tests/test_framework_monitor_freeze.py": "b53554a34a9f744b505e0573318584eb2ec82b136dd81048e7330c25416eb943",
    "tests/test_framework_real_tool_analysis.py": "bf9041d13870d338be0fb643b4c08dfeff6f4d0ab3b9b05a545462bf788c99a3",
    "tests/test_framework_real_tool_collector_safeguards.py": "9bfa4418b986b75662a79bfabb4666eafbf3fb5d954db2300ec99b0b4d52f100",
    "tests/test_hf_dataset.py": "0adb0d24bb47ebabfa291c11a23148683049c0a895f509e54d5c979ceddeb33a",
@@ -174,7 +175,7 @@
    "results/figures/fig6_horizon_law.png": "7404cb55f3b4d80cccc3a9834132c2474d63a4b12d62723bd713c8bd410d8173",
    "results/figures/hybrid_explain.png": "d040079b097fc319566ca6681a6312d56dda5d6f79d6332894c04372d469460e",
    "results/framework_generalized_monitor_report.md": "fb80779eb7389e6a97689d95183b98b16371f08ff25f460310cdce0bf2c4db34",
-   "results/framework_monitor_freeze.json": "e861cd3c75312d6b7edbd8e1294b25acd2047feda0dbca7538029827c8fa8aaf",
+   "results/framework_monitor_freeze.json": "0b0b25bf9f9598085a7eb09e993113d0877394150e86bdc74f203270a3a583d8",
    "results/framework_real_tool_report.md": "6049d9fb7caebe86ea534944a6c48d8f8bebc48eee3b4f0332657b1cfbd9aab1",
    "results/horizon_report.md": "2cccaa3648cdc8ecbf640b4b24d7612b630ec3742a5a206d4b69f3791b07bf9e",
    "results/hybrid_report.md": "74693e8476db074704c978c5ac4356a7ae2e6cbb5e57031026159cebc0493f0c",
@@ -12239,7 +12240,7 @@
    "traces/real_task_rollback/rollback-multi_city_weather-wrong_document-01.jsonl": "016e3d96970e619d7bbefed76acb91915d549c6467d270f1a29be1c02159f401"
   },
   "docs": {
-   "CHECKSUMS.md": "36699139b19f2b8d93a9285015fc1db159f3eb0fb0374819d2caa221cdfbf70e",
+   "CHECKSUMS.md": "67fc16dfd233ced07ecdaee4bf764bb13af482d4c6d020fed28a9032d981b9c0",
    "CLAIMS.md": "b8f7f2705f0fa82c9449b14eac5fd16766dbc6076c2c4ff39b2b30994c93884f",
    "CONTRIBUTIONS.md": "f1ace0e4b61b0626265f17671da8bb64f664e6dce29c0fb9e86b7e575428e144",
    "DATA_CARD.md": "20006a547dd2fe6e3d1d58a669e1b2a03c357f134eae089fffd0f49d79c4543f",
@@ -12254,6 +12255,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "trace_audit digest LF-normalised",
- "file_count": 12245
+ "note": "Feature hash quantised to 1e-6; re-recorded",
+ "file_count": 12246
 }
