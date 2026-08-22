@@ -109,7 +109,7 @@
    "devtools/prune_invalid_labels.py": "ce5e7de2812fd689239ded8822c469870a47c8904b146d87bb9e5cdadbd69a67",
    "devtools/recollect_frameworks.py": "e53bf46a4d32522bcce5ed59639dd6481d840e3d7595fd20d012f754f6c2780e",
    "devtools/social_card.py": "0d136e949e74bc2a2dab8d8e09dac3f3cb0e9791ed8fc8475aa535a3b6759a83",
-   "devtools/trace_audit.py": "a2f4bf0faff72ddfe8ae61c4248c2926b2593fc66362e1492ed922cfba4a942b",
+   "devtools/trace_audit.py": "ded52f3016a16778bc814e0a567646afe419f5a8dc5ede793da4b6dcc9d0f9ab",
    "experimental/adversarial_evasion.py": "383ea7269ec3bac3465547b218bbeb506e73e2459b066d268c7174ec12a5f933",
    "experimental/judge_sensitivity.py": "c1c1371fe96bb71ed879dff0237d68ae1a80134aa4ea72bbb9da299eedb0ed01",
    "experimental/pmi.py": "3f5333e539286cfcf12f26f7ee187d7aae414440ec173ae673c37c971b1ae858",
@@ -151,7 +151,7 @@
    "tests/test_serving_baseline.py": "50e7cad2811b42f0a2839407f9af1e75d296603f13c8cfebbddd0c6662603791",
    "tests/test_telemetry_contracts.py": "6dbcbd6c2a6b16237d8927ce1bf5206e13de18a143afc51f18fe20e928c4e752",
    "tests/test_telemetry_events.py": "f7291cdaabb726a4b8fc003519c1fc181027c72c63f0e503b6a8b12dd9a2e001",
-   "tests/test_trace_audit.py": "5df1a69e317d2a74d907aa94f09f0ee5ba1c2a5e79dd4a08c004fc480af8f902",
+   "tests/test_trace_audit.py": "e69a06322d1939c5d0ef703df5dbfdd979110d946124a550087a8738a68277d7",
    "tests/test_verification_checks.py": "68a2dab833304327bdc7da9237cef1bb9556cb5f9478f98747ef905c9f635621",
    "verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "verification/organic_hallucination.py": "c5f323b9e3a53628e5dea4ed26ef23bda91b0a6575f25f60e440f7e58221ddb4",
@@ -12239,7 +12239,7 @@
    "traces/real_task_rollback/rollback-multi_city_weather-wrong_document-01.jsonl": "016e3d96970e619d7bbefed76acb91915d549c6467d270f1a29be1c02159f401"
   },
   "docs": {
-   "CHECKSUMS.md": "9b4391f90a5846d805584317f591b7299e4c4b6c84e792e4285f6356808bd8da",
+   "CHECKSUMS.md": "36699139b19f2b8d93a9285015fc1db159f3eb0fb0374819d2caa221cdfbf70e",
    "CLAIMS.md": "b8f7f2705f0fa82c9449b14eac5fd16766dbc6076c2c4ff39b2b30994c93884f",
    "CONTRIBUTIONS.md": "f1ace0e4b61b0626265f17671da8bb64f664e6dce29c0fb9e86b7e575428e144",
    "DATA_CARD.md": "20006a547dd2fe6e3d1d58a669e1b2a03c357f134eae089fffd0f49d79c4543f",
@@ -12254,6 +12254,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Freeze source hashes re-recorded LF-normalised; audit-sink test no longer compares wall clocks",
+ "note": "trace_audit digest LF-normalised",
  "file_count": 12245
 }

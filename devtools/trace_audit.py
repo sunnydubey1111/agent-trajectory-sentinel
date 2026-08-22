@@ -127,6 +127,22 @@ def _mutation_evidence(label: str, results: list[str],
                      f"carries a {label} marker")
 
 
+def trace_digest(path: pathlib.Path) -> str:
+    """SHA-256 of a trace file over its LF-normalised bytes.
+
+    `collection.trace_bytes` joins steps with "\\n" and the collector writes
+    them with `write_bytes`, so the digest recorded in `trace_sha256` is
+    always over LF. Hashing the file raw instead makes the comparison a
+    property of the checkout: a clone with `core.autocrlf=true` is handed
+    CRLF and every checksum-bound injection record silently stops counting
+    as evidence. Same canonical rule as
+    `devtools/artifact_manifest._sha256` and
+    `derail.experiments.framework_monitor_freeze._sha256_file`.
+    """
+    return hashlib.sha256(
+        path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def _recorded_evidence(entry: dict, path: pathlib.Path) -> tuple[bool, str]:
     """(usable, why) for the collector's own record of what it injected.
 
@@ -141,7 +157,7 @@ def _recorded_evidence(entry: dict, path: pathlib.Path) -> tuple[bool, str]:
     digest = entry.get("trace_sha256")
     if not facts or not digest:
         return False, "no checksum-bound injection record"
-    if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+    if trace_digest(path) != digest:
         return False, "injection record does not match these trace bytes"
     if not facts.get("applied_count"):
         return False, "record says the injection never applied"

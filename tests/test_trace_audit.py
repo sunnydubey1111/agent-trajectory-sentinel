@@ -218,3 +218,54 @@ def test_recollected_corpora_are_clean():
         assert not [a for a in audits
                     if "legacy_text_only_telemetry" in a.defects], corpus
         assert not [a for a in audits if "no_task_recorded" in a.defects], corpus
+
+
+def test_the_injection_record_survives_a_crlf_checkout(tmp_path):
+    """LF and CRLF spellings of one trace must audit identically.
+
+    `trace_sha256` is recorded over the LF bytes the collector wrote
+    (`collection.trace_bytes` joins with "\n" and writes with `write_bytes`),
+    but a clone with `core.autocrlf=true` hands the file back as CRLF. Hashing
+    it raw made the checksum-bound injection record stop counting as evidence
+    on exactly those checkouts -- the same defect that made the framework
+    freeze reject 257 unchanged files on Linux CI.
+    """
+    import hashlib
+
+    steps = [{"text": f"step {t}", "action": "tool_call", "error": t >= 2}
+             for t in range(4)]
+    lf = "\n".join(json.dumps(s, ensure_ascii=False) for s in steps).encode("utf-8")
+    crlf = lf.replace(b"\n", b"\r\n")
+    assert crlf != lf, "the two spellings must actually differ on disk"
+
+    entry = {"episode_id": "e", "file": "e.jsonl", "trace_sha256":
+             hashlib.sha256(lf).hexdigest(),
+             "injection": {"applied_count": 2, "first_applied_t": 2,
+                           "applied_tools": ["search"]}}
+
+    results = {}
+    for name, payload in (("lf", lf), ("crlf", crlf)):
+        p = tmp_path / f"{name}.jsonl"
+        p.write_bytes(payload)
+        results[name] = trace_audit._recorded_evidence(entry, p)
+
+    assert results["lf"][0] is True, results["lf"][1]
+    assert results["crlf"] == results["lf"], (
+        f"CRLF checkout audited differently: {results['crlf']} != {results['lf']}")
+
+
+def test_a_genuinely_edited_trace_is_still_rejected(tmp_path):
+    """Normalising line endings must not blunt the check it belongs to."""
+    import hashlib
+
+    steps = [{"text": f"step {t}", "action": "tool_call"} for t in range(3)]
+    lf = "\n".join(json.dumps(s, ensure_ascii=False) for s in steps).encode("utf-8")
+    entry = {"episode_id": "e", "file": "e.jsonl",
+             "trace_sha256": hashlib.sha256(lf).hexdigest(),
+             "injection": {"applied_count": 1, "first_applied_t": 1,
+                           "applied_tools": ["search"]}}
+
+    edited = tmp_path / "edited.jsonl"
+    edited.write_bytes(lf.replace(b"step 2", b"step X"))
+    usable, why = trace_audit._recorded_evidence(entry, edited)
+    assert usable is False and "does not match" in why, (usable, why)
