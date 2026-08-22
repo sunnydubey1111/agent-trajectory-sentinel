@@ -466,8 +466,11 @@ choice, no threshold, no seed — was decided after seeing them:
 
 False alarms are over the 24 held-out healthy episodes, detection over the 24
 (LangGraph) and 23 (AutoGen) injected ones; episode AUC uses those two groups
-and nothing else. Clopper–Pearson 95% intervals for every cell are in
-`results/framework_generalized_monitor_report.md`.
+and nothing else. Every cell above, both arms, with its Clopper–Pearson 95%
+interval and its denominator, is in
+`results/tables/framework_generalized_monitor_summary.csv` and checked against
+this table by `py -m devtools.claims_ledger --check`;
+`results/framework_generalized_monitor_report.md` renders the same numbers.
 
 **AutoGen's 0.125 is a missed budget, not a resolution limit.** Threshold
 resolution is not what binds here: 24 calibration episodes put the empirical

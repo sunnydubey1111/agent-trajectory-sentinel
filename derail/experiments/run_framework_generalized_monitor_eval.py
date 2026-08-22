@@ -17,6 +17,7 @@ Injected episodes are scoring-only, never part of calibration.
 
 Writes:
   results/tables/framework_generalized_monitor_alarms.csv
+  results/tables/framework_generalized_monitor_summary.csv
   results/framework_generalized_monitor_report.md
 """
 from __future__ import annotations
@@ -35,6 +36,14 @@ from derail.telemetry.adapter import episode_from_trace
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TRACES_ROOT = REPO_ROOT / "traces"
 OUT_CSV = REPO_ROOT / "results" / "tables" / "framework_generalized_monitor_alarms.csv"
+#: Per-arm rates, so the published figures have a machine-readable source.
+#: `OUT_CSV` is per-episode alarm outcomes: detection and FA are derivable
+#: from it, episode AUC is not (it ranks per-step score streams, which the
+#: alarm table does not carry), and it holds only the calibrated arm. Every
+#: number in the report table below is written here instead, both arms, so
+#: `devtools/claims_ledger.py` can check the README against an artifact
+#: rather than against prose.
+OUT_SUMMARY = REPO_ROOT / "results" / "tables" / "framework_generalized_monitor_summary.csv"
 OUT_REPORT = REPO_ROOT / "results" / "framework_generalized_monitor_report.md"
 BASELINE_REPORT = REPO_ROOT / "results" / "framework_real_tool_report.md"
 FRAMEWORKS = {"langgraph7b_real2": "langgraph", "autogen7b_real2": "autogen"}
@@ -156,6 +165,22 @@ def main() -> None:
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     combined.to_csv(OUT_CSV, index=False)
     print(f"[gen-monitor-eval] wrote {OUT_CSV}")
+
+    summary = pd.DataFrame([
+        {"framework": fw, "dataset": corpus, "monitor": arm,
+         "n_healthy_test": m["n_healthy_test"], "n_injected": m["n_injected"],
+         "n_calib_fit": m["n_calib_train"] if arm == "calibrated" else None,
+         "n_calib_cal": m["n_calib_val"] if arm == "calibrated" else None,
+         "theta": a["theta"], "detection_rate": a["detection_rate"],
+         "detection_ci_lo": a["det_ci"][0], "detection_ci_hi": a["det_ci"][1],
+         "healthy_fa_rate": a["healthy_fa_rate"],
+         "healthy_fa_ci_lo": a["fa_ci"][0], "healthy_fa_ci_hi": a["fa_ci"][1],
+         "episode_auc": a["auc"]}
+        for corpus, fw in FRAMEWORKS.items()
+        for arm, a in per_framework[fw]["arms"].items()
+        for m in (per_framework[fw],)])
+    summary.to_csv(OUT_SUMMARY, index=False)
+    print(f"[gen-monitor-eval] wrote {OUT_SUMMARY}")
 
     lines = ["# Post-fix generalized monitor evaluation: LangGraph and AutoGen",
              "",

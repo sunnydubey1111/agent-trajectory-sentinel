@@ -36,7 +36,7 @@
    "derail/experiments/run_cross_framework.py": "4d291adfd6861fb5617b6dc1d11ff6415772ba9f5a32c25952706bc3b1a705b2",
    "derail/experiments/run_experiment.py": "a05fac3c0126ccecd19e74c24240593416fe1b38e5edc8c7c485727dbff802e2",
    "derail/experiments/run_fairness.py": "a7913c86a7e97e226a9527f96a6d1251798f61583c56bad53316ffddf7da4255",
-   "derail/experiments/run_framework_generalized_monitor_eval.py": "4df0c2d571693718cf2dfea146651d531b7d48904907a3617b83019fd3d37688",
+   "derail/experiments/run_framework_generalized_monitor_eval.py": "1bc1f3298faf97b13afdbbe9e67cbe4c5c234a8af14185c19bccc817a518a174",
    "derail/experiments/run_framework_real_tool_analysis.py": "ea2a610a99024a575750d367e53d0eb3e785daa2c28afad453814b12b14c36c2",
    "derail/experiments/run_grounding_multiseed.py": "70d29e425bca1f0a3cb605ecae5cdc10c2e9e80618f3a62fe26b87bff53fa8b8",
    "derail/experiments/run_grounding_study.py": "ff666d7183fe2f50f19140534047aaad40724867accd4b02e30fa830cd0e8b6f",
@@ -99,7 +99,7 @@
    "devtools/artifact_manifest.py": "abc18f774e8ba37e821531872e951b678a7c9ca85b3ea289bac887ee0ab9f316",
    "devtools/arxiv_package.py": "aebd7392ab4a289edbef4565bfc0a396a7959e1aa614b36d8e088c09da265d83",
    "devtools/behavior_snapshot.py": "14e4f631689d7e06db9a2d54642d1e47c1b377ece3a533bc1f3c8176ab7ecbee",
-   "devtools/claims_ledger.py": "5e570ae9df74709f1b689a3635c1cc7dddc5b37c86dc2a14789839e05dc7cd4a",
+   "devtools/claims_ledger.py": "85644f6a8e81e2381e69050c8dc52b01fcd949983b0557736575a91b87a3c38d",
    "devtools/collection_report.py": "f14a5ebab6917e1d2349688017c6ea832117a0b0d189a1d4955214bf45e3549e",
    "devtools/data_card.py": "29bfcb72ed8935feaa9d64b13ccd3bee138af8d3a3882bd7b52793e9c8b3047a",
    "devtools/episode_accounting.py": "3b59d9c24e72e8fae9c11eca3249847dc1d451787c4557baafa6d6e524be26cf",
@@ -132,7 +132,7 @@
    "tests/test_cross_study_keys.py": "dec57403d2fbad15f041a9be7ce7878f19af1210d18f88d642ec00bfcbf23759",
    "tests/test_deployment_calibration.py": "7eb3acc2567de0a8f3d6f869280bb0886975933f07afb58fb1dd4823f32f55ad",
    "tests/test_evaluation_validity.py": "cd6ff1e5c6342ff771a64fc9234ffa5aad7355cc4011781b5bb7666e524b942b",
-   "tests/test_framework_generalized_monitor_eval.py": "b8cfa03b2e359451b9290b2685f5c6266cc4a6188a00d0b935f04f18588a46fe",
+   "tests/test_framework_generalized_monitor_eval.py": "199c6dc0b62fc648738f2941425c72e1650bc674854b1bcb40fb0eaf682c990e",
    "tests/test_framework_real_tool_analysis.py": "bf9041d13870d338be0fb643b4c08dfeff6f4d0ab3b9b05a545462bf788c99a3",
    "tests/test_framework_real_tool_collector_safeguards.py": "9bfa4418b986b75662a79bfabb4666eafbf3fb5d954db2300ec99b0b4d52f100",
    "tests/test_hf_dataset.py": "0adb0d24bb47ebabfa291c11a23148683049c0a895f509e54d5c979ceddeb33a",
@@ -247,6 +247,7 @@
    "results/tables/fabrication_organic_demo7b_ext.csv": "7944ec3b2890a4fbee26c15593d0068b62242340518f6f24e54d9c8d2c3f2495",
    "results/tables/fairness.csv": "92756757bf205a01915aaeb587aa4ce64f27d2dffb8b5682b01bee5a270c4ea9",
    "results/tables/framework_generalized_monitor_alarms.csv": "78cb08dd24a8f8390e996d6c882af71ee9a127ae03aa7166b1dea64f5030dfef",
+   "results/tables/framework_generalized_monitor_summary.csv": "9e6072ec4bda17a8b0a5a81da5787fb46644237cefcf87100d841616dc291d22",
    "results/tables/framework_real_tool_alarms.csv": "0e8e403e460614687483eae0d43026e5591a12abb5b6014827a16138ec43ee36",
    "results/tables/gemini_long_benchmark.csv": "981fb85e3a83292cf04703def6b5567115ee68230c286b1c55baa5b657e81c49",
    "results/tables/gemini_long_diagnosis.csv": "e560f082667e93770ba785d000db602b4b01535b6b98380f4f095b85bf8213fe",
@@ -12238,14 +12239,14 @@
    "traces/real_task_rollback/rollback-multi_city_weather-wrong_document-01.jsonl": "016e3d96970e619d7bbefed76acb91915d549c6467d270f1a29be1c02159f401"
   },
   "docs": {
-   "CHECKSUMS.md": "221c958ee3b3de68d8653ff8a3577d7ec9d391a3d2712eb5398119a434035403",
-   "CLAIMS.md": "22ac1045ccfbad27b5f7cdd4c056e0c33e54eb71d48399bb1769613610032166",
+   "CHECKSUMS.md": "957ea110e482506d39545ba3197040210844a3ac860f0ab1a4830e69ba1fae36",
+   "CLAIMS.md": "b8f7f2705f0fa82c9449b14eac5fd16766dbc6076c2c4ff39b2b30994c93884f",
    "CONTRIBUTIONS.md": "f1ace0e4b61b0626265f17671da8bb64f664e6dce29c0fb9e86b7e575428e144",
    "DATA_CARD.md": "20006a547dd2fe6e3d1d58a669e1b2a03c357f134eae089fffd0f49d79c4543f",
    "DESIGN.md": "59a9656f7b6c3ddc5291582c5e9a80ecb0304fc00b7960ec442642cd15494672",
    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
    "NOTICE": "4d84505c8ad61c5e2ab879898d2408285ebe3ecaa1a79e8b9f917320811fc0a5",
-   "README.md": "e6ea6744a28f271d8ad0c9b3e050d823812cff09e854d389206a18bd34f1ce2a",
+   "README.md": "28984c1cfef2eb0d10e226f60049c2e30f98b79a12475b2c9f3f7e3895a3f3d3",
    "REPRODUCE.md": "222e26e42b04381e0cad210d3cef307fb8ab6fc4a516a0652b5f72284b849405",
    "USER_GUIDE.md": "d05935732e554d104375ba3142f44c2c9e29fdad9d1f748c6da8c84e2b5798e2",
    "requirements-core.lock.txt": "3955fb616b7dffbb0f5b2de35ab2f229e362274187a86d5e4e5dc33eb13ee9bb",
@@ -12253,6 +12254,6 @@
    "requirements.txt": "c0d8ba073904733a1c15ba00a77a25fd0aac5a0f33bea73c281a095d2debd57e"
   }
  },
- "note": "Closure pass: README split/denominator accounting, generalized-monitor report prose, paired-delay telemetry contract test",
- "file_count": 12244
+ "note": "Bind the per-deployment calibration results to a ledger-checked summary table",
+ "file_count": 12245
 }

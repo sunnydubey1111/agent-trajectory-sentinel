@@ -49,18 +49,34 @@ def test_main_runs_end_to_end_on_synthetic_disjoint_corpora(tmp_path, monkeypatc
     traces_root = tmp_path / "traces"
     _write_corpus(traces_root / "langgraph7b_real2")
     _write_corpus(traces_root / "autogen7b_real2")
-    out_csv = tmp_path / "alarms.csv"
-    out_report = tmp_path / "report.md"
     baseline = tmp_path / "baseline.md"
 
     monkeypatch.setattr(ev, "TRACES_ROOT", traces_root)
-    monkeypatch.setattr(ev, "OUT_CSV", out_csv)
-    monkeypatch.setattr(ev, "OUT_REPORT", out_report)
     monkeypatch.setattr(ev, "BASELINE_REPORT", baseline)
+    # Redirect EVERY output path, found by name rather than listed one by one.
+    # Listing them let `OUT_SUMMARY` be added without a matching line here, and
+    # this test then overwrote the real, published summary table with numbers
+    # from its own synthetic corpus.
+    redirected = {}
+    for name in [n for n in dir(ev) if n.startswith("OUT_")]:
+        target = tmp_path / getattr(ev, name).name
+        monkeypatch.setattr(ev, name, target)
+        redirected[name] = target
+    assert {"OUT_CSV", "OUT_REPORT", "OUT_SUMMARY"} <= set(redirected)
 
     ev.main()
 
-    assert out_csv.exists() and out_report.exists()
-    text = out_report.read_text("utf-8")
+    for name, target in redirected.items():
+        assert target.exists(), f"{name} was not written"
+        assert tmp_path in target.parents, f"{name} escaped the tmp path"
+    text = redirected["OUT_REPORT"].read_text("utf-8")
     assert "| langgraph |" in text and "| autogen |" in text
     assert "| frozen |" in text and "| calibrated |" in text
+
+
+def test_every_output_path_is_under_results(tmp_path):
+    """A new OUT_* must stay inside `results/`, so the redirect above keeps
+    working and a stray write lands somewhere the manifest hashes."""
+    for name in [n for n in dir(ev) if n.startswith("OUT_")]:
+        path = getattr(ev, name)
+        assert (ev.REPO_ROOT / "results") in path.parents, f"{name}: {path}"

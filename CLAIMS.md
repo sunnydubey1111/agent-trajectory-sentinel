@@ -16,7 +16,7 @@ py -m devtools.claims_ledger --write    # regenerate this file
 ```
 
 Status at generation: **all claims verified**
- (109 claims checked).
+ (121 claims checked).
 
 ## Corpus
 
@@ -151,6 +151,18 @@ Status at generation: **all claims verified**
 | Primary-arm recovery given a triggered, reconstructable checkpoint | `0.8` | `10` triggered episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
 | Primary-arm end-to-end recovery | `0.5` | `16` injected episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
 | Oracle-tau upper bound end-to-end recovery (NOT the deployable result) | `0.875` | `16` injected episodes | `results/tables/real_task_rollback_outcomes.csv` | `py -m derail.experiments.collect_real_task_rollback_source && py -m derail.experiments.run_real_task_rollback (live)` |
+| LangGraph x real tools, frozen zero-shot: detection rate | `0.917` | `24` injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| LangGraph x real tools, frozen zero-shot: healthy false-alarm rate | `0.958` | `24` held-out healthy episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| LangGraph x real tools, frozen zero-shot: episode AUROC | `0.639` | `48` held-out healthy + injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| LangGraph x real tools, per-deployment calibrated: detection rate | `0.625` | `24` injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| LangGraph x real tools, per-deployment calibrated: healthy false-alarm rate | `0` | `24` held-out healthy episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| LangGraph x real tools, per-deployment calibrated: episode AUROC | `0.878` | `48` held-out healthy + injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, frozen zero-shot: detection rate | `0.696` | `23` injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, frozen zero-shot: healthy false-alarm rate | `0.792` | `24` held-out healthy episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, frozen zero-shot: episode AUROC | `0.576` | `47` held-out healthy + injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, per-deployment calibrated: detection rate | `0.913` | `23` injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, per-deployment calibrated: healthy false-alarm rate | `0.125` | `24` held-out healthy episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
+| AutoGen x real tools, per-deployment calibrated: episode AUROC | `0.899` | `47` held-out healthy + injected episodes | `results/tables/framework_generalized_monitor_summary.csv` | `py -m derail.experiments.run_framework_generalized_monitor_eval` |
 
 ## What this ledger does not cover
 

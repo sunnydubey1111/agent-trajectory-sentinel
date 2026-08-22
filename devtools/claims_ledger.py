@@ -593,6 +593,25 @@ FRAMEWORK_REAL_TOOL_CMD = ("py -m derail.experiments.collect_framework_real_trac
                           "py -m derail.experiments.run_framework_real_tool_analysis (live)")
 ROLLBACK_RECOVERY_CMD = ("py -m derail.experiments.collect_real_task_rollback_source && "
                         "py -m derail.experiments.run_real_task_rollback (live)")
+GEN_MONITOR_CMD = "py -m derail.experiments.run_framework_generalized_monitor_eval"
+
+
+def _gen_monitor(framework: str, arm: str) -> pd.Series:
+    """One (framework, monitor arm) row of the per-deployment calibration
+    summary. Detection and false alarms are also derivable from the alarm
+    table beside it, but episode AUC is not -- it ranks per-step score
+    streams -- and the alarm table carries only the calibrated arm, so all
+    three are read from the one artifact that holds both arms."""
+    d = _table("framework_generalized_monitor_summary.csv")
+    row = d[(d.framework == framework) & (d.monitor == arm)]
+    assert len(row) == 1, f"{framework}/{arm}: {len(row)} rows"
+    return row.iloc[0]
+
+
+def _gen_monitor_auc_n(framework: str, arm: str) -> int:
+    """Episodes the AUC ranks: held-out healthy plus injected, nothing else."""
+    row = _gen_monitor(framework, arm)
+    return int(row.n_healthy_test) + int(row.n_injected)
 
 
 def _framework_alarms(dataset: str | None = None) -> pd.DataFrame:
@@ -1487,6 +1506,114 @@ def build() -> list[Claim]:
               "Real-tool validation",
               denominator=lambda: _rollback_n("oracle_upper_bound"),
               expected_denominator=16, denominator_unit="injected episodes"),
+
+        # ------------------------------- Per-deployment healthy-only
+        # calibration on a corpus disjoint from the 48-episode zero-shot
+        # baseline above. Both arms score the SAME held-out episodes: the
+        # frozen rows are the control that isolates the gain to calibration
+        # rather than to the newer corpus, so they are checked alongside it.
+        # Each framework's 120 healthy episodes split 72 fit / 24 calibration
+        # / 24 held-out test; only the held-out 24 reach these rates.
+        Claim("gen_monitor.langgraph_frozen_detection",
+              "LangGraph x real tools, frozen zero-shot: detection rate", 0.917,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="frozen": float(_gen_monitor(fw, arm).detection_rate),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="frozen": int(_gen_monitor(fw, arm).n_injected),
+              expected_denominator=24, denominator_unit="injected episodes"),
+        Claim("gen_monitor.langgraph_frozen_fa",
+              "LangGraph x real tools, frozen zero-shot: healthy false-alarm rate", 0.958,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="frozen": float(_gen_monitor(fw, arm).healthy_fa_rate),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="frozen": int(_gen_monitor(fw, arm).n_healthy_test),
+              expected_denominator=24, denominator_unit="held-out healthy episodes"),
+        Claim("gen_monitor.langgraph_frozen_auc",
+              "LangGraph x real tools, frozen zero-shot: episode AUROC", 0.639,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="frozen": float(_gen_monitor(fw, arm).episode_auc),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="frozen": _gen_monitor_auc_n(fw, arm),
+              expected_denominator=48,
+              denominator_unit="held-out healthy + injected episodes"),
+        Claim("gen_monitor.langgraph_calibrated_detection",
+              "LangGraph x real tools, per-deployment calibrated: detection rate", 0.625,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="calibrated": float(_gen_monitor(fw, arm).detection_rate),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="calibrated": int(_gen_monitor(fw, arm).n_injected),
+              expected_denominator=24, denominator_unit="injected episodes"),
+        Claim("gen_monitor.langgraph_calibrated_fa",
+              "LangGraph x real tools, per-deployment calibrated: healthy false-alarm rate", 0.0,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="calibrated": float(_gen_monitor(fw, arm).healthy_fa_rate),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="calibrated": int(_gen_monitor(fw, arm).n_healthy_test),
+              expected_denominator=24, denominator_unit="held-out healthy episodes"),
+        Claim("gen_monitor.langgraph_calibrated_auc",
+              "LangGraph x real tools, per-deployment calibrated: episode AUROC", 0.878,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="langgraph", arm="calibrated": float(_gen_monitor(fw, arm).episode_auc),
+              "Real-tool validation",
+              denominator=lambda fw="langgraph", arm="calibrated": _gen_monitor_auc_n(fw, arm),
+              expected_denominator=48,
+              denominator_unit="held-out healthy + injected episodes"),
+        Claim("gen_monitor.autogen_frozen_detection",
+              "AutoGen x real tools, frozen zero-shot: detection rate", 0.696,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="frozen": float(_gen_monitor(fw, arm).detection_rate),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="frozen": int(_gen_monitor(fw, arm).n_injected),
+              expected_denominator=23, denominator_unit="injected episodes"),
+        Claim("gen_monitor.autogen_frozen_fa",
+              "AutoGen x real tools, frozen zero-shot: healthy false-alarm rate", 0.792,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="frozen": float(_gen_monitor(fw, arm).healthy_fa_rate),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="frozen": int(_gen_monitor(fw, arm).n_healthy_test),
+              expected_denominator=24, denominator_unit="held-out healthy episodes"),
+        Claim("gen_monitor.autogen_frozen_auc",
+              "AutoGen x real tools, frozen zero-shot: episode AUROC", 0.576,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="frozen": float(_gen_monitor(fw, arm).episode_auc),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="frozen": _gen_monitor_auc_n(fw, arm),
+              expected_denominator=47,
+              denominator_unit="held-out healthy + injected episodes"),
+        Claim("gen_monitor.autogen_calibrated_detection",
+              "AutoGen x real tools, per-deployment calibrated: detection rate", 0.913,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="calibrated": float(_gen_monitor(fw, arm).detection_rate),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="calibrated": int(_gen_monitor(fw, arm).n_injected),
+              expected_denominator=23, denominator_unit="injected episodes"),
+        Claim("gen_monitor.autogen_calibrated_fa",
+              "AutoGen x real tools, per-deployment calibrated: healthy false-alarm rate", 0.125,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="calibrated": float(_gen_monitor(fw, arm).healthy_fa_rate),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="calibrated": int(_gen_monitor(fw, arm).n_healthy_test),
+              expected_denominator=24, denominator_unit="held-out healthy episodes"),
+        Claim("gen_monitor.autogen_calibrated_auc",
+              "AutoGen x real tools, per-deployment calibrated: episode AUROC", 0.899,
+              "results/tables/framework_generalized_monitor_summary.csv",
+              GEN_MONITOR_CMD,
+              lambda fw="autogen", arm="calibrated": float(_gen_monitor(fw, arm).episode_auc),
+              "Real-tool validation",
+              denominator=lambda fw="autogen", arm="calibrated": _gen_monitor_auc_n(fw, arm),
+              expected_denominator=47,
+              denominator_unit="held-out healthy + injected episodes"),
     ]
 
 
